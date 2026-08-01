@@ -33,9 +33,9 @@ export default function GlobalOrbBackground() {
   const aiPreset = "Ice";
 
   const normalNodes = [
-    { label: "Right atrium", angle: 0, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-20px" },
-    { label: "Aortic valve stenosis", angle: 120, radius: 180, speed: "30s", boxLeft: "20px", boxTop: "10px" },
-    { label: "Hypertrophy", angle: 240, radius: 140, speed: "25s", boxLeft: "-120px", boxTop: "10px" },
+    { label: "Right atrium", angle: 0, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-20px", icon: null },
+    { label: "Aortic valve stenosis", angle: 120, radius: 180, speed: "30s", boxLeft: "20px", boxTop: "10px", icon: null },
+    { label: "Hypertrophy", angle: 240, radius: 140, speed: "25s", boxLeft: "-120px", boxTop: "10px", icon: null },
   ];
 
   const emergencyNodes = [
