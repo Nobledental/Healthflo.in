@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useBattery } from "../hooks/useBattery";
 
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const battery = useBattery();
+  
+  const isLowPower = !battery.loading && battery.level <= 0.20 && !battery.charging;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -21,32 +25,39 @@ export default function ParticleCanvas() {
     resize();
 
     let animationId: number;
+
+    const particles = Array.from({ length: 200 }).map(() => {
+      return {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        size: Math.random() * 2 + 0.5,
+        glow: Math.random() * 0.6 + 0.4,
+      };
+    });
+
     let time = 0;
 
-    // Initialize particle accelerator dots
-    const acceleratorParticles = Array.from({ length: 80 }).map(() => ({
-      angle: Math.random() * Math.PI * 2,
-      speed: 0.01 + Math.random() * 0.02, // fast orbital speed
-      orbitBase: Math.random() > 0.5 ? 200 : 350, // two main accelerator rings
-      orbitVariance: (Math.random() - 0.5) * 15,
-      size: Math.random() * 1.5 + 0.8,
-      glow: Math.random() * 0.5 + 0.5
-    }));
+    function drawParticles() {
+      if (isLowPower) {
+        ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+        return;
+      }
 
-    function drawRipples() {
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+      const width = canvas!.width;
+      const height = canvas!.height;
+
+      ctx!.clearRect(0, 0, width, height);
       
-      const centerX = canvas!.width / 2;
-      const centerY = canvas!.height * 0.4;
+      const centerX = width * 0.6;
+      const centerY = height * 0.5;
       
-      // 1. Draw concentric ripples (Halo effect)
-      const numRings = 5;
-      const maxRadius = Math.max(canvas!.width, canvas!.height) * 0.6;
-      
+      const numRings = 4;
+      const maxRadius = Math.max(width, height) * 0.5;
       for (let i = 0; i < numRings; i++) {
-        const baseRadius = (time * 0.5 + (i * maxRadius) / numRings) % maxRadius;
-        const opacity = Math.max(0, 0.03 * (1 - baseRadius / maxRadius));
-        
+        const baseRadius = (time * 0.3 + (i * maxRadius) / numRings) % maxRadius;
+        const opacity = Math.max(0, 0.04 * (1 - baseRadius / maxRadius));
         ctx!.beginPath();
         ctx!.arc(centerX, centerY, baseRadius, 0, Math.PI * 2);
         ctx!.strokeStyle = `rgba(10, 132, 255, ${opacity})`;
@@ -54,42 +65,49 @@ export default function ParticleCanvas() {
         ctx!.stroke();
       }
 
-      // 2. Draw Particle Accelerator (White Crystals)
-      acceleratorParticles.forEach((p) => {
-        // Move particle along the orbit
-        p.angle += p.speed;
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
         
-        // Calculate position
-        const radius = p.orbitBase + p.orbitVariance;
-        // Add a slight elliptical tilt for 3D effect, or keep it perfect circle. Let's make it slightly elliptical (isometric)
-        const x = centerX + Math.cos(p.angle) * radius;
-        const y = centerY + Math.sin(p.angle) * radius * 0.6; 
-        
-        // Render crystal particle
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
         ctx!.beginPath();
-        ctx!.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         
-        // Crystal white glow
-        ctx!.fillStyle = `rgba(255, 255, 255, ${p.glow})`;
-        ctx!.shadowColor = "rgba(255, 255, 255, 0.8)";
+        ctx!.fillStyle = `rgba(135, 206, 250, ${p.glow})`;
+        
+        ctx!.shadowColor = "rgba(255, 255, 255, 1)";
         ctx!.shadowBlur = 8;
         
         ctx!.fill();
         
-        // Reset shadow for other drawings
         ctx!.shadowBlur = 0;
       });
       
       time += 1;
-      animationId = requestAnimationFrame(drawRipples);
+      animationId = requestAnimationFrame(drawParticles);
     }
-    drawRipples();
+    
+    if (!isLowPower) {
+      drawParticles();
+    } else {
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+    }
 
     return () => {
       window.removeEventListener("resize", resize);
-      cancelAnimationFrame(animationId);
+      if (animationId) cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isLowPower]);
 
-  return <canvas ref={canvasRef} id="bg-canvas" className="fixed top-0 left-0 w-screen h-screen z-0 pointer-events-none" />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      id="bg-canvas" 
+      className={`fixed top-0 left-0 w-screen h-screen z-0 pointer-events-none transition-opacity duration-1000 ${isLowPower ? 'opacity-0' : 'opacity-100'}`} 
+    />
+  );
 }

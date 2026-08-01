@@ -1,12 +1,19 @@
 "use client";
 
 import { MagnifyingGlass, ArrowCircleRight } from "@phosphor-icons/react";
+import InteractiveOrb from "./InteractiveOrb";
 
 export default function ActionGrid() {
   return (
-    <section className="w-full flex flex-col gap-8 mt-12">
+    <section className="w-full flex flex-col items-center gap-8 mt-12 relative z-30">
+      
+      {/* Orb Integration in ActionGrid */}
+      <div className="w-[180px] h-[450px] mb-8 relative z-50 flex items-center justify-center">
+        <InteractiveOrb expandOnView={true} hideDots={true} showSpeechBubble={false} />
+      </div>
+
       {/* Search Bar */}
-      <div className="relative w-full max-w-5xl mx-auto">
+      <div className="relative w-full max-w-5xl mx-auto z-40">
         <div className="glass-card bg-[#003344]/80 backdrop-blur-xl border-2 border-white rounded-full p-2 flex items-center shadow-2xl">
           <input
             className="bg-transparent border-none focus:ring-0 text-white placeholder-white/70 text-lg px-6 w-full font-medium"
