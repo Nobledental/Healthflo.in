@@ -89,7 +89,7 @@ export default function InteractiveOrb({
     <motion.div 
       ref={containerRef}
       style={{ opacity, scale }}
-      className={`relative w-full h-full flex items-center justify-center group cursor-pointer transition-transform duration-300 ${isBlinking ? 'scale-125 brightness-150 drop-shadow-[0_0_15px_rgba(10,132,255,0.8)]' : 'scale-100'}`}
+      className={`relative w-full h-full flex items-center justify-center group cursor-pointer transition-transform duration-300 ${isBlinking ? 'scale-110' : 'scale-100'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsHovered(!isHovered)}
