@@ -77,8 +77,8 @@ body {
   display: flex;
   flex-direction: column;
   color: #0F172A;
-  background-color: #ffffff;
-  background-image: radial-gradient(circle at 50% 40%, #e0efff 0%, #ffffff 70%);
+  background-color: #f4f9fe;
+  background-image: radial-gradient(circle at 20% 30%, #dbeafe 0%, #eff6ff 50%, #f8fafc 100%);
   background-attachment: fixed;
 }
 
