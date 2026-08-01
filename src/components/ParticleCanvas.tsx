@@ -20,48 +20,37 @@ export default function ParticleCanvas() {
     window.addEventListener("resize", resize);
     resize();
 
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] = [];
-    const particleCount = 200;
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.5 + 0.2,
-      });
-    }
-
     let animationId: number;
+    let time = 0;
 
-    function animateParticles() {
+    function drawRipples() {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas!.width;
-        if (p.x > canvas!.width) p.x = 0;
-        if (p.y < 0) p.y = canvas!.height;
-        if (p.y > canvas!.height) p.y = 0;
-
+      
+      const centerX = canvas!.width / 2;
+      const centerY = canvas!.height * 0.4;
+      
+      // Draw concentric rings
+      const numRings = 5;
+      const maxRadius = Math.max(canvas!.width, canvas!.height) * 0.6;
+      
+      for (let i = 0; i < numRings; i++) {
+        // Calculate dynamic radius based on time for a slow, infinite outward pulse
+        const baseRadius = (time * 0.5 + (i * maxRadius) / numRings) % maxRadius;
+        
+        // Opacity fades out as it gets larger
+        const opacity = Math.max(0, 0.03 * (1 - baseRadius / maxRadius));
+        
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-
-        const gradient = ctx!.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-        gradient.addColorStop(0, `rgba(100, 115, 140, ${p.alpha * 1.2})`);
-        gradient.addColorStop(1, `rgba(150, 160, 180, 0)`);
-
-        ctx!.fillStyle = gradient;
-        ctx!.fill();
-      });
-
-      animationId = requestAnimationFrame(animateParticles);
+        ctx!.arc(centerX, centerY, baseRadius, 0, Math.PI * 2);
+        ctx!.strokeStyle = `rgba(10, 132, 255, ${opacity})`;
+        ctx!.lineWidth = 1;
+        ctx!.stroke();
+      }
+      
+      time += 1;
+      animationId = requestAnimationFrame(drawRipples);
     }
-    animateParticles();
+    drawRipples();
 
     return () => {
       window.removeEventListener("resize", resize);
@@ -69,5 +58,5 @@ export default function ParticleCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} id="bg-canvas" className="fixed top-0 left-0 w-screen h-screen z-0 pointer-events-none opacity-80" />;
+  return <canvas ref={canvasRef} id="bg-canvas" className="fixed top-0 left-0 w-screen h-screen z-0 pointer-events-none" />;
 }

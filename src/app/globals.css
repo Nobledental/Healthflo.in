@@ -77,7 +77,9 @@ body {
   display: flex;
   flex-direction: column;
   color: #0F172A;
-  background-color: #e8f1ff;
+  background-color: #ffffff;
+  background-image: radial-gradient(circle at 50% 40%, #e0efff 0%, #ffffff 70%);
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6, .font-bold {
