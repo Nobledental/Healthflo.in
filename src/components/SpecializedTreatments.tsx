@@ -133,7 +133,7 @@ export default function SpecializedTreatments() {
               {activeSpecialty.treatments.map((treatment) => (
                 <div 
                   key={treatment.id}
-                  className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[24px] p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(5,100,255,0.2)] hover:bg-white/50 hover:border-white transition-all duration-500 min-h-[280px] flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.05)]"
+                  className="bg-gradient-to-br from-[#e6f0fa]/70 to-[#d6e5ff]/70 backdrop-blur-xl border border-white/80 rounded-[24px] p-8 relative overflow-hidden group hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_30px_60px_-15px_rgba(5,100,255,0.25)] hover:border-white transition-all duration-500 min-h-[280px] flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.05)]"
                 >
                   {/* Left Content Area */}
                   <div className="relative z-10 w-[55%] md:w-[60%] flex flex-col h-full flex-1">
