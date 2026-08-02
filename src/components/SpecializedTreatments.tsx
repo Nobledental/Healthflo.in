@@ -32,7 +32,7 @@ export default function SpecializedTreatments() {
   const activeSpecialty = specialtiesData.find(s => s.id === activeSpecialtyId) || specialtiesData[0];
 
   return (
-    <section className="w-full py-24 relative z-10" id="specialized-treatments">
+    <section className="w-full py-12 relative z-10" id="specialized-treatments">
       <div className="text-center mb-14">
         <motion.h2 
           initial={{ opacity: 0, y: 10 }}
