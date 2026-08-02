@@ -78,12 +78,47 @@ export default function SpecializedTreatments() {
         {/* Treatment Cards Grid */}
         <div className="w-full min-h-[450px] relative">
           
-          {/* Sophisticated Medical Mesh Background for Glassmorphism */}
-          <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden rounded-[3rem]">
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-white" />
-            <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-400/10 blur-[100px]" />
-            <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-teal-400/10 blur-[100px]" />
-            <div className="absolute top-[20%] left-[30%] w-[50%] h-[50%] rounded-full bg-indigo-400/5 blur-[100px]" />
+          {/* Professional Fluid Background (Even Care Neo Colors) */}
+          <div className="absolute inset-0 pointer-events-none -z-10 overflow-visible">
+            <motion.div
+              animate={{
+                x: [0, 100, -50, 0],
+                y: [0, -50, 100, 0],
+                scale: [1, 1.1, 0.9, 1],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
+            />
+            <motion.div
+              animate={{
+                x: [0, -100, 50, 0],
+                y: [0, 100, -50, 0],
+                scale: [1, 1.2, 0.8, 1],
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-teal-400/20 rounded-full blur-[150px]"
+            />
+            <motion.div
+              animate={{
+                x: [0, 50, -100, 0],
+                y: [0, 50, -100, 0],
+                scale: [1, 1.1, 0.9, 1],
+              }}
+              transition={{
+                duration: 22,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute -bottom-[10%] left-[30%] w-[550px] h-[550px] bg-purple-500/20 rounded-full blur-[130px]"
+            />
           </div>
 
           <AnimatePresence mode="wait">
@@ -98,20 +133,20 @@ export default function SpecializedTreatments() {
               {activeSpecialty.treatments.map((treatment) => (
                 <div 
                   key={treatment.id}
-                  className="bg-white/60 backdrop-blur-xl border border-white/90 rounded-[24px] p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(5,100,255,0.15)] hover:bg-white/80 hover:border-white transition-all duration-500 min-h-[280px] flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+                  className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[24px] p-8 relative overflow-hidden group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(5,100,255,0.2)] hover:bg-white/50 hover:border-white transition-all duration-500 min-h-[280px] flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.05)]"
                 >
                   {/* Left Content Area */}
                   <div className="relative z-10 w-[55%] md:w-[60%] flex flex-col h-full flex-1">
                     <h3 className="text-[20px] font-bold text-slate-900 leading-snug mb-3">
                       {treatment.name}
                     </h3>
-                    <p className="text-[14px] text-slate-600 mb-8 leading-relaxed pr-2">
+                    <p className="text-[14px] text-slate-700 mb-8 leading-relaxed pr-2 font-medium">
                       {treatment.description}
                     </p>
                     
                     {/* Voka-style white pill badge at bottom */}
                     <div className="mt-auto">
-                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white text-[#05f] text-[13px] font-bold shadow-[0_2px_10px_rgba(5,100,255,0.08)]">
+                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white/90 text-[#05f] text-[13px] font-bold shadow-sm backdrop-blur-md">
                         {treatment.benefits.length}+ Benefits
                       </span>
                     </div>
@@ -119,7 +154,8 @@ export default function SpecializedTreatments() {
 
                   {/* Right Image Area (Placeholder) */}
                   <div className="absolute right-0 bottom-0 top-0 w-[45%] md:w-[40%] pointer-events-none overflow-hidden rounded-r-[24px]">
-                    <div className="w-full h-full bg-gradient-to-l from-[#d3e3fd]/30 to-transparent group-hover:scale-110 group-hover:opacity-70 transition-all duration-700 origin-right" />
+                    {/* Subtle glass effect for the placeholder */}
+                    <div className="w-full h-full bg-gradient-to-l from-white/20 to-transparent group-hover:scale-105 transition-all duration-700 origin-right" />
                   </div>
                 </div>
               ))}
