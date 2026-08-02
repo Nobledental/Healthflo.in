@@ -15,40 +15,44 @@ export default function Footer() {
             <span className="text-slate-800">Health</span>
             <span className="text-[#0a84ff]">flo</span>
           </div>
-          <p className="text-slate-600 text-sm mb-6 max-w-sm">
-            Leading the future of minimally invasive and robotic-assisted surgery for exceptional patient outcomes.
+          <p className="text-slate-600 text-sm mb-4 max-w-sm">
+            India's trusted managed surgical care network. Cashless on 30+ insurers. Same-day discharge. Dedicated care coordinators.
           </p>
+          <div className="flex flex-col gap-2">
+            <a href="tel:+919363650066" className="text-sm font-bold text-[#0a84ff] hover:underline">📞 +91 93636 50066</a>
+            <a href="https://wa.me/919363650066" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-green-600 hover:underline">💬 WhatsApp Us</a>
+          </div>
         </div>
         <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">About</h3>
+          <h3 className="text-slate-900 font-semibold text-sm mb-4">Company</h3>
           <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Our History</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Leadership Team</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">About HealthFlo</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Our Surgical Team</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">HealthFlo Facilities</Link></li>
             <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Careers</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">News &amp; Press</Link></li>
           </ul>
         </div>
         <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">Departments</h3>
+          <h3 className="text-slate-900 font-semibold text-sm mb-4">Treatments</h3>
           <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Cardiothoracic</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Neurosurgery</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Orthopedic</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Robotic Urology</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Piles & Fissure</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Fistula Treatment</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Circumcision</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Lipoma & Cyst Removal</Link></li>
           </ul>
         </div>
         <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">Patient Portal</h3>
+          <h3 className="text-slate-900 font-semibold text-sm mb-4">Patient Support</h3>
           <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Log In</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Pay Bill</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Medical Records</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Support</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#faq">FAQs</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#insurance">Insurance Desk</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#package-inclusions">What's Included</Link></li>
+            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#lead-capture">Book Consultation</Link></li>
           </ul>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-[#e2e8f0] flex flex-col md:flex-row justify-between items-center">
-        <p className="text-slate-500 text-sm">© 2024 Healthflo Hospitals. All rights reserved.</p>
+        <p className="text-slate-500 text-sm">© 2025 HealthFlo Surgical Care Network. All rights reserved.</p>
         <div className="flex space-x-4 mt-4 md:mt-0">
           <Link className="text-slate-500 hover:text-slate-900 transition-colors" href="#"><TwitterLogo weight="fill" className="text-lg" /></Link>
           <Link className="text-slate-500 hover:text-slate-900 transition-colors" href="#"><LinkedinLogo weight="fill" className="text-lg" /></Link>

@@ -71,9 +71,10 @@ export default function Navbar() {
       <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0 pointer-events-none"}`}>
         <div className="flex items-center px-4 py-2 md:px-6 md:py-3 rounded-full bg-white/30 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(10,132,255,0.15)]">
           {/* Orb placed next to the links */}
-          <div className="w-[40px] h-[40px] md:w-[48px] md:h-[48px] shrink-0 mr-4 ml-1">
+          <div className="w-[40px] h-[40px] md:w-[48px] md:h-[48px] shrink-0 mr-2 ml-1">
              <InteractiveOrb showSpeechBubble={isPastOrbSection} blinkOnMount={isPastOrbSection} />
           </div>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#0a84ff] mr-4 leading-tight max-w-[60px] hidden md:block">AI Care Navigator</span>
 
           <div className="h-6 w-[1px] bg-slate-300/50 mr-6"></div>
 

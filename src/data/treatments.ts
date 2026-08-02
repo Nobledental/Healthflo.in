@@ -3,6 +3,8 @@ export interface Treatment {
   name: string;
   description: string;
   benefits: string[];
+  price: string;
+  image: string; // path relative to /public e.g. /treatments/piles.png
 }
 
 export interface Specialty {
@@ -25,7 +27,9 @@ export const specialtiesData: Specialty[] = [
           "Less pain & bleeding",
           "Quick recovery",
           "Day care procedure"
-        ]
+        ],
+        price: "₹25,000",
+        image: "/treatments/piles.png"
       },
       {
         id: "fissure",
@@ -36,7 +40,9 @@ export const specialtiesData: Specialty[] = [
           "No daily dressings",
           "Return to work next day",
           "High success rate"
-        ]
+        ],
+        price: "₹20,000",
+        image: "/treatments/fissure.png"
       },
       {
         id: "fistula",
@@ -47,7 +53,9 @@ export const specialtiesData: Specialty[] = [
           "No large incisions",
           "Minimal scarring",
           "Same-day discharge*"
-        ]
+        ],
+        price: "₹35,000",
+        image: "/treatments/fistula.png"
       }
     ]
   },
@@ -64,7 +72,9 @@ export const specialtiesData: Specialty[] = [
           "Minimal bleeding",
           "Fast recovery",
           "Day care surgery"
-        ]
+        ],
+        price: "₹18,000",
+        image: "/treatments/circumcision.png"
       }
     ]
   },
@@ -81,7 +91,9 @@ export const specialtiesData: Specialty[] = [
           "Small incision",
           "Minimal scarring",
           "Quick recovery"
-        ]
+        ],
+        price: "₹15,000",
+        image: "/treatments/lipoma.png"
       }
     ]
   }

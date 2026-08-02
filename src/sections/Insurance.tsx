@@ -34,7 +34,7 @@ export default function Insurance() {
                 className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-white text-sm font-bold tracking-wide uppercase mb-6 border border-white/20"
               >
                 <ShieldCheck size={16} />
-                Featured Insurance Partners
+                HealthFlo Insurance Desk
               </motion.div>
               
               <motion.h2 
@@ -44,7 +44,7 @@ export default function Insurance() {
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-tight mb-6"
               >
-                Cashless Surgery on <span className="font-bold">100+ Insurers</span>
+                Insurance Support
               </motion.h2>
               
               <motion.p 
@@ -54,7 +54,7 @@ export default function Insurance() {
                 transition={{ delay: 0.2 }}
                 className="text-lg text-blue-100 leading-relaxed mb-10 max-w-lg"
               >
-                Don't let finances delay your health. Our dedicated insurance team handles all paperwork for a hassle-free cashless experience.
+                Don't let cost or paperwork delay your care. Our dedicated in-house insurance coordinators handle all approvals — TATA AIG, Star Health, HDFC Ergo — so you walk in and focus only on healing.
               </motion.p>
 
               <motion.div 
@@ -88,8 +88,8 @@ export default function Insurance() {
                   <Clock size={24} />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-1">30-Minute Approval</h4>
-                  <p className="text-slate-600 text-sm">Express insurance processing for emergencies, ensuring you get care without delay.</p>
+                  <h4 className="text-xl font-bold text-slate-900 mb-1">30-Minute In-House Approval</h4>
+                  <p className="text-slate-600 text-sm">Express insurance processing by our dedicated coordinators — from first call to OT clearance.</p>
                 </div>
               </motion.div>
 
@@ -101,7 +101,7 @@ export default function Insurance() {
                 transition={{ delay: 0.5 }}
                 className="bg-[#0038ff] p-8 rounded-[24px] border border-white/10"
               >
-                <h5 className="text-white font-semibold mb-6">Recognized By</h5>
+                <h5 className="text-white font-semibold mb-6">Accepted at All HealthFlo Surgical Centers</h5>
                 <div className="flex flex-wrap gap-3">
                   {insurers.map((insurer, idx) => (
                     <div key={idx} className="bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/10 text-white font-medium text-sm">

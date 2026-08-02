@@ -78,8 +78,8 @@ export default function HospitalMetrics() {
                 <Crosshair className="text-xl text-slate-600" />
               </div>
               <div className="flex flex-col">
-                <div className="text-[13px] font-semibold text-slate-700">Surgical Precision</div>
-                <div className="text-[16px] font-bold text-slate-900 leading-tight">99.8<span className="text-[12px] text-slate-600 font-medium">%</span></div>
+                <div className="text-[13px] font-semibold text-slate-700">Safety Protocols</div>
+                <div className="text-[16px] font-bold text-slate-900 leading-tight">100<span className="text-[12px] text-slate-600 font-medium">%</span></div>
               </div>
             </div>
             <div className="flex items-end justify-between mt-auto">
@@ -91,7 +91,7 @@ export default function HospitalMetrics() {
                 <div className="bar act" style={{height: '95%'}}></div>
               </div>
               <div className="flex items-baseline">
-                <span className="text-slate-900 font-bold text-[18px]">99.8</span>
+                <span className="text-slate-900 font-bold text-[18px]">100</span>
                 <span className="text-[12px] ml-0.5 text-slate-600">%</span>
               </div>
             </div>
@@ -104,8 +104,8 @@ export default function HospitalMetrics() {
                 <Cpu className="text-xl text-white" />
               </div>
               <div className="flex flex-col">
-                <div className="text-[13px] font-semibold text-slate-700">Robotic Suites</div>
-                <div className="text-[16px] font-bold text-slate-900 leading-tight">12 <span className="text-[12px] text-slate-600 font-medium">Active</span></div>
+                <div className="text-[13px] font-semibold text-slate-700">Advanced Lasers</div>
+                <div className="text-[16px] font-bold text-slate-900 leading-tight">100 <span className="text-[12px] text-slate-600 font-medium">%</span></div>
               </div>
             </div>
             <div className="flex-1 flex items-center mb-2">
@@ -114,8 +114,8 @@ export default function HospitalMetrics() {
               </svg>
             </div>
             <div className="blue-square-val shadow-md border border-transparent">
-              <span className="font-bold text-[20px] leading-none tracking-tight">12</span>
-              <span className="text-[11px] text-white/90 mt-1 font-medium">Suites</span>
+              <span className="font-bold text-[20px] leading-none tracking-tight">100</span>
+              <span className="text-[11px] text-white/90 mt-1 font-medium">%</span>
             </div>
           </div>
 
@@ -126,8 +126,8 @@ export default function HospitalMetrics() {
                 <IdentificationBadge className="text-xl text-slate-600" />
               </div>
               <div className="flex flex-col">
-                <div className="text-[13px] font-semibold text-slate-700">Board-Certified</div>
-                <div className="text-[16px] font-bold text-slate-900 leading-tight">150+</div>
+                <div className="text-[13px] font-semibold text-slate-700">Specialist Surgeons</div>
+                <div className="text-[16px] font-bold text-slate-900 leading-tight">15+</div>
               </div>
             </div>
             <div className="flex items-end justify-between mt-auto relative h-16">
@@ -138,7 +138,7 @@ export default function HospitalMetrics() {
                 <div className="w-2.5 h-2.5 rounded-full bg-[#0a84ff] border-2 border-white"></div>
               </div>
               <div className="absolute right-0 bottom-0 flex items-baseline">
-                <span className="text-slate-900 font-bold text-[18px]">150</span>
+                <span className="text-slate-900 font-bold text-[18px]">15</span>
                 <span className="text-[12px] ml-0.5 text-slate-600">+</span>
               </div>
             </div>

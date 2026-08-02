@@ -46,7 +46,7 @@ export default function PatientJourney() {
       <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-4 md:gap-8 mb-20">
         <div className="flex items-center gap-3 bg-white/60 backdrop-blur-md px-6 py-3 rounded-full shadow-sm border border-slate-100">
           <ShieldCheck className="text-green-500 w-5 h-5" />
-          <span className="font-semibold text-slate-800 text-sm md:text-base">Cashless on 100+ insurers</span>
+          <span className="font-semibold text-slate-800 text-sm md:text-base">Cashless on 30+ insurers</span>
         </div>
         <div className="flex items-center gap-3 bg-white/60 backdrop-blur-md px-6 py-3 rounded-full shadow-sm border border-slate-100">
           <HeartPulse className="text-[#05f] w-5 h-5" />
@@ -74,7 +74,7 @@ export default function PatientJourney() {
           transition={{ delay: 0.1 }}
           className="text-3xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight"
         >
-          Your Journey to <span className="font-medium text-slate-900">Recovery.</span>
+          Your <span className="font-medium text-slate-900">In-House Concierge Care</span> Journey.
         </motion.h3>
       </div>
 

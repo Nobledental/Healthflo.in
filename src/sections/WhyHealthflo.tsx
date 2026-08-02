@@ -24,7 +24,7 @@ export default function WhyHealthflo() {
           className="text-3xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight"
         >
           We didn&apos;t just improve healthcare.<br/>
-          <span className="font-medium text-slate-900">We reimagined it.</span>
+          <span className="font-medium text-slate-900">We built a surgical institution.</span>
         </motion.h3>
       </div>
 
@@ -93,7 +93,7 @@ export default function WhyHealthflo() {
                  <Check className="w-4 h-4" strokeWidth={3} />
               </div>
               <h5 className="text-[11px] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Surgeon Selection</h5>
-              <p className="text-white font-semibold text-lg">150+ Board-Certified Specialists</p>
+              <p className="text-white font-semibold text-lg">150+ Board-Certified Surgical Specialists</p>
             </div>
             
             <div className="relative pl-12">
@@ -101,7 +101,7 @@ export default function WhyHealthflo() {
                  <Check className="w-4 h-4" strokeWidth={3} />
               </div>
               <h5 className="text-[11px] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Insurance & Paperwork</h5>
-              <p className="text-white font-semibold text-lg">Transparent Guidance & End-to-End Support</p>
+              <p className="text-white font-semibold text-lg">Dedicated In-House Care Coordinators handle everything</p>
             </div>
             
             <div className="relative pl-12">
@@ -109,7 +109,7 @@ export default function WhyHealthflo() {
                  <Check className="w-4 h-4" strokeWidth={3} />
               </div>
               <h5 className="text-[11px] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Recovery & Support</h5>
-              <p className="text-white font-semibold text-lg">Faster Recovery & Same-Day Discharge*</p>
+              <p className="text-white font-semibold text-lg">Express Discharge & Free At-Home Follow-Up</p>
             </div>
           </div>
         </div>
