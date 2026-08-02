@@ -76,10 +76,9 @@ export default function ParticleCanvas() {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(10, 132, 255, ${p.glow * 0.8})`;
         
-        ctx!.fillStyle = `rgba(135, 206, 250, ${p.glow})`;
-        
-        ctx!.shadowColor = "rgba(255, 255, 255, 1)";
+        ctx!.shadowColor = "rgba(10, 132, 255, 0.4)";
         ctx!.shadowBlur = 8;
         
         ctx!.fill();
