@@ -70,13 +70,23 @@ export default function InteractiveOrb({
 
   const aiPreset = "Ice";
 
-  const normalNodes = [
+  type OrbNode = {
+    label: string;
+    angle: number;
+    radius: number;
+    speed: string;
+    boxLeft: string;
+    boxTop: string;
+    icon?: React.ReactNode;
+  };
+
+  const normalNodes: OrbNode[] = [
     { label: "Right atrium", angle: 0, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-20px" },
     { label: "Aortic valve stenosis", angle: 120, radius: 180, speed: "30s", boxLeft: "20px", boxTop: "10px" },
     { label: "Hypertrophy", angle: 240, radius: 140, speed: "25s", boxLeft: "-120px", boxTop: "10px" },
   ];
 
-  const emergencyNodes = [
+  const emergencyNodes: OrbNode[] = [
     { label: "CALL AMBULANCE", angle: 45, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-30px", icon: <WarningCircle weight="fill" className="text-red-500 mr-1.5" /> },
     { label: "FIND NEAREST HOSPITAL", angle: 135, radius: 180, speed: "30s", boxLeft: "-190px", boxTop: "-15px", icon: <FirstAid weight="fill" className="text-orange-500 mr-1.5" /> },
     { label: "CALL DOCTORS", angle: 225, radius: 210, speed: "40s", boxLeft: "-130px", boxTop: "-30px", icon: <PhoneCall weight="fill" className="text-blue-500 mr-1.5" /> },
