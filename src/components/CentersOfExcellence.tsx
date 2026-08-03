@@ -455,22 +455,24 @@ const cssStyles = `
 
 const getTheme = (category: string) => {
     switch (category) {
-        case 'Proctology': return { bg: 'linear-gradient(331deg, #0f172a 0%, #1e3a8a 100%)', accent: '#3B82F6' }; // Blue
-        case 'Urology': return { bg: 'linear-gradient(331deg, #172554 0%, #0369a1 100%)', accent: '#38BDF8' }; // Sky
-        case 'Laparoscopy': return { bg: 'linear-gradient(331deg, #14532d 0%, #047857 100%)', accent: '#34D399' }; // Emerald
-        case 'General Surgery': return { bg: 'linear-gradient(331deg, #4c1d95 0%, #7c3aed 100%)', accent: '#A78BFA' }; // Violet
-        case 'Vascular': return { bg: 'linear-gradient(331deg, #7f1d1d 0%, #b91c1c 100%)', accent: '#F87171' }; // Red
+        case 'Cardiology': return { bg: 'linear-gradient(331deg, #0f172a 0%, #7f1d1d 100%)', accent: '#F87171' }; // Red
+        case 'Oncology': return { bg: 'linear-gradient(331deg, #2e1065 0%, #7e22ce 100%)', accent: '#C084FC' }; // Purple
+        case 'Neurology': return { bg: 'linear-gradient(331deg, #312e81 0%, #4f46e5 100%)', accent: '#818CF8' }; // Indigo
+        case 'Orthopedics': return { bg: 'linear-gradient(331deg, #0891b2 0%, #06b6d4 100%)', accent: '#67E8F9' }; // Cyan
+        case 'Pediatrics': return { bg: 'linear-gradient(331deg, #115e59 0%, #0d9488 100%)', accent: '#2DD4BF' }; // Teal
+        case 'Emergency': return { bg: 'linear-gradient(331deg, #7c2d12 0%, #ea580c 100%)', accent: '#FB923C' }; // Orange
         default: return { bg: 'linear-gradient(331deg, #1e293b 0%, #475569 100%)', accent: '#94A3B8' }; // Slate
     }
 };
 
 const getCategoryIcon = (category: string) => {
     switch (category) {
-        case 'Proctology': return ScanLine;
-        case 'Urology': return Sparkles;
-        case 'Laparoscopy': return Activity;
-        case 'General Surgery': return Microscope;
-        case 'Vascular': return HeartPulse;
+        case 'Cardiology': return HeartPulse;
+        case 'Oncology': return Microscope;
+        case 'Neurology': return Zap;
+        case 'Orthopedics': return Activity;
+        case 'Pediatrics': return Smile;
+        case 'Emergency': return Shield;
         default: return Zap;
     }
 };

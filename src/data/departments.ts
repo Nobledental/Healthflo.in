@@ -10,79 +10,94 @@ export interface DepartmentData {
 }
 
 export const departmentsData: Record<string, DepartmentData> = {
-    "proctology": {
-        id: "proctology",
-        title: "Proctology",
-        subtitle: "Advanced Anorectal Care",
-        description: "Painless, minimally invasive laser treatments for Piles, Fissures, and Fistulas with same-day discharge and zero cuts.",
+    "cardiology": {
+        id: "cardiology",
+        title: "Cardiology",
+        subtitle: "Advanced Heart Care",
+        description: "Comprehensive cardiac care from preventive screening to advanced robotic heart surgeries and angioplasty, led by globally trained cardiologists.",
         benefits: [
-            "USFDA Approved Lasers",
-            "30-Minute Procedure",
-            "Zero Pain & Bleeding",
-            "Resume Work in 48 Hours"
+            "24/7 Cardiac Emergency",
+            "Advanced Cath Labs",
+            "Minimally Invasive Surgeries",
+            "Post-op Cardiac Rehab"
         ],
-        keywords: ["piles", "fissure", "fistula", "hemorrhoids", "laser"],
-        category: "Proctology",
-        heroImage: "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=800&auto=format&fit=crop"
+        keywords: ["heart", "chest pain", "angioplasty", "bypass", "ecg"],
+        category: "Cardiology",
+        heroImage: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?q=80&w=800&auto=format&fit=crop"
     },
-    "urology": {
-        id: "urology",
-        title: "Urology",
-        subtitle: "Expert Urological Care",
-        description: "Specialized laser circumcision and treatment for phimosis ensuring quick recovery, better hygiene, and minimal discomfort.",
+    "oncology": {
+        id: "oncology",
+        title: "Oncology",
+        subtitle: "Precision Cancer Care",
+        description: "Multi-disciplinary tumor boards providing personalized cancer treatment plans using the latest in radiation, medical, and surgical oncology.",
         benefits: [
-            "ZSR & Laser Circumcision",
-            "No Stitches, No Scars",
-            "10-Minute Procedure",
-            "Same-Day Discharge"
+            "Targeted Chemotherapy",
+            "TrueBeam Radiotherapy",
+            "Robotic Onco-Surgery",
+            "Palliative Care Support"
         ],
-        keywords: ["circumcision", "phimosis", "zsr", "urology"],
-        category: "Urology",
-        heroImage: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=800&auto=format&fit=crop"
-    },
-    "laparoscopy": {
-        id: "laparoscopy",
-        title: "Laparoscopic Surgery",
-        subtitle: "Keyhole Surgeries",
-        description: "Advanced laparoscopic solutions for Gallbladder stones, Hernia repair, and Appendicitis with faster recovery and smaller incisions.",
-        benefits: [
-            "Minimally Invasive",
-            "Less Post-Op Pain",
-            "Reduced Risk of Infection",
-            "Shorter Hospital Stay"
-        ],
-        keywords: ["gallbladder", "hernia", "appendix", "laparoscopy", "keyhole"],
-        category: "Laparoscopy",
-        heroImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop"
-    },
-    "general-surgery": {
-        id: "general-surgery",
-        title: "General Surgery",
-        subtitle: "Day-Care Procedures",
-        description: "Expert surgical removal of Lipomas, Cysts, and other minor day-care procedures under high-precision clinical protocols.",
-        benefits: [
-            "Cosmetic Stitching",
-            "Virtually Scarless",
-            "Local Anesthesia",
-            "Immediate Recovery"
-        ],
-        keywords: ["lipoma", "cyst", "minor surgery", "pilonidal sinus"],
-        category: "General Surgery",
+        keywords: ["cancer", "tumor", "chemotherapy", "radiation"],
+        category: "Oncology",
         heroImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop"
     },
-    "vascular": {
-        id: "vascular",
-        title: "Vascular Surgery",
-        subtitle: "Vein & Vascular Care",
-        description: "State-of-the-art laser ablation and treatments for Varicose Veins to restore healthy blood flow without major surgery.",
+    "neurology": {
+        id: "neurology",
+        title: "Neurology",
+        subtitle: "Brain & Spine Institute",
+        description: "State-of-the-art neurosciences center treating complex brain and spine disorders with advanced neuro-navigation and microscopic surgery.",
         benefits: [
-            "EVLT (Laser Ablation)",
-            "No General Anesthesia",
-            "No Major Incisions",
-            "Walk-In, Walk-Out"
+            "Stroke Ready Unit",
+            "Epilepsy Monitoring",
+            "Deep Brain Stimulation",
+            "Spinal Decompression"
         ],
-        keywords: ["varicose veins", "spider veins", "vascular", "evlt"],
-        category: "Vascular",
+        keywords: ["brain", "spine", "stroke", "paralysis", "headache"],
+        category: "Neurology",
         heroImage: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=800&auto=format&fit=crop"
+    },
+    "orthopedics": {
+        id: "orthopedics",
+        title: "Orthopedics",
+        subtitle: "Bone & Joint Care",
+        description: "Restoring mobility through advanced joint replacements, arthroscopic surgeries, and sports medicine with highly specialized orthopedic surgeons.",
+        benefits: [
+            "Robotic Knee Replacement",
+            "Sports Injury Clinic",
+            "Complex Trauma Care",
+            "Physiotherapy Center"
+        ],
+        keywords: ["bone", "joint", "knee", "back pain", "fracture"],
+        category: "Orthopedics",
+        heroImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop"
+    },
+    "pediatrics": {
+        id: "pediatrics",
+        title: "Pediatrics",
+        subtitle: "Child Health Center",
+        description: "Compassionate, specialized care for infants, children, and adolescents, featuring a Level III Neonatal Intensive Care Unit (NICU).",
+        benefits: [
+            "Level III NICU",
+            "Pediatric Surgery",
+            "Vaccination Center",
+            "Child Psychology"
+        ],
+        keywords: ["child", "baby", "infant", "pediatrician"],
+        category: "Pediatrics",
+        heroImage: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=800&auto=format&fit=crop"
+    },
+    "emergency": {
+        id: "emergency",
+        title: "Emergency & Trauma",
+        subtitle: "24/7 Rapid Response",
+        description: "Level 1 Trauma center equipped to handle critical medical, surgical, and cardiac emergencies with a fleet of Advanced Life Support ambulances.",
+        benefits: [
+            "Level 1 Trauma Care",
+            "ALS Ambulances",
+            "Code Blue Team",
+            "24/7 Blood Bank"
+        ],
+        keywords: ["emergency", "accident", "trauma", "ambulance"],
+        category: "Emergency",
+        heroImage: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?q=80&w=800&auto=format&fit=crop"
     }
 };
