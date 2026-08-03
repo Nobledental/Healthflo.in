@@ -24,6 +24,11 @@ function OrganMesh({ path, accent }: { path: string; accent: string }) {
   useEffect(() => {
     if (!scene) return;
 
+    // Reset scale and position to fix cumulative mutation bugs from useGLTF caching
+    scene.scale.setScalar(1);
+    scene.position.set(0, 0, 0);
+    scene.updateMatrixWorld(true);
+
     // Normalise size: fit every model into a consistent target bounding sphere
     const box = new THREE.Box3().setFromObject(scene);
     const size = box.getSize(new THREE.Vector3());
@@ -34,9 +39,10 @@ function OrganMesh({ path, accent }: { path: string; accent: string }) {
     const s = targetSize / (maxDim || 1);
     scene.scale.setScalar(s);
 
-    // Centre the model
+    // Centre the model (and shift it slightly up by 0.2 to account for bottom text)
     const centre = box.getCenter(new THREE.Vector3());
     scene.position.sub(centre.multiplyScalar(s));
+    scene.position.y += 0.15; // Visual centering offset
 
     // Apply consistent material
     scene.traverse((child) => {

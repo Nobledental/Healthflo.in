@@ -15,6 +15,10 @@ import FAQ from "@/sections/FAQ";
 import ActionGrid from "@/sections/ActionGrid";               
 import LeadCapture from "@/sections/LeadCapture";                 
 
+import HospitalMetrics from "@/components/HospitalMetrics";
+import CentersOfExcellence from "@/components/CentersOfExcellence";
+import DoctorDirectory from "@/components/DoctorDirectory";
+
 export default function Home() {
   return (
     <>
@@ -25,10 +29,12 @@ export default function Home() {
         {/* ── Stage 1: Hook ─────────────────────────────────────── */}
         <div className="flex flex-col mb-4">
           <Hero />
+          <HospitalMetrics />
         </div>
 
         {/* ── Stage 2: Solutions ────────────────────────────────── */}
         <SpecializedTreatments />
+        <CentersOfExcellence />
 
         {/* ── Stage 3: Process ─────────────────────────────────── */}
         <HowItWorks />
@@ -37,6 +43,7 @@ export default function Home() {
         <PackageInclusions />
 
         {/* ── Stage 5: Proof ───────────────────────────────────── */}
+        <DoctorDirectory />
         <Testimonials />
         <WhyHealthflo />
 

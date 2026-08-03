@@ -71,7 +71,7 @@ export default function Hero() {
           >
             Flo
           </span>
-          <span style={{ color: "#1557b0" }}>&nbsp;Hospital</span>
+          <span style={{ color: "#1557b0" }}>&nbsp;Hospital's</span>
         </h1>
 
         <h2 className="text-[20px] md:text-[24px] lg:text-[28px] font-medium leading-[1.4] tracking-tight z-10 mb-4 max-w-3xl mx-auto text-slate-700 mt-2">
