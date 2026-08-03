@@ -143,7 +143,7 @@ export default function SpecializedTreatments() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full relative z-10"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full relative z-10"
             >
               {activeSpecialty.treatments.map((treatment, idx) => (
                 <motion.div
@@ -151,63 +151,45 @@ export default function SpecializedTreatments() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="relative rounded-[28px] overflow-hidden flex flex-row min-h-[260px] cursor-pointer group border border-white/60 shadow-[0_4px_24px_0_rgba(100,150,255,0.08)] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_20px_60px_0_rgba(0,100,255,0.22)] hover:border-white/90"
-                  style={{
-                    background: "linear-gradient(110deg, #ffffff 0%, #ddeeff 55%, #b8d8ff 100%)",
-                  }}
+                  className="relative rounded-3xl overflow-hidden flex flex-col min-h-[480px] cursor-pointer group bg-[#f3f7fc] hover:bg-[#eef4fb] border border-[#e4ecf7] hover:border-blue-200 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,85,255,0.1)]"
                 >
-                  {/* Glassmorphic colour-glow hover overlay */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10 rounded-[28px]"
-                    style={{
-                      background: "linear-gradient(120deg, rgba(255,255,255,0.55) 0%, rgba(180,220,255,0.35) 50%, rgba(100,180,255,0.25) 100%)",
-                      backdropFilter: "blur(8px)",
-                      WebkitBackdropFilter: "blur(8px)",
-                    }}
-                  />
-                  {/* Inner rim glow on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10 rounded-[28px] shadow-[inset_0_0_40px_0_rgba(100,180,255,0.3)]" />
+                  {/* TOP: Text content */}
+                  <div className="relative z-20 flex flex-col p-8 pb-0">
+                    <h3 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 tracking-tight group-hover:text-[#0055ff] transition-colors">
+                      {treatment.name}
+                    </h3>
+                    <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
+                      {treatment.description}
+                    </p>
 
-                  {/* LEFT: Text content */}
-                  <div className="relative z-20 flex flex-col justify-between p-7 w-[55%] shrink-0">
-                    <div>
-                      <h3 className="text-[20px] md:text-[22px] font-bold text-slate-900 leading-snug mb-2 tracking-tight">
-                        {treatment.name}
-                      </h3>
-                      <p className="text-[13px] text-slate-600 leading-relaxed">
-                        {treatment.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom: Price pill + Know More */}
-                    <div className="flex flex-col gap-3 mt-6">
-                      <span className="inline-flex items-center gap-2 self-start bg-white/80 backdrop-blur-md border border-white shadow-sm text-slate-800 text-[13px] font-semibold px-4 py-1.5 rounded-full">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="inline-flex items-center gap-1.5 bg-white border border-[#e4ecf7] shadow-sm text-slate-800 text-[13px] font-semibold px-4 py-1.5 rounded-full">
                         <span className="text-[#0055ff] font-bold">{treatment.price}</span>
-                        <span className="text-slate-400 font-normal">Package Rate*</span>
                       </span>
-                      <button className="self-start flex items-center gap-2 bg-[#0055ff] hover:bg-blue-700 text-white text-[13px] font-semibold px-5 py-2 rounded-full shadow-md shadow-blue-500/20 transition-all duration-300 group/btn">
+                      <button className="flex items-center gap-1.5 bg-[#0055ff] text-white text-[13px] font-semibold px-4 py-1.5 rounded-full shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-colors group/btn">
                         Know More
                         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                       </button>
                     </div>
                   </div>
 
-                  {/* RIGHT: Image bleeding to edge */}
-                  <div className="absolute right-0 top-0 bottom-0 w-[48%] pointer-events-none overflow-hidden">
-                    {/* Fade blend from card bg colour */}
-                    <div className="absolute inset-y-0 left-0 w-[40%] z-10" style={{ background: "linear-gradient(to right, #ddeeff, transparent)" }} />
+                  {/* BOTTOM: Image blending to edges */}
+                  <div className="relative flex-1 w-full mt-10 min-h-[220px] overflow-hidden">
+                    {/* Top fade gradient to blend image into the solid background */}
+                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#f3f7fc] group-hover:from-[#eef4fb] to-transparent z-10 transition-colors duration-500" />
+                    
                     {treatment.image ? (
                       <img
                         src={treatment.image}
                         alt={treatment.name}
-                        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.05] transition-transform duration-700 ease-out"
+                        className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-28 h-28 rounded-full bg-white/50 border-2 border-blue-100/60 flex items-center justify-center">
-                          <svg viewBox="0 0 48 48" fill="none" className="w-12 h-12 text-blue-200" stroke="currentColor" strokeWidth="1.5">
+                      <div className="absolute inset-0 flex items-center justify-center bg-blue-50/50">
+                        <div className="w-24 h-24 rounded-full bg-white/80 border-2 border-blue-100/60 flex items-center justify-center">
+                          <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10 text-blue-200" stroke="currentColor" strokeWidth="1.5">
                             <rect x="6" y="10" width="36" height="28" rx="4"/>
                             <circle cx="24" cy="22" r="6"/>
                             <path d="M6 34l8-8 6 6 8-10 8 8"/>

@@ -1,6 +1,6 @@
 "use client";
 
-import { MagnifyingGlass, Bell } from "@phosphor-icons/react";
+import { MagnifyingGlass, Bell, Phone } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -63,7 +63,9 @@ export default function Navbar() {
             <Bell className="text-[16px] text-slate-600" />
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 border border-white"></span>
           </div>
-          <Image alt="Profile" width={32} height={32} className="w-8 h-8 rounded-full object-cover border border-white/40 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrflFTN90xdhvUADUmLj4NgmyOqpNCecNgMFjpmsYO62QX5TUlJ25hrARzkS5ZuiLYBMsCe9jFV8DAd7XSJqYIMkV8-4g5ibqfe-pitSw3Q_CvOdR6GQiEZDlhTKtNm2Ad-3yIhoZM6gG9VcKkk5wN9kzT0fAGR0VascBPsuYMruju8DDS3wWSF4uDY00o04PiKaGcqAE3g0QFchbAe1qhoYgy2QFchbAe1qhoYgy2uvo9bxsdDTXzbUEO2TCMf4lM6RUtA" unoptimized/>
+          <a href="tel:+919363650066" className="w-8 h-8 flex items-center justify-center bg-[#0055ff] hover:bg-blue-700 text-white rounded-full shadow-md transition-all hover:scale-105">
+            <Phone weight="fill" className="text-[14px]" />
+          </a>
         </div>
       </nav>
 

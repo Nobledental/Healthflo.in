@@ -37,12 +37,6 @@ export default function Hero() {
           Excellence
         </span>
         <div className="flex items-center gap-3">
-          <a
-            href="tel:+919363650066"
-            className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-bold border shadow-sm backdrop-blur-md bg-white/70 border-white/50 text-[#05f] hover:bg-white transition-colors"
-          >
-            📞 +91 93636 50066
-          </a>
           <div className="px-4 py-1.5 rounded-full text-[13px] font-semibold flex items-center justify-center border shadow-sm backdrop-blur-md bg-white/70 border-white/50 text-slate-800">
             <span className={`w-2 h-2 rounded-full mr-2 ${powerSavingMode ? "bg-red-500" : "bg-[#0a84ff]"}`}></span>
             <span className="ml-1 font-bold">{city}</span>

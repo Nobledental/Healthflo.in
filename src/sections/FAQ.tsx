@@ -68,7 +68,7 @@ export default function FAQ() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-4 text-slate-500 max-w-lg mx-auto text-[16px]"
+          className="mt-4 text-slate-500 max-w-[600px] mx-auto text-[16px]"
         >
           Everything patients ask us before booking their first consultation — answered honestly and completely.
         </motion.p>
