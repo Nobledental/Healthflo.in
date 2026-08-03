@@ -2,119 +2,100 @@
 
 import { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Environment, Float, ContactShadows, PresentationControls } from "@react-three/drei";
+import { useGLTF, Environment, Float, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
 
-// 3D Model Component
+// --- Heart Model (Right Side) ---
 function HeartModel() {
-  // Load the GLTF model. Make sure to preload it.
   const { scene } = useGLTF("/models/heart.glb");
-  const modelRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
-  // Apply a custom material to make it look glassmorphic/holographic
   useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         mesh.material = new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color("#e11d48"), // Vibrant deep pink/red
-          emissive: new THREE.Color("#fb7185"), // Bright pink glow
-          emissiveIntensity: 0.5,
-          roughness: 0.2,
-          metalness: 0.5,
-          transmission: 0.6, // Glass-like depth
-          thickness: 2,
-          ior: 1.5,
+          color: new THREE.Color("#c0143c"),
+          emissive: new THREE.Color("#ff6b8a"),
+          emissiveIntensity: 0.6,
+          roughness: 0.15,
+          metalness: 0.3,
           clearcoat: 1.0,
-          clearcoatRoughness: 0.1,
-          transparent: true,
-          opacity: 1,
+          clearcoatRoughness: 0.05,
+          envMapIntensity: 1.5,
         });
       }
     });
   }, [scene]);
-  
-  // Slowly rotate the model and make it pulsate
+
   useFrame((state, delta) => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y += delta * 0.15;
-      
-      // Heartbeat pulsating effect
-      // Combining two sine waves for a "lub-dub" double beat effect
-      const t = state.clock.elapsedTime * 3;
-      const pulse = 1 + (Math.sin(t) * Math.sin(t * 2)) * 0.08;
-      modelRef.current.scale.set(pulse, pulse, pulse);
-    }
-    
-    // Pulse the glow as well
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += delta * 0.2;
+    const t = state.clock.elapsedTime;
+    const beat = Math.max(0, Math.sin(t * Math.PI * 1.4) * Math.sin(t * Math.PI * 2.8));
+    const scale = 1 + beat * 0.1;
+    groupRef.current.scale.setScalar(scale);
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
-         const mesh = child as THREE.Mesh;
-         if (mesh.material instanceof THREE.MeshPhysicalMaterial) {
-           const t = state.clock.elapsedTime * 3;
-           const pulse = (Math.sin(t) * Math.sin(t * 2));
-           mesh.material.emissiveIntensity = 0.5 + pulse * 0.4;
-         }
+        const mesh = child as THREE.Mesh;
+        if (mesh.material instanceof THREE.MeshPhysicalMaterial) {
+          mesh.material.emissiveIntensity = 0.5 + beat * 0.8;
+        }
       }
     });
   });
 
   return (
-    <group ref={modelRef} dispose={null}>
-      <Float
-        speed={2} // Animation speed
-        rotationIntensity={0.5} // XYZ rotation intensity
-        floatIntensity={1} // Up/down float intensity
-        floatingRange={[-0.1, 0.1]} // Range of y-axis values the object will float within
-      >
-        <primitive 
-          object={scene} 
-          scale={1.4} 
-          position={[0, 0, 0]} 
-          rotation={[0, -Math.PI / 4, 0]} 
-        />
+    <group ref={groupRef}>
+      <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.8} floatingRange={[-0.15, 0.15]}>
+        <primitive object={scene} scale={1.6} rotation={[0.15, -Math.PI / 5, 0]} />
       </Float>
     </group>
   );
 }
 
-// 3D Brain Component for the left side
+// --- Brain Model (Left Side) ---
 function BrainModel() {
   const { scene } = useGLTF("/models/brain.glb");
-  const modelRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         mesh.material = new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color("#0284c7"), // Deep vibrant blue
-          emissive: new THREE.Color("#38bdf8"), // Bright blue glow
+          color: new THREE.Color("#0369a1"),
+          emissive: new THREE.Color("#38bdf8"),
           emissiveIntensity: 0.5,
-          roughness: 0.2,
-          metalness: 0.5,
-          transmission: 0.6, // Glass-like depth
-          thickness: 2,
-          ior: 1.5,
+          roughness: 0.1,
+          metalness: 0.4,
           clearcoat: 1.0,
-          clearcoatRoughness: 0.1,
-          transparent: true,
-          opacity: 1,
+          clearcoatRoughness: 0.05,
+          envMapIntensity: 2.0,
         });
       }
     });
   }, [scene]);
-  
+
   useFrame((state, delta) => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y += delta * 0.1; // Brain rotates slower
-    }
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += delta * 0.12;
+    const t = state.clock.elapsedTime * 0.8;
+    const glow = 0.4 + Math.sin(t) * 0.2;
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        if (mesh.material instanceof THREE.MeshPhysicalMaterial) {
+          mesh.material.emissiveIntensity = glow;
+        }
+      }
+    });
   });
 
   return (
-    <group ref={modelRef} dispose={null}>
-      <Float speed={1.5} rotationIntensity={0.3} floatIntensity={1} floatingRange={[-0.1, 0.1]}>
-        <primitive object={scene} scale={1.4} position={[0, 0, 0]} rotation={[0, Math.PI / 4, 0]} />
+    <group ref={groupRef}>
+      <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.8} floatingRange={[-0.15, 0.15]}>
+        <primitive object={scene} scale={1.5} rotation={[0.1, Math.PI / 5, 0]} />
       </Float>
     </group>
   );
@@ -122,42 +103,39 @@ function BrainModel() {
 
 export default function Hero3DBackground() {
   return (
-    <div className="absolute inset-0 w-full h-full -z-10 pointer-events-none opacity-60">
+    <div className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 45 }}
-        dpr={[1, 2]} // Support high DPI screens
+        camera={{ position: [0, 0, 10], fov: 55, near: 0.1, far: 100 }}
+        dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
+        style={{ opacity: 0.85 }}
       >
         <Suspense fallback={null}>
-          <Environment preset="city" />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} color="#e0f2fe" />
-          <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#bae6fd" />
-          
-          <PresentationControls
-            global
-            snap={true}
-            rotation={[0, 0.3, 0]}
-            polar={[-Math.PI / 3, Math.PI / 3]}
-            azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-          >
-            <group position={[4.2, 0.5, 0]}> {/* Heart on the Right */}
-              <HeartModel />
-            </group>
-            
-            <group position={[-4.2, 0.5, 0]}> {/* Brain on the Left */}
-              <BrainModel />
-            </group>
-          </PresentationControls>
+          <Environment preset="studio" />
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[8, 8, 4]} intensity={1.5} color="#ffffff" castShadow />
+          <directionalLight position={[-8, 5, 4]} intensity={1.0} color="#bae6fd" />
+          <directionalLight position={[0, -5, -6]} intensity={0.8} color="#e0f2fe" />
+          <pointLight position={[4, 0, 3]} intensity={3} color="#ff6b8a" distance={7} decay={2} />
+          <pointLight position={[-4, 0, 3]} intensity={3} color="#38bdf8" distance={7} decay={2} />
 
-          <ContactShadows position={[4.2, -1.5, 0]} opacity={0.3} scale={10} blur={3} far={4} color="#e11d48" />
-          <ContactShadows position={[-4.2, -1.5, 0]} opacity={0.3} scale={10} blur={3} far={4} color="#0284c7" />
+          {/* Heart anchored right, y=0.5 to center vertically in hero */}
+          <group position={[3.8, 0.5, 0]}>
+            <HeartModel />
+          </group>
+
+          {/* Brain anchored left, same y */}
+          <group position={[-3.8, 0.5, 0]}>
+            <BrainModel />
+          </group>
+
+          <ContactShadows position={[3.8, -2.0, 0]} opacity={0.4} scale={8} blur={2.5} far={5} color="#c0143c" />
+          <ContactShadows position={[-3.8, -2.0, 0]} opacity={0.4} scale={8} blur={2.5} far={5} color="#0369a1" />
         </Suspense>
       </Canvas>
     </div>
   );
 }
 
-// Preload the models so they are ready quickly
 useGLTF.preload("/models/heart.glb");
 useGLTF.preload("/models/brain.glb");
