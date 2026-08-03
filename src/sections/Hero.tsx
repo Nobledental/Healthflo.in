@@ -55,8 +55,23 @@ export default function Hero() {
       <div className="w-full max-w-7xl flex flex-col items-center text-center z-30 px-6 lg:px-12 mb-2 transition-opacity duration-500">
 
         {/* H1 */}
-        <h1 className="text-[52px] md:text-[64px] lg:text-[76px] font-extrabold leading-[1.1] tracking-tighter z-10 mb-2 max-w-4xl mx-auto flex items-center justify-center gap-0 flex-wrap bg-clip-text text-transparent bg-gradient-to-br from-slate-900 via-slate-800 to-slate-600">
-          HealthFlo Hospital
+        <h1
+          className="text-[52px] md:text-[64px] lg:text-[76px] font-extrabold leading-[1.1] tracking-tighter z-10 mb-2 max-w-4xl mx-auto flex items-center justify-center gap-0 flex-wrap"
+        >
+          <span style={{ color: "#1557b0" }}>Health</span>
+          <span
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #0b2d6b 0%, #1557b0 22%, #2e7fd4 40%, #82c4ff 50%, #2e7fd4 60%, #1557b0 78%, #0b2d6b 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              display: "inline-block",
+            }}
+          >
+            Flo
+          </span>
+          <span style={{ color: "#1557b0" }}>&nbsp;Hospital</span>
         </h1>
 
         <h2 className="text-[20px] md:text-[24px] lg:text-[28px] font-medium leading-[1.4] tracking-tight z-10 mb-4 max-w-3xl mx-auto text-slate-700 mt-2">
