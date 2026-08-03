@@ -72,6 +72,17 @@
 /* Base Styles */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Mobile-specific: remove tap highlight, enable momentum scrolling */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe area bottom padding for notched phones (iPhone X+) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body {

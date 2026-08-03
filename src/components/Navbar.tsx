@@ -34,15 +34,15 @@ export default function Navbar() {
   return (
     <>
       {/* Top Navbar */}
-      <nav className="fixed top-0 left-0 right-0 w-full flex items-center px-8 py-6 justify-between z-50 bg-transparent">
-        <div className="flex items-center w-1/4">
-          <div className="text-[20px] font-bold text-slate-900 tracking-tighter flex items-center">
-            <div className="relative w-6 h-6 mr-2 flex items-center justify-center">
-              <div className="absolute w-6 h-6 bg-[#0a84ff]/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
-              <div className="absolute w-4 h-4 bg-[#0a84ff]/40 rounded-full animate-pulse"></div>
+      <nav className="fixed top-0 left-0 right-0 w-full flex items-center px-4 md:px-8 py-4 md:py-6 justify-between z-50 bg-transparent">
+        <div className="flex items-center w-auto md:w-1/4">
+          <div className="text-[18px] md:text-[20px] font-bold text-slate-900 tracking-tighter flex items-center">
+            <div className="relative w-5 h-5 md:w-6 md:h-6 mr-2 flex items-center justify-center">
+              <div className="absolute w-5 h-5 md:w-6 md:h-6 bg-[#0a84ff]/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+              <div className="absolute w-3.5 h-3.5 md:w-4 md:h-4 bg-[#0a84ff]/40 rounded-full animate-pulse"></div>
               <div className="w-2 h-2 bg-[#0a84ff] rounded-full shadow-[0_0_8px_3px_rgba(10,132,255,0.6)] z-10"></div>
             </div>
-            <span className="bg-white/40 backdrop-blur-md pl-3 pr-1 py-0.5 rounded-l-full text-slate-800 border border-white/40 border-r-0">Health</span><span className="text-[#0a84ff] bg-white/40 backdrop-blur-md pr-3 pl-0 py-0.5 rounded-r-full font-extrabold border border-white/40 border-l-0">Flo</span>
+            <span className="bg-white/40 backdrop-blur-md pl-2 md:pl-3 pr-1 py-0.5 rounded-l-full text-slate-800 border border-white/40 border-r-0">Health</span><span className="text-[#0a84ff] bg-white/40 backdrop-blur-md pr-2 md:pr-3 pl-0 py-0.5 rounded-r-full font-extrabold border border-white/40 border-l-0">Flo</span>
           </div>
         </div>
         
@@ -54,17 +54,17 @@ export default function Navbar() {
           <Link className="text-slate-600 font-medium text-[15px] hover:text-slate-900 transition-colors" href="#">Contact Us</Link>
         </div>
 
-        <div className="flex items-center space-x-4 w-1/4 justify-end">
+        <div className="flex items-center gap-2 md:gap-4 md:w-1/4 justify-end">
           <div className="relative hidden lg:block">
             <input className="bg-white/60 border border-white/40 rounded-full py-1.5 pl-5 pr-10 text-[14px] font-medium text-slate-800 w-56 focus:outline-none focus:border-[#0a84ff] focus:bg-white placeholder-slate-400 backdrop-blur-md transition-all shadow-sm" placeholder="Search data..." type="text"/>
             <MagnifyingGlass className="absolute right-4 top-2 text-sm text-slate-400" />
           </div>
-          <div className="relative cursor-pointer w-8 h-8 flex items-center justify-center bg-white/60 rounded-full border border-white/40 hover:bg-white transition-colors shadow-sm">
-            <Bell className="text-[16px] text-slate-600" />
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 border border-white"></span>
+          <div className="relative cursor-pointer w-7 h-7 md:w-8 md:h-8 flex items-center justify-center bg-white/60 rounded-full border border-white/40 hover:bg-white transition-colors shadow-sm">
+            <Bell className="text-[14px] md:text-[16px] text-slate-600" />
+            <span className="absolute top-1 right-1 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-red-500 border border-white"></span>
           </div>
-          <a href="tel:+919363650066" className="w-8 h-8 flex items-center justify-center bg-[#0055ff] hover:bg-blue-700 text-white rounded-full shadow-md transition-all hover:scale-105">
-            <Phone weight="fill" className="text-[14px]" />
+          <a href="tel:+919363650066" className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center bg-[#0055ff] hover:bg-blue-700 text-white rounded-full shadow-md transition-all hover:scale-105">
+            <Phone weight="fill" className="text-[12px] md:text-[14px]" />
           </a>
         </div>
       </nav>

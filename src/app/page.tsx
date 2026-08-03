@@ -21,7 +21,7 @@ export default function Home() {
       <ParticleCanvas />
       <Navbar />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-8 pt-[120px] pb-24 relative z-10 flex flex-col gap-4">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-[80px] md:pt-[120px] pb-20 md:pb-24 relative z-10 flex flex-col gap-4">
         {/* ── Stage 1: Hook ─────────────────────────────────────── */}
         <div className="flex flex-col mb-4">
           <Hero />

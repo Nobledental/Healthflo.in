@@ -8,13 +8,13 @@ const WHATSAPP_MSG = encodeURIComponent("Hello HealthFlo, I'd like to book a fre
 
 export default function CTABanner() {
   return (
-    <section className="w-full py-12 relative z-10" id="cta">
+    <section className="w-full py-8 md:py-12 relative z-10" id="cta">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="bg-[#0a2540] rounded-[2rem] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(10,37,64,0.4)]"
+        className="bg-[#0a2540] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden relative shadow-[0_30px_60px_-15px_rgba(10,37,64,0.4)]"
       >
         {/* Decorative background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -22,73 +22,70 @@ export default function CTABanner() {
           <div className="absolute bottom-0 right-0 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
         </div>
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center p-10 md:p-16">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center p-6 md:p-10 lg:p-16">
           {/* Left: Copy */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-2 md:mb-3">
               Ready to Take the Next Step?
             </h2>
-            <p className="text-blue-200 text-[16px] leading-relaxed mb-8">
+            <p className="text-blue-200 text-[14px] md:text-[16px] leading-relaxed mb-5 md:mb-8">
               Our care team is here to help you — from understanding your condition to arranging your surgery, insurance, and follow-up. No cost. No obligation.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              {/* WhatsApp */}
+            <div className="flex flex-wrap gap-3 md:gap-4">
               <a
                 href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[15px]"
+                className="flex items-center gap-2 md:gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold px-5 md:px-6 py-3 md:py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[14px] md:text-[15px]"
               >
-                <MessageCircle className="w-5 h-5" />
+                <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
                 WhatsApp Us
               </a>
 
-              {/* Call Now */}
               <a
                 href={`tel:${PHONE}`}
-                className="flex items-center gap-3 bg-white hover:bg-blue-50 text-[#0a2540] font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[15px]"
+                className="flex items-center gap-2 md:gap-3 bg-white hover:bg-blue-50 text-[#0a2540] font-bold px-5 md:px-6 py-3 md:py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[14px] md:text-[15px]"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 h-4 md:w-5 md:h-5" />
                 Call Now
               </a>
 
-              {/* Book Consultation */}
               <a
                 href="#specialized-treatments"
-                className="flex items-center gap-3 bg-transparent border-2 border-white/30 hover:border-white text-white font-bold px-6 py-3.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 text-[15px]"
+                className="flex items-center gap-2 md:gap-3 bg-transparent border-2 border-white/30 hover:border-white text-white font-bold px-5 md:px-6 py-3 md:py-3.5 rounded-full transition-all duration-300 hover:-translate-y-0.5 text-[14px] md:text-[15px]"
               >
-                <CalendarCheck className="w-5 h-5" />
+                <CalendarCheck className="w-4 h-4 md:w-5 md:h-5" />
                 Book Consultation
               </a>
             </div>
           </div>
 
           {/* Right: Contact Info */}
-          <div className="bg-white/10 backdrop-blur-md rounded-[1.5rem] border border-white/20 p-8 flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-[#05f] flex items-center justify-center shadow-lg">
-                <Phone className="w-7 h-7 text-white" />
+          <div className="bg-white/10 backdrop-blur-md rounded-[1.25rem] md:rounded-[1.5rem] border border-white/20 p-5 md:p-8 flex flex-col gap-3 md:gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
+              <div className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-[#05f] flex items-center justify-center shadow-lg shrink-0">
+                <Phone className="w-5 h-5 md:w-7 md:h-7 text-white" />
               </div>
               <div>
-                <p className="text-blue-200 text-[12px] font-bold uppercase tracking-wider mb-0.5">We are just a call away!</p>
-                <a href={`tel:${PHONE}`} className="text-white text-2xl font-extrabold tracking-tight hover:text-blue-200 transition-colors">
+                <p className="text-blue-200 text-[11px] md:text-[12px] font-bold uppercase tracking-wider mb-0.5">We are just a call away!</p>
+                <a href={`tel:${PHONE}`} className="text-white text-xl md:text-2xl font-extrabold tracking-tight hover:text-blue-200 transition-colors">
                   +91 93636 50066
                 </a>
               </div>
             </div>
             <div className="h-px bg-white/20" />
-            <p className="text-blue-200 text-[14px]">
+            <p className="text-blue-200 text-[13px] md:text-[14px]">
               <span className="font-bold text-white">Mon – Sun</span> &nbsp;|&nbsp; 9:00 AM – 8:00 PM
             </p>
-            <div className="grid grid-cols-2 gap-3 mt-2">
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mt-1 md:mt-2">
               {[
                 "Thousands of Happy Patients",
                 "Safe & Hygienic Environment",
                 "4.8/5 Patient Rating",
                 "Your Health, Our Priority",
               ].map((label, i) => (
-                <div key={i} className="bg-white/10 rounded-xl px-3 py-2 text-[12px] text-white/80 font-medium text-center">
+                <div key={i} className="bg-white/10 rounded-xl px-2.5 py-1.5 md:px-3 md:py-2 text-[11px] md:text-[12px] text-white/80 font-medium text-center">
                   {label}
                 </div>
               ))}

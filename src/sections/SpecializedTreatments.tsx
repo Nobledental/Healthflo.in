@@ -32,60 +32,32 @@ export default function SpecializedTreatments() {
   const activeSpecialty = specialtiesData.find(s => s.id === activeSpecialtyId) || specialtiesData[0];
 
   return (
-    <section className="w-full py-12 relative z-10" id="specialized-treatments">
-      <div className="text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#0055ff] text-xs font-bold tracking-widest uppercase mb-6 shadow-sm"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-          </span>
-          Transparent Pricing
-        </motion.div>
+    <section className="w-full pt-4 pb-12 relative z-10" id="specialized-treatments">
+      <div className="text-center mb-8">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
+          className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 tracking-tight leading-[1.1] mb-6 flex flex-wrap items-center justify-center gap-3"
         >
-          Explore Treatments <br className="hidden md:block" />
+          <span>Medical</span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] to-cyan-500">
-            &amp; Package Rates
+            Services
           </span>
         </motion.h2>
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.18 }}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-slate-200 text-[14px] text-slate-600 font-medium shadow-sm"
-        >
-          <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 text-amber-500 shrink-0" stroke="currentColor" strokeWidth="1.5">
-            <circle cx="8" cy="8" r="7"/>
-            <line x1="8" y1="7" x2="8" y2="11"/>
-            <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
-          </svg>
-          <span>
-            Prices shown are indicative starting rates. Final pricing may vary by location.
-          </span>
-        </motion.div>
       </div>
 
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         {/* Sleek Segmented Control Tabs */}
-        <div className="flex flex-wrap justify-center p-1.5 bg-slate-100/80 backdrop-blur-md rounded-full border border-slate-200/60 shadow-sm mb-16">
+        <div className="flex flex-wrap justify-center p-1 md:p-1.5 bg-slate-100/80 backdrop-blur-md rounded-full border border-slate-200/60 shadow-sm mb-8 md:mb-16">
           {specialtiesData.map((specialty) => {
             const isSelected = activeSpecialtyId === specialty.id;
             return (
               <button
                 key={specialty.id}
                 onClick={() => handleSpecialtyChange(specialty.id)}
-                className={`relative px-7 py-2.5 rounded-full text-[15px] font-semibold transition-colors duration-300 ${
+                className={`relative px-4 md:px-7 py-2 md:py-2.5 rounded-full text-[13px] md:text-[15px] font-semibold transition-colors duration-300 ${
                   isSelected 
                     ? "text-white" 
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
@@ -165,10 +137,10 @@ export default function SpecializedTreatments() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.08 }}
-                  className="relative rounded-3xl overflow-hidden flex flex-col min-h-[480px] cursor-pointer group bg-[#f3f7fc] hover:bg-[#eef4fb] border border-[#e4ecf7] hover:border-blue-200 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,85,255,0.1)]"
+                  className="relative rounded-3xl overflow-hidden flex flex-col min-h-[360px] md:min-h-[480px] cursor-pointer group bg-[#f3f7fc] hover:bg-[#eef4fb] border border-[#e4ecf7] hover:border-blue-200 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,85,255,0.1)]"
                 >
                   {/* TOP: Text content */}
-                  <div className="relative z-20 flex flex-col p-8 pb-0">
+                  <div className="relative z-20 flex flex-col p-5 md:p-8 pb-0">
                     <h3 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 tracking-tight group-hover:text-[#0055ff] transition-colors">
                       {treatment.name}
                     </h3>
@@ -177,9 +149,7 @@ export default function SpecializedTreatments() {
                     </p>
 
                     <div className="flex flex-wrap items-center gap-3">
-                      <span className="inline-flex items-center gap-1.5 bg-white border border-[#e4ecf7] shadow-sm text-slate-800 text-[13px] font-semibold px-4 py-1.5 rounded-full">
-                        <span className="text-[#0055ff] font-bold">{treatment.price}</span>
-                      </span>
+
                       <button className="flex items-center gap-1.5 bg-[#0055ff] text-white text-[13px] font-semibold px-4 py-1.5 rounded-full shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-colors group/btn">
                         Know More
                         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />

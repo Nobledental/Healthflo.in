@@ -56,15 +56,12 @@ const quickActions = [
   },
 ];
 
-
-
 export default function ActionGrid() {
   return (
-    <section className="w-full flex flex-col gap-6 relative z-10 mb-4">
+    <section className="w-full flex flex-col gap-4 md:gap-6 relative z-10 mb-4">
 
-
-      {/* Quick Action Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Quick Action Cards — 2 cols on mobile, 4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         {quickActions.map((action, idx) => (
           <motion.a
             key={idx}
@@ -72,15 +69,15 @@ export default function ActionGrid() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.08 }}
-            className={`flex flex-col justify-between bg-gradient-to-br ${action.bg} rounded-2xl p-6 min-h-[160px] group hover:-translate-y-1 hover:shadow-xl transition-all duration-300 no-underline`}
+            className={`flex flex-col justify-between bg-gradient-to-br ${action.bg} rounded-xl md:rounded-2xl p-4 md:p-6 min-h-[130px] md:min-h-[160px] group hover:-translate-y-1 hover:shadow-xl transition-all duration-300 no-underline`}
           >
             <div>
-              <action.icon className={`w-7 h-7 mb-3 ${action.text} opacity-90`} />
-              <h3 className={`font-bold text-[16px] leading-snug ${action.text}`}>{action.title}</h3>
-              <p className={`text-[13px] mt-1 ${action.text} opacity-70 leading-snug`}>{action.desc}</p>
+              <action.icon className={`w-5 h-5 md:w-7 md:h-7 mb-2 md:mb-3 ${action.text} opacity-90`} />
+              <h3 className={`font-bold text-[13px] md:text-[16px] leading-snug ${action.text}`}>{action.title}</h3>
+              <p className={`text-[11px] md:text-[13px] mt-1 ${action.text} opacity-70 leading-snug hidden sm:block`}>{action.desc}</p>
             </div>
             <span
-              className={`inline-flex items-center gap-1 mt-4 text-[13px] font-bold border rounded-lg px-3 py-1.5 self-start transition-all ${action.ctaStyle}`}
+              className={`inline-flex items-center gap-1 mt-3 md:mt-4 text-[11px] md:text-[13px] font-bold border rounded-lg px-2.5 py-1 md:px-3 md:py-1.5 self-start transition-all ${action.ctaStyle}`}
             >
               {action.cta}
             </span>
@@ -88,37 +85,37 @@ export default function ActionGrid() {
         ))}
       </div>
 
-      {/* Insurance + EMI callout bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl px-6 py-4">
-        <div className="flex items-center gap-3">
-          <ShieldCheck className="w-6 h-6 text-green-600 shrink-0" />
+      {/* Insurance + EMI callout bar — stacked on mobile */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl md:rounded-2xl px-4 md:px-6 py-4">
+        <div className="flex items-start md:items-center gap-3">
+          <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-green-600 shrink-0 mt-0.5 md:mt-0" />
           <div>
-            <p className="font-bold text-slate-800 text-[15px]">₹0 Upfront with Cashless Insurance</p>
-            <p className="text-slate-500 text-[13px]">TATA AIG · Star Health · HDFC Ergo · Care Health · + 26 more</p>
+            <p className="font-bold text-slate-800 text-[14px] md:text-[15px]">₹0 Upfront with Cashless Insurance</p>
+            <p className="text-slate-500 text-[12px] md:text-[13px]">TATA AIG · Star Health · HDFC Ergo · Care Health · + 26 more</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <CreditCard className="w-6 h-6 text-violet-600 shrink-0" />
+        <div className="flex items-start md:items-center gap-3">
+          <CreditCard className="w-5 h-5 md:w-6 md:h-6 text-violet-600 shrink-0 mt-0.5 md:mt-0" />
           <div>
-            <p className="font-bold text-slate-800 text-[15px]">No-Cost EMI Available</p>
-            <p className="text-slate-500 text-[13px]">Pay from ₹999/month · 0% interest options</p>
+            <p className="font-bold text-slate-800 text-[14px] md:text-[15px]">No-Cost EMI Available</p>
+            <p className="text-slate-500 text-[12px] md:text-[13px]">Pay from ₹999/month · 0% interest options</p>
           </div>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 md:gap-3 shrink-0 w-full md:w-auto">
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#25D366] text-white font-bold px-5 py-2.5 rounded-xl text-[14px] hover:bg-[#1db954] transition-colors whitespace-nowrap"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold px-4 md:px-5 py-2.5 rounded-xl text-[13px] md:text-[14px] hover:bg-[#1db954] transition-colors whitespace-nowrap"
           >
             <MessageCircle className="w-4 h-4" />
-            Check Eligibility Free
+            Check Eligibility
           </a>
           <a
             href="#lead-capture"
-            className="flex items-center gap-1.5 text-[#05f] font-semibold text-[14px] whitespace-nowrap hover:underline"
+            className="flex items-center gap-1 text-[#05f] font-semibold text-[13px] md:text-[14px] whitespace-nowrap hover:underline shrink-0"
           >
-            Get EMI Quote <ChevronRight className="w-4 h-4" />
+            EMI Quote <ChevronRight className="w-4 h-4" />
           </a>
         </div>
       </div>
