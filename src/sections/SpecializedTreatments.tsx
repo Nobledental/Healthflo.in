@@ -33,58 +33,72 @@ export default function SpecializedTreatments() {
 
   return (
     <section className="w-full py-12 relative z-10" id="specialized-treatments">
-      <div className="text-center mb-14">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+      <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="text-xs font-bold tracking-[0.2em] text-[#05f] uppercase mb-3"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#0055ff] text-xs font-bold tracking-widest uppercase mb-6 shadow-sm"
         >
-          Treatment Packages &amp; Pricing
-        </motion.p>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          Transparent Pricing
+        </motion.div>
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-3"
+          className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 tracking-tight leading-[1.1] mb-6"
         >
-          Explore Treatments
-          <span className="text-[#05f]"> &amp; Package Rates</span>
+          Explore Treatments <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] to-cyan-500">
+            &amp; Package Rates
+          </span>
         </motion.h2>
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.18 }}
-          className="text-[13px] text-slate-400 flex items-center justify-center gap-1.5 mt-1"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-slate-200 text-[14px] text-slate-600 font-medium shadow-sm"
         >
-          <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 text-amber-400" stroke="currentColor" strokeWidth="1.5">
+          <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 text-amber-500 shrink-0" stroke="currentColor" strokeWidth="1.5">
             <circle cx="8" cy="8" r="7"/>
             <line x1="8" y1="7" x2="8" y2="11"/>
             <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
           </svg>
-          Prices shown are indicative starting rates. Final pricing may vary by location &amp; complexity.
-          <span className="font-semibold text-slate-500">T&amp;C Apply.</span>
-        </motion.p>
+          <span>
+            Prices shown are indicative starting rates. Final pricing may vary by location.
+          </span>
+        </motion.div>
       </div>
 
       <div className="max-w-6xl mx-auto flex flex-col items-center">
-        {/* Sleek, Text-only Pill Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        {/* Sleek Segmented Control Tabs */}
+        <div className="flex flex-wrap justify-center p-1.5 bg-slate-100/80 backdrop-blur-md rounded-full border border-slate-200/60 shadow-sm mb-16">
           {specialtiesData.map((specialty) => {
             const isSelected = activeSpecialtyId === specialty.id;
             return (
               <button
                 key={specialty.id}
                 onClick={() => handleSpecialtyChange(specialty.id)}
-                className={`px-6 py-3 rounded-full text-[15px] font-semibold transition-all duration-300 ${
+                className={`relative px-7 py-2.5 rounded-full text-[15px] font-semibold transition-colors duration-300 ${
                   isSelected 
-                    ? "bg-[#05f] text-white shadow-md shadow-blue-500/30" 
-                    : "bg-[#b9c3d7]/30 text-slate-700 hover:bg-[#b9c3d7]/50"
+                    ? "text-white" 
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
                 }`}
               >
-                {specialty.name}
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeTreatmentTab"
+                    className="absolute inset-0 bg-[#0055ff] rounded-full shadow-md shadow-blue-500/25"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10">{specialty.name}</span>
               </button>
             );
           })}

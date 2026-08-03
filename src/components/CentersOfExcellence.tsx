@@ -482,7 +482,7 @@ interface ExtendedDepartmentItem {
     title: string;
     subTitle: string;
     description: string;
-    icon: React.ElementType;
+    icon: any;
     bg: string;
     accent: string;
     features: string[];

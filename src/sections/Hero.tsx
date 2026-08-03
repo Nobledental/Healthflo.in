@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useBattery } from "../hooks/useBattery";
+import dynamic from "next/dynamic";
+
+// Dynamically import the 3D background so it doesn't block initial page load (Client Side Only)
+const Hero3DBackground = dynamic(() => import("../components/Hero3DBackground"), {
+  ssr: false,
+});
 
 const treatments = [
   "Laser Piles Treatment",
@@ -30,6 +36,8 @@ export default function Hero() {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] relative py-8 overflow-hidden w-full transition-colors duration-1000">
+      {/* 3D Medical Model Background */}
+      {!powerSavingMode && <Hero3DBackground />}
 
       {/* Top Indicators */}
       <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 md:px-8 z-20">
