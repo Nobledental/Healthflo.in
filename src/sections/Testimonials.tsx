@@ -70,7 +70,7 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="snap-center shrink-0 w-[280px] md:w-[320px] bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative"
+              className="snap-center shrink-0 w-[82vw] sm:w-[280px] md:w-[320px] bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative"
             >
               <Quote className="absolute top-4 right-4 text-slate-100 w-6 h-6 rotate-180" />
               

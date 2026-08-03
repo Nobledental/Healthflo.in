@@ -56,7 +56,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="w-full py-12 relative z-10" id="faq">
+    <section className="w-full py-8 md:py-12 pb-24 md:pb-12 relative z-10" id="faq">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
@@ -75,7 +75,7 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight"
+          className="text-2xl sm:text-3xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight"
         >
           Frequently Asked<br />
           <span className="font-medium text-slate-900">Questions.</span>
@@ -107,9 +107,9 @@ export default function FAQ() {
           >
             <button
               onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-              className="w-full flex items-start justify-between gap-4 text-left px-6 py-5"
+              className="w-full flex items-start justify-between gap-3 text-left px-4 py-4 md:px-6 md:py-5"
             >
-              <span className={`font-semibold text-[15px] leading-snug ${openIdx === idx ? "text-[#05f]" : "text-slate-800"}`}>
+              <span className={`font-semibold text-[14px] md:text-[15px] leading-snug ${openIdx === idx ? "text-[#05f]" : "text-slate-800"}`}>
                 {faq.q}
               </span>
               <span className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5 transition-colors ${openIdx === idx ? "bg-[#05f] text-white" : "bg-slate-100 text-slate-500"}`}>

@@ -74,12 +74,12 @@ export default function Hero() {
           <span style={{ color: "#1557b0" }}>&nbsp;Hospital's</span>
         </h1>
 
-        <h2 className="text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-medium leading-[1.4] tracking-tight z-10 mb-3 max-w-3xl mx-auto text-slate-700 mt-1 px-2">
+        <h2 className="hidden sm:block text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-medium leading-[1.4] tracking-tight z-10 mb-3 max-w-3xl mx-auto text-slate-700 mt-1 px-2">
           <span className="block">Advanced Laser Surgical Care. Zero Pain. Same-Day Discharge.</span>
         </h2>
 
-        {/* Social Proof Numbers — compact on mobile */}
-        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8 mb-4 mt-1">
+        {/* Social Proof Numbers — hidden on mobile */}
+        <div className="hidden sm:flex flex-wrap items-center justify-center gap-3 md:gap-8 mb-4 mt-1">
           {[
             { value: "10,000+", label: "Patients" },
             { value: "4.8★", label: "Rating" },
@@ -94,7 +94,7 @@ export default function Hero() {
           ))}
         </div>
 
-        <p className="text-[14px] md:text-[16px] lg:text-[18px] font-normal max-w-2xl mx-auto leading-relaxed mb-2 text-slate-500 px-2">
+        <p className="hidden sm:block text-[14px] md:text-[16px] lg:text-[18px] font-normal max-w-2xl mx-auto leading-relaxed mb-2 text-slate-500 px-2">
           India's trusted laser surgical care network — USFDA-approved procedures, cashless support across 30+ insurance companies, and dedicated care coordinators from first consult to full recovery.
         </p>
 
