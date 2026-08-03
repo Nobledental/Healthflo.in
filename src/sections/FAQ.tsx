@@ -42,8 +42,25 @@ const faqs = [
 export default function FAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a,
+      },
+    })),
+  };
+
   return (
     <section className="w-full py-12 relative z-10" id="faq">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
       <div className="text-center mb-12">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -74,7 +91,7 @@ export default function FAQ() {
         </motion.p>
       </div>
 
-      <div className="max-w-3xl mx-auto flex flex-col gap-3">
+      <div className="max-w-3xl mx-auto flex flex-col gap-3 px-4">
         {faqs.map((faq, idx) => (
           <motion.div
             key={idx}

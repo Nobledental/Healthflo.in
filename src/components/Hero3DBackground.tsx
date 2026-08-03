@@ -24,11 +24,13 @@ function OrganMesh({ path, accent }: { path: string; accent: string }) {
   useEffect(() => {
     if (!scene) return;
 
-    // Normalise size: fit every model into a 2.4-unit bounding sphere
+    // Normalise size: fit every model into a consistent target bounding sphere
     const box = new THREE.Box3().setFromObject(scene);
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
-    const targetSize = 2.4;
+    
+    // 2.3 fits perfectly within the card bounds at camera z=4.2
+    const targetSize = 2.3;
     const s = targetSize / (maxDim || 1);
     scene.scale.setScalar(s);
 
@@ -191,14 +193,14 @@ export default function Hero3DBackground() {
               // Alternate spots; advance organ
               const nextSpot = (spotIdx + 1) % SPOTS.length;
               const nextOrg  = (orgIdx + 1) % ORGANS.length;
-              cycle(nextSpot, nextOrg, 800);
+              cycle(nextSpot, nextOrg, 150); // Minimal gap before next card
             }, 300);
-          }, 4500 + Math.random() * 1500);
+          }, 3500 + Math.random() * 1000); // Also slightly shorter display time so it feels faster
         }, 300);
       }, delay);
     };
 
-    cycle(0, 0, 1000);
+    cycle(0, 0, 150);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, []);
 

@@ -148,22 +148,32 @@ export default function LeadCapture() {
 
                 <button
                   type="submit"
-                  className="w-full mt-2 bg-[#05f] hover:bg-blue-700 text-white font-bold py-4 rounded-xl text-[16px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2"
+                  className="w-full mt-2 bg-gradient-to-r from-[#0038ff] to-[#0060ff] hover:from-blue-700 hover:to-blue-600 text-white font-bold py-4 rounded-xl text-[18px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(0,56,255,0.6)] flex items-center justify-center gap-2 relative overflow-hidden group"
                 >
-                  <Calendar className="w-5 h-5" />
-                  Get Free Callback Now
+                  {/* Subtle shine effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                  <Calendar className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">Get Free Callback Now</span>
+                  <div className="absolute top-0 right-0 -mr-2 -mt-2 w-4 h-4 rounded-full bg-emerald-400 animate-pulse border-2 border-white shadow-sm" />
                 </button>
 
-                <div className="flex items-center justify-center gap-4 pt-2">
-                  <a href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[13px] text-slate-500 hover:text-green-600 transition-colors font-medium">
-                    <MessageCircle className="w-4 h-4" /> WhatsApp Instead
-                  </a>
-                  <span className="text-slate-300">|</span>
-                  <a href={`tel:${PHONE}`}
-                    className="flex items-center gap-2 text-[13px] text-slate-500 hover:text-[#05f] transition-colors font-medium">
-                    <Phone className="w-4 h-4" /> Call Directly
-                  </a>
+                <div className="flex flex-col items-center justify-center gap-3 pt-3">
+                  <div className="flex items-center gap-1.5 text-[12px] font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    100% Secure & Zero Spam Promise
+                  </div>
+                  
+                  <div className="flex items-center gap-4">
+                    <a href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-[13px] text-slate-500 hover:text-[#25D366] transition-colors font-medium">
+                      <MessageCircle className="w-4 h-4" /> WhatsApp Instead
+                    </a>
+                    <span className="text-slate-300">|</span>
+                    <a href={`tel:${PHONE}`}
+                      className="flex items-center gap-2 text-[13px] text-slate-500 hover:text-[#05f] transition-colors font-medium">
+                      <Phone className="w-4 h-4" /> Call Directly
+                    </a>
+                  </div>
                 </div>
               </form>
             )}

@@ -138,10 +138,16 @@ export default function PackageInclusions() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-5 pt-4 border-t border-white/10">
-                  <p className="text-white/60 text-[12px] italic">
-                    * No hidden bills. No surprise charges. Every necessary item is covered for your procedure.
+                <div className="mt-5 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <p className="text-white/60 text-[12px] italic max-w-[200px]">
+                    * No hidden bills. No surprise charges.
                   </p>
+                  <a
+                    href="tel:+919363650066"
+                    className="inline-flex items-center justify-center gap-2 bg-white text-[#05f] text-[13px] font-bold px-6 py-2.5 rounded-full hover:bg-blue-50 transition-colors shadow-md shrink-0"
+                  >
+                    Check Eligibility <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </motion.div>
 
