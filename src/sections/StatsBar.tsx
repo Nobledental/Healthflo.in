@@ -49,11 +49,11 @@ function StatItem({ stat }: { stat: typeof stats[0] }) {
   }, []);
 
   return (
-    <div ref={ref} className="flex flex-col items-center text-center px-4">
-      <div className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-none mb-1">
+    <div ref={ref} className="flex flex-col items-center text-center px-2 md:px-4 py-2">
+      <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-none mb-1">
         {stat.prefix}{count}{stat.suffix}
       </div>
-      <div className="text-blue-200 text-[13px] font-medium">{stat.label}</div>
+      <div className="text-blue-200 text-[11px] md:text-[13px] font-medium">{stat.label}</div>
     </div>
   );
 }
@@ -74,7 +74,7 @@ export default function StatsBar() {
           <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 divide-x divide-white/10">
+        <div className="relative z-10 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {stats.map((stat, idx) => (
             <StatItem key={idx} stat={stat} />
           ))}
