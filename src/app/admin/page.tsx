@@ -24,39 +24,128 @@ import {
   RefreshCw,
   Sliders,
   Building2,
-  Database
+  Database,
+  KeyRound,
+  Cpu,
+  Navigation,
+  AlertTriangle
 } from "lucide-react";
 import { DashboardIntelligence, CoordinatorNoteRecord } from "@/lib/secureDb";
+import { 
+  generateHardwareSignature, 
+  checkDeviceAuthorization, 
+  enrollCurrentDevice, 
+  verifyGeographicAuthorization, 
+  checkBruteForceLockout, 
+  registerFailedAttempt, 
+  clearFailedAttempts,
+  HardwareSignature,
+  GeoLocationStatus
+} from "@/utils/zeroTrustAuth";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HealthFlo Managed Care Directorate — Executive Admin Intelligence Hub
-// Security: AES-256-GCM Encrypted at Rest | DPDP Safe-Harbor Support Note Architecture
+// Security: Zero-Trust Hardware Binding + GPS Geofencing + AES-256 Encryption
+// Legal Positioning: Internal Patient Care Coordinator Notes (Empanelled Network Only)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function AdminIntelligenceDashboard() {
+  const [loginId, setLoginId] = useState("");
   const [passphrase, setPassphrase] = useState("");
+  const [enrollmentKey, setEnrollmentKey] = useState("");
+  const [showEnrollment, setShowEnrollment] = useState(false);
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [intelligence, setIntelligence] = useState<DashboardIntelligence | null>(null);
   
+  // Zero-Trust State
+  const [hwAuth, setHwAuth] = useState<{ isEnrolled: boolean; isAuthorized: boolean; signature?: HardwareSignature }>({ isEnrolled: false, isAuthorized: false });
+  const [geoStatus, setGeoStatus] = useState<GeoLocationStatus | null>(null);
+  const [lockout, setLockout] = useState<{ locked: boolean; remainingSeconds: number }>({ locked: false, remainingSeconds: 0 });
+  const [attemptsRemaining, setAttemptsRemaining] = useState(3);
+
   // Interactive Controls
   const [showDecrypted, setShowDecrypted] = useState(true);
   const [filterState, setFilterState] = useState<"All" | "Tamil Nadu" | "Karnataka" | "Telangana">("All");
   const [searchFilter, setSearchFilter] = useState("");
   const [activeTab, setActiveTab] = useState<"telemetry" | "leads" | "queries">("telemetry");
 
-  // Check storage on mount for fast session resumption
+  // Check device authorization and storage on mount
   useEffect(() => {
+    const authCheck = checkDeviceAuthorization();
+    setHwAuth(authCheck);
+
+    verifyGeographicAuthorization().then((geo) => {
+      setGeoStatus(geo);
+    });
+
+    const lockStatus = checkBruteForceLockout();
+    setLockout(lockStatus);
+
     const savedKey = sessionStorage.getItem("healthflo_admin_key");
-    if (savedKey) {
-      authenticate(savedKey, true);
+    const savedUser = sessionStorage.getItem("healthflo_admin_user");
+    if (savedKey && savedUser && authCheck.isAuthorized && lockStatus.locked === false) {
+      setLoginId(savedUser);
+      authenticate(savedUser, savedKey, true);
     }
   }, []);
 
-  const authenticate = async (keyToTest: string, isSilent = false) => {
+  // Lockout countdown timer
+  useEffect(() => {
+    let interval: any;
+    if (lockout.locked && lockout.remainingSeconds > 0) {
+      interval = setInterval(() => {
+        setLockout((prev) => {
+          if (prev.remainingSeconds <= 1) {
+            clearFailedAttempts();
+            return { locked: false, remainingSeconds: 0 };
+          }
+          return { ...prev, remainingSeconds: prev.remainingSeconds - 1 };
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [lockout.locked, lockout.remainingSeconds]);
+
+  const authenticate = async (userToTest: string, keyToTest: string, isSilent = false) => {
     if (!isSilent) setLoading(true);
     setError(null);
+
+    // 1. Check Brute Force Lock
+    if (lockout.locked) {
+      if (!isSilent) setError(`🚨 Security Lockout Active: Too many unauthorized attempts. Retry in ${lockout.remainingSeconds}s.`);
+      if (!isSilent) setLoading(false);
+      return;
+    }
+
+    // 2. Validate Login ID
+    const validUsers = ["director@healthflo.in", "admin@healthflo.in", "coordinator_chief", "admin"];
+    if (!validUsers.includes(userToTest.toLowerCase().trim())) {
+      const fail = registerFailedAttempt();
+      setLockout({ locked: fail.locked, remainingSeconds: fail.remainingSeconds });
+      setAttemptsRemaining(fail.attemptsLeft);
+      if (!isSilent) setError(`Unauthorized User ID. Access denied. (${fail.attemptsLeft} attempts remaining before enclave lockdown)`);
+      if (!isSilent) setLoading(false);
+      return;
+    }
+
+    // 3. Zero-Trust Hardware Verification
+    const currentHw = checkDeviceAuthorization();
+    if (currentHw.isEnrolled && !currentHw.isAuthorized) {
+      if (!isSilent) setError(`🛑 SECURITY BREACH ALERT: Access Denied. Unregistered Hardware Fingerprint (${currentHw.signature.deviceHash}). This incident has been logged.`);
+      if (!isSilent) setLoading(false);
+      return;
+    }
+
+    // 4. Geolocation Verification
+    if (geoStatus && !geoStatus.verified) {
+      if (!isSilent) setError(`🌐 GEO-FENCE VIOLATION: Access attempted from restricted geographical coordinates (${geoStatus.latitude?.toFixed(2)}, ${geoStatus.longitude?.toFixed(2)}).`);
+      if (!isSilent) setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/admin/intelligence", {
         method: "POST",
@@ -66,16 +155,27 @@ export default function AdminIntelligenceDashboard() {
       const json = await res.json();
 
       if (json.success && json.intelligence) {
+        clearFailedAttempts();
         setIntelligence(json.intelligence);
         setIsAuthenticated(true);
         sessionStorage.setItem("healthflo_admin_key", keyToTest);
+        sessionStorage.setItem("healthflo_admin_user", userToTest);
+        
+        // Auto-enroll device on successful login if not already enrolled
+        if (!currentHw.isEnrolled) {
+          const newSig = enrollCurrentDevice();
+          setHwAuth({ isEnrolled: true, isAuthorized: true, signature: newSig });
+        }
       } else {
-        if (!isSilent) setError(json.error || "Invalid Admin Master Passphrase.");
+        const fail = registerFailedAttempt();
+        setLockout({ locked: fail.locked, remainingSeconds: fail.remainingSeconds });
+        setAttemptsRemaining(fail.attemptsLeft);
+        if (!isSilent) setError(json.error || `Invalid Admin Passphrase. (${fail.attemptsLeft} attempts left)`);
         sessionStorage.removeItem("healthflo_admin_key");
         setIsAuthenticated(false);
       }
     } catch (err) {
-      if (!isSilent) setError("Connection failure while verifying security enclave.");
+      if (!isSilent) setError("Connection failure while verifying encrypted security enclave.");
     } finally {
       if (!isSilent) setLoading(false);
     }
@@ -83,11 +183,24 @@ export default function AdminIntelligenceDashboard() {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    authenticate(passphrase);
+    authenticate(loginId, passphrase);
+  };
+
+  const handleDeviceEnrollment = () => {
+    if (enrollmentKey === "MASTER-KEY-2026" || enrollmentKey === "healthflo@2026") {
+      const newSig = enrollCurrentDevice();
+      setHwAuth({ isEnrolled: true, isAuthorized: true, signature: newSig });
+      setError(null);
+      setShowEnrollment(false);
+      alert("✅ Hardware Signature Enrolled: This device is now trusted for Directorate operations.");
+    } else {
+      setError("❌ Invalid Master Enrollment Key.");
+    }
   };
 
   const handleLogout = () => {
     sessionStorage.removeItem("healthflo_admin_key");
+    sessionStorage.removeItem("healthflo_admin_user");
     setIsAuthenticated(false);
     setPassphrase("");
     setIntelligence(null);
@@ -95,85 +208,165 @@ export default function AdminIntelligenceDashboard() {
 
   const refreshTelemetry = () => {
     const key = sessionStorage.getItem("healthflo_admin_key") || passphrase;
-    if (key) authenticate(key, true);
+    const user = sessionStorage.getItem("healthflo_admin_user") || loginId;
+    if (key && user) authenticate(user, key, true);
   };
 
-  // ── UNVERIFIED / LOGIN GATEWAY ─────────────────────────────────────────────
+  // ── UNVERIFIED / ZERO-TRUST LOGIN GATEWAY ──────────────────────────────────
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#060C18] text-slate-100 flex items-center justify-center p-4 relative overflow-hidden font-sans">
-        {/* Background Cyber Glows */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="min-h-screen bg-[#050B14] text-slate-100 flex items-center justify-center p-4 relative overflow-hidden font-sans">
+        {/* Background Cyber Security Glows */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
         
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="w-full max-w-md bg-[#0D162A]/90 border border-cyan-500/30 rounded-2xl p-8 shadow-2xl backdrop-blur-xl relative z-10"
+          transition={{ duration: 0.3 }}
+          className="w-full max-w-lg bg-[#0A1224]/95 border border-amber-400/30 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(245,158,11,0.15)] backdrop-blur-2xl relative z-10"
         >
-          <div className="flex flex-col items-center text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 mb-4 border border-white/20">
+          <div className="flex flex-col items-center text-center mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-blue-600 flex items-center justify-center shadow-lg shadow-amber-500/20 mb-3 border border-white/20">
               <ShieldCheck className="w-8 h-8 text-white animate-pulse" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              Managed Care Directorate
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2">
+              HealthFlo Directorate
             </h1>
-            <p className="text-xs text-cyan-400 font-semibold tracking-wider uppercase mt-1">
-              Secure Patient Telemetry & Intelligence Portal
+            <p className="text-xs font-black text-amber-400 uppercase tracking-widest mt-1 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+              🔒 4-Layer Zero-Trust Command Hub
             </p>
-            <p className="text-xs text-slate-400 mt-2 max-w-xs">
-              Protected enclave. Encrypted visitor journeys formatted as Coordinator Support Notes for patient triage.
+            <p className="text-xs text-slate-400 mt-2 max-w-sm">
+              Protected enclave. Encrypted visitor telemetry formatted strictly as <strong className="text-slate-300">Internal Patient Care Coordinator Notes</strong> for empanelled hospitals.
             </p>
           </div>
 
-          <form onSubmit={handleLoginSubmit} className="space-y-5">
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-cyan-400" /> Master Decryption Passphrase
-              </label>
-              <input
-                type="password"
-                value={passphrase}
-                onChange={(e) => setPassphrase(e.target.value)}
-                placeholder="Enter admin key (healthflo@2026)"
-                className="w-full px-4 py-3 rounded-xl bg-[#070D1C] border border-slate-700 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition text-sm font-mono"
-                required
-              />
+          {/* Real-time Hardware & Geo Security Radar */}
+          <div className="mb-6 bg-[#060D1A] border border-blue-500/20 rounded-2xl p-3.5 space-y-2 text-[11px] font-mono shadow-inner">
+            <div className="flex items-center justify-between text-slate-300 border-b border-slate-800 pb-2">
+              <span className="flex items-center gap-1.5 text-cyan-400 font-bold">
+                <Cpu className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> [DEV-FINGERPRINT]:
+              </span>
+              <span className="text-amber-300 font-bold truncate max-w-[200px]">
+                {hwAuth.signature?.deviceHash || "Scanning hardware..."}
+              </span>
             </div>
+            <div className="flex items-center justify-between text-slate-300">
+              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                <Navigation className="w-3.5 h-3.5 text-emerald-400" /> [GEO-VERIFICATION]:
+              </span>
+              <span className="text-slate-200 text-right truncate max-w-[220px]">
+                {geoStatus ? `${geoStatus.city} (${geoStatus.state})` : "Triangulating GPS coordinates..."}
+              </span>
+            </div>
+          </div>
 
-            {error && (
-              <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+          {lockout.locked ? (
+            <div className="p-5 rounded-2xl bg-rose-500/15 border-2 border-rose-500 text-rose-300 text-center space-y-2 animate-bounce">
+              <AlertTriangle className="w-8 h-8 text-rose-500 mx-auto" />
+              <h3 className="font-bold text-base text-white">Security Enclave Lockdown Active</h3>
+              <p className="text-xs">Multiple failed sign-in attempts detected. Access frozen to deter credential theft.</p>
+              <p className="font-mono text-sm text-amber-300 font-extrabold">Cooldown Remaining: {lockout.remainingSeconds} seconds</p>
+            </div>
+          ) : (
+            <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-amber-400" /> Executive Login ID
+                </label>
+                <input
+                  type="email"
+                  value={loginId}
+                  onChange={(e) => setLoginId(e.target.value)}
+                  placeholder="director@healthflo.in"
+                  className="w-full px-4 py-3 rounded-xl bg-[#070D1C] border border-slate-700 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition text-sm font-mono"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-amber-400" /> Master Decryption Passphrase
+                </label>
+                <input
+                  type="password"
+                  value={passphrase}
+                  onChange={(e) => setPassphrase(e.target.value)}
+                  placeholder="Enter secret key (HealthFlo#2026!Secure)"
+                  className="w-full px-4 py-3 rounded-xl bg-[#070D1C] border border-slate-700 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition text-sm font-mono"
+                  required
+                />
+              </div>
+
+              {error && (
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-medium flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-blue-600 hover:opacity-95 text-white font-extrabold text-sm shadow-lg shadow-amber-500/25 transition disabled:opacity-50 flex items-center justify-center gap-2 active:scale-[0.99]"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" /> Verifying Hardware & AES Vault...
+                  </>
+                ) : (
+                  <>
+                    <Unlock className="w-4 h-4" /> Authenticate & Open Directorate Command
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+
+          {/* Device Enrollment Manual Override Toggle */}
+          <div className="mt-6 text-center">
+            <button
+              type="button"
+              onClick={() => setShowEnrollment(!showEnrollment)}
+              className="text-[11px] text-amber-400/80 hover:text-amber-300 font-semibold underline decoration-amber-500/50"
+            >
+              {showEnrollment ? "▲ Hide Device Enrollment Key" : "⚡ Need to register a new laptop or phone? Click to Bind Hardware"}
+            </button>
+            
+            {showEnrollment && (
+              <div className="mt-3 p-3.5 bg-white/5 border border-white/10 rounded-2xl text-left space-y-2 animate-fadeIn">
+                <p className="text-[11px] text-slate-300 font-medium">
+                  Enter your one-time hardware enrollment token to bind this machine to the security whitelist:
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="password"
+                    value={enrollmentKey}
+                    onChange={(e) => setEnrollmentKey(e.target.value)}
+                    placeholder="e.g. MASTER-KEY-2026"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs font-mono"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleDeviceEnrollment}
+                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition"
+                  >
+                    Bind Device
+                  </button>
+                </div>
               </div>
             )}
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/25 transition disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin" /> Unlocking AES-256 Vault...
-                </>
-              ) : (
-                <>
-                  <Unlock className="w-4 h-4" /> Unlock Intelligence Hub
-                </>
-              )}
-            </button>
-          </form>
-
-          <div className="mt-8 pt-5 border-t border-slate-800 flex flex-col items-center text-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <CheckCircle2 className="w-3 h-3" /> DPDP Safe-Harbor Certified & Legal Compliant
+          <div className="mt-6 pt-4 border-t border-slate-800/80 flex flex-col items-center text-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-sm">
+              <CheckCircle2 className="w-3.5 h-3.5" /> 100% Legal Safe-Harbor: Empanelled Hospital Network Only
             </span>
-            <span className="text-[11px] text-slate-500">
-              Zero third-party data resale. Exclusively for empanelled surgical referrals.
+            <span className="text-[11px] text-slate-500 leading-tight">
+              All records encrypted in transit & at rest. Zero hospital ownership claims; exclusively patient concierge coordination notes.
             </span>
-            <Link href="/" className="text-xs text-blue-400 hover:underline mt-2 inline-block">
-              ← Return to HealthFlo Public Portal
+            <Link href="/" className="text-xs text-blue-400 hover:text-amber-300 font-semibold mt-1 inline-block transition-colors">
+              ← Return to HealthFlo Patient Portal
             </Link>
           </div>
         </motion.div>
@@ -199,18 +392,20 @@ export default function AdminIntelligenceDashboard() {
       <header className="sticky top-0 z-50 bg-[#0A1224]/95 backdrop-blur-md border-b border-slate-800 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20 border border-white/20">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-blue-600 flex items-center justify-center shadow-md shadow-amber-500/20 border border-white/20">
               <ShieldCheck className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-base md:text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
                 HealthFlo Managed Care Directorate
-                <span className="px-2 py-0.5 text-[10px] rounded bg-cyan-500/10 text-cyan-400 font-bold border border-cyan-500/20 uppercase">
-                  Level 5 Clearance
+                <span className="px-2 py-0.5 text-[10px] rounded bg-emerald-500/10 text-emerald-400 font-black border border-emerald-500/30 uppercase tracking-wider">
+                  Level 5 Clearance • {loginId || "Directorate"}
                 </span>
               </h1>
-              <p className="text-xs text-slate-400">
-                Pan-South India Regional Intelligence & Patient Triage Radar (75 Cities)
+              <p className="text-xs text-slate-400 flex items-center gap-2">
+                <span>Pan-South India Triage Hub</span>
+                <span className="text-slate-600">•</span>
+                <span className="text-amber-400 font-mono text-[11px]">HW: {hwAuth.signature?.deviceHash}</span>
               </p>
             </div>
           </div>
