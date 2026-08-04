@@ -3,6 +3,7 @@ import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 import SpeculationRules from "@/components/SpeculationRules";
 import UIProtector from "@/components/UIProtector";
+import CoordinatorIntelligenceTracker from "@/components/analytics/CoordinatorIntelligenceTracker";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -197,6 +198,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
         <SpeculationRules />
         <UIProtector />
+        <CoordinatorIntelligenceTracker />
         {children}
       </body>
     </html>
