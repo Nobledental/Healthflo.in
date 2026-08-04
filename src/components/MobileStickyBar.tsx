@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { haptic } from "@/utils/haptics";
-
-const PHONE = "+919363650066";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function MobileStickyBar() {
+  const { config } = useSiteConfig();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname() || "";
 
@@ -30,7 +30,7 @@ export default function MobileStickyBar() {
     regionalLabel = "Telangana Care Concierge Active (తెలుగు)";
   }
 
-  const whatsappUrl = `https://wa.me/${PHONE}?text=${encodeURIComponent(regionalMsg)}`;
+  const whatsappUrl = `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(regionalMsg)}`;
 
   const toggleMenu = () => {
     haptic.light();
@@ -193,7 +193,7 @@ export default function MobileStickyBar() {
           </a>
           
           <a
-            href={`tel:${PHONE}`}
+            href={`tel:+${config.helplineRaw}`}
             data-analytics="helpline_mobile_dock_click"
             onClick={() => haptic.medium()}
             className="flex flex-col items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight shadow-md active:scale-[0.92] transition-all w-full min-w-0"

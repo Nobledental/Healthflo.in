@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { recordVisitorEvent } from "@/lib/secureDb";
+import { triggerAutoResponder } from "@/lib/autoResponder";
 
+// Route Handler for Real-Time Telemetry and Multi-Channel Bot Dispatch
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -10,6 +12,16 @@ export async function POST(req: NextRequest) {
     let device = "Desktop Browser";
     if (/mobile/i.test(userAgent)) device = "Mobile Smartphone";
     else if (/ipad|tablet/i.test(userAgent)) device = "Tablet Device";
+
+    let receipts = undefined;
+    if (body.leadContact && body.leadContact.phone) {
+      receipts = await triggerAutoResponder({
+        name: body.leadContact.name || "Patient Inquiry",
+        phone: body.leadContact.phone,
+        procedure: body.leadContact.procedure,
+        email: body.leadContact.email
+      });
+    }
 
     const savedRecord = await recordVisitorEvent({
       sessionId: body.sessionId,
@@ -21,13 +33,15 @@ export async function POST(req: NextRequest) {
       lastClickedElement: body.lastClickedElement,
       searchQueries: body.searchQueries || [],
       leadContact: body.leadContact,
-      coordinatorClinicalNote: body.coordinatorClinicalNote
+      coordinatorClinicalNote: body.coordinatorClinicalNote,
+      autoResponderReceipts: receipts
     });
 
     return NextResponse.json({
       success: true,
       message: "Telemetry event captured safely under Coordinator Patient Care Support log (Encrypted At Rest).",
-      recordId: savedRecord.id
+      recordId: savedRecord.id,
+      autoResponderReceipts: receipts
     });
   } catch (error: any) {
     console.error("Telemetry Logging Error:", error);

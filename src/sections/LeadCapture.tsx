@@ -21,9 +21,7 @@ import {
   Globe2
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
-
-const PHONE = "+919363650066";
-const WHATSAPP_URL = `https://wa.me/919363650066?text=${encodeURIComponent("Hello HealthFlo, I would like to consult with a medical coordinator in Tamil / Kannada / Telugu regarding cashless surgical treatments and out-of-town transit support.")}`;
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 type Message = {
   id: string;
@@ -36,6 +34,10 @@ type Message = {
 };
 
 export default function LeadCapture() {
+  const { config } = useSiteConfig();
+  const PHONE = `+${config.helplineRaw}`;
+  const WHATSAPP_URL = config.socials.whatsapp;
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [step, setStep] = useState<"treatment" | "city" | "details" | "complete">("treatment");
   const [selectedTreatment, setSelectedTreatment] = useState("");
@@ -140,6 +142,27 @@ export default function LeadCapture() {
     haptic.success();
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+    // Fire real telemetry log and instant auto-responder dispatch
+    fetch("/api/coordinator/log", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId: "SESS_WEB_" + Math.floor(1000 + Math.random() * 9000),
+        city: selectedCity.split(" (")[0] || "South India Triage Hub",
+        state: selectedCity.includes("Tamil") ? "Tamil Nadu" : selectedCity.includes("Karnataka") ? "Karnataka" : selectedCity.includes("Hyderabad") ? "Telangana" : "Pan-India",
+        device: "Web Lead Capture Console",
+        pagesViewed: ["/ (Interactive Lead Triage Console)"],
+        lastClickedElement: "Lead Capture Chat Completion",
+        leadContact: {
+          name,
+          phone,
+          procedure: selectedTreatment || "General Surgical Consultation",
+          status: "Urgent Triage"
+        },
+        coordinatorClinicalNote: `Patient requested priority triage via interactive FLO Agent console. Selected treatment: ${selectedTreatment}. Region: ${selectedCity}.`
+      })
+    }).catch(err => console.error("Auto-responder dispatch error:", err));
+
     setMessages(prev => prev.map(m => m.action === "ENTER_DETAILS" ? { ...m, action: undefined } : m).concat({
       id: Date.now().toString(),
       sender: "user",
@@ -156,7 +179,7 @@ export default function LeadCapture() {
         id: Date.now().toString(),
         sender: "bot",
         senderName: "FLO Agent",
-        text: `Priority Triage Confirmed, ${name}! Your consultation for ${selectedTreatment} has been forwarded to our regional desk in ${selectedCity.split(" (")[0]}. A specialized medical coordinator will call you directly at ${phone} within 30 minutes. You can also message us immediately on WhatsApp in Tamil, Kannada, or Telugu to share any prescriptions or reports.`,
+        text: `Priority Triage Confirmed, ${name}! 🚀 We have instantly dispatched an automated WhatsApp & SMS confirmation receipt to ${phone}. Your consultation for ${selectedTreatment} has been logged for our regional surgical desk in ${selectedCity.split(" (")[0]}. A specialized medical coordinator will call you directly from ${config.helplineNumber} within 30 minutes!`,
         action: "COMPLETE",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
@@ -269,7 +292,7 @@ export default function LeadCapture() {
                     24/7 MULTILINGUAL HELPLINE
                   </span>
                   <p className="text-base font-black text-slate-900 group-hover:text-[#0066FF] transition-colors">
-                    +91 93636 50066
+                    {config.helplineNumber}
                   </p>
                 </div>
               </a>

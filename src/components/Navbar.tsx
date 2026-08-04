@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import InteractiveOrb from "./InteractiveOrb";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function Navbar() {
+  const { config } = useSiteConfig();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastOrbSection, setIsPastOrbSection] = useState(false);
   const [showSafeTooltip, setShowSafeTooltip] = useState(false);
@@ -61,8 +63,8 @@ export default function Navbar() {
             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
             Specialities
           </Link>
-          <Link className="text-slate-600 font-medium text-[15px] hover:text-slate-900 transition-colors" href="#">Patient Portal</Link>
-          <Link className="text-slate-600 font-medium text-[15px] hover:text-slate-900 transition-colors" href="#contact">Contact Us</Link>
+          <Link className="text-slate-600 font-medium text-[15px] hover:text-slate-900 transition-colors" href="/locations">Regional Hubs</Link>
+          <Link className="text-slate-600 font-medium text-[15px] hover:text-slate-900 transition-colors" href="/contact">Contact Us</Link>
         </div>
 
         <div className="flex items-center gap-2 md:gap-3 md:w-1/4 justify-end">
@@ -91,7 +93,7 @@ export default function Navbar() {
             <MagnifyingGlass className="absolute right-4 top-2.5 text-sm text-slate-400" />
           </div>
 
-          <a href="tel:+919363650066" className="w-8 h-8 flex items-center justify-center bg-[#0055ff] hover:bg-blue-700 text-white rounded-full shadow-md transition-all hover:scale-105">
+          <a href={`tel:+${config.helplineRaw}`} title={`Call HealthFlo Helpline: ${config.helplineNumber}`} className="w-8 h-8 flex items-center justify-center bg-[#0055ff] hover:bg-blue-700 text-white rounded-full shadow-md transition-all hover:scale-105">
             <Phone weight="fill" className="text-[14px]" />
           </a>
         </div>
@@ -114,8 +116,8 @@ export default function Navbar() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
               Specialities
             </Link>
-            <Link className="text-slate-700 font-medium text-[15px] hover:text-[#0a84ff] transition-colors" href="#">Patient Portal</Link>
-            <Link className="text-slate-700 font-medium text-[15px] hover:text-[#0a84ff] transition-colors" href="#contact">Contact Us</Link>
+            <Link className="text-slate-700 font-medium text-[15px] hover:text-[#0a84ff] transition-colors" href="/locations">Regional Hubs</Link>
+            <Link className="text-slate-700 font-medium text-[15px] hover:text-[#0a84ff] transition-colors" href="/contact">Contact Us</Link>
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@ export default function NeighbourhoodGrid({
           const isLink = stateSlug && citySlug && procedureSlug;
           const isActive = activeAreaSlug === areaSlug;
           const href = isLink
-            ? `/locations/${stateSlug}/${citySlug}/${areaSlug}/${procedureSlug}`
+            ? `/locations/${stateSlug}/${citySlug}/${procedureSlug}/${areaSlug}`
             : undefined;
 
           if (isLink && href) {

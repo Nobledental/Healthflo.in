@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { PhoneCall, ClipboardList, Stethoscope, ShieldCheck, HeartHandshake } from "lucide-react";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 const steps = [
   {
@@ -32,6 +33,7 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const { config } = useSiteConfig();
   return (
     <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] py-14 md:py-24 overflow-hidden bg-gradient-to-br from-[#e8f2ff] via-[#f4f9ff] to-[#ffffff]" id="how-it-works">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 w-full">
@@ -75,7 +77,7 @@ export default function HowItWorks() {
             className="shrink-0"
           >
             <a
-              href="tel:+919363650066"
+              href={`tel:+${config.helplineRaw}`}
               className="inline-flex items-center justify-center gap-2 bg-[#0055ff] text-white text-[14px] md:text-[15px] font-bold px-6 md:px-8 py-3 md:py-4 rounded-full shadow-lg shadow-blue-500/30 hover:bg-blue-700 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300"
             >
               <PhoneCall className="w-4 h-4" />

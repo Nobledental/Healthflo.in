@@ -13,62 +13,63 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
-
-const PHONE = "+919363650066";
-const WA = `https://wa.me/919363650066?text=${encodeURIComponent("Hello, I'd like to check my hospital insurance & surgical package eligibility.")}`;
-
-const quickActions = [
-  {
-    icon: CalendarCheck,
-    tag: "All-Inclusive Pricing",
-    title: "Surgical Care Packages",
-    desc: "100% transparent pricing for laser proctology, urology & hernia with zero hidden room charges.",
-    cta: "View Packages",
-    href: "#lead-capture",
-    iconBg: "bg-blue-50 text-[#0066FF] border-blue-200",
-    hoverBorder: "hover:border-[#0066FF]",
-    ctaStyle: "bg-[#0066FF] hover:bg-blue-700 text-white shadow-[0_4px_14px_rgba(0,102,255,0.25)]",
-    hapticMode: "medium",
-  },
-  {
-    icon: ShieldCheck,
-    tag: "Cashless Desk",
-    title: "Check Insurance Coverage",
-    desc: "We accept TATA AIG, Star Health, HDFC Ergo & 30+ major insurers with instant 30-min approval.",
-    cta: "Verify Coverage",
-    href: "#insurance",
-    iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200",
-    hoverBorder: "hover:border-emerald-500",
-    ctaStyle: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-[0_4px_14px_rgba(16,185,129,0.25)]",
-    hapticMode: "light",
-  },
-  {
-    icon: CreditCard,
-    tag: "Zero Interest EMI",
-    title: "No-Cost Surgery EMI",
-    desc: "Don't delay surgical recovery due to finance. Flexible plans starting at just ₹999/month.",
-    cta: "Explore EMI Plans",
-    href: "#lead-capture",
-    iconBg: "bg-purple-50 text-purple-600 border-purple-200",
-    hoverBorder: "hover:border-purple-500",
-    ctaStyle: "bg-purple-600 hover:bg-purple-700 text-white shadow-[0_4px_14px_rgba(147,51,234,0.25)]",
-    hapticMode: "light",
-  },
-  {
-    icon: Phone,
-    tag: "24×7 Emergency",
-    title: "Instant Triage Helpline",
-    desc: "Speak directly with our senior care coordinators & surgical experts for urgent guidance.",
-    cta: "Call Now: 93636 50066",
-    href: `tel:${PHONE}`,
-    iconBg: "bg-rose-50 text-rose-600 border-rose-200",
-    hoverBorder: "hover:border-rose-500",
-    ctaStyle: "bg-slate-900 hover:bg-slate-800 text-white shadow-[0_4px_14px_rgba(15,23,42,0.25)]",
-    hapticMode: "medium",
-  },
-];
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function ActionGrid() {
+  const { config } = useSiteConfig();
+  const WA = config.socials.whatsapp;
+
+  const quickActions = [
+    {
+      icon: CalendarCheck,
+      tag: "All-Inclusive Pricing",
+      title: "Surgical Care Packages",
+      desc: "100% transparent pricing for laser proctology, urology & hernia with zero hidden room charges.",
+      cta: "View Packages",
+      href: "#lead-capture",
+      iconBg: "bg-blue-50 text-[#0066FF] border-blue-200",
+      hoverBorder: "hover:border-[#0066FF]",
+      ctaStyle: "bg-[#0066FF] hover:bg-blue-700 text-white shadow-[0_4px_14px_rgba(0,102,255,0.25)]",
+      hapticMode: "medium",
+    },
+    {
+      icon: ShieldCheck,
+      tag: "Cashless Desk",
+      title: "Check Insurance Coverage",
+      desc: "We accept TATA AIG, Star Health, HDFC Ergo & 30+ major insurers with instant 30-min approval.",
+      cta: "Verify Coverage",
+      href: "#insurance",
+      iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200",
+      hoverBorder: "hover:border-emerald-500",
+      ctaStyle: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-[0_4px_14px_rgba(16,185,129,0.25)]",
+      hapticMode: "light",
+    },
+    {
+      icon: CreditCard,
+      tag: "Zero Interest EMI",
+      title: "No-Cost Surgery EMI",
+      desc: "Don't delay surgical recovery due to finance. Flexible plans starting at just ₹999/month.",
+      cta: "Explore EMI Plans",
+      href: "#lead-capture",
+      iconBg: "bg-purple-50 text-purple-600 border-purple-200",
+      hoverBorder: "hover:border-purple-500",
+      ctaStyle: "bg-purple-600 hover:bg-purple-700 text-white shadow-[0_4px_14px_rgba(147,51,234,0.25)]",
+      hapticMode: "light",
+    },
+    {
+      icon: Phone,
+      tag: "24×7 Emergency",
+      title: "Instant Triage Helpline",
+      desc: "Speak directly with our senior care coordinators & surgical experts for urgent guidance.",
+      cta: `Call Now: ${config.helplineNumber}`,
+      href: `tel:+${config.helplineRaw}`,
+      iconBg: "bg-rose-50 text-rose-600 border-rose-200",
+      hoverBorder: "hover:border-rose-500",
+      ctaStyle: "bg-slate-900 hover:bg-slate-800 text-white shadow-[0_4px_14px_rgba(15,23,42,0.25)]",
+      hapticMode: "medium",
+    },
+  ];
+
   return (
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 relative z-10 my-8">
 

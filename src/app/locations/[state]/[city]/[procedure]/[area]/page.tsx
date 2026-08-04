@@ -13,6 +13,7 @@ import {
 } from "@/data/regionalLocations";
 import { specialitiesData } from "@/data/specialities";
 import { ChevronRight, MapPin, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { readSiteConfig } from "@/lib/siteConfig";
 
 // Modular location components
 import CityProcedureHero from "@/components/locations/CityProcedureHero";
@@ -35,8 +36,8 @@ export async function generateStaticParams() {
   return allPairs.slice(0, 150).map(({ state, city, area, procedure }) => ({
     state,
     city,
-    area,
     procedure,
+    area,
   }));
 }
 
@@ -44,7 +45,7 @@ export async function generateStaticParams() {
 // METADATA — Hyperlocal SEO optimization per neighbourhood × procedure
 // ─────────────────────────────────────────────────────────────────────────────
 type Props = {
-  params: Promise<{ state: string; city: string; area: string; procedure: string }> | { state: string; city: string; area: string; procedure: string };
+  params: Promise<{ state: string; city: string; procedure: string; area: string }> | { state: string; city: string; procedure: string; area: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -60,10 +61,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cityProcedureOffer = location.procedureOffers?.[resolved.procedure];
   const offer = cityProcedureOffer ?? location.cityOffer;
   const offerText = offer ? ` ${offer.headline}.` : "";
+  const config = await readSiteConfig();
 
   return {
     title: `${procedure.shortTitle} in ${areaName}, ${location.name} | 100% Insurance Eligible | HealthFlo`,
-    description: `Looking for ${procedure.shortTitle.toLowerCase()} near ${areaName}, ${location.name}? HealthFlo surgical network offers USFDA laser suites, 100% Insurance Eligible packages, same-day discharge, and dedicated ${location.nativeLanguage} coordinators.${offerText} Call +91 93636 50066.`,
+    description: `Looking for ${procedure.shortTitle.toLowerCase()} near ${areaName}, ${location.name}? HealthFlo surgical network offers USFDA laser suites, 100% Insurance Eligible packages, same-day discharge, and dedicated ${location.nativeLanguage} coordinators.${offerText} Call +91 ${config.helplineNumber}.`,
     keywords: [
       `${procedure.shortTitle} in ${areaName}`,
       `${procedure.shortTitle} near ${areaName} ${location.name}`,
@@ -77,10 +79,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${procedure.shortTitle} near ${areaName}, ${location.name} — USFDA Laser Protocols | HealthFlo`,
       description: `Zero-pain ${procedure.shortTitle.toLowerCase()} accessible from ${areaName} at empanelled hospitals in ${location.name}. Insurance Eligible with dedicated ${location.nativeLanguage} support.`,
-      url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.area}/${resolved.procedure}`,
+      url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}/${resolved.area}`,
     },
     alternates: {
-      canonical: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.area}/${resolved.procedure}`,
+      canonical: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}/${resolved.area}`,
     },
   };
 }
@@ -97,9 +99,10 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
 
   const areaName = fromAreaSlug(location, resolved.area);
   const activeOffer = location.procedureOffers?.[resolved.procedure] ?? location.cityOffer ?? null;
+  const config = await readSiteConfig();
 
   const WHATSAPP_MSG = `Hello HealthFlo — I am reaching out from ${areaName}, ${location.name} (${location.stateName}). I am seeking ${procedure.shortTitle} and would like to connect with a ${location.nativeLanguage} coordinator. Please share Insurance Eligible package details and transit options.`;
-  const WHATSAPP_URL = `https://wa.me/919363650066?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+  const WHATSAPP_URL = `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
 
   // Hyperlocal JSON-LD: MedicalClinic + MedicalProcedure + ServiceArea targeting neighbourhood
   const neighbourhoodSchema = {
@@ -109,8 +112,8 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
         "@type": "MedicalClinic",
         name: `HealthFlo Surgical Network — ${procedure.shortTitle} in ${areaName}, ${location.name}`,
         description: `HealthFlo-empanelled hospitals providing advanced laser ${procedure.shortTitle} for patients residing in ${areaName} and surrounding ${location.name} sectors.`,
-        url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.area}/${resolved.procedure}`,
-        telephone: "+919363650066",
+        url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}/${resolved.area}`,
+        telephone: `+${config.helplineRaw}`,
         medicalSpecialty: procedure.category,
         areaServed: {
           "@type": "Place",
@@ -156,8 +159,8 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           { "@type": "ListItem", position: 2, name: "Locations", item: "https://healthflo.in/locations" },
           { "@type": "ListItem", position: 3, name: location.stateName, item: `https://healthflo.in/locations/${location.stateSlug}` },
           { "@type": "ListItem", position: 4, name: location.name, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}` },
-          { "@type": "ListItem", position: 5, name: areaName, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}` },
-          { "@type": "ListItem", position: 6, name: procedure.shortTitle, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.area}/${resolved.procedure}` },
+          { "@type": "ListItem", position: 5, name: procedure.shortTitle, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}` },
+          { "@type": "ListItem", position: 6, name: areaName, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}/${resolved.area}` },
         ],
       },
     ],

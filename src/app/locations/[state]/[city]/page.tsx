@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import LeadCapture from "@/sections/LeadCapture";
 import FAQ from "@/sections/FAQ";
 import { REGIONAL_LOCATIONS, getLocationBySlug } from "@/data/regionalLocations";
+import { readSiteConfig } from "@/lib/siteConfig";
 import {
   MapPin,
   Phone,
@@ -44,10 +45,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const topNeighbourhoods = location.keyNeighbourhoods?.slice(0, 4).join(", ") ?? location.name;
+  const config = await readSiteConfig();
 
   return {
     title: `Laser Surgery in ${location.name} — ${location.keyNeighbourhoods?.[0] ?? ""} & ${location.keyNeighbourhoods?.[1] ?? ""} | HealthFlo`,
-    description: `Insurance Eligible laser surgical care in ${location.name}, ${location.stateName}. Serving ${topNeighbourhoods} and surrounding areas. Same-day discharge. ${location.nativeLanguage} coordinator. Free cab from ${location.railwayStation ?? location.name}. Call +91 93636 50066.`,
+    description: `Insurance Eligible laser surgical care in ${location.name}, ${location.stateName}. Serving ${topNeighbourhoods} and surrounding areas. Same-day discharge. ${location.nativeLanguage} coordinator. Free cab from ${location.railwayStation ?? location.name}. Call +91 ${config.helplineNumber}.`,
     keywords: [
       `Laser surgery in ${location.name}`,
       `Piles specialist ${location.name}`,
@@ -73,7 +75,9 @@ export default async function RegionalLocationPage({ params }: Props) {
 
   if (!location) notFound();
 
-  const WHATSAPP_URL = `https://wa.me/919363650066?text=${encodeURIComponent(
+  const config = await readSiteConfig();
+
+  const WHATSAPP_URL = `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(
     `Hello HealthFlo, I am from ${location.name} (${location.stateName}) and would like a ${location.nativeLanguage} coordinator for laser surgery. Please share Insurance Eligible package details.`
   )}`;
 
@@ -84,7 +88,7 @@ export default async function RegionalLocationPage({ params }: Props) {
     name: `HealthFlo Surgical Network — ${location.name}`,
     description: location.description,
     url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}`,
-    telephone: "+919363650066",
+    telephone: `+${config.helplineRaw}`,
     ...(location.coordinates && {
       geo: {
         "@type": "GeoCoordinates",
@@ -250,9 +254,9 @@ export default async function RegionalLocationPage({ params }: Props) {
 
                 <div className="pt-4 border-t border-slate-700 flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-400">24/7 {location.name} Helpline:</span>
-                  <a href="tel:+919363650066" className="text-white font-black hover:text-[#00E5FF] text-base flex items-center gap-1.5 transition-colors">
+                  <a href={`tel:+${config.helplineRaw}`} className="text-white font-black hover:text-[#00E5FF] text-base flex items-center gap-1.5 transition-colors">
                     <Phone className="w-4 h-4 text-[#00E5FF]" />
-                    <span>+91 93636 50066</span>
+                    <span>+91 {config.helplineNumber}</span>
                   </a>
                 </div>
               </div>

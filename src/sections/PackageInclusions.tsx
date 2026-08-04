@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ShieldCheck, CheckCircle2, Clock, ArrowRight } from "lucide-react";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 const insurers = [
   "Star Health",
@@ -20,6 +21,7 @@ const packageHighlights = [
 ];
 
 export default function PackageInclusions() {
+  const { config } = useSiteConfig();
   return (
     <section className="w-full py-8 md:py-12 relative z-10" id="insurance-package">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -143,7 +145,7 @@ export default function PackageInclusions() {
                     * No hidden bills. No surprise charges.
                   </p>
                   <a
-                    href="tel:+919363650066"
+                    href={`tel:+${config.helplineRaw}`}
                     className="inline-flex items-center justify-center gap-2 bg-white text-[#05f] text-[12px] md:text-[13px] font-bold px-5 md:px-6 py-2 md:py-2.5 rounded-full hover:bg-blue-50 transition-colors shadow-md shrink-0"
                   >
                     Check Eligibility <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5" />

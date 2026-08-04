@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { 
   ShieldCheck, 
@@ -14,9 +15,33 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function Footer() {
-  const WHATSAPP_URL = "https://wa.me/919363650066?text=Hello%20HealthFlo%20team,%20I%20would%20like%20to%20consult%20a%20surgical%20coordinator%20regarding%20packages%20and%20insurance%20eligibility.";
+  const { config } = useSiteConfig();
+  const [clickCount, setClickCount] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const WHATSAPP_URL = config.socials.whatsapp;
+
+  // Covert Admin Dashboard Trigger: Triple-click within 1.5 seconds opens /admin in a new tab
+  const handleCovertTrigger = () => {
+    haptic.light();
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (newCount >= 3) {
+      haptic.medium();
+      setClickCount(0);
+      window.open("/admin", "_blank", "noopener,noreferrer");
+    } else {
+      timerRef.current = setTimeout(() => {
+        setClickCount(0);
+      }, 1500);
+    }
+  };
 
   return (
     <footer className="w-full bg-gradient-to-b from-[#1C3664] via-[#18315B] to-[#122648] text-white relative z-10 mt-auto text-left border-t-2 border-[#2C528C] shadow-[0_-10px_35px_rgba(0,0,0,0.2)]">
@@ -61,7 +86,7 @@ export default function Footer() {
           {/* Authentic White Social Media Icons */}
           <div className="flex items-center gap-2.5">
             <a 
-              href="https://facebook.com" 
+              href={config.socials.facebook} 
               target="_blank" 
               rel="noreferrer"
               aria-label="Facebook"
@@ -70,7 +95,7 @@ export default function Footer() {
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
             </a>
             <a 
-              href="https://instagram.com" 
+              href={config.socials.instagram} 
               target="_blank" 
               rel="noreferrer"
               aria-label="Instagram"
@@ -79,7 +104,7 @@ export default function Footer() {
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
             <a 
-              href="https://linkedin.com" 
+              href={config.socials.linkedin} 
               target="_blank" 
               rel="noreferrer"
               aria-label="LinkedIn"
@@ -88,13 +113,13 @@ export default function Footer() {
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
             </a>
             <a 
-              href="https://youtube.com" 
+              href={config.socials.twitter} 
               target="_blank" 
               rel="noreferrer"
-              aria-label="YouTube"
+              aria-label="Twitter"
               className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white border border-white/30 flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
             >
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
             </a>
             <a 
               href={WHATSAPP_URL} 
@@ -122,9 +147,9 @@ export default function Footer() {
             
             <div className="space-y-3 text-xs sm:text-[13px]">
               {[
-                { city: "Hyderabad Triage HQ", desc: "Nallagandla, Gachibowli & Jubilee Hills Healthcare Corridor, Hyderabad, TS." },
-                { city: "Bangalore Surgical Hub", desc: "Whitefield IT Belt, Indiranagar, HSR Layout & Hebbal Medical Centers, KA." },
-                { city: "Regional South India Desk", desc: "Chennai, Coimbatore, Madurai, Vellore, Salem & Regional Cab Transit Network." }
+                { city: "Hyderabad Triage HQ", desc: config.regionalAddresses.telangana },
+                { city: "Bangalore Surgical Hub", desc: config.regionalAddresses.karnataka },
+                { city: "Regional South India Desk", desc: config.regionalAddresses.tamilNadu }
               ].map((hub, i) => (
                 <div key={i} className="bg-white/5 rounded-xl p-3.5 border border-white/10 space-y-1.5">
                   <p className="font-extrabold text-amber-300 flex items-center gap-2">
@@ -181,7 +206,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs sm:text-[13.5px] font-semibold text-blue-100/90">
               {[
-                { name: "About HealthFlo Directorate", href: "/" },
+                { name: "About HealthFlo Directorate", href: "/contact" },
                 { name: "Regional Locations Directory", href: "/locations" },
                 { name: "Standard 11-Point Package Guarantee", href: "/specialities" },
                 { name: "Find an Empanelled Surgeon", href: "/specialities" },
@@ -189,10 +214,10 @@ export default function Footer() {
                 { name: "Regional Transit & Cab Assistance", href: "/locations" },
                 { name: "AI Symptom Diagnostic Triage", href: "/" },
                 { name: "Patient Feedback & Success Stories", href: "/" },
-                { name: "Corporate Group Mediclaim Desk", href: "/specialities" },
-                { name: "Clinical Careers & Fellowship", href: "/" },
-                { name: "Privacy Policy & HIPAA Charter", href: "/" },
-                { name: "Terms of Surgical Care", href: "/" }
+                { name: "Corporate Group Mediclaim Desk", href: "/contact" },
+                { name: "Clinical Careers & Fellowship", href: "/contact" },
+                { name: "Privacy Policy & HIPAA Charter", href: "/contact" },
+                { name: "Terms of Surgical Care", href: "/contact" }
               ].map((link, idx) => (
                 <li key={idx}>
                   <Link 
@@ -218,17 +243,17 @@ export default function Footer() {
               <div className="bg-[#122442] border border-white/15 rounded-2xl p-4 space-y-2.5 shadow-md">
                 <span className="text-[11px] font-black uppercase text-amber-300 block tracking-wider">24/7 Priority Triage Desk</span>
                 <a 
-                  href="tel:+919363650066" 
+                  href={`tel:+${config.helplineRaw}`} 
                   onClick={() => haptic.medium()} 
                   className="block text-xl sm:text-2xl font-black text-white hover:text-amber-300 transition-colors tracking-tight"
                 >
-                  +91 93636 50066
+                  {config.helplineNumber}
                 </a>
                 <p className="text-[11px] text-blue-200/90 font-medium leading-normal">
                   Connect instantly with senior clinical coordinators for rapid admission and insurance guidance.
                 </p>
                 <a 
-                  href="tel:+919363650066" 
+                  href={`tel:+${config.helplineRaw}`} 
                   className="inline-flex items-center justify-center gap-2 text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 px-4 py-2.5 rounded-xl transition-all shadow-sm w-full mt-1"
                 >
                   <Phone className="w-3.5 h-3.5 fill-slate-950 text-slate-950 shrink-0" />
@@ -239,8 +264,8 @@ export default function Footer() {
               <div className="bg-white/5 rounded-xl p-3.5 border border-white/10 space-y-2 text-xs">
                 <p className="font-extrabold text-white">Clinical & Corporate Emails:</p>
                 {[
-                  "customercare@healthflo.in",
-                  "triage.desk@healthflo.in"
+                  config.email,
+                  config.directorateEmail
                 ].map((email) => (
                   <a 
                     key={email}
@@ -263,8 +288,12 @@ export default function Footer() {
         {/* ── BOTTOM BAR: LEGAL CHARTER & COPYRIGHT ────────────────────────── */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-[13px] font-medium text-blue-200/90 text-center sm:text-left">
           <div>
-            <p className="font-extrabold text-white">
-              © 2026 HealthFlo Surgical Care Network. All rights reserved. • USFDA & NABH Accredited Protocols.
+            <p 
+              onClick={handleCovertTrigger}
+              title="HealthFlo Security Charter & DPDP Certification"
+              className="font-extrabold text-white hover:text-amber-300 transition-colors cursor-pointer select-none"
+            >
+              © 2026 HealthFlo MediTech Systems • DPDP Safe-Harbor Certified • USFDA & NABH Accredited Protocols
             </p>
             <p className="text-[11px] text-blue-200/70 mt-1">
               Insurance Eligible across 30+ Major Insurers • Zero Out-Of-Pocket Surprises • HIPAA Compliant Patient Triage
@@ -272,9 +301,9 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-5 font-bold text-xs text-white">
-            <Link href="/" className="hover:text-amber-300 transition-colors">Privacy Charter</Link>
+            <Link href="/contact" className="hover:text-amber-300 transition-colors">Privacy Charter</Link>
             <span className="text-blue-400">|</span>
-            <Link href="/" className="hover:text-amber-300 transition-colors">Terms of Surgery</Link>
+            <Link href="/contact" className="hover:text-amber-300 transition-colors">Terms of Surgery</Link>
             <span className="text-blue-400">|</span>
             <Link href="/locations" className="hover:text-amber-300 transition-colors">Regional Hubs</Link>
           </div>

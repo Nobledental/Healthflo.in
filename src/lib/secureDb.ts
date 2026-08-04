@@ -22,12 +22,20 @@ export interface CoordinatorNoteRecord {
     name: string;
     phone: string;
     procedure: string;
-    status: "Urgent Triage" | "Callback Scheduled" | "Insurance Verified" | "General Inquiry";
+    status: "Urgent Triage" | "Callback Scheduled" | "Insurance Verified" | "General Inquiry" | "Surgeon Assigned" | "Procedure Complete";
   };
   // The actual readable note (only visible when decrypted with Admin Passphrase)
   coordinatorClinicalNote: string;
   // Encrypted ciphertext representation stored at rest
   encryptedPayload?: string;
+  // Audit logs of automated instant SMS/WhatsApp/Email notifications sent to leads
+  autoResponderReceipts?: {
+    channel: "WhatsApp" | "SMS" | "Email";
+    status: "DELIVERED" | "FAILED";
+    timestamp: string;
+    recipient: string;
+    messageSnippet: string;
+  }[];
 }
 
 export interface DashboardIntelligence {
@@ -98,115 +106,7 @@ export function decryptText(cipherText: string, passphrase: string = DEFAULT_ADM
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SEED REALISTIC TELEMETRY RECORDS (FOR INITIAL WOW FACTOR)
-// ─────────────────────────────────────────────────────────────────────────────
-const INITIAL_SEED_RECORDS: CoordinatorNoteRecord[] = [
-  {
-    id: "LOG_202608_001",
-    timestamp: "2026-08-04 07:15:22",
-    sessionId: "SESS_BLR_9842A",
-    city: "Bengaluru (Whitefield)",
-    state: "Karnataka",
-    device: "Apple iPhone 15 Pro Max (Mobile)",
-    userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)",
-    pagesViewed: ["/locations/karnataka/bengaluru/whitefield/circumcision", "/specialities/circumcision"],
-    lastClickedElement: "Claim Weekend Executive Package Button",
-    searchQueries: ["painless circumcision recovery time whitefield", "insurance approved laser clinics"],
-    leadContact: {
-      name: "Rohan V.",
-      phone: "+91 98450 XXXXX",
-      procedure: "Laser Circumcision",
-      status: "Urgent Triage"
-    },
-    coordinatorClinicalNote: "Patient navigated from IT corridor (Whitefield). Searched specifically for painless weekend discharge and corporate group insurance cover. Coordinator advised immediately preparing empanelled Manipal / Fortis appointment slot for same-day Saturday release."
-  },
-  {
-    id: "LOG_202608_002",
-    timestamp: "2026-08-04 06:45:10",
-    sessionId: "SESS_HYD_4732C",
-    city: "Hyderabad (Jubilee Hills)",
-    state: "Telangana",
-    device: "MacBook Pro M3 (Desktop Chrome)",
-    userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-    pagesViewed: ["/locations/telangana/hyderabad/jubilee-hills/laser-piles", "/specialities/laser-piles"],
-    lastClickedElement: "Check Insurance Eligibility Button",
-    searchQueries: ["laser hemorrhoidectomy jubilee hills cost", "stuck with grade 3 bleeding piles"],
-    leadContact: {
-      name: "Suresh P.",
-      phone: "+91 91770 XXXXX",
-      procedure: "Laser Proctology (Piles)",
-      status: "Insurance Verified"
-    },
-    coordinatorClinicalNote: "High urgency proctology triage. Patient checked Grade 3 piles treatment across Jubilee Hills & Gachibowli centers. Insurance verification initiated under Star Health empanelment. Note: Patient requested private VIP recovery guidance."
-  },
-  {
-    id: "LOG_202608_003",
-    timestamp: "2026-08-04 05:30:45",
-    sessionId: "SESS_CHN_1109X",
-    city: "Chennai (Anna Nagar)",
-    state: "Tamil Nadu",
-    device: "Samsung Galaxy S24 Ultra (Mobile)",
-    userAgent: "Mozilla/5.0 (Linux; Android 14; SM-S928B)",
-    pagesViewed: ["/locations/tamil-nadu/chennai/anna-nagar/fistula", "/specialities/fistula"],
-    lastClickedElement: "Call 24/7 Triage Helpline",
-    searchQueries: ["anal fistula recurrence cure anna nagar", "best colorectal laser hospital"],
-    leadContact: {
-      name: "Karthik R.",
-      phone: "+91 94440 XXXXX",
-      procedure: "Laser Fistula (FiLaC)",
-      status: "Callback Scheduled"
-    },
-    coordinatorClinicalNote: "Patient has previous history of fistulotomy recurrence from conventional surgery elsewhere. Navigated to HealthFlo Anna Nagar hub seeking FiLaC laser protocol. Coordinator scheduled diagnostic consultation with Dr. S. Ramanathan."
-  },
-  {
-    id: "LOG_202608_004",
-    timestamp: "2026-08-04 04:12:19",
-    sessionId: "SESS_MYS_3320M",
-    city: "Mysuru (Vijayanagar)",
-    state: "Karnataka",
-    device: "iPad Pro 11-inch (Tablet)",
-    userAgent: "Mozilla/5.0 (iPad; CPU OS 17_4 like Mac OS X)",
-    pagesViewed: ["/locations/karnataka/mysuru", "/locations/karnataka/mysuru/vijayanagar/laparoscopic-hernia"],
-    lastClickedElement: "View Hospital Network",
-    searchQueries: ["hernia mesh surgery mysore cost", "coorg plantation stay surgery recovery"],
-    coordinatorClinicalNote: "Visitor examining Mysuru surgical network and Coorg plantation recovery retreats for laparoscopic inguinal hernia repair. Express cab transit from Mysuru to Bengaluru advanced suite highlighted as fallback option."
-  },
-  {
-    id: "LOG_202608_005",
-    timestamp: "2026-08-04 02:55:01",
-    sessionId: "SESS_WRG_5592B",
-    city: "Warangal (Hanamkonda)",
-    state: "Telangana",
-    device: "Vivo V30 Pro (Mobile)",
-    userAgent: "Mozilla/5.0 (Linux; Android 14; V2303)",
-    pagesViewed: ["/locations/telangana/warangal/hanamkonda/circumcision", "/locations/telangana/karimnagar"],
-    lastClickedElement: "WhatsApp Triage Assistant",
-    searchQueries: ["circumcision surgery cost warangal", "laser circumcision without stitch"],
-    coordinatorClinicalNote: "Warangal regional visitor inquiring about stitchless laser circumcision in Hanamkonda area. Telugu native language assistance flagged for follow-up support by regional health coordinator."
-  },
-  {
-    id: "LOG_202608_006",
-    timestamp: "2026-08-03 23:40:15",
-    sessionId: "SESS_CBE_7701P",
-    city: "Coimbatore (RS Puram)",
-    state: "Tamil Nadu",
-    device: "OnePlus 12 (Mobile)",
-    userAgent: "Mozilla/5.0 (Linux; Android 14; CPH2573)",
-    pagesViewed: ["/locations/tamil-nadu/coimbatore/rs-puram/varicose-vein"],
-    lastClickedElement: "Calculate Surgery Cost",
-    searchQueries: ["varicose veins evlt surgery coimbatore", "laser leg vein treatment near peelamedu"],
-    leadContact: {
-      name: "Meena S.",
-      phone: "+91 97890 XXXXX",
-      procedure: "Varicose Veins EVLT",
-      status: "General Inquiry"
-    },
-    coordinatorClinicalNote: "Textile professional from Coimbatore seeking EVLT laser ablation for severe varicose veins. Coordinator mapped inquiry to empanelled hospital near RS Puram and verified outpatient day-care insurance eligibility."
-  }
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// FILE STORE OPERATIONS
+// STRICT PRODUCTION FILE STORE OPERATIONS (ZERO DEMO SEED DATA)
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function ensureDbExists(): Promise<void> {
@@ -217,12 +117,8 @@ async function ensureDbExists(): Promise<void> {
   try {
     await fs.access(DB_FILE);
   } catch {
-    // Write seed data with encryption
-    const encryptedRecords = INITIAL_SEED_RECORDS.map((rec) => ({
-      ...rec,
-      encryptedPayload: encryptText(rec.coordinatorClinicalNote, DEFAULT_ADMIN_KEY)
-    }));
-    await fs.writeFile(DB_FILE, JSON.stringify(encryptedRecords, null, 2), "utf8");
+    // Initialize clean production store with empty array
+    await fs.writeFile(DB_FILE, JSON.stringify([], null, 2), "utf8");
   }
 }
 
@@ -231,7 +127,6 @@ export async function readAllRecords(): Promise<CoordinatorNoteRecord[]> {
   try {
     const data = await fs.readFile(DB_FILE, "utf8");
     const records = JSON.parse(data) as CoordinatorNoteRecord[];
-    // Make sure each record has its encrypted representation
     return records.map((r) => {
       if (!r.encryptedPayload && r.coordinatorClinicalNote) {
         r.encryptedPayload = encryptText(r.coordinatorClinicalNote, DEFAULT_ADMIN_KEY);
@@ -239,8 +134,8 @@ export async function readAllRecords(): Promise<CoordinatorNoteRecord[]> {
       return r;
     });
   } catch (err) {
-    console.error("Failed reading database file:", err);
-    return INITIAL_SEED_RECORDS;
+    console.error("Failed reading database file, resetting to empty store:", err);
+    return [];
   }
 }
 
@@ -259,7 +154,7 @@ export async function recordVisitorEvent(eventData: Partial<CoordinatorNoteRecor
   const id = `LOG_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}_${Math.floor(100 + Math.random() * 900)}`;
   const now = new Date().toISOString().replace("T", " ").slice(0, 19);
   
-  // Construct automatic coordinator note based on telemetry actions
+  // Construct automatic coordinator note based on real telemetry actions
   const actionSummary = eventData.lastClickedElement ? `Clicked on '${eventData.lastClickedElement}'. ` : "";
   const querySummary = eventData.searchQueries && eventData.searchQueries.length > 0
     ? `Typed search queries: [${eventData.searchQueries.join(", ")}]. `
@@ -280,9 +175,10 @@ export async function recordVisitorEvent(eventData: Partial<CoordinatorNoteRecor
     pagesViewed: eventData.pagesViewed || ["/"],
     lastClickedElement: eventData.lastClickedElement,
     searchQueries: eventData.searchQueries || [],
-    leadContact: eventData.leadContact,
+    leadContact: eventData.leadContact as any,
     coordinatorClinicalNote: autoNote,
-    encryptedPayload: encryptText(autoNote, DEFAULT_ADMIN_KEY)
+    encryptedPayload: encryptText(autoNote, DEFAULT_ADMIN_KEY),
+    autoResponderReceipts: eventData.autoResponderReceipts || undefined
   };
 
   // Prepend new record to list (newest first)
@@ -292,7 +188,8 @@ export async function recordVisitorEvent(eventData: Partial<CoordinatorNoteRecor
 }
 
 /**
- * Aggregates intelligence metrics for the Executive Admin Dashboard
+ * Aggregates live intelligence metrics for the Executive Admin Dashboard
+ * Strictly computed from actual stored production traffic without synthetic baselines.
  */
 export async function getDashboardIntelligence(passphrase: string): Promise<{
   success: boolean;
@@ -314,7 +211,7 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
 
   const activeLeadsCount = records.filter((r) => !!r.leadContact).length;
 
-  // Calculate State Breakdown
+  // Calculate real state breakdown
   const stateCounts: Record<string, number> = {
     "Tamil Nadu": 0,
     "Karnataka": 0,
@@ -325,19 +222,52 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
     stateCounts[r.state] = (stateCounts[r.state] || 0) + 1;
   });
 
-  const total = records.length || 1;
+  const total = records.length;
   const stateBreakdown = [
-    { state: "Tamil Nadu (25 Hubs)", count: stateCounts["Tamil Nadu"] || 2, percentage: Math.round(((stateCounts["Tamil Nadu"] || 2) / total) * 100), color: "#F59E0B" },
-    { state: "Karnataka (25 Hubs)", count: stateCounts["Karnataka"] || 2, percentage: Math.round(((stateCounts["Karnataka"] || 2) / total) * 100), color: "#10B981" },
-    { state: "Telangana (25 Hubs)", count: stateCounts["Telangana"] || 2, percentage: Math.round(((stateCounts["Telangana"] || 2) / total) * 100), color: "#06B6D4" }
+    { 
+      state: "Tamil Nadu (25 Hubs)", 
+      count: stateCounts["Tamil Nadu"] || 0, 
+      percentage: total > 0 ? Math.round(((stateCounts["Tamil Nadu"] || 0) / total) * 100) : 0, 
+      color: "#F59E0B" 
+    },
+    { 
+      state: "Karnataka (25 Hubs)", 
+      count: stateCounts["Karnataka"] || 0, 
+      percentage: total > 0 ? Math.round(((stateCounts["Karnataka"] || 0) / total) * 100) : 0, 
+      color: "#10B981" 
+    },
+    { 
+      state: "Telangana (25 Hubs)", 
+      count: stateCounts["Telangana"] || 0, 
+      percentage: total > 0 ? Math.round(((stateCounts["Telangana"] || 0) / total) * 100) : 0, 
+      color: "#06B6D4" 
+    }
   ];
 
+  // Dynamically count procedure interest from telemetry logs & leads
+  const procedureTracker: Record<string, number> = {
+    "Laser Circumcision": 0,
+    "Laser Piles (Proctology)": 0,
+    "Laparoscopic Hernia Repair": 0,
+    "Laser Fistula (FiLaC)": 0,
+    "Varicose Vein (EVLT)": 0
+  };
+
+  records.forEach((r) => {
+    const textToSearch = `${r.pagesViewed.join(" ")} ${r.searchQueries.join(" ")} ${r.leadContact?.procedure || ""} ${r.coordinatorClinicalNote}`.toLowerCase();
+    if (textToSearch.includes("circumcision") || textToSearch.includes("phimosis")) procedureTracker["Laser Circumcision"]++;
+    if (textToSearch.includes("piles") || textToSearch.includes("hemorrhoid") || textToSearch.includes("proctology")) procedureTracker["Laser Piles (Proctology)"]++;
+    if (textToSearch.includes("hernia") || textToSearch.includes("laparoscopic")) procedureTracker["Laparoscopic Hernia Repair"]++;
+    if (textToSearch.includes("fistula") || textToSearch.includes("filac") || textToSearch.includes("anal")) procedureTracker["Laser Fistula (FiLaC)"]++;
+    if (textToSearch.includes("varicose") || textToSearch.includes("evlt") || textToSearch.includes("veiny")) procedureTracker["Varicose Vein (EVLT)"]++;
+  });
+
   const topProcedures = [
-    { name: "Laser Circumcision", views: 1420, change: "+34% this week", trend: "up" as const },
-    { name: "Laser Piles (Proctology)", views: 1180, change: "+28% this week", trend: "up" as const },
-    { name: "Laparoscopic Hernia Repair", views: 890, change: "+15% this week", trend: "stable" as const },
-    { name: "Laser Fistula (FiLaC)", views: 670, change: "+42% (High Urgency)", trend: "up" as const },
-    { name: "Varicose Vein (EVLT)", views: 520, change: "+19% this week", trend: "stable" as const }
+    { name: "Laser Circumcision", views: procedureTracker["Laser Circumcision"], change: procedureTracker["Laser Circumcision"] > 0 ? "Active Demand" : "Awaiting Traffic", trend: "up" as const },
+    { name: "Laser Piles (Proctology)", views: procedureTracker["Laser Piles (Proctology)"], change: procedureTracker["Laser Piles (Proctology)"] > 0 ? "Active Demand" : "Awaiting Traffic", trend: "up" as const },
+    { name: "Laparoscopic Hernia Repair", views: procedureTracker["Laparoscopic Hernia Repair"], change: procedureTracker["Laparoscopic Hernia Repair"] > 0 ? "Active Demand" : "Awaiting Traffic", trend: "stable" as const },
+    { name: "Laser Fistula (FiLaC)", views: procedureTracker["Laser Fistula (FiLaC)"], change: procedureTracker["Laser Fistula (FiLaC)"] > 0 ? "Active Demand" : "Awaiting Traffic", trend: "up" as const },
+    { name: "Varicose Vein (EVLT)", views: procedureTracker["Varicose Vein (EVLT)"], change: procedureTracker["Varicose Vein (EVLT)"] > 0 ? "Active Demand" : "Awaiting Traffic", trend: "stable" as const }
   ];
 
   const recentQueries: { query: string; location: string; timestamp: string }[] = [];
@@ -352,8 +282,8 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
   return {
     success: true,
     data: {
-      totalVisitorSessions: 4280 + records.length,
-      activeLeadsCount: 142 + activeLeadsCount,
+      totalVisitorSessions: records.length,
+      activeLeadsCount: activeLeadsCount,
       stateBreakdown,
       topProcedures,
       recentQueries,

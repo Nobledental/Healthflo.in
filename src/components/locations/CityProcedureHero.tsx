@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 import {
   MapPin,
   Phone,
@@ -35,6 +38,7 @@ export default function CityProcedureHero({
   whatsappUrl,
   areaName,
 }: CityProcedureHeroProps) {
+  const { config } = useSiteConfig();
   return (
     <section className="relative rounded-[2.5rem] bg-gradient-to-br from-slate-900 via-[#0B1426] to-slate-900 text-white p-6 sm:p-10 md:p-14 overflow-hidden border border-slate-800 shadow-2xl">
 
@@ -107,11 +111,11 @@ export default function CityProcedureHero({
               <ChevronRight className="w-4 h-4" />
             </a>
             <a
-              href="tel:+919363650066"
+              href={`tel:+${config.helplineRaw}`}
               className="px-6 py-4 rounded-2xl bg-slate-700/80 hover:bg-slate-600 text-white font-black text-base transition-all border border-slate-600 flex items-center justify-center gap-2 active:scale-95"
             >
               <Phone className="w-5 h-5 text-[#00E5FF] fill-[#00E5FF] animate-pulse shrink-0" />
-              <span>+91 93636 50066</span>
+              <span>{config.helplineNumber}</span>
             </a>
           </div>
         </div>
@@ -166,11 +170,11 @@ export default function CityProcedureHero({
             <div className="pt-1 border-t border-slate-700 flex items-center justify-between">
               <span className="text-xs font-bold text-slate-400">24/7 {location.name} Helpline:</span>
               <a
-                href="tel:+919363650066"
+                href={`tel:+${config.helplineRaw}`}
                 className="text-white font-black hover:text-[#00E5FF] text-sm flex items-center gap-1.5 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-[#00E5FF]" />
-                +91 93636 50066
+                {config.helplineNumber}
               </a>
             </div>
 

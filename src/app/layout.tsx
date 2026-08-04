@@ -4,6 +4,8 @@ import "./globals.css";
 import SpeculationRules from "@/components/SpeculationRules";
 import UIProtector from "@/components/UIProtector";
 import CoordinatorIntelligenceTracker from "@/components/analytics/CoordinatorIntelligenceTracker";
+import { SiteConfigProvider } from "@/context/SiteConfigContext";
+import { readSiteConfig } from "@/lib/siteConfig";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -90,11 +92,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch dynamic configuration from secure Directorate Vault on each render
+  const siteConfig = await readSiteConfig();
+
   // Enterprise Medical Schema & Regional Coverage JSON-LD for Google & AI Search (Perplexity, ChatGPT, SGE)
   const jsonLdSchema = {
     "@context": "https://schema.org",
@@ -105,10 +110,23 @@ export default function RootLayout({
         "name": "HealthFlo Surgical Network",
         "url": "https://healthflo.in",
         "logo": "https://healthflo.in/logo.png",
-        "description":
-          "Premier NABH-accredited surgical healthcare network specializing in USFDA laser proctology, laparoscopic general surgery, urology, and vascular procedures across Tamil Nadu, Karnataka, and Telangana.",
-        "telephone": "+919363650066",
-        "email": "care@healthflo.in",
+        "description": siteConfig.seo.siteDescription,
+        "telephone": siteConfig.helplineNumber,
+        "email": siteConfig.email,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": siteConfig.corporateAddress,
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600006",
+          "addressCountry": "IN"
+        },
+        "sameAs": [
+          siteConfig.socials.instagram,
+          siteConfig.socials.linkedin,
+          siteConfig.socials.twitter,
+          siteConfig.socials.facebook
+        ],
         "areaServed": [
           {
             "@type": "State",
@@ -190,16 +208,22 @@ export default function RootLayout({
       className={`${manrope.variable} ${inter.variable} h-full antialiased scroll-smooth`}
     >
       <head>
+        <meta name="geo.region" content={siteConfig.seo.geoRegion} />
+        <meta name="geo.placename" content={siteConfig.seo.geoPlacename} />
+        <meta name="geo.position" content={siteConfig.seo.geoPosition} />
+        <meta name="ICBM" content={siteConfig.seo.geoPosition} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-white text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
-        <SpeculationRules />
-        <UIProtector />
-        <CoordinatorIntelligenceTracker />
-        {children}
+        <SiteConfigProvider>
+          <SpeculationRules />
+          <UIProtector />
+          <CoordinatorIntelligenceTracker />
+          {children}
+        </SiteConfigProvider>
       </body>
     </html>
   );

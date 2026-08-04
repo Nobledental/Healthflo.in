@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { readSiteConfig } from "@/lib/siteConfig";
 
 // ── Above-The-Fold Synchronous Sections (For Instant FCP/LCP SEO & Core Web Vitals) ──
 import Hero from "@/sections/Hero";                           
@@ -48,7 +49,8 @@ const FAQ = dynamic(() => import("@/sections/FAQ"), {
   loading: () => <div className="w-full min-h-[400px] animate-pulse bg-slate-50/50 rounded-3xl" /> 
 });
 
-export default function Home() {
+export default async function Home() {
+  const config = await readSiteConfig();
   // Master JSON-LD Schema for AI Search Engines & Google Rich Results
   const healthfloSchema = {
     "@context": "https://schema.org",
@@ -60,7 +62,7 @@ export default function Home() {
         "url": "https://healthflo.in",
         "logo": "https://healthflo.in/logo.png",
         "description": "India's premier managed laser surgical network delivering zero-pain USFDA laser surgery for piles, fistula, hernia, kidney stones, and varicose veins with 100% cashless insurance approval.",
-        "telephone": "+919363650066",
+        "telephone": `+${config.helplineRaw}`,
         "email": "care@healthflo.in",
         "priceRange": "₹₹ - 100% Cashless Insured Care",
         "medicalSpecialty": [
@@ -85,7 +87,7 @@ export default function Home() {
         ],
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+919363650066",
+          "telephone": `+${config.helplineRaw}`,
           "contactType": "24/7 Clinical Triage & Emergency Triage",
           "availableLanguage": ["English", "Tamil", "Kannada", "Telugu", "Hindi"]
         }

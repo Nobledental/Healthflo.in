@@ -18,6 +18,7 @@ import {
   Compass
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 /* ── Custom Professional Medical & Radar SVGs ───────────────────────────────── */
 function HighPrecisionMedicalPinSVG({ className = "w-6 h-6" }: { className?: string }) {
@@ -97,6 +98,7 @@ function TransitRouteSVG({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function RegionalLocationsDirectory() {
+  const { config } = useSiteConfig();
   const [activeTab, setActiveTab] = useState<"all" | "tamil-nadu" | "karnataka" | "telangana">("tamil-nadu");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSlug, setSelectedSlug] = useState<string>("chennai");
@@ -293,7 +295,7 @@ export default function RegionalLocationsDirectory() {
                 {/* Action Buttons Deck */}
                 <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
                   <a
-                    href="tel:+919363650066"
+                    href={`tel:+${config.helplineRaw}`}
                     className="px-4 py-3 rounded-xl bg-[#0F1C36] hover:bg-[#16274B] text-slate-100 font-extrabold text-xs flex items-center justify-center gap-2 border border-slate-700 shadow-md transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
@@ -338,6 +340,18 @@ export default function RegionalLocationsDirectory() {
             </motion.div>
           </AnimatePresence>
 
+        </div>
+
+        {/* Master Locations Action Button */}
+        <div className="mt-10 text-center relative z-20">
+          <Link
+            href="/locations"
+            onClick={() => haptic.medium()}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1C3664] hover:bg-[#152B52] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg border border-blue-400/30 transition-all transform hover:scale-105 active:scale-95"
+          >
+            <span>View All Regional Hubs & Transit Coverage Directory</span>
+            <ChevronRight className="w-5 h-5 text-amber-400" />
+          </Link>
         </div>
       </div>
     </section>

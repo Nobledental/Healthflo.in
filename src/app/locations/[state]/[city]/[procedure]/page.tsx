@@ -12,6 +12,7 @@ import {
 } from "@/data/regionalLocations";
 import { specialitiesData } from "@/data/specialities";
 import { ChevronRight } from "lucide-react";
+import { readSiteConfig } from "@/lib/siteConfig";
 
 // Modular location components
 import CityProcedureHero from "@/components/locations/CityProcedureHero";
@@ -57,10 +58,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const primaryNeighbourhood = location.keyNeighbourhoods[0] ?? location.name;
   const secondaryNeighbourhood = location.keyNeighbourhoods[1] ?? primaryNeighbourhood;
+  const config = await readSiteConfig();
 
   return {
     title: `${procedure.shortTitle} in ${location.name} — ${primaryNeighbourhood} & ${secondaryNeighbourhood} | HealthFlo`,
-    description: `Insurance Eligible ${procedure.shortTitle.toLowerCase()} in ${location.name}, ${location.stateName}. Serving ${location.keyNeighbourhoods.slice(0, 4).join(", ")} and surrounding areas.${offerText} Same-day discharge. ${location.nativeLanguage} coordinator. Call +91 93636 50066.`,
+    description: `Insurance Eligible ${procedure.shortTitle.toLowerCase()} in ${location.name}, ${location.stateName}. Serving ${location.keyNeighbourhoods.slice(0, 4).join(", ")} and surrounding areas.${offerText} Same-day discharge. ${location.nativeLanguage} coordinator. Call +91 ${config.helplineNumber}.`,
     keywords: [
       `${procedure.shortTitle} in ${location.name}`,
       `${procedure.shortTitle} near ${primaryNeighbourhood}`,
@@ -93,9 +95,10 @@ export default async function CityProcedurePage({ params }: Props) {
   if (!location || !procedure) notFound();
 
   const activeOffer = location.procedureOffers?.[resolved.procedure] ?? location.cityOffer ?? null;
+  const config = await readSiteConfig();
 
   const WHATSAPP_MSG = `Hello HealthFlo — I am from ${location.name}, ${location.stateName}. I am looking for ${procedure.shortTitle} and would like to speak with a ${location.nativeLanguage} coordinator. Please share Insurance Eligible package details.`;
-  const WHATSAPP_URL = `https://wa.me/919363650066?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+  const WHATSAPP_URL = `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
 
   // JSON-LD: MedicalClinic + MedicalProcedure + ServiceArea
   const cityProcedureSchema = {
@@ -106,7 +109,7 @@ export default async function CityProcedurePage({ params }: Props) {
         name: `HealthFlo Surgical Network — ${procedure.shortTitle} in ${location.name}`,
         description: `HealthFlo-empanelled hospitals providing ${procedure.shortTitle} in ${location.name}, ${location.stateName}.`,
         url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}`,
-        telephone: "+919363650066",
+        telephone: `+${config.helplineRaw}`,
         medicalSpecialty: procedure.category,
         areaServed: {
           "@type": "City",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { ArrowRight, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { specialtiesData } from "@/data/treatments";
@@ -118,7 +119,7 @@ export default function SpecializedTreatments() {
                     transition={{ delay: idx * 0.05 }}
                   >
                     <GlowCard
-                      href="#lead-capture"
+                      href={`/specialities/${treatment.id}`}
                       hapticMode="medium"
                       className="flex items-center justify-between gap-3.5 p-4 sm:p-5 rounded-[28px] bg-white/55 hover:bg-white/75 backdrop-blur-2xl border border-white/80 hover:border-white shadow-[0_12px_38px_rgba(0,70,220,0.22)] active:scale-[0.97] transition-all duration-300"
                     >
@@ -186,7 +187,7 @@ export default function SpecializedTreatments() {
                     transition={{ delay: idx * 0.08 }}
                   >
                     <GlowCard
-                      href="#lead-capture"
+                      href={`/specialities/${treatment.id}`}
                       hapticMode="medium"
                       className="rounded-[32px] flex flex-col min-h-[460px] cursor-pointer bg-white/50 hover:bg-white/70 backdrop-blur-2xl border border-white/80 hover:border-white transition-all duration-500 shadow-[0_15px_45px_rgba(0,70,220,0.18)] hover:shadow-[0_20px_50px_rgba(0,85,255,0.28)]"
                     >
@@ -237,6 +238,18 @@ export default function SpecializedTreatments() {
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Master Directory Action */}
+        <div className="mt-12 text-center z-20">
+          <Link
+            href="/specialities"
+            onClick={() => haptic.medium()}
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_10px_35px_rgba(0,102,255,0.4)] transition-all transform hover:scale-105 active:scale-95"
+          >
+            <span>Explore All 15+ Laser Specialities & Treatments</span>
+            <ArrowRight className="w-5 h-5 text-[#00E5FF]" />
+          </Link>
         </div>
       </div>
     </section>

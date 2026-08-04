@@ -19,6 +19,7 @@ import {
   Car
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface Props {
   defaultProcedure?: string;
@@ -59,6 +60,7 @@ const INSURERS = [
 ];
 
 export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, defaultState, className = "" }: Props) {
+  const { config } = useSiteConfig();
   // Initial state selection
   const initialProcIndex = PROCEDURES.findIndex(p => p.name.toLowerCase().includes(defaultProcedure?.toLowerCase() || ""));
   const initialHubIndex = HEALTH_HUBS.findIndex(h => h.city.toLowerCase().includes(defaultCity?.toLowerCase() || ""));
@@ -129,7 +131,7 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
     if (selectedHub.lang === "te") greeting = "నమస్కారం HealthFlo Clinical Team,";
 
     const msg = `${greeting} I just checked the Cashless Insurance Estimator for *${selectedProc.name}* at your *${selectedHub.city}* empanelled hospital network under *${selectedInsurer.group}*. My name is ${name || "a patient"}. Please connect me with my senior triage coordinator for instant appointment scheduling.`;
-    return `https://wa.me/919363650066?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(msg)}`;
   };
 
   return (

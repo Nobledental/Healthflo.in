@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Phone, MessageCircle, CalendarCheck } from "lucide-react";
-
-const PHONE = "+919363650066";
-const WHATSAPP_MSG = encodeURIComponent("Hello HealthFlo, I'd like to book a free consultation.");
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function CTABanner() {
+  const { config } = useSiteConfig();
   return (
     <section className="w-full py-8 md:py-12 relative z-10" id="cta">
       <motion.div
@@ -34,7 +33,7 @@ export default function CTABanner() {
 
             <div className="flex flex-wrap gap-3 md:gap-4">
               <a
-                href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`}
+                href={config.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 md:gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold px-5 md:px-6 py-3 md:py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[14px] md:text-[15px]"
@@ -44,7 +43,7 @@ export default function CTABanner() {
               </a>
 
               <a
-                href={`tel:${PHONE}`}
+                href={`tel:+${config.helplineRaw}`}
                 className="flex items-center gap-2 md:gap-3 bg-white hover:bg-blue-50 text-[#0a2540] font-bold px-5 md:px-6 py-3 md:py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 text-[14px] md:text-[15px]"
               >
                 <Phone className="w-4 h-4 md:w-5 md:h-5" />
@@ -69,8 +68,8 @@ export default function CTABanner() {
               </div>
               <div>
                 <p className="text-blue-200 text-[11px] md:text-[12px] font-bold uppercase tracking-wider mb-0.5">We are just a call away!</p>
-                <a href={`tel:${PHONE}`} className="text-white text-xl md:text-2xl font-extrabold tracking-tight hover:text-blue-200 transition-colors">
-                  +91 93636 50066
+                <a href={`tel:+${config.helplineRaw}`} className="text-white text-xl md:text-2xl font-extrabold tracking-tight hover:text-blue-200 transition-colors">
+                  {config.helplineNumber}
                 </a>
               </div>
             </div>

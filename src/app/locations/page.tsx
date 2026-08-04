@@ -21,8 +21,10 @@ import {
   Layers
 } from "lucide-react";
 import { specialitiesData } from "@/data/specialities";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 export default function RegionalLocationsDirectoryPage() {
+  const { config } = useSiteConfig();
   const [selectedState, setSelectedState] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -87,12 +89,12 @@ export default function RegionalLocationsDirectoryPage() {
               <span className="text-xs font-black text-[#1D3A6F] uppercase tracking-wider block">Priority Triage & Transit Line</span>
               <div className="flex items-center justify-between">
                 <a 
-                  href="tel:+919363650066" 
+                  href={`tel:+${config.helplineRaw}`} 
                   onClick={() => haptic.medium()}
                   className="text-xl font-black text-[#1D3A6F] hover:text-[#E58325] transition-colors inline-flex items-center gap-2"
                 >
                   <Phone className="w-5 h-5 text-emerald-500 fill-emerald-500 animate-pulse" />
-                  <span>+91 93636 50066</span>
+                  <span>+91 {config.helplineNumber}</span>
                 </a>
               </div>
               <p className="text-xs text-slate-500 font-medium leading-normal">
@@ -196,11 +198,11 @@ export default function RegionalLocationsDirectoryPage() {
               We arrange hospital admissions from every town in South India. Call our centralized triage line for direct transit assistance.
             </p>
             <a 
-              href="tel:+919363650066" 
+              href={`tel:+${config.helplineRaw}`} 
               className="inline-flex items-center gap-2 text-sm font-black text-white bg-[#1D3A6F] px-6 py-3 rounded-2xl shadow-md hover:bg-[#152B52] transition-all"
             >
               <Phone className="w-4 h-4 fill-white" />
-              <span>Call Triage Coordinator (+91 93636 50066)</span>
+              <span>Call Triage Coordinator (+91 {config.helplineNumber})</span>
             </a>
           </div>
         ) : (
@@ -312,7 +314,7 @@ export default function RegionalLocationsDirectoryPage() {
                             Explore Medical Hub &rarr;
                           </Link>
                           <a
-                            href={`https://wa.me/919363650066?text=${encodeURIComponent(`Hello HealthFlo team, I am calling from ${loc.name}, ${loc.stateName}. Please connect me with a native ${loc.nativeLanguage} surgical coordinator regarding Insurance Eligible treatments and hospital cab transit.`)}`}
+                            href={`https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(`Hello HealthFlo team, I am calling from ${loc.name}, ${loc.stateName}. Please connect me with a native ${loc.nativeLanguage} surgical coordinator regarding Insurance Eligible treatments and hospital cab transit.`)}`}
                             target="_blank"
                             rel="noreferrer"
                             title="WhatsApp Native Care Desk"

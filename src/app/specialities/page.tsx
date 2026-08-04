@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileStickyBar from "@/components/MobileStickyBar";
 import { specialitiesData } from "@/data/specialities";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 import { 
   MagnifyingGlass, 
   Sparkle, 
@@ -132,6 +133,7 @@ const comprehensiveProcedures: ProcedureItem[] = [
 ];
 
 export default function SpecialitiesDirectory() {
+  const { config } = useSiteConfig();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedDept, setSelectedDept] = useState<string>("All Departments");
 
@@ -347,7 +349,7 @@ export default function SpecialitiesDirectory() {
                 <h4 className="text-xs sm:text-sm font-black text-white mt-1">Insurance Policy Support</h4>
               </div>
               <a 
-                href="https://wa.me/919363650066?text=Hello%20HealthFlo%20Desk%2C%20I%20want%20to%20verify%20my%20insurance%20policy%20eligibility%20for%20your%2011-point%20all-inclusive%20surgical%20package."
+                href={`https://wa.me/${config.helplineRaw}?text=Hello%20HealthFlo%20Desk%2C%20I%20want%20to%20verify%20my%20insurance%20policy%20eligibility%20for%20your%2011-point%20all-inclusive%20surgical%20package.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 bg-[#128C7E] hover:bg-[#0E7065] text-white font-extrabold text-[11px] py-2 px-3 rounded-xl transition-all text-center uppercase tracking-wide block shadow-xs"
@@ -448,7 +450,7 @@ export default function SpecialitiesDirectory() {
                       </Link>
 
                       <a
-                        href={`https://wa.me/919363650066?text=Hello%20HealthFlo%20Specialists%2C%20I%20have%20a%20private%20inquiry%20regarding%20${encodeURIComponent(item.shortTitle)}%20painless%20laser%20care%20and%20insurance%20eligibility.`}
+                        href={`https://wa.me/${config.helplineRaw}?text=Hello%20HealthFlo%20Specialists%2C%20I%20have%20a%20private%20inquiry%20regarding%20${encodeURIComponent(item.shortTitle)}%20painless%20laser%20care%20and%20insurance%20eligibility.`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full bg-emerald-50 hover:bg-emerald-100/80 text-emerald-900 border border-emerald-300/80 font-extrabold text-xs py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-2xs"
@@ -549,7 +551,7 @@ export default function SpecialitiesDirectory() {
                     </span>
 
                     <a
-                      href={`https://wa.me/919363650066?text=Hello%20HealthFlo%20Clinical%20Coordinator%2C%20I%20want%20to%20know%20the%20insurance%20eligibility%2C%20package%20details%2C%20and%20surgeon%20availability%20for%20*${encodeURIComponent(proc.name)}*.`}
+                      href={`https://wa.me/${config.helplineRaw}?text=Hello%20HealthFlo%20Clinical%20Coordinator%2C%20I%20want%20to%20know%20the%20insurance%20eligibility%2C%20package%20details%2C%20and%20surgeon%20availability%20for%20*${encodeURIComponent(proc.name)}*.`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-[#0F2236] hover:bg-[#128C7E] text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5"
@@ -616,7 +618,7 @@ export default function SpecialitiesDirectory() {
             </div>
             <div className="flex items-center gap-3 shrink-0">
               <a
-                href="https://wa.me/919363650066?text=Hello%20HealthFlo%20Triage%20Desk%2C%20I%20have%20an%20existing%20surgery%20advice%20and%20want%20to%20check%20your%2011-point%20insurance%20eligible%20package%20option."
+                href={`https://wa.me/${config.helplineRaw}?text=Hello%20HealthFlo%20Triage%20Desk%2C%20I%20have%20an%20existing%20surgery%20advice%20and%20want%20to%20check%20your%2011-point%20insurance%20eligible%20package%20option.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#128C7E] hover:bg-[#0E7065] text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-2xl shadow-lg shadow-emerald-900/15 transition-all flex items-center gap-2"

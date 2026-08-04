@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ShieldCheck, Activity, Wallet, HeartHandshake, Sparkles, HelpCircle } from "lucide-react";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface FAQItem {
   id: string;
@@ -71,6 +72,7 @@ const categories = [
 ] as const;
 
 export default function FAQ() {
+  const { config } = useSiteConfig();
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [openIdx, setOpenIdx] = useState<string | null>("pain");
 
@@ -206,7 +208,7 @@ export default function FAQ() {
             </div>
           </div>
           <a
-            href="https://wa.me/919363650066?text=Hello%20HealthFlo%20team,%20I%20have%20a%20specific%20clinical%20question%20regarding%20my%20treatment%20and%20insurance."
+            href={config.socials.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white text-[13px] font-extrabold transition-all shadow-[0_4px_14px_rgba(0,102,255,0.3)] shrink-0 active:scale-95"

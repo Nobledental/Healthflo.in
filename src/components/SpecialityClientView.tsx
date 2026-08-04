@@ -7,6 +7,7 @@ import { SpecialityData, IntentHook } from "@/data/specialities";
 import { ShieldCheck, CheckCircle, Clock, Hospital, Sparkle, CaretDown, ChatCircleDots, ArrowUpRight, Lock, Buildings, MapPin, Heart, FirstAid, Certificate, CalendarCheck, TrendUp, Globe, House, Tree } from "@phosphor-icons/react";
 import Link from "next/link";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
+import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface Props {
   data: SpecialityData;
@@ -23,6 +24,7 @@ function getTreatmentImage(id: string, title: string): string {
 }
 
 function SpecialityClientContent({ data }: Props) {
+  const { config } = useSiteConfig();
   const searchParams = useSearchParams();
   const paramIntent = searchParams?.get("intent");
   
@@ -46,7 +48,7 @@ function SpecialityClientContent({ data }: Props) {
   const buildWhatsAppUrl = () => {
     const townText = userTown ? ` in ${userTown}` : " across South India";
     const msg = `Hello HealthFlo Care Desk, I am seeking confidential clinical details for *${data.title}*${townText} with Insurance Eligible guidance under *${selectedInsurer}*. Please assign my senior clinical coordinator.`;
-    return `https://wa.me/919363650066?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(msg)}`;
   };
 
   const intentTabs = [
@@ -616,7 +618,7 @@ function SpecialityClientContent({ data }: Props) {
                 </a>
 
                 <a
-                  href="tel:+919363650066"
+                  href={`tel:+${config.helplineRaw}`}
                   className="w-full py-3.5 px-6 rounded-2xl bg-white hover:bg-slate-50 border border-slate-300 text-[#0D2137] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
                 >
                   <span>Speak Directly to Clinical Director</span>
@@ -653,7 +655,7 @@ function SpecialityClientContent({ data }: Props) {
             </div>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={`https://wa.me/919363650066?text=${encodeURIComponent(`Hello HealthFlo Care Desk, I have an open surgery quote for ${data.title} and wish to upgrade it to your insurance-eligible zero-stay laser protocol.`)}`}
+                href={`https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(`Hello HealthFlo Care Desk, I have an open surgery quote for ${data.title} and wish to upgrade it to your insurance-eligible zero-stay laser protocol.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-3.5 px-4 bg-[#128C7E] hover:bg-[#0C7063] text-white font-extrabold text-center rounded-xl transition-all shadow-md text-xs sm:text-sm"
