@@ -22,13 +22,17 @@ import CityComparisonPanel from "@/components/locations/CityComparisonPanel";
 import ProcedureComparisonTable from "@/components/locations/ProcedureComparisonTable";
 import PrivateRecoveryBanner from "@/components/locations/PrivateRecoveryBanner";
 import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
+import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates pages for every city × neighbourhood × procedure
 // ─────────────────────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   const procedureSlugs = Object.keys(specialitiesData);
-  return getNeighbourhoodProcedurePairs(procedureSlugs).map(({ state, city, area, procedure }) => ({
+  const allPairs = getNeighbourhoodProcedurePairs(procedureSlugs);
+  // Pre-generate top 150 combinations during build for fast deployment;
+  // Next.js handles all remaining 15,000+ hyperlocal pages dynamically on first request!
+  return allPairs.slice(0, 150).map(({ state, city, area, procedure }) => ({
     state,
     city,
     area,
@@ -191,6 +195,9 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           whatsappUrl={WHATSAPP_URL}
           areaName={areaName}
         />
+
+        {/* AI Cashless Surgery & EMI Estimator Engine */}
+        <InsuranceCostEstimator defaultProcedure={procedure.title} defaultCity={location.name} defaultState={location.stateName} />
 
         {/* Hyperlocal Concierge Strip */}
         <section className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0E1C36] via-[#12284C] to-[#0E1C36] border border-blue-500/30 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">

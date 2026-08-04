@@ -21,6 +21,7 @@ import CityComparisonPanel from "@/components/locations/CityComparisonPanel";
 import ProcedureComparisonTable from "@/components/locations/ProcedureComparisonTable";
 import PrivateRecoveryBanner from "@/components/locations/PrivateRecoveryBanner";
 import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
+import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates one page per city × procedure combination
@@ -172,6 +173,9 @@ export default async function CityProcedurePage({ params }: Props) {
           procedure={procedure}
           whatsappUrl={WHATSAPP_URL}
         />
+
+        {/* AI Cashless Surgery & EMI Estimator Engine */}
+        <InsuranceCostEstimator defaultProcedure={procedure.title} defaultCity={location.name} defaultState={location.stateName} />
 
         {/* Special Package Offer */}
         {activeOffer && (

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { SpecialityData, IntentHook } from "@/data/specialities";
 import { ShieldCheck, CheckCircle, Clock, Hospital, Sparkle, CaretDown, ChatCircleDots, ArrowUpRight, Lock, Buildings, MapPin, Heart, FirstAid, Certificate, CalendarCheck, TrendUp, Globe, House, Tree } from "@phosphor-icons/react";
 import Link from "next/link";
+import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 
 interface Props {
   data: SpecialityData;
@@ -277,6 +278,11 @@ function SpecialityClientContent({ data }: Props) {
 
         </div>
       </section>
+
+      {/* Interactive Surgery Cost & Cashless Insurance Estimator */}
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <InsuranceCostEstimator defaultProcedure={data.title} />
+      </div>
 
       {/* 50-50 Proportional Action Desk & Surgical Comparison */}
       <section className="px-4 sm:px-6 lg:px-8 py-14 max-w-7xl mx-auto">

@@ -18,8 +18,16 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
     transitTime: "Direct City Ambulatory & Metro Care Support",
     description: "Expert USFDA laser surgical care across Anna Nagar, Adyar, OMR IT Corridor, and Velachery with 30-minute Insurance Eligible approval. Same-day discharge protocols with dedicated Tamil coordinators.",
     keyNeighbourhoods: [
-      "Anna Nagar", "Adyar", "Besant Nagar", "Velachery", "OMR",
-      "Porur", "T. Nagar", "Tambaram", "Chromepet", "Perungudi", "Sholinganallur"
+      // Central Chennai
+      "Anna Nagar", "T. Nagar", "Nungambakkam", "Mylapore", "Alwarpet", "Royapettah", "Gopalapuram", "Egmore", "Kilpauk", "Chetpet",
+      // South Chennai & Coastal
+      "Adyar", "Besant Nagar", "Thiruvanmiyur", "Velachery", "Guindy", "Little Mount", "Saidapet", "Kotturpuram", "RA Puram", "Mandaveli",
+      // IT Corridor (OMR & ECR)
+      "OMR", "Perungudi", "Thoraipakkam", "Karapakkam", "Sholinganallur", "Navalur", "Siruseri", "Kelambakkam", "Neelankarai", "Palavakkam",
+      // West Chennai & Industrial
+      "Porur", "Vadapalani", "K.K. Nagar", "Ashok Nagar", "Saligramam", "Virugambakkam", "Valasaravakkam", "Mogappair", "Ambattur", "Poonamallee",
+      // North & Suburbs (GST Road)
+      "Tambaram", "Chromepet", "Pallavaram", "Meenambakkam", "Nanganallur", "Madipakkam", "Keelkattalai", "Perumbakkam", "Medavakkam", "Selaiyur", "Kolathur", "Perambur"
     ],
     localHospitals: [
       "Apollo Hospitals Greams Road", "Fortis Malar Adyar", "MIOT International"
@@ -132,8 +140,9 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
     transitTime: "Express cab from Coimbatore Junction to empanelled facility",
     description: "Advanced laser surgical care for Coimbatore's R.S. Puram, Peelamedu, and Saravanampatti residents. Bypass KMCH and Ganga Hospital queues — same-day discharge with Insurance Eligible billing.",
     keyNeighbourhoods: [
-      "R.S. Puram", "Race Course", "Peelamedu", "Saravanampatti",
-      "Saibaba Colony", "Ramanathapuram", "Gandhipuram", "Singanallur", "Vadavalli"
+      "R.S. Puram", "Race Course", "Peelamedu", "Saravanampatti", "Saibaba Colony", "Ramanathapuram", "Gandhipuram", "Singanallur", "Vadavalli",
+      "Town Hall", "Ukkadam", "Kuniyamuthur", "Kovaipudur", "Thudiyalur", "Kalapatti", "Neelambur", "Ondipudur", "Sowripalayam", "Puliakulam",
+      "Ramnagar", "Saibaba Koil", "Kurumbapalayam", "Sulur", "Podanur", "Chettipalayam"
     ],
     localHospitals: [
       "Kovai Medical Center (KMCH)", "Ganga Hospital Saibaba Colony", "PSG Hospitals"

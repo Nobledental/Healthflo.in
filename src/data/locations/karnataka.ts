@@ -18,8 +18,16 @@ export const KARNATAKA_LOCATIONS: RegionalLocation[] = [
     transitTime: "City-wide metro & ambulatory support",
     description: "Premier USFDA robotic and laser surgical centers across Indiranagar, HSR Layout, Whitefield, and Hebbal with instant Insurance Eligible billing.",
     keyNeighbourhoods: [
-      "Indiranagar", "HSR Layout", "Whitefield", "Hebbal",
-      "Koramangala", "Electronic City", "Marathahalli", "JP Nagar", "Malleshwaram", "Jayanagar"
+      // East Bengaluru (IT Hubs)
+      "Whitefield", "Indiranagar", "Marathahalli", "Brookefield", "Hoodi", "Kadugodi", "Bellandur", "Sarjapur Road", "Varthur", "KR Puram",
+      // South Bengaluru (Commercial & Tech Corridors)
+      "HSR Layout", "Koramangala", "BTM Layout", "JP Nagar", "Jayanagar", "Bannerghatta Road", "Electronic City", "Bommanahalli", "Arekere", "Kumaraswamy Layout",
+      // Central Bengaluru
+      "MG Road", "Brigade Road", "Church Street", "Ulsoor", "Richmond Town", "Shanthi Nagar", "Vasanth Nagar", "Cunningham Road", "Frazer Town", "Cox Town",
+      // West & North Bengaluru
+      "Malleshwaram", "Rajajinagar", "Basaveshwar Nagar", "Vijay Nagar", "Nagarbhavi", "Yeshwanthpur", "Mathikere", "Sahakara Nagar", "Hebbal", "Yelahanka",
+      // Suburbs & Airport Corridor
+      "Devanahalli", "Jakkur", "Thanisandra", "Hennur Road", "Kalyan Nagar", "Banaswadi", "Ramamurthy Nagar", "Kammanahalli", "KR Market", "Basavanagudi", "Sadashivnagar", "Domlur"
     ],
     localHospitals: [
       "Apollo Hospitals Bannerghatta", "Manipal Hospitals Old Airport Road", "Fortis Cunningham Road"
@@ -58,8 +66,9 @@ export const KARNATAKA_LOCATIONS: RegionalLocation[] = [
     transitTime: "Express Expressway cab — 90 min to Bengaluru facility or direct local triage",
     description: "Trusted laser surgery network for Mysuru, Mandya, and heritage countryside villages with native Kannada speaking coordinators.",
     keyNeighbourhoods: [
-      "Vijayanagar", "Hebbal Mysore", "Kuvempunagar", "Saraswathipuram",
-      "Jayalakshmipuram", "Bogadi", "Dattagalli", "Gokulam"
+      "Vijayanagar", "Hebbal Mysore", "Kuvempunagar", "Saraswathipuram", "Jayalakshmipuram", "Bogadi", "Dattagalli", "Gokulam",
+      "Yadavagiri", "Narasimharaja Mohalla", "Vidyaranyapuram", "Siddhartha Layout", "Chamrajpura", "Vani Vilas Mohalla",
+      "Alanahalli", "Hootagalli", "Bannimantap", "Agrahara", "Rajendra Nagar", "Metagalli"
     ],
     localHospitals: [
       "JSS Hospital Mysore", "Manipal Hospital Mysore"

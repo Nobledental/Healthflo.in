@@ -1,15 +1,36 @@
 "use client";
 
-import { Phone, MessageCircle, Calendar, LayoutGrid, X, Compass, Stethoscope, User, Mail } from "lucide-react";
+import { Phone, MessageCircle, Calendar, LayoutGrid, X, Compass, Stethoscope, User, Mail, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { haptic } from "@/utils/haptics";
 
 const PHONE = "+919363650066";
-const WHATSAPP_MSG = encodeURIComponent("Hello HealthFlo, I'd like a free callback.");
 
 export default function MobileStickyBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname() || "";
+
+  const isTamilNadu = pathname.includes("tamil-nadu") || pathname.includes("chennai") || pathname.includes("coimbatore") || pathname.includes("madurai") || pathname.includes("trichy") || pathname.includes("salem");
+  const isKarnataka = pathname.includes("karnataka") || pathname.includes("bangalore") || pathname.includes("bengaluru") || pathname.includes("mysore") || pathname.includes("mangalore") || pathname.includes("hubli");
+  const isTelangana = pathname.includes("telangana") || pathname.includes("hyderabad") || pathname.includes("warangal") || pathname.includes("karimnagar");
+
+  let regionalMsg = "Hello HealthFlo, I'd like a free specialist surgical consultation and cashless insurance check.";
+  let regionalLabel = "AI Patient Triage Desk (Multi-Lingual Support)";
+
+  if (isTamilNadu) {
+    regionalMsg = "வணக்கம் HealthFlo, I'd like a free consultation with an empanelled surgery specialist and cashless insurance check in Tamil Nadu.";
+    regionalLabel = "Tamil Nadu Care Concierge Active (தமிழ்)";
+  } else if (isKarnataka) {
+    regionalMsg = "ನಮಸ್ಕಾರ HealthFlo, I'd like a free consultation with an empanelled surgery specialist and cashless insurance check in Karnataka.";
+    regionalLabel = "Karnataka Care Concierge Active (ಕನ್ನಡ)";
+  } else if (isTelangana) {
+    regionalMsg = "నమస్కారం HealthFlo, I'd like a free consultation with an empanelled surgery specialist and cashless insurance check in Telangana.";
+    regionalLabel = "Telangana Care Concierge Active (తెలుగు)";
+  }
+
+  const whatsappUrl = `https://wa.me/${PHONE}?text=${encodeURIComponent(regionalMsg)}`;
 
   const toggleMenu = () => {
     haptic.light();
@@ -70,6 +91,12 @@ export default function MobileStickyBar() {
                   <span>Close</span>
                   <X className="w-3 h-3" />
                 </button>
+              </div>
+
+              {/* Regional Concierge Triage Badge */}
+              <div className="mb-3 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200/60 flex items-center gap-2 text-[11px] font-bold text-blue-900 shadow-2xs">
+                <Globe className="w-3.5 h-3.5 text-[#0066FF] shrink-0 animate-pulse" />
+                <span>{regionalLabel}</span>
               </div>
 
               {/* Priority Book Free Card inside the Menu */}
@@ -154,7 +181,7 @@ export default function MobileStickyBar() {
           className="bg-white/60 backdrop-blur-2xl border border-white/80 shadow-[0_8px_35px_rgba(0,60,180,0.22)] p-2 rounded-[24px] grid grid-cols-3 gap-2"
         >
           <a
-            href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`}
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             data-analytics="whatsapp_mobile_dock_click"

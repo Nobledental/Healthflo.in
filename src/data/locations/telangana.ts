@@ -18,8 +18,16 @@ export const TELANGANA_LOCATIONS: RegionalLocation[] = [
     transitTime: "City-wide ambulatory & metro transit support",
     description: "Premier USFDA robotic and laser surgical centers across Jubilee Hills, Kukatpally, Gachibowli, Nallagandla, and Secunderabad with instant Insurance Eligible billing.",
     keyNeighbourhoods: [
-      "Jubilee Hills", "Banjara Hills", "Gachibowli", "Kukatpally",
-      "Nallagandla", "Madhapur", "Kondapur", "HITEC City", "Secunderabad", "Begumpet"
+      // HITEC City & IT Corridor
+      "Jubilee Hills", "Banjara Hills", "HITEC City", "Gachibowli", "Madhapur", "Kondapur", "Nallagandla", "Manikonda", "Financial District", "Nanakramguda",
+      // Western Suburbs & Residential Hubs
+      "Kukatpally", "Miyapur", "KPHB Colony", "Chandanagar", "Nizampet", "Pragathi Nagar", "Tellapur", "Kokapet", "Puppalaguda", "Attapur",
+      // Central & Secunderabad
+      "Secunderabad", "Begumpet", "Somajiguda", "Ameerpet", "Mehdipatnam", "Himayat Nagar", "Abids", "Basheerbagh", "Lakdi-ka-pul", "Khairatabad",
+      // East & South Hyderabad
+      "Dilsukhnagar", "LB Nagar", "Uppal", "Nagole", "Boduppal", "Habsiguda", "Tarnaka", "Kothapet", "Malakpet", "Santosh Nagar",
+      // North & Airport Corridor
+      "Malkajgiri", "Alwal", "Sainikpuri", "ECIL", "Kompally", "Medchal", "Bowenpally", "Trimulgherry", "Shamshabad", "Rajendranagar", "Tolichowki", "Yousufguda"
     ],
     localHospitals: [
       "Apollo Hospitals Jubilee Hills", "KIMS Hospital Secunderabad", "Care Hospitals Banjara Hills"
@@ -63,8 +71,8 @@ export const TELANGANA_LOCATIONS: RegionalLocation[] = [
     transitTime: "Free highway & station transit coordination",
     description: "Serving Warangal, Hanamkonda, and rural Kakatiya heritage districts with state-of-the-art laser surgeries and Telugu coordinators.",
     keyNeighbourhoods: [
-      "Hanamkonda", "Kazipet", "Warangal Fort area",
-      "Subedari", "Shayampet", "Bheemaram", "Poosa Road", "Pochamma Maidan"
+      "Hanamkonda", "Kazipet", "Warangal Fort area", "Subedari", "Shayampet", "Bheemaram", "Poosa Road", "Pochamma Maidan",
+      "Giri Nagar", "Balasamudram", "Nakkalagutta", "Vidyaranyapuri", "Hunter Road", "Mulugu Road", "Chowrastha", "Matwada", "Kashibugga", "Deshaipet", "Waddepally", "Gopalpur"
     ],
     localHospitals: [
       "MGM Hospital Warangal", "Kakatiya Medical College Hospital", "Jaya Hospital"
