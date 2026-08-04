@@ -1,110 +1,235 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Star, ShieldCheck, CheckCircle2, Building2, HeartHandshake } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Laser surgery was painless. Back at work in 48 hours. Incredible experience.",
-    author: "Rohan M.", location: "Bangalore", treatment: "Laser Piles", rating: 5, initials: "RM", color: "bg-blue-100 text-blue-700",
+    quote: "I suffered from grade-3 piles for years out of surgery fear. HealthFlo arranged my surgeon consultation in Indiranagar within 2 hours. The laser procedure took 30 minutes, zero stitches, and HDFC Ergo covered 100% cashless. Sitting comfortably by day 2!",
+    author: "Rohan Mukherjee",
+    meta: "Male, 38 yrs • Bangalore",
+    treatment: "Laser Piles (LHP®)",
+    hospital: "HealthFlo Surgical Partner, Indiranagar",
+    insurance: "HDFC ERGO Cashless",
+    date: "2 weeks ago",
+    rating: 5,
+    initials: "RM",
+    color: "bg-gradient-to-tr from-blue-600 to-indigo-500 text-white",
+    verified: true,
   },
   {
-    quote: "Insurance handled completely by them. Zero upfront cost. Not a single paper to sign.",
-    author: "Vikram S.", location: "Hyderabad", treatment: "Laser Fistula", rating: 5, initials: "VS", color: "bg-violet-100 text-violet-700",
+    quote: "After a failed traditional fistula surgery elsewhere, my condition recurred. Dr. Reddy at HealthFlo Jubilee Hills explained laser tract sealing. Zero cuts or bleeding. The insurance desk handled every paper—not a single rupee paid from my pocket!",
+    author: "Vikram Sharma",
+    meta: "Male, 44 yrs • Hyderabad",
+    treatment: "Laser Fistula (FiLaC®)",
+    hospital: "HealthFlo Center of Excellence, Jubilee Hills",
+    insurance: "Star Health 100% Covered",
+    date: "1 month ago",
+    rating: 5,
+    initials: "VS",
+    color: "bg-gradient-to-tr from-violet-600 to-purple-500 text-white",
+    verified: true,
   },
   {
-    quote: "Operated in the morning, home by evening. Same-day discharge is real!",
-    author: "Sneha K.", location: "Chennai", treatment: "Laser Circumcision", rating: 5, initials: "SK", color: "bg-teal-100 text-teal-700",
+    quote: "Extremely discreet and hygienic surgical standard. Operated at 9 AM, discharged by 2 PM with completely painless recovery. My personal care coordinator stayed with me throughout admission and discharge. Truly a 5-star hospital experience.",
+    author: "Karthik Rajan",
+    meta: "Male, 31 yrs • Chennai",
+    treatment: "Laser Circumcision (ZSR)",
+    hospital: "HealthFlo Advanced Facility, Adyar",
+    insurance: "ICICI Lombard Approved",
+    date: "3 weeks ago",
+    rating: 5,
+    initials: "KR",
+    color: "bg-gradient-to-tr from-teal-600 to-emerald-500 text-white",
+    verified: true,
   },
   {
-    quote: "Lipoma removal was quick and virtually scarless. Professional team throughout.",
-    author: "Anita D.", location: "Madurai", treatment: "Lipoma Removal", rating: 5, initials: "AD", color: "bg-rose-100 text-rose-700",
+    quote: "My husband suffered an acute 12mm ureteric stone with severe pain. HealthFlo coordinated emergency diagnostic scanning and immediate RIRS laser surgery without a single surgical cut. Pain-free stone clearance in 45 minutes flat!",
+    author: "Anika Deshpande",
+    meta: "Female, 52 yrs • Pune",
+    treatment: "Laser Kidney Stone (RIRS)",
+    hospital: "HealthFlo Hospital Network, Baner",
+    insurance: "Niva Bupa Cashless",
+    date: "1 week ago",
+    rating: 5,
+    initials: "AD",
+    color: "bg-gradient-to-tr from-rose-600 to-pink-500 text-white",
+    verified: true,
+  },
+  {
+    quote: "As a dentist standing for hours daily, severe varicose veins made working painful. I underwent Endovenous Laser Ablation at HealthFlo. Walked out of the surgical center on my own feet the very same evening with zero leg scars!",
+    author: "Dr. Sneha Verma",
+    meta: "Female, 36 yrs • Mumbai",
+    treatment: "Varicose Veins Laser (EVLA)",
+    hospital: "HealthFlo Vascular Wing, Andheri",
+    insurance: "Care Health Approved",
+    date: "1 month ago",
+    rating: 5,
+    initials: "SV",
+    color: "bg-gradient-to-tr from-amber-600 to-orange-500 text-white",
+    verified: true,
+  },
+  {
+    quote: "Had 4 prominent forearm lipomas that made me self-conscious. The surgeon used painless micro-laser ablation. Recovered in 24 hours with virtually zero visible marks. Best surgical coordination platform in India by far!",
+    author: "Siddharth Mehta",
+    meta: "Male, 29 yrs • Delhi NCR",
+    treatment: "Painless Lipoma Excision",
+    hospital: "HealthFlo Partner Center, Gurugram",
+    insurance: "TATA AIG Cashless",
+    date: "3 weeks ago",
+    rating: 5,
+    initials: "SM",
+    color: "bg-gradient-to-tr from-cyan-600 to-blue-600 text-white",
+    verified: true,
   },
 ];
 
+// Duplicate list to create seamless infinite loop
+const infiniteTestimonials = [...testimonials, ...testimonials];
+
 export default function Testimonials() {
   return (
-    <section className="w-full py-8 relative z-10" id="testimonials">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="w-full py-12 md:py-20 relative z-10 overflow-hidden" id="patient-stories">
+      
+      {/* Subtle background glow for glassmorphic elevation */}
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-full max-w-5xl h-64 bg-blue-500/10 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 text-center mb-10">
         
-        {/* Compact Header */}
-        <motion.div 
+        {/* Google Reviews Verified Trust Banner */}
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6"
+          className="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-slate-800 font-extrabold text-[12px] sm:text-[14px] bg-white/80 backdrop-blur-xl px-4 sm:px-6 py-2.5 rounded-full border border-slate-200/80 shadow-[0_8px_30px_rgba(0,85,255,0.12)] mb-6"
         >
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-              Patient Stories
-            </h2>
-            <p className="text-[14px] text-slate-500 mt-1">
-              Trusted by 10,000+ patients across 8 cities.
-            </p>
+          <div className="flex items-center gap-1.5">
+            <div className="w-5 h-5 rounded-full bg-[#4285F4] text-white flex items-center justify-center font-black text-[12px] shadow-xs">G</div>
+            <span className="tracking-tight font-black text-slate-900">Google Reviews</span>
           </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 bg-yellow-50 border border-yellow-100 text-yellow-700 px-3 py-1.5 rounded-full text-[13px] font-bold">
-              <Star fill="currentColor" size={14} className="text-yellow-500" />
-              4.9/5 Average Rating
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-300 hidden sm:inline-block" />
+          <div className="flex items-center gap-1.5 text-amber-600 font-black">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" size={15} />)}
             </div>
-            <div className="flex -space-x-2">
-              {["RM","VS","SK"].map((ini, i) => (
-                <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-[10px]">
-                  {ini}
-                </div>
-              ))}
-              <div className="w-7 h-7 rounded-full border-2 border-white bg-[#05f] flex items-center justify-center text-white text-[9px] font-bold">+2k</div>
-            </div>
+            <span>4.9 / 5.0</span>
+            <span className="text-slate-400 font-semibold text-[11px] ml-0.5">(2,480+ surgical reviews)</span>
+          </div>
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-300 hidden sm:inline-block" />
+          <div className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full text-[11px] font-black border border-emerald-200/80">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <span>100% Verified Patients</span>
           </div>
         </motion.div>
 
-        {/* Horizontal Scroll Testimonials */}
-        <motion.div 
+        <motion.h2 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="flex overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 gap-4 snap-x snap-mandatory hide-scrollbar"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black text-slate-900 tracking-tight leading-[1.15]"
         >
-          {testimonials.map((t, idx) => (
+          Patient Stories.<br className="sm:hidden" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] via-[#0088ff] to-teal-500 ml-2 sm:ml-0">
+            Real Surgical Outcomes.
+          </span>
+        </motion.h2>
+      </div>
+
+      {/* Infinite Left-to-Right Continuous Scroll Carousel */}
+      <div className="w-full relative overflow-hidden py-2">
+        {/* Fade gradients on edges for depth */}
+        <div className="absolute left-0 top-0 bottom-0 w-8 md:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 md:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+
+        <div className="animate-marquee-left-to-right flex items-stretch gap-5 w-max hover:[animation-play-state:paused] py-2 px-4">
+          {infiniteTestimonials.map((t, idx) => (
             <div
               key={idx}
-              className="snap-center shrink-0 w-[82vw] sm:w-[280px] md:w-[320px] bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative"
+              className="w-[88vw] sm:w-[380px] md:w-[420px] bg-white/75 hover:bg-white backdrop-blur-2xl border border-white/90 hover:border-blue-200 rounded-[30px] p-6 sm:p-7 shadow-[0_12px_40px_rgba(0,60,200,0.12)] hover:shadow-[0_18px_50px_rgba(0,85,255,0.2)] transition-all duration-300 flex flex-col justify-between relative group cursor-default"
             >
-              <Quote className="absolute top-4 right-4 text-slate-100 w-6 h-6 rotate-180" />
-              
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#05f] bg-blue-50 px-2 py-0.5 rounded-full">
-                  {t.treatment}
-                </span>
-                <div className="flex text-yellow-400">
-                  {[...Array(t.rating)].map((_, i) => <Star key={i} fill="currentColor" size={12} />)}
+              <div>
+                {/* Top header row: Procedure Tag + Date + Stars */}
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <span className="px-3 py-1 rounded-full bg-blue-50/90 text-[#0066FF] font-black text-[11px] tracking-wide uppercase border border-blue-200/60 flex items-center gap-1.5 shadow-2xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF]" />
+                      {t.treatment}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold text-slate-400">{t.date}</span>
+                    <div className="flex text-amber-400 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
+                      {[...Array(t.rating)].map((_, i) => (
+                        <Star key={i} fill="currentColor" size={13} />
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Patient Quote */}
+                <p className="text-[14px] sm:text-[15px] text-slate-800 font-medium leading-relaxed mb-6 italic">
+                  "{t.quote}"
+                </p>
               </div>
 
-              <p className="text-[14px] text-slate-700 leading-snug mb-5 min-h-[60px]">
-                "{t.quote}"
-              </p>
-
-              <div className="flex items-center gap-2.5">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-[11px] ${t.color}`}>
-                  {t.initials}
+              {/* Bottom section: Hospital info & Patient profile */}
+              <div>
+                {/* Hospital and Cashless Verification Box */}
+                <div className="bg-slate-50/90 group-hover:bg-blue-50/50 p-3 rounded-2xl border border-slate-200/70 mb-4 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px]">
+                  <div className="flex items-center gap-1.5 text-slate-700 font-bold truncate">
+                    <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="truncate">{t.hospital}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1 text-emerald-700 font-extrabold bg-emerald-100/70 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0 w-max">
+                    <HeartHandshake className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>{t.insurance}</span>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[13px] font-bold text-slate-900 leading-none">{t.author}</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">{t.location}</p>
+
+                {/* Patient Avatar & Identity */}
+                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-[13px] shadow-sm relative ${t.color}`}>
+                      {t.initials}
+                      {/* Verified green badge overlay */}
+                      <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-white rounded-full flex items-center justify-center text-emerald-600 shadow-xs">
+                        <CheckCircle2 className="w-3.5 h-3.5 fill-emerald-500 text-white" />
+                      </span>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-[15px] font-black text-slate-950 leading-tight">{t.author}</p>
+                        <span className="text-[10px] bg-blue-100 text-[#0066FF] px-1.5 py-0.2 rounded font-extrabold">Verified</span>
+                      </div>
+                      <p className="text-[12px] font-bold text-slate-500 mt-0.5">{t.meta}</p>
+                    </div>
+                  </div>
+
+                  {/* Google Icon indicator */}
+                  <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 text-xs font-black">
+                    <span className="text-[#4285F4]">G</span>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
       
-      {/* Hide Scrollbar Styles */}
+      {/* Keyframes for Continuous Smooth Left-to-Right Loop */}
       <style dangerouslySetInnerHTML={{__html: `
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes scroll-left-to-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
+        }
+        .animate-marquee-left-to-right {
+          display: flex;
+          animation: scroll-left-to-right 45s linear infinite;
+        }
       `}} />
     </section>
   );

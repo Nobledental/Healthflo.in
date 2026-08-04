@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { specialtiesData } from "@/data/treatments";
+import GlowCard from "@/components/GlowCard";
+import { haptic } from "@/utils/haptics";
 
 export default function SpecializedTreatments() {
   const [activeSpecialtyId, setActiveSpecialtyId] = useState<string>("proctology");
@@ -11,7 +13,6 @@ export default function SpecializedTreatments() {
 
   useEffect(() => {
     setIsMounted(true);
-    // Read from URL on mount for easy sharing
     const params = new URLSearchParams(window.location.search);
     const specialtyParam = params.get("specialty");
     if (specialtyParam && specialtiesData.some(s => s.id === specialtyParam)) {
@@ -20,170 +21,220 @@ export default function SpecializedTreatments() {
   }, []);
 
   const handleSpecialtyChange = (id: string) => {
+    haptic.light(); // Trigger tactile mobile haptic feedback on tab switch!
     setActiveSpecialtyId(id);
     const url = new URL(window.location.href);
     url.searchParams.set("specialty", id);
     window.history.replaceState({}, "", url.toString());
   };
 
-  // Avoid hydration mismatch by not rendering the client-specific state on the server
   if (!isMounted) return null; 
 
   const activeSpecialty = specialtiesData.find(s => s.id === activeSpecialtyId) || specialtiesData[0];
 
   return (
-    <section className="w-full pt-4 pb-12 relative z-10" id="specialized-treatments">
-      <div className="text-center mb-8">
+    <section className="w-full pt-6 pb-16 relative z-10" id="specialized-treatments">
+      <div className="text-center mb-6 md:mb-10 px-3">
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md border border-blue-200 text-[#0066FF] text-[11px] font-extrabold tracking-wide uppercase mb-3 shadow-[0_4px_15px_rgba(0,102,255,0.12)]"
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Clinical Excellence & Daycare Care</span>
+        </motion.div>
+        
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 tracking-tight leading-[1.1] mb-6 flex flex-wrap items-center justify-center gap-3"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black text-slate-900 tracking-tight leading-[1.15] flex flex-wrap items-center justify-center gap-2 md:gap-3"
         >
           <span>Medical</span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] to-cyan-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] via-[#0088ff] to-cyan-500 drop-shadow-sm">
             Services
           </span>
         </motion.h2>
       </div>
 
-      <div className="max-w-6xl mx-auto flex flex-col items-center">
-        {/* Sleek Segmented Control Tabs */}
-        <div className="flex flex-wrap justify-center p-1 md:p-1.5 bg-slate-100/80 backdrop-blur-md rounded-full border border-slate-200/60 shadow-sm mb-8 md:mb-16">
-          {specialtiesData.map((specialty) => {
-            const isSelected = activeSpecialtyId === specialty.id;
-            return (
-              <button
-                key={specialty.id}
-                onClick={() => handleSpecialtyChange(specialty.id)}
-                className={`relative px-4 md:px-7 py-2 md:py-2.5 rounded-full text-[13px] md:text-[15px] font-semibold transition-colors duration-300 ${
-                  isSelected 
-                    ? "text-white" 
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
-                }`}
-              >
-                {isSelected && (
-                  <motion.div
-                    layoutId="activeTreatmentTab"
-                    className="absolute inset-0 bg-[#0055ff] rounded-full shadow-md shadow-blue-500/25"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className="relative z-10">{specialty.name}</span>
-              </button>
-            );
-          })}
+      <div className="max-w-6xl mx-auto flex flex-col items-center px-3 md:px-6 relative">
+        
+        {/* RADIANT BRIGHT BLUE BACKGROUND BEHIND THE GLASSMORPHIC CARDS */}
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-visible">
+          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[90%] md:w-[700px] h-[80%] bg-gradient-to-tr from-[#0055ff]/45 via-[#00aaff]/35 to-[#0044ee]/40 rounded-[80px] blur-[50px] md:blur-[110px] opacity-90 transition-all duration-700" />
+          <div className="absolute top-[35%] left-0 w-[280px] h-[280px] bg-[#0066FF]/50 rounded-full blur-[65px]" />
+          <div className="absolute bottom-[20%] right-0 w-[300px] h-[300px] bg-cyan-400/40 rounded-full blur-[70px]" />
         </div>
 
-        {/* Treatment Cards Grid */}
-        <div className="w-full min-h-[450px] relative">
-          
-          {/* Professional Fluid Background (Even Care Neo Colors) */}
-          <div className="absolute inset-0 pointer-events-none -z-10 overflow-visible">
-            <motion.div
-              animate={{
-                x: [0, 100, -50, 0],
-                y: [0, -50, 100, 0],
-                scale: [1, 1.1, 0.9, 1],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
-            />
-            <motion.div
-              animate={{
-                x: [0, -100, 50, 0],
-                y: [0, 100, -50, 0],
-                scale: [1, 1.2, 0.8, 1],
-              }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-teal-400/20 rounded-full blur-[150px]"
-            />
-            <motion.div
-              animate={{
-                x: [0, 50, -100, 0],
-                y: [0, 50, -100, 0],
-                scale: [1, 1.1, 0.9, 1],
-              }}
-              transition={{
-                duration: 22,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -bottom-[10%] left-[30%] w-[550px] h-[550px] bg-purple-500/20 rounded-full blur-[130px]"
-            />
+        {/* Sleek Glassmorphic Tab Bar with Haptic Tactile Tap */}
+        <div className="w-full max-w-2xl mb-8 md:mb-14">
+          <div className="flex items-center justify-between sm:justify-center p-1.5 bg-white/50 backdrop-blur-2xl rounded-2xl sm:rounded-full border border-white/80 shadow-[0_8px_30px_rgba(0,85,255,0.18)] gap-1">
+            {specialtiesData.map((specialty) => {
+              const isSelected = activeSpecialtyId === specialty.id;
+              return (
+                <button
+                  key={specialty.id}
+                  onClick={() => handleSpecialtyChange(specialty.id)}
+                  className={`flex-1 sm:flex-initial relative px-2.5 sm:px-7 py-2.5 rounded-xl sm:rounded-full text-[12px] sm:text-[15px] font-extrabold transition-all duration-300 text-center active:scale-95 ${
+                    isSelected 
+                      ? "text-white shadow-[0_4px_15px_rgba(0,102,255,0.35)]" 
+                      : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="activeTreatmentTab"
+                      className="absolute inset-0 bg-gradient-to-r from-[#0066FF] to-[#0050DD] rounded-xl sm:rounded-full"
+                      transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                    />
+                  )}
+                  <span className="relative z-10 truncate block max-w-full">{specialty.name}</span>
+                </button>
+              );
+            })}
           </div>
+        </div>
 
+        {/* Treatment Cards Area with Cursor-Tracking Glow and Haptics */}
+        <div className="w-full relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSpecialtyId}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full relative z-10"
+              transition={{ duration: 0.25 }}
+              className="w-full relative z-10"
             >
-              {activeSpecialty.treatments.map((treatment, idx) => (
-                <motion.div
-                  key={treatment.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.08 }}
-                  className="relative rounded-3xl overflow-hidden flex flex-col min-h-[360px] md:min-h-[480px] cursor-pointer group bg-[#f3f7fc] hover:bg-[#eef4fb] border border-[#e4ecf7] hover:border-blue-200 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,85,255,0.1)]"
-                >
-                  {/* TOP: Text content */}
-                  <div className="relative z-20 flex flex-col p-5 md:p-8 pb-0">
-                    <h3 className="text-[22px] font-bold text-slate-900 leading-snug mb-3 tracking-tight group-hover:text-[#0055ff] transition-colors">
-                      {treatment.name}
-                    </h3>
-                    <p className="text-[14px] text-slate-500 leading-relaxed mb-6">
-                      {treatment.description}
-                    </p>
+              {/* MOBILE: Authentic Patient App Glassmorphic Glow Tiles (< 768px) */}
+              <div className="flex flex-col gap-4 md:hidden">
+                {activeSpecialty.treatments.map((treatment, idx) => (
+                  <motion.div
+                    key={`mobile-${treatment.id}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                  >
+                    <GlowCard
+                      href="#lead-capture"
+                      hapticMode="medium"
+                      className="flex items-center justify-between gap-3.5 p-4 sm:p-5 rounded-[28px] bg-white/55 hover:bg-white/75 backdrop-blur-2xl border border-white/80 hover:border-white shadow-[0_12px_38px_rgba(0,70,220,0.22)] active:scale-[0.97] transition-all duration-300"
+                    >
+                      {/* Top glass sheen highlight */}
+                      <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-white/45 to-transparent pointer-events-none z-0" />
 
-                    <div className="flex flex-wrap items-center gap-3">
+                      {/* Left content column */}
+                      <div className="flex-1 min-w-0 flex flex-col z-10">
+                        <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/90 border border-blue-100/80 shadow-2xs text-[10px] font-black uppercase tracking-wider text-[#0055ff]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Daycare Laser
+                          </span>
+                          <span className="text-[11px] font-extrabold text-blue-950/80">
+                            • 30m Proc.
+                          </span>
+                        </div>
 
-                      <button className="flex items-center gap-1.5 bg-[#0055ff] text-white text-[13px] font-semibold px-4 py-1.5 rounded-full shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-colors group/btn">
-                        Know More
-                        <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                      </button>
-                    </div>
-                  </div>
+                        <h3 className="text-[17px] font-black text-slate-900 leading-tight truncate group-hover:text-[#0055ff] transition-colors mb-1">
+                          {treatment.name}
+                        </h3>
+                        
+                        <p className="text-[13px] text-slate-700 font-medium line-clamp-2 leading-relaxed mb-3.5">
+                          {treatment.description}
+                        </p>
 
-                  {/* BOTTOM: Image blending to edges */}
-                  <div className="relative flex-1 w-full mt-10 min-h-[220px] overflow-hidden">
-                    {/* Top fade gradient to blend image into the solid background */}
-                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#f3f7fc] group-hover:from-[#eef4fb] to-transparent z-10 transition-colors duration-500" />
-                    
-                    {treatment.image ? (
-                      <img
-                        src={treatment.image}
-                        alt={treatment.name}
-                        className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
-                        loading="lazy"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-blue-50/50">
-                        <div className="w-24 h-24 rounded-full bg-white/80 border-2 border-blue-100/60 flex items-center justify-center">
-                          <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10 text-blue-200" stroke="currentColor" strokeWidth="1.5">
-                            <rect x="6" y="10" width="36" height="28" rx="4"/>
-                            <circle cx="24" cy="22" r="6"/>
-                            <path d="M6 34l8-8 6 6 8-10 8 8"/>
-                          </svg>
+                        <div className="inline-flex items-center w-max gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0066FF] text-white text-[11px] sm:text-[12px] font-extrabold shadow-[0_4px_14px_rgba(0,102,255,0.35)] group-hover:bg-blue-700 transition-all">
+                          <span>Consult Specialist</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+
+                      {/* Right side compact app thumbnail in dual glass frame */}
+                      <div className="w-[94px] h-[94px] sm:w-[110px] sm:h-[110px] rounded-[22px] overflow-hidden shrink-0 bg-white/70 backdrop-blur-md border-2 border-white p-1 shadow-[0_6px_22px_rgba(0,70,200,0.22)] relative z-10 flex items-center justify-center">
+                        <div className="w-full h-full rounded-[16px] overflow-hidden relative bg-blue-50/60">
+                          {treatment.image ? (
+                            <img
+                              src={treatment.image}
+                              alt={treatment.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center text-blue-500">
+                              <Zap className="w-6 h-6 animate-pulse" />
+                            </div>
+                          )}
+                          <div className="absolute bottom-1 right-1 bg-slate-950/85 backdrop-blur-xs px-1.5 py-0.5 rounded text-[8px] font-black text-white uppercase tracking-wider shadow-2xs">
+                            USFDA
+                          </div>
+                        </div>
+                      </div>
+                    </GlowCard>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* DESKTOP: Glassmorphic Glow Cards Grid (>= 768px) */}
+              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                {activeSpecialty.treatments.map((treatment, idx) => (
+                  <motion.div
+                    key={`desktop-${treatment.id}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.08 }}
+                  >
+                    <GlowCard
+                      href="#lead-capture"
+                      hapticMode="medium"
+                      className="rounded-[32px] flex flex-col min-h-[460px] cursor-pointer bg-white/50 hover:bg-white/70 backdrop-blur-2xl border border-white/80 hover:border-white transition-all duration-500 shadow-[0_15px_45px_rgba(0,70,220,0.18)] hover:shadow-[0_20px_50px_rgba(0,85,255,0.28)]"
+                    >
+                      <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/50 to-transparent pointer-events-none" />
+                      
+                      <div className="relative z-20 flex flex-col p-8 pb-0">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 rounded-full bg-white/90 border border-blue-100 shadow-2xs text-[#0066FF]">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> USFDA Approved
+                          </span>
+                          <span className="text-[12px] font-extrabold text-blue-950/70">Zero Pain</span>
+                        </div>
+
+                        <h3 className="text-[23px] font-black text-slate-900 leading-snug mb-3 tracking-tight group-hover:text-[#0055ff] transition-colors">
+                          {treatment.name}
+                        </h3>
+                        <p className="text-[14px] text-slate-700 font-medium leading-relaxed mb-6">
+                          {treatment.description}
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="flex items-center gap-1.5 bg-[#0066FF] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-[0_6px_20px_rgba(0,102,255,0.35)] hover:bg-blue-700 transition-colors group/btn">
+                            <span>Know More</span>
+                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="relative flex-1 w-full mt-8 min-h-[230px] overflow-hidden p-3 pt-0">
+                        <div className="w-full h-full rounded-2xl overflow-hidden relative border border-white/60 shadow-inner">
+                          {treatment.image ? (
+                            <img
+                              src={treatment.image}
+                              alt={treatment.name}
+                              className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center bg-blue-50/60">
+                              <Zap className="w-12 h-12 text-blue-400" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </GlowCard>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

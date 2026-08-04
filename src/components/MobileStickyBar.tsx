@@ -1,14 +1,25 @@
 "use client";
 
-import { Phone, MessageCircle, Calendar, LayoutGrid, X, Compass, Stethoscope, User, Mail, Sparkles } from "lucide-react";
+import { Phone, MessageCircle, Calendar, LayoutGrid, X, Compass, Stethoscope, User, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { haptic } from "@/utils/haptics";
 
 const PHONE = "+919363650066";
 const WHATSAPP_MSG = encodeURIComponent("Hello HealthFlo, I'd like a free callback.");
 
 export default function MobileStickyBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    haptic.light();
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleNavClick = () => {
+    haptic.light();
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
@@ -19,7 +30,10 @@ export default function MobileStickyBar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={() => {
+              haptic.light();
+              setIsMenuOpen(false);
+            }}
             className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs z-[105] md:hidden"
           />
         )}
@@ -47,8 +61,11 @@ export default function MobileStickyBar() {
                   </span>
                 </div>
                 <button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-600 hover:text-slate-900 text-[11px] font-bold px-3 py-1 bg-slate-200/70 rounded-full flex items-center gap-1 transition-colors"
+                  onClick={() => {
+                    haptic.light();
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-slate-600 hover:text-slate-900 text-[11px] font-bold px-3 py-1 bg-slate-200/70 rounded-full flex items-center gap-1 transition-colors active:scale-90"
                 >
                   <span>Close</span>
                   <X className="w-3 h-3" />
@@ -58,8 +75,11 @@ export default function MobileStickyBar() {
               {/* Priority Book Free Card inside the Menu */}
               <a
                 href="#lead-capture"
-                onClick={() => setIsMenuOpen(false)}
-                className="mb-3 block w-full bg-gradient-to-r from-[#0066FF] to-[#0050DD] text-white p-3.5 rounded-2xl shadow-[0_6px_20px_rgba(0,102,255,0.3)] transition-transform active:scale-[0.98] relative overflow-hidden"
+                onClick={() => {
+                  haptic.success();
+                  setIsMenuOpen(false);
+                }}
+                className="mb-3 block w-full bg-gradient-to-r from-[#0066FF] to-[#0050DD] text-white p-3.5 rounded-2xl shadow-[0_6px_20px_rgba(0,102,255,0.3)] transition-transform active:scale-[0.94] relative overflow-hidden"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
@@ -82,9 +102,9 @@ export default function MobileStickyBar() {
               {/* Page Navigators Grid */}
               <div className="grid grid-cols-2 gap-2.5">
                 <a
-                  href="#"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-95"
+                  href="/"
+                  onClick={handleNavClick}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-[0.93]"
                 >
                   <div className="w-7 h-7 rounded-xl bg-blue-100 text-[#0066FF] flex items-center justify-center shrink-0">
                     <Compass className="w-4 h-4" />
@@ -92,19 +112,19 @@ export default function MobileStickyBar() {
                   <span>Overview</span>
                 </a>
                 <a
-                  href="#specialized-treatments"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-95"
+                  href="/specialities"
+                  onClick={handleNavClick}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-[0.93]"
                 >
                   <div className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                     <Stethoscope className="w-4 h-4" />
                   </div>
-                  <span>Departments</span>
+                  <span>Specialities</span>
                 </a>
                 <a
                   href="#patient-stories"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-95"
+                  onClick={handleNavClick}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-[0.93]"
                 >
                   <div className="w-7 h-7 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
                     <User className="w-4 h-4" />
@@ -113,8 +133,8 @@ export default function MobileStickyBar() {
                 </a>
                 <a
                   href="#contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-95"
+                  onClick={handleNavClick}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/90 hover:bg-white text-slate-800 font-bold text-[13px] border border-slate-200/70 shadow-2xs transition-all active:scale-[0.93]"
                 >
                   <div className="w-7 h-7 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4" />
@@ -126,7 +146,7 @@ export default function MobileStickyBar() {
           )}
         </AnimatePresence>
 
-        {/* 3-Column Floating Glassmorphic Dock (No squishing!) */}
+        {/* 3-Column Floating Glassmorphic Dock with Tactile Device Vibration */}
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -137,7 +157,9 @@ export default function MobileStickyBar() {
             href={`https://wa.me/${PHONE}?text=${WHATSAPP_MSG}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center gap-1 bg-[#25D366] hover:bg-[#20b858] text-white font-extrabold py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight shadow-md active:scale-95 transition-all w-full min-w-0"
+            data-analytics="whatsapp_mobile_dock_click"
+            onClick={() => haptic.medium()}
+            className="flex flex-col items-center justify-center gap-1 bg-[#25D366] hover:bg-[#20b858] text-white font-extrabold py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight shadow-md active:scale-[0.92] transition-all w-full min-w-0"
           >
             <MessageCircle className="w-4 h-4 shrink-0" />
             <span className="truncate max-w-full">WhatsApp</span>
@@ -145,15 +167,17 @@ export default function MobileStickyBar() {
           
           <a
             href={`tel:${PHONE}`}
-            className="flex flex-col items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight shadow-md active:scale-95 transition-all w-full min-w-0"
+            data-analytics="helpline_mobile_dock_click"
+            onClick={() => haptic.medium()}
+            className="flex flex-col items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight shadow-md active:scale-[0.92] transition-all w-full min-w-0"
           >
             <Phone className="w-4 h-4 shrink-0" />
             <span className="truncate max-w-full">Call Now</span>
           </a>
 
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`flex flex-col items-center justify-center gap-1 py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight font-extrabold border transition-all active:scale-95 shadow-md w-full min-w-0 ${
+            onClick={toggleMenu}
+            className={`flex flex-col items-center justify-center gap-1 py-2.5 px-2 rounded-[18px] text-[12px] tracking-tight font-extrabold border transition-all active:scale-[0.92] shadow-md w-full min-w-0 ${
               isMenuOpen 
                 ? "bg-slate-800 text-white border-slate-800" 
                 : "bg-[#0066FF] hover:bg-blue-600 text-white border-[#0066FF]"

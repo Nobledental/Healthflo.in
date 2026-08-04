@@ -2,45 +2,81 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { ChevronDown, ShieldCheck, Activity, Wallet, HeartHandshake, Sparkles, HelpCircle } from "lucide-react";
 
-const faqs = [
+interface FAQItem {
+  id: string;
+  category: "surgery" | "insurance" | "recovery" | "safety";
+  q: string;
+  a: string;
+}
+
+const faqs: FAQItem[] = [
   {
-    q: "Is laser surgery for piles painful?",
-    a: "No. Laser treatment for piles (haemorrhoids) is virtually painless. A local or spinal anaesthesia is administered before the procedure, and most patients feel minimal discomfort both during and after surgery. Most patients rate their pain at 1–2 out of 10 post-procedure.",
+    id: "pain",
+    category: "surgery",
+    q: "Is laser surgery for piles and perianal procedures painful?",
+    a: "No. Advanced laser surgical techniques are virtually painless compared to conventional surgeries. Administered under targeted anaesthesia, our precision 1470nm diode lasers seal nerves instantly, leaving zero open wounds or stitches. Patients regularly rate post-procedure discomfort at 1–2 out of 10.",
   },
   {
-    q: "Can I go home the same day as surgery?",
-    a: "Yes — for most of our procedures (laser piles, fissure, fistula, circumcision, lipoma removal), same-day discharge is the standard. You arrive in the morning, have your procedure, rest for a few hours under supervision, and return home the same evening.",
+    id: "sameday",
+    category: "surgery",
+    q: "Can I go home the same day as my surgery?",
+    a: "Yes. For over 95% of minimally invasive treatments—including laser piles, fissure, fistula, circumcision, and lipoma excisions—same-day hospital discharge is standard practice. You are admitted in the morning, undergo a brief 30-minute procedure, rest under specialized observation, and walk home comfortably the same evening.",
   },
   {
-    q: "Will my insurance cover this surgery?",
-    a: "Most major Indian health insurance providers — including TATA AIG, Star Health, HDFC Ergo, Care Health, and 95+ others — cover our procedures. Our dedicated in-house insurance coordinators will verify your policy, file pre-authorisation, and manage all paperwork. You simply walk in.",
+    id: "insurance",
+    category: "insurance",
+    q: "Will my medical insurance cover laser surgical treatments?",
+    a: "Yes. Our USFDA-approved surgical procedures are recognized and covered by 95+ major health insurers, including TATA AIG, Star Health, HDFC Ergo, Care Health, and government schemes where applicable. Our dedicated in-house insurance desk executes rapid 30-minute digital pre-authorization, enabling 100% cashless admission.",
   },
   {
-    q: "How long does recovery take after laser surgery?",
-    a: "Recovery is remarkably fast with laser techniques. Most patients return to light desk work within 48–72 hours. Full physical activity is typically resumed within 1–2 weeks. This is 40–60% faster than traditional open surgery.",
+    id: "cost",
+    category: "insurance",
+    q: "How are surgical procedure costs calculated?",
+    a: "HealthFlo packages are strictly transparent and all-inclusive—covering senior surgeon professional fees, anaesthetist charges, high-precision OT consumables, diagnostic profiling, medicines, nursing, and a complimentary post-discharge follow-up consultation. Zero surprise room rent caps or hidden add-ons. Easy 0% interest EMI financing is also available.",
   },
   {
-    q: "What is a Care Coordinator and how do they help me?",
-    a: "Every HealthFlo patient is assigned a dedicated Care Coordinator — a trained professional who serves as your single point of contact. They arrange your consultation, manage insurance approvals, coordinate your surgery date, arrange drop facility post-discharge, and schedule your follow-up consultation. You never have to deal with hospital administration directly.",
+    id: "recovery",
+    category: "recovery",
+    q: "What is the expected recovery timeline after laser surgery?",
+    a: "Due to zero cutting or cautery burns, recovery is remarkably accelerated. Most patients comfortably return to desk routines and normal mobility within 48 to 72 hours. Complete tissue assimilation occurs in 1–2 weeks—representing a 60% faster clinical recovery than conventional scalpel surgery.",
   },
   {
-    q: "How much does a laser piles surgery cost?",
-    a: "The cost varies by city, severity, and insurance coverage. All HealthFlo packages are all-inclusive — surgeon fees, anaesthetist, OT charges, medicines, nursing, and a free follow-up consultation are all covered. We also offer EMI options. Contact us for a personalised quote after your free consultation.",
+    id: "coordinator",
+    category: "recovery",
+    q: "What role does my dedicated Care Coordinator play?",
+    a: "Every patient is assigned an experienced, dedicated Care Coordinator who acts as your single clinical point of contact. They orchestrate your surgeon consultations, process all insurance claims, manage hospital admission protocols, arrange free out-of-town patient transit, and book follow-up consultations.",
   },
   {
-    q: "Is the surgeon experienced? Can I see their credentials?",
-    a: "All surgeons in the HealthFlo network are board-certified specialists with a minimum of 5 years of post-qualification surgical experience. Many hold advanced fellowships in minimally invasive surgery. Your care coordinator will share your surgeon's full profile and credentials before your consultation.",
+    id: "surgeons",
+    category: "safety",
+    q: "What are the clinical qualifications of HealthFlo surgeons?",
+    a: "Our network surgeons are strictly elite, board-certified specialists (MS / DNB / M.Ch / FIAGES) averaging 10 to 15+ years of dedicated surgical operative experience. Prior to your initial consultation, your coordinator will share your designated surgeon's complete professional credentials and fellowship accolades.",
   },
   {
-    q: "What if I have complications after discharge?",
-    a: "We provide 24×7 support from your care team. One complimentary post-operative consultation is included in every package. If you experience any concern after discharge, you can reach your care coordinator directly on WhatsApp or phone at any time.",
+    id: "support",
+    category: "safety",
+    q: "What emergency post-operative support is available after discharge?",
+    a: "Patient protection extends beyond hospital discharge. You retain comprehensive 24/7 direct communication with your clinical care team and assigned Care Coordinator via priority phone and WhatsApp dispatch. One complimentary diagnostic follow-up appointment is standard with every treatment package.",
   },
 ];
 
+const categories = [
+  { id: "all", label: "All Topics", icon: HelpCircle },
+  { id: "surgery", label: "Laser & Surgery", icon: Activity },
+  { id: "insurance", label: "Insurance & Costs", icon: Wallet },
+  { id: "recovery", label: "Care & Recovery", icon: HeartHandshake },
+  { id: "safety", label: "Surgeons & Safety", icon: ShieldCheck },
+] as const;
+
 export default function FAQ() {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [openIdx, setOpenIdx] = useState<string | null>("pain");
+
+  const filteredFaqs = activeCategory === "all" 
+    ? faqs 
+    : faqs.filter((item) => item.category === activeCategory);
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -56,83 +92,129 @@ export default function FAQ() {
   };
 
   return (
-    <section className="w-full py-8 md:py-12 pb-24 md:pb-12 relative z-10" id="faq">
+    <section className="w-full py-12 md:py-16 relative z-10 overflow-hidden" id="faq">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
-      <div className="text-center mb-12">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-xs font-bold tracking-[0.2em] text-[#05f] uppercase mb-4"
-        >
-          Patient Questions, Answered
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-2xl sm:text-3xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight"
-        >
-          Frequently Asked<br />
-          <span className="font-medium text-slate-900">Questions.</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 text-slate-500 max-w-[600px] mx-auto text-[16px]"
-        >
-          Everything patients ask us before booking their first consultation — answered honestly and completely.
-        </motion.p>
-      </div>
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Compact, Professional Header */}
+        <div className="mb-8 md:mb-10 pb-6 border-b border-slate-200/80 text-left">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/80 text-[#0066FF] text-[11px] font-extrabold uppercase tracking-wider mb-3 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#0066FF]" />
+            <span>Clinical Intelligence Desk</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 tracking-tight leading-tight mb-2.5">
+            Patient Frequently Asked <span className="text-[#0066FF]">Questions</span>
+          </h2>
+          <p className="text-slate-600 text-[14px] sm:text-[16px] font-semibold max-w-3xl leading-relaxed">
+            Authoritative answers on USFDA surgical protocols, 100% cashless insurance claims, and same-day recovery procedures.
+          </p>
+        </div>
 
-      <div className="max-w-3xl mx-auto flex flex-col gap-3 px-4">
-        {faqs.map((faq, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.04 }}
-            className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-              openIdx === idx
-                ? "border-[#05f]/30 bg-blue-50/50 shadow-sm"
-                : "border-slate-200 bg-white hover:border-slate-300"
-            }`}
-          >
-            <button
-              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-              className="w-full flex items-start justify-between gap-3 text-left px-4 py-4 md:px-6 md:py-5"
-            >
-              <span className={`font-semibold text-[14px] md:text-[15px] leading-snug ${openIdx === idx ? "text-[#05f]" : "text-slate-800"}`}>
-                {faq.q}
-              </span>
-              <span className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5 transition-colors ${openIdx === idx ? "bg-[#05f] text-white" : "bg-slate-100 text-slate-500"}`}>
-                {openIdx === idx ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-              </span>
-            </button>
+        {/* Compact Category Navigation Pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-8">
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  const newlyFiltered = cat.id === "all" ? faqs : faqs.filter(f => f.category === cat.id);
+                  if (newlyFiltered.length > 0 && !newlyFiltered.some(f => f.id === openIdx)) {
+                    setOpenIdx(newlyFiltered[0].id);
+                  }
+                }}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] font-extrabold transition-all duration-200 border shadow-2xs active:scale-95 ${
+                  isActive
+                    ? "bg-[#0066FF] text-white border-[#0066FF] shadow-[0_4px_14px_rgba(0,102,255,0.25)]"
+                    : "bg-white/80 hover:bg-slate-50 text-slate-700 border-slate-200/80"
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-white" : "text-[#0066FF]"}`} />
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
+        </div>
 
-            <AnimatePresence>
-              {openIdx === idx && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
+        {/* Compact 2-Column Responsive FAQ Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 items-start">
+          {filteredFaqs.map((faq) => {
+            const isOpen = openIdx === faq.id;
+            return (
+              <div
+                key={faq.id}
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden text-left ${
+                  isOpen
+                    ? "bg-gradient-to-br from-blue-50/90 via-white to-cyan-50/60 border-[#0066FF]/60 shadow-[0_6px_22px_rgba(0,102,255,0.08)]"
+                    : "bg-white/90 hover:bg-white border-slate-200/80 hover:border-slate-300 shadow-2xs"
+                }`}
+              >
+                <button
+                  onClick={() => setOpenIdx(isOpen ? null : faq.id)}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 sm:px-5 sm:py-4 text-left font-bold transition-colors group"
                 >
-                  <div className="px-6 pb-6 text-[15px] text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
-                    {faq.a}
+                  <span className={`text-[14px] md:text-[15px] leading-snug tracking-tight ${isOpen ? "text-[#0066FF] font-black" : "text-slate-900 group-hover:text-[#0066FF]"}`}>
+                    {faq.q}
+                  </span>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 border ${
+                    isOpen 
+                      ? "bg-[#0066FF] text-white border-[#0066FF] rotate-180 shadow-2xs" 
+                      : "bg-slate-100/80 text-slate-600 border-slate-200/80 group-hover:bg-blue-50 group-hover:text-[#0066FF]"
+                  }`}>
+                    <ChevronDown className="w-4 h-4 stroke-[2.5]" />
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: "easeInOut" }}
+                    >
+                      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-1 text-[13.5px] sm:text-[14px] text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Professional Clinical Footer Banner inside FAQ */}
+        <div className="mt-8 pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left bg-gradient-to-r from-slate-900 via-[#0A1428] to-slate-900 text-white p-5 rounded-2xl shadow-md border border-slate-800">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0066FF] to-cyan-500 flex items-center justify-center text-white font-black shadow-md shrink-0">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div className="min-w-0">
+              <h4 className="text-[14px] md:text-[15px] font-black tracking-tight text-white leading-tight">
+                Have a specific diagnostic or insurance question?
+              </h4>
+              <p className="text-[12px] text-slate-300 font-semibold mt-0.5">
+                Speak directly with a senior clinical triage coordinator on our 24/7 priority medical desk.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://wa.me/919363650066?text=Hello%20HealthFlo%20team,%20I%20have%20a%20specific%20clinical%20question%20regarding%20my%20treatment%20and%20insurance."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white text-[13px] font-extrabold transition-all shadow-[0_4px_14px_rgba(0,102,255,0.3)] shrink-0 active:scale-95"
+          >
+            Ask Clinical Desk →
+          </a>
+        </div>
+
       </div>
     </section>
   );

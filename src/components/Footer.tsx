@@ -1,64 +1,287 @@
 "use client";
 
 import Link from "next/link";
-import { TwitterLogo, LinkedinLogo, FacebookLogo } from "@phosphor-icons/react";
+import { 
+  ShieldCheck, 
+  Award, 
+  Lock, 
+  Building2, 
+  Phone, 
+  MessageCircle, 
+  MapPin, 
+  Mail,
+  Globe2,
+  CheckCircle2
+} from "lucide-react";
+import { haptic } from "@/utils/haptics";
 
 export default function Footer() {
+  const WHATSAPP_URL = "https://wa.me/919363650066?text=Hello%20HealthFlo%20team,%20I%20would%20like%20to%20consult%20a%20surgical%20coordinator%20regarding%20packages%20and%20insurance%20eligibility.";
+
   return (
-    <footer className="w-full border-t border-[#e2e8f0] bg-white/80 backdrop-blur-xl py-12 relative z-10 mt-auto">
-      <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-        <div className="lg:col-span-2">
-          <div className="text-[20px] font-bold text-slate-900 tracking-tighter mb-4 flex items-center">
-            <div className="relative w-6 h-6 mr-2 flex items-center justify-center">
-              <div className="w-2 h-2 bg-[#0a84ff] rounded-full shadow-[0_0_8px_3px_rgba(10,132,255,0.6)] z-10"></div>
+    <footer className="w-full bg-gradient-to-b from-[#1C3664] via-[#18315B] to-[#122648] text-white relative z-10 mt-auto text-left border-t-2 border-[#2C528C] shadow-[0_-10px_35px_rgba(0,0,0,0.2)]">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 pb-36 md:pb-28">
+        
+        {/* ── TOP BAR: BRAND LOGO, ACCREDITATION & AUTHENTIC WHITE SOCIALS ── */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-10 mb-10 border-b border-white/15">
+          
+          {/* Brand Logo & Name */}
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+              <span className="text-white font-black text-2xl tracking-tighter">H</span>
             </div>
-            <span className="text-slate-800">Health</span>
-            <span className="text-[#0a84ff]">flo</span>
+            <div>
+              <div className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-1.5">
+                <span className="text-white">Health</span>
+                <span className="text-amber-300">Flo</span>
+                <span className="text-[10px] sm:text-xs font-extrabold uppercase px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/40 ml-1">USFDA Network</span>
+              </div>
+              <p className="text-xs sm:text-sm font-extrabold text-blue-100/80 tracking-wide uppercase mt-0.5">
+                India&apos;s Premier Precision Laser & Daycare Surgery Directorate
+              </p>
+            </div>
           </div>
-          <p className="text-slate-600 text-sm mb-4 max-w-sm">
-            India's trusted managed surgical care network. Cashless on 30+ insurers. Same-day discharge. Dedicated care coordinators.
-          </p>
-          <div className="flex flex-col gap-2">
-            <a href="tel:+919363650066" className="text-sm font-bold text-[#0a84ff] hover:underline">📞 +91 93636 50066</a>
-            <a href="https://wa.me/919363650066" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-green-600 hover:underline">💬 WhatsApp Us</a>
+
+          {/* NABH & USFDA Emblem */}
+          <div className="flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/20 px-4 py-2.5 rounded-2xl shadow-sm">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-600 via-yellow-400 to-amber-200 flex items-center justify-center shadow-inner shrink-0">
+              {/* Award/Shield SVG */}
+              <svg className="w-5 h-5 fill-[#1C3664]" viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/>
+                <path d="M10.5 13.5l-2-2-1 1 3 3 5-5-1-1-4 4z"/>
+              </svg>
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-black text-white uppercase tracking-wider">NABH & USFDA Certified OTs</p>
+              <p className="text-[11px] font-medium text-amber-300">10,000+ Successful Zero-Stitch Procedures</p>
+            </div>
+          </div>
+
+          {/* Authentic White Social Media Icons */}
+          <div className="flex items-center gap-2.5">
+            <a 
+              href="https://facebook.com" 
+              target="_blank" 
+              rel="noreferrer"
+              aria-label="Facebook"
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white border border-white/30 flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+            </a>
+            <a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white border border-white/30 flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white border border-white/30 flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+            <a 
+              href="https://youtube.com" 
+              target="_blank" 
+              rel="noreferrer"
+              aria-label="YouTube"
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white border border-white/30 flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+            </a>
+            <a 
+              href={WHATSAPP_URL} 
+              target="_blank" 
+              rel="noreferrer"
+              title="WhatsApp Triage Desk"
+              aria-label="WhatsApp"
+              className="w-10 h-10 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+            >
+              <MessageCircle className="w-5 h-5 fill-current text-white" />
+            </a>
+          </div>
+
+        </div>
+
+        {/* ── MAIN 4-COLUMN HOSPITAL DIRECTORY GRID ──────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-white/15">
+          
+          {/* Column 1: Network Hubs & Addresses (Span 3) */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-base sm:text-lg font-extrabold text-white tracking-wide border-b border-white/20 pb-2.5 flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Hospital Network Hubs</span>
+            </h4>
+            
+            <div className="space-y-3 text-xs sm:text-[13px]">
+              {[
+                { city: "Hyderabad Triage HQ", desc: "Nallagandla, Gachibowli & Jubilee Hills Healthcare Corridor, Hyderabad, TS." },
+                { city: "Bangalore Surgical Hub", desc: "Whitefield IT Belt, Indiranagar, HSR Layout & Hebbal Medical Centers, KA." },
+                { city: "Regional South India Desk", desc: "Chennai, Coimbatore, Madurai, Vellore, Salem & Regional Cab Transit Network." }
+              ].map((hub, i) => (
+                <div key={i} className="bg-white/5 rounded-xl p-3.5 border border-white/10 space-y-1.5">
+                  <p className="font-extrabold text-amber-300 flex items-center gap-2">
+                    {/* Professional inline SVG map-pin */}
+                    <svg className="w-3.5 h-3.5 fill-amber-400 shrink-0" viewBox="0 0 24 24">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <span>{hub.city}</span>
+                  </p>
+                  <p className="text-blue-100 font-medium leading-relaxed pl-5.5">{hub.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Our Surgical Clinics (Span 3) */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-base sm:text-lg font-extrabold text-white tracking-wide border-b border-white/20 pb-2.5">
+              Our Surgical Clinics
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-[13.5px] font-semibold text-blue-100/90">
+              {[
+                { name: "Proctology & Laser Piles Center", href: "/specialities/laser-piles" },
+                { name: "Urology & Circumcision Suites", href: "/specialities/circumcision" },
+                { name: "Laparoscopic & General Surgery", href: "/specialities/gallstone" },
+                { name: "Hernia & Mesh Repair Protocols", href: "/specialities/hernia" },
+                { name: "Orthopedics & Joint Preservation", href: "/specialities" },
+                { name: "Gynecology & Pelvic Care", href: "/specialities" },
+                { name: "ENT, Sinus & Ear Reconstruction", href: "/specialities" },
+                { name: "Ophthalmology & Refractive Suites", href: "/specialities" },
+                { name: "Vascular & Varicose Vein Therapies", href: "/specialities/varicose" },
+                { name: "Men's Surgery & Metabolic Bariatrics", href: "/specialities" },
+                { name: "Breast Care & Surgical Oncology", href: "/specialities" },
+                { name: "Diagnostic & Operative Hysteroscopy", href: "/specialities" },
+                { name: "Advanced Kidney Stone (RIRS/ESWL)", href: "/specialities" }
+              ].map((clinic, idx) => (
+                <li key={idx}>
+                  <Link 
+                    href={clinic.href} 
+                    onClick={() => haptic.light()} 
+                    className="hover:text-white hover:underline decoration-amber-400 transition-colors block py-0.5"
+                  >
+                    &rsaquo; {clinic.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Quick Links & Institutional Navigation (Span 3) */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-base sm:text-lg font-extrabold text-white tracking-wide border-b border-white/20 pb-2.5">
+              Institutional Links
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-[13.5px] font-semibold text-blue-100/90">
+              {[
+                { name: "About HealthFlo Directorate", href: "/" },
+                { name: "Regional Locations Directory", href: "/locations" },
+                { name: "Standard 11-Point Package Guarantee", href: "/specialities" },
+                { name: "Find an Empanelled Surgeon", href: "/specialities" },
+                { name: "Check Insurance Eligibility", href: "/specialities" },
+                { name: "Regional Transit & Cab Assistance", href: "/locations" },
+                { name: "AI Symptom Diagnostic Triage", href: "/" },
+                { name: "Patient Feedback & Success Stories", href: "/" },
+                { name: "Corporate Group Mediclaim Desk", href: "/specialities" },
+                { name: "Clinical Careers & Fellowship", href: "/" },
+                { name: "Privacy Policy & HIPAA Charter", href: "/" },
+                { name: "Terms of Surgical Care", href: "/" }
+              ].map((link, idx) => (
+                <li key={idx}>
+                  <Link 
+                    href={link.href} 
+                    onClick={() => haptic.light()} 
+                    className="hover:text-white hover:underline decoration-amber-400 transition-colors block py-0.5"
+                  >
+                    &rsaquo; {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Doctor Helpline & 24/7 Priority Desk (Span 3) */}
+          <div className="lg:col-span-3 space-y-5">
+            <h4 className="text-base sm:text-lg font-extrabold text-white tracking-wide border-b border-white/20 pb-2.5 flex items-center gap-2">
+              <Phone className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse" />
+              <span>Doctor Enquiry & Helpline</span>
+            </h4>
+            
+            <div className="space-y-3">
+              <div className="bg-[#122442] border border-white/15 rounded-2xl p-4 space-y-2.5 shadow-md">
+                <span className="text-[11px] font-black uppercase text-amber-300 block tracking-wider">24/7 Priority Triage Desk</span>
+                <a 
+                  href="tel:+919363650066" 
+                  onClick={() => haptic.medium()} 
+                  className="block text-xl sm:text-2xl font-black text-white hover:text-amber-300 transition-colors tracking-tight"
+                >
+                  +91 93636 50066
+                </a>
+                <p className="text-[11px] text-blue-200/90 font-medium leading-normal">
+                  Connect instantly with senior clinical coordinators for rapid admission and insurance guidance.
+                </p>
+                <a 
+                  href="tel:+919363650066" 
+                  className="inline-flex items-center justify-center gap-2 text-xs font-black text-slate-950 bg-amber-400 hover:bg-amber-300 px-4 py-2.5 rounded-xl transition-all shadow-sm w-full mt-1"
+                >
+                  <Phone className="w-3.5 h-3.5 fill-slate-950 text-slate-950 shrink-0" />
+                  <span>Call Dispatch Coordinator</span>
+                </a>
+              </div>
+
+              <div className="bg-white/5 rounded-xl p-3.5 border border-white/10 space-y-2 text-xs">
+                <p className="font-extrabold text-white">Clinical & Corporate Emails:</p>
+                {[
+                  "customercare@healthflo.in",
+                  "triage.desk@healthflo.in"
+                ].map((email) => (
+                  <a 
+                    key={email}
+                    href={`mailto:${email}`} 
+                    className="font-medium text-blue-200 hover:text-white transition-colors flex items-center gap-2 group/email"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-blue-300 shrink-0 group-hover/email:fill-white transition-colors" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span className="truncate">{email}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ── BOTTOM BAR: LEGAL CHARTER & COPYRIGHT ────────────────────────── */}
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-[13px] font-medium text-blue-200/90 text-center sm:text-left">
+          <div>
+            <p className="font-extrabold text-white">
+              © 2026 HealthFlo Surgical Care Network. All rights reserved. • USFDA & NABH Accredited Protocols.
+            </p>
+            <p className="text-[11px] text-blue-200/70 mt-1">
+              Insurance Eligible across 30+ Major Insurers • Zero Out-Of-Pocket Surprises • HIPAA Compliant Patient Triage
+            </p>
+          </div>
+
+          <div className="flex items-center gap-5 font-bold text-xs text-white">
+            <Link href="/" className="hover:text-amber-300 transition-colors">Privacy Charter</Link>
+            <span className="text-blue-400">|</span>
+            <Link href="/" className="hover:text-amber-300 transition-colors">Terms of Surgery</Link>
+            <span className="text-blue-400">|</span>
+            <Link href="/locations" className="hover:text-amber-300 transition-colors">Regional Hubs</Link>
           </div>
         </div>
-        <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">Company</h3>
-          <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">About HealthFlo</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Our Surgical Team</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">HealthFlo Facilities</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#">Careers</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">Treatments</h3>
-          <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Piles & Fissure</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Fistula Treatment</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Laser Circumcision</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#specialized-treatments">Lipoma & Cyst Removal</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-slate-900 font-semibold text-sm mb-4">Patient Support</h3>
-          <ul className="space-y-3">
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#faq">FAQs</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#insurance">Insurance Desk</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#package-inclusions">What's Included</Link></li>
-            <li><Link className="text-slate-600 hover:text-[#0a84ff] text-sm transition-colors" href="#lead-capture">Book Consultation</Link></li>
-          </ul>
-        </div>
+
       </div>
-      <div className="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-[#e2e8f0] flex flex-col md:flex-row justify-between items-center">
-        <p className="text-slate-500 text-sm">© 2025 HealthFlo Surgical Care Network. All rights reserved.</p>
-        <div className="flex space-x-4 mt-4 md:mt-0">
-          <Link className="text-slate-500 hover:text-slate-900 transition-colors" href="#"><TwitterLogo weight="fill" className="text-lg" /></Link>
-          <Link className="text-slate-500 hover:text-slate-900 transition-colors" href="#"><LinkedinLogo weight="fill" className="text-lg" /></Link>
-          <Link className="text-slate-500 hover:text-slate-900 transition-colors" href="#"><FacebookLogo weight="fill" className="text-lg" /></Link>
-        </div>
-      </div>
+
     </footer>
   );
 }

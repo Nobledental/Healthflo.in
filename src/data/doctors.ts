@@ -16,7 +16,7 @@ export const doctorsData: Doctor[] = [
     qualifications: "MS, DNB (General Surgery)",
     experience: "15+ Years Experience",
     image: "/images/doctor-placeholder.webp",
-    hospitals: ["Healthflo Premier, New Delhi"],
+    hospitals: ["HealthFlo Premier, New Delhi"],
   },
   {
     id: "dr-vikram-singh",
@@ -25,7 +25,7 @@ export const doctorsData: Doctor[] = [
     qualifications: "MS, M.Ch (Urology)",
     experience: "12+ Years Experience",
     image: "/images/doctor-placeholder.webp",
-    hospitals: ["Healthflo Advanced, Gurgaon"],
+    hospitals: ["HealthFlo Advanced, Gurgaon"],
   },
   {
     id: "dr-neha-kapoor",
@@ -34,6 +34,6 @@ export const doctorsData: Doctor[] = [
     qualifications: "MS, FIAGES",
     experience: "10+ Years Experience",
     image: "/images/doctor-placeholder.webp",
-    hospitals: ["Healthflo Central, Noida"],
+    hospitals: ["HealthFlo Central, Noida"],
   },
 ];

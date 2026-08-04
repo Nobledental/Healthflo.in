@@ -166,8 +166,8 @@ function MedicalCard({ organIndex }: { organIndex: number }) {
 type Phase = "entering" | "visible" | "exiting" | "hidden";
 
 const SPOTS = [
-  { left: 20,  top: "38%" } as const,  // Left
-  { right: 20, top: "38%" } as const,  // Right
+  { left: 20,  top: "33%" } as const,  // Left
+  { right: 20, top: "33%" } as const,  // Right
 ];
 
 export default function Hero3DBackground() {
@@ -226,7 +226,7 @@ export default function Hero3DBackground() {
   if (phase === "exiting")  cardTransform = "translateY(calc(-50% - 10px)) scale(0.88)";
 
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+    <div className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
       {phase !== "hidden" && (
         <div style={{
           position: "absolute",
