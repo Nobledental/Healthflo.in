@@ -15,8 +15,12 @@ import {
   CheckCircle, 
   ArrowRight,
   Globe,
-  HeartPulse
+  HeartPulse,
+  Activity,
+  ChevronRight,
+  Layers
 } from "lucide-react";
+import { specialitiesData } from "@/data/specialities";
 
 export default function RegionalLocationsDirectoryPage() {
   const [selectedState, setSelectedState] = useState<string>("all");
@@ -41,6 +45,16 @@ export default function RegionalLocationsDirectoryPage() {
       return matchesState && matchesQuery;
     });
   }, [selectedState, searchQuery]);
+
+  const clusterGroups = useMemo(() => {
+    const groups: Record<string, RegionalLocation[]> = {};
+    filteredLocations.forEach(loc => {
+      const c = loc.cluster || "General Regional Surgical Corridors";
+      if (!groups[c]) groups[c] = [];
+      groups[c].push(loc);
+    });
+    return Object.entries(groups);
+  }, [filteredLocations]);
 
   return (
     <div className="w-full bg-gradient-to-b from-white via-[#FAF9F5] to-white text-[#1D3A6F] font-sans relative min-h-screen">
@@ -173,7 +187,7 @@ export default function RegionalLocationsDirectoryPage() {
 
         </div>
 
-        {/* ── REGIONAL HOSPITALS & TRANSIT DIRECTORY GRID ──────────────────── */}
+        {/* ── REGIONAL HOSPITALS & TRANSIT DIRECTORY BY CLUSTER ──────────────────── */}
         {filteredLocations.length === 0 ? (
           <div className="bg-white/80 rounded-3xl p-12 text-center border border-slate-200/80 max-w-2xl mx-auto my-8 space-y-4 shadow-sm">
             <Building2 className="w-12 h-12 text-slate-300 mx-auto" />
@@ -190,94 +204,131 @@ export default function RegionalLocationsDirectoryPage() {
             </a>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredLocations.map((loc) => {
-              const cleanedDesc = loc.description.replace(/cashless/gi, "Insurance Eligible");
-              const cleanedProcs = loc.specializedProcedures.map(p => p.replace(/cashless/gi, "Insurance Eligible"));
-
-              return (
-                <div 
-                  key={loc.slug} 
-                  className="bg-white/95 rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:border-[#1D3A6F]/30"
-                >
-                  <div className="space-y-4">
-                    
-                    {/* Header with State Tag & Native Greeting */}
-                    <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 bg-blue-50 text-[#1D3A6F] rounded-full border border-blue-100/80 font-mono">
-                        {loc.stateName} Hub
-                      </span>
-                      <span className="text-xs font-black text-[#E58325] bg-amber-50/80 px-2.5 py-1 rounded-xl border border-amber-200/60">
-                        {loc.nativeGreeting}
-                      </span>
+          <div className="space-y-12">
+            {clusterGroups.map(([clusterName, locations]) => (
+              <div key={clusterName} className="space-y-6">
+                
+                {/* Cluster Header Badge */}
+                <div className="flex items-center justify-between pb-3 border-b-2 border-[#1D3A6F]/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1D3A6F] to-blue-900 flex items-center justify-center text-white shadow-sm shrink-0">
+                      <Layers className="w-5 h-5 text-amber-400" />
                     </div>
-
-                    {/* City Name & Medical Hub */}
-                    <div className="space-y-1">
-                      <Link 
-                        href={`/locations/${loc.stateSlug}/${loc.slug}`}
-                        className="text-2xl font-black text-[#1D3A6F] group-hover:text-[#E58325] transition-colors inline-flex items-center gap-2"
-                      >
-                        <span>{loc.name}</span>
-                        <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-[#E58325] group-hover:translate-x-1 transition-all" />
-                      </Link>
-                      <p className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                        <span>{loc.hubCity}</span>
+                    <div>
+                      <h3 className="text-xl font-black text-[#1D3A6F] tracking-tight flex items-center gap-2">
+                        <span>{clusterName}</span>
+                      </h3>
+                      <p className="text-xs font-semibold text-slate-500">
+                        Dedicated NABH surgical triage & transit coordination throughout this regional sector.
                       </p>
                     </div>
-
-                    {/* Transit & Clinical Protocol Description */}
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed bg-[#FAF9F5] p-3 rounded-2xl border border-slate-100">
-                      {cleanedDesc}
-                    </p>
-
-                    {/* Transit Time Badge */}
-                    <div className="flex items-center gap-2 text-xs font-extrabold text-[#1D3A6F] bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200/80">
-                      <Navigation className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span className="truncate">{loc.transitTime}</span>
-                    </div>
-
-                    {/* Available Specialities */}
-                    <div className="space-y-1.5 pt-1">
-                      <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 block">Surgical Protocols & Suites:</span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {cleanedProcs.map((proc, idx) => (
-                          <span 
-                            key={idx} 
-                            className="text-[11px] font-semibold text-slate-700 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs hover:border-[#1D3A6F] transition-colors"
-                          >
-                            ✓ {proc}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
                   </div>
-
-                  {/* Footer Action Strip */}
-                  <div className="pt-6 mt-6 border-t border-slate-100 flex items-center gap-3">
-                    <Link
-                      href={`/locations/${loc.stateSlug}/${loc.slug}`}
-                      onClick={() => haptic.medium()}
-                      className="flex-1 bg-[#1D3A6F] hover:bg-[#152A52] text-white text-xs font-extrabold py-3 px-4 rounded-2xl text-center transition-all shadow-sm active:scale-95 block"
-                    >
-                      Explore Medical Hub &rarr;
-                    </Link>
-                    <a
-                      href={`https://wa.me/919363650066?text=${encodeURIComponent(`Hello HealthFlo team, I am calling from ${loc.name}, ${loc.stateName}. Please connect me with a native ${loc.nativeLanguage} surgical coordinator regarding Insurance Eligible treatments and hospital cab transit.`)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      title="WhatsApp Native Care Desk"
-                      className="w-11 h-11 bg-emerald-500 hover:bg-emerald-400 text-white rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0 active:scale-95 hover:scale-105"
-                    >
-                      <MessageCircle className="w-5 h-5 fill-current" />
-                    </a>
-                  </div>
-
+                  <span className="text-xs font-black text-[#1D3A6F] bg-blue-50 border border-blue-200/80 px-3 py-1 rounded-full shrink-0">
+                    {locations.length} {locations.length === 1 ? "Hub City" : "Hub Cities"}
+                  </span>
                 </div>
-              );
-            })}
+
+                {/* Grid of City Cards within Cluster */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {locations.map((loc) => {
+                    const cleanedDesc = loc.description.replace(/cashless/gi, "Insurance Eligible");
+
+                    return (
+                      <div 
+                        key={loc.slug} 
+                        className="bg-white/95 rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:border-[#1D3A6F]/30"
+                      >
+                        <div className="space-y-4">
+                          
+                          {/* Header with State Tag & Native Greeting */}
+                          <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <span className="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 bg-blue-50 text-[#1D3A6F] rounded-full border border-blue-100/80 font-mono">
+                              {loc.stateName} Hub
+                            </span>
+                            <span className="text-xs font-black text-[#E58325] bg-amber-50/80 px-2.5 py-1 rounded-xl border border-amber-200/60">
+                              {loc.nativeGreeting}
+                            </span>
+                          </div>
+
+                          {/* City Name & Medical Hub */}
+                          <div className="space-y-1">
+                            <Link 
+                              href={`/locations/${loc.stateSlug}/${loc.slug}`}
+                              className="text-2xl font-black text-[#1D3A6F] group-hover:text-[#E58325] transition-colors inline-flex items-center gap-2"
+                            >
+                              <span>{loc.name}</span>
+                              <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-[#E58325] group-hover:translate-x-1 transition-all" />
+                            </Link>
+                            <p className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
+                              <MapPin className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                              <span>{loc.hubCity}</span>
+                            </p>
+                          </div>
+
+                          {/* Transit & Clinical Protocol Description */}
+                          <p className="text-xs text-slate-600 font-medium leading-relaxed bg-[#FAF9F5] p-3 rounded-2xl border border-slate-100">
+                            {cleanedDesc}
+                          </p>
+
+                          {/* Transit Time Badge */}
+                          <div className="flex items-center gap-2 text-xs font-extrabold text-[#1D3A6F] bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200/80">
+                            <Navigation className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span className="truncate">{loc.transitTime}</span>
+                          </div>
+
+                          {/* Procedure Matrix Quick Links */}
+                          <div className="space-y-2 pt-2 border-t border-slate-100">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[11px] font-black uppercase tracking-wider text-[#1D3A6F] flex items-center gap-1.5">
+                                <Activity className="w-3.5 h-3.5 text-[#E58325]" />
+                                <span>Direct Procedure Matrix:</span>
+                              </span>
+                              <span className="text-[10px] font-bold text-slate-400">1-Click Triage</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1.5">
+                              {Object.entries(specialitiesData).map(([slug, spec]) => (
+                                <Link
+                                  key={slug}
+                                  href={`/locations/${loc.stateSlug}/${loc.slug}/${slug}`}
+                                  onClick={() => haptic.light()}
+                                  className="text-[11px] font-bold text-slate-700 bg-white hover:bg-[#1D3A6F] hover:text-white border border-slate-200/90 hover:border-[#1D3A6F] px-2.5 py-1.5 rounded-xl transition-all duration-200 flex items-center justify-between group/link shadow-2xs truncate"
+                                >
+                                  <span className="truncate pr-1">{spec.shortTitle}</span>
+                                  <ChevronRight className="w-3 h-3 text-[#E58325] group-hover/link:text-amber-300 shrink-0 opacity-80 group-hover/link:translate-x-0.5 transition-transform" />
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+
+                        </div>
+
+                        {/* Footer Action Strip */}
+                        <div className="pt-6 mt-6 border-t border-slate-100 flex items-center gap-3">
+                          <Link
+                            href={`/locations/${loc.stateSlug}/${loc.slug}`}
+                            onClick={() => haptic.medium()}
+                            className="flex-1 bg-[#1D3A6F] hover:bg-[#152A52] text-white text-xs font-extrabold py-3 px-4 rounded-2xl text-center transition-all shadow-sm active:scale-95 block"
+                          >
+                            Explore Medical Hub &rarr;
+                          </Link>
+                          <a
+                            href={`https://wa.me/919363650066?text=${encodeURIComponent(`Hello HealthFlo team, I am calling from ${loc.name}, ${loc.stateName}. Please connect me with a native ${loc.nativeLanguage} surgical coordinator regarding Insurance Eligible treatments and hospital cab transit.`)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            title="WhatsApp Native Care Desk"
+                            className="w-11 h-11 bg-emerald-500 hover:bg-emerald-400 text-white rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0 active:scale-95 hover:scale-105"
+                          >
+                            <MessageCircle className="w-5 h-5 fill-current" />
+                          </a>
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+
+              </div>
+            ))}
           </div>
         )}
 

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { REGIONAL_LOCATIONS, getLocationsByState, RegionalLocation } from "@/data/regionalLocations";
+import { specialitiesData } from "@/data/specialities";
 import { 
   MapPin, 
   Navigation, 
@@ -251,61 +252,87 @@ export default function RegionalLocationsDirectory() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
               transition={{ duration: 0.2 }}
-              className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/70 via-[#0B162C] to-slate-900/90 border border-blue-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative overflow-hidden"
+              className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/70 via-[#0B162C] to-slate-900/90 border border-blue-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex flex-col gap-5 relative overflow-hidden"
             >
               {/* Subtle background circuit line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00E5FF]/40 to-transparent pointer-events-none" />
 
-              <div className="flex items-center gap-4 relative z-10">
-                
-                {/* Custom Professional High-Precision GPS Pin SVG Badge */}
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0A162C] border border-slate-700/80 flex items-center justify-center shrink-0 shadow-lg p-2.5 group hover:border-[#00E5FF] transition-colors">
-                  <HighPrecisionMedicalPinSVG className="w-full h-full drop-shadow-[0_0_8px_rgba(0,229,255,0.5)]" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10 w-full">
+                <div className="flex items-center gap-4">
+                  
+                  {/* Custom Professional High-Precision GPS Pin SVG Badge */}
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0A162C] border border-slate-700/80 flex items-center justify-center shrink-0 shadow-lg p-2.5 group hover:border-[#00E5FF] transition-colors">
+                    <HighPrecisionMedicalPinSVG className="w-full h-full drop-shadow-[0_0_8px_rgba(0,229,255,0.5)]" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-base sm:text-xl font-black text-white tracking-tight flex items-center gap-1.5">
+                        <span>{activeLocation.name} Surgical Hub</span>
+                        <ShieldCheck className="w-4 h-4 text-[#00E5FF] shrink-0" />
+                      </h3>
+                      <span className="text-[11px] font-extrabold text-[#00E5FF] px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/30 shadow-xs">
+                        {activeLocation.nativeGreeting}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-slate-300">
+                      <div className="flex items-center gap-1.5 text-slate-200">
+                        <TransitRouteSVG className="w-4 h-4 shrink-0" />
+                        <span>{activeLocation.transitTime}</span>
+                      </div>
+                      <span className="hidden sm:inline text-slate-600">•</span>
+                      <div className="flex items-center gap-1 text-emerald-400 font-bold">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>{activeLocation.nativeLanguage} Coordinator on Duty</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-base sm:text-xl font-black text-white tracking-tight flex items-center gap-1.5">
-                      <span>{activeLocation.name} Surgical Hub</span>
-                      <ShieldCheck className="w-4 h-4 text-[#00E5FF] shrink-0" />
-                    </h3>
-                    <span className="text-[11px] font-extrabold text-[#00E5FF] px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/30 shadow-xs">
-                      {activeLocation.nativeGreeting}
-                    </span>
-                  </div>
+                {/* Action Buttons Deck */}
+                <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+                  <a
+                    href="tel:+919363650066"
+                    className="px-4 py-3 rounded-xl bg-[#0F1C36] hover:bg-[#16274B] text-slate-100 font-extrabold text-xs flex items-center justify-center gap-2 border border-slate-700 shadow-md transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
+                    <span>24/7 Helpline</span>
+                  </a>
 
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-slate-300">
-                    <div className="flex items-center gap-1.5 text-slate-200">
-                      <TransitRouteSVG className="w-4 h-4 shrink-0" />
-                      <span>{activeLocation.transitTime}</span>
-                    </div>
-                    <span className="hidden sm:inline text-slate-600">•</span>
-                    <div className="flex items-center gap-1 text-emerald-400 font-bold">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>{activeLocation.nativeLanguage} Coordinator on Duty</span>
-                    </div>
-                  </div>
+                  <Link
+                    href={`/locations/${activeLocation.stateSlug}/${activeLocation.slug}`}
+                    onClick={() => haptic.light()}
+                    className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-blue-600 hover:to-blue-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_25px_rgba(0,102,255,0.4)] transition-all transform hover:scale-[1.02]"
+                  >
+                    <span>Enter {activeLocation.name} Portal</span>
+                    <ChevronRight className="w-4 h-4 text-[#00E5FF]" />
+                  </Link>
                 </div>
               </div>
 
-              {/* Action Buttons Deck */}
-              <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 relative z-10 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
-                <a
-                  href="tel:+919363650066"
-                  className="px-4 py-3 rounded-xl bg-[#0F1C36] hover:bg-[#16274B] text-slate-100 font-extrabold text-xs flex items-center justify-center gap-2 border border-slate-700 shadow-md transition-colors"
-                >
-                  <Phone className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
-                  <span>24/7 Helpline</span>
-                </a>
-
-                <Link
-                  href={`/locations/${activeLocation.stateSlug}/${activeLocation.slug}`}
-                  onClick={() => haptic.light()}
-                  className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-blue-600 hover:to-blue-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_25px_rgba(0,102,255,0.4)] transition-all transform hover:scale-[1.02]"
-                >
-                  <span>Enter {activeLocation.name} Portal</span>
-                  <ChevronRight className="w-4 h-4 text-[#00E5FF]" />
-                </Link>
+              {/* Procedure Matrix Quick Links Deck */}
+              <div className="w-full pt-3 border-t border-slate-800/80 relative z-10">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#00E5FF] flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" />
+                    <span>Direct Procedure Access in {activeLocation.name}:</span>
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-400 hidden sm:inline">100% Insurance Eligible • USFDA Laser Suites</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {Object.entries(specialitiesData).map(([slug, spec]) => (
+                    <Link
+                      key={slug}
+                      href={`/locations/${activeLocation.stateSlug}/${activeLocation.slug}/${slug}`}
+                      onClick={() => haptic.light()}
+                      className="text-[11px] sm:text-xs font-black px-3 py-2 rounded-xl bg-slate-900/90 hover:bg-[#0066FF] text-slate-300 hover:text-white border border-slate-700/80 hover:border-blue-400 transition-all duration-200 flex items-center gap-1.5 shadow-xs group/btn"
+                    >
+                      <span>{spec.shortTitle}</span>
+                      <ChevronRight className="w-3.5 h-3.5 text-[#00E5FF] group-hover/btn:text-white transition-transform group-hover/btn:translate-x-0.5" />
+                    </Link>
+                  ))}
+                </div>
               </div>
 
             </motion.div>
