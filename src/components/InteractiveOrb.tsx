@@ -81,9 +81,9 @@ export default function InteractiveOrb({
   };
 
   const normalNodes: OrbNode[] = [
-    { label: "Right atrium", angle: 0, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-20px" },
-    { label: "Aortic valve stenosis", angle: 120, radius: 180, speed: "30s", boxLeft: "20px", boxTop: "10px" },
-    { label: "Hypertrophy", angle: 240, radius: 140, speed: "25s", boxLeft: "-120px", boxTop: "10px" },
+    { label: "Verified Hospital Success Rates", angle: 0, radius: 210, speed: "40s", boxLeft: "20px", boxTop: "-20px" },
+    { label: "100% Cashless & Budget Matching", angle: 120, radius: 180, speed: "30s", boxLeft: "20px", boxTop: "10px" },
+    { label: "Zero Compromise on Surgical Quality", angle: 240, radius: 140, speed: "25s", boxLeft: "-160px", boxTop: "10px" },
   ];
 
   const emergencyNodes: OrbNode[] = [
@@ -108,8 +108,8 @@ export default function InteractiveOrb({
 
       {/* Speech Bubble — positioned above the orb, outside the bottom nav */}
       {showSpeechBubble && (
-        <div className={`absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[220px] bg-white/95 backdrop-blur-md border border-white/60 text-slate-800 text-[11px] leading-snug font-semibold px-3 py-2.5 rounded-2xl shadow-xl z-[60] text-center origin-bottom transition-all duration-300 ${isActive ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100 animate-fade-in-up'}`}>
-          I&apos;m your AI assistant, ping me if you need any assistance!
+        <div className={`absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[230px] bg-white/95 backdrop-blur-md border border-white/60 text-slate-800 text-[11px] leading-snug font-semibold px-3 py-2.5 rounded-2xl shadow-xl z-[60] text-center origin-bottom transition-all duration-300 ${isActive ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100 animate-fade-in-up'}`}>
+          I&apos;m your HealthFlo clinical coordinator! Share your symptoms to match with top hospital success rates.
           <div className="w-3 h-3 rotate-45 bg-white/95 border-b border-r border-white/50 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>
         </div>
       )}

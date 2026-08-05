@@ -7,6 +7,7 @@ import { SpecialityData, IntentHook } from "@/data/specialities";
 import { ShieldCheck, CheckCircle, Clock, Hospital, Sparkle, CaretDown, ChatCircleDots, ArrowUpRight, Lock, Buildings, MapPin, Heart, FirstAid, Certificate, CalendarCheck, TrendUp, Globe, House, Tree } from "@phosphor-icons/react";
 import Link from "next/link";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
+import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface Props {
@@ -281,6 +282,11 @@ function SpecialityClientContent({ data }: Props) {
         </div>
       </section>
 
+      {/* Empanelled Hospital Room Tier & Zero Surgical Compromise Section */}
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-12 mb-14">
+        <HospitalTierBudgetSection procedureTitle={data.title} cityName="Your City / Town" />
+      </div>
+
       {/* Interactive Surgery Cost & Cashless Insurance Estimator */}
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <InsuranceCostEstimator defaultProcedure={data.title} />
@@ -545,7 +551,7 @@ function SpecialityClientContent({ data }: Props) {
                     <strong className="text-white font-bold">Active Catchment Hubs:</strong> Salem, Erode, Tirupur, Dindigul, Trichy, Vellore, Hosur, Kurnool, Warangal, Nizamabad, Karimnagar, Nellore, Tirupati, Belagavi, Hubli & surrounding village junctions.
                   </p>
                   <div className="inline-block bg-amber-900/60 text-amber-200 border border-amber-500/40 text-[11px] font-bold px-3 py-1 rounded-lg">
-                    🚕 Protocol: Free Round-Trip AC Hospital Cab & Native Language Triage
+                    🏥 Protocol: Direct Admission Coordination & Native Language Triage
                   </div>
                 </div>
 
@@ -651,7 +657,7 @@ function SpecialityClientContent({ data }: Props) {
             <div className="bg-slate-50 border border-slate-200/90 p-5 rounded-2xl text-xs sm:text-sm text-slate-700 font-bold space-y-2.5 shadow-inner">
               <p>✔ <strong className="text-emerald-800">Zero Room Rent Capping:</strong> No out-of-pocket room deductions.</p>
               <p>✔ <strong className="text-teal-800">30-Minute Discharge:</strong> Recover comfortably at home tonight.</p>
-              <p>✔ <strong className="text-blue-800">Free AC Transit:</strong> Dedicated round-trip hospital pickup.</p>
+              <p>✔ <strong className="text-blue-800">Dedicated Care Coordinator:</strong> Direct hospital admission and medical scheduling.</p>
             </div>
             <div className="flex items-center gap-3 pt-2">
               <a

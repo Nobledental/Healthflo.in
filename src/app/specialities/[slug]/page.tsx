@@ -26,7 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       `${data.shortTitle} insurance eligible`,
       `${data.shortTitle} zero stay hospital`,
       `best ${data.shortTitle} doctor near me`,
-      `painless ${data.shortTitle} surgery Hyderabad Bangalore Chennai Coimbatore`,
+      `painless ${data.shortTitle} surgery Tiruchirappalli Trichy Thillai Nagar Bangalore Chennai`,
+      `empanelled hospital budget tier choice ${data.shortTitle}`,
       "USFDA laser surgery procedure 2026"
     ],
     openGraph: {
@@ -88,10 +89,12 @@ export default async function SpecialityDetailHub({ params }: { params: Promise<
         "name": "HealthFlo Specialized Laser & Daycare Hospital Network",
         "medicalSpecialty": data.category,
         "areaServed": [
+          "Tiruchirappalli Thillai Nagar", "Trichy Srirangam", "Trichy Cantonment", "BHEL Township", "KKT Nagar", "Edamalaipatti Pudur",
+          "Thanjavur", "Karur", "Pudukkottai", "Ariyalur", "Perambalur", "Dindigul", "Salem", "Erode",
           "Hyderabad Nallagandla", "HITEC City IT Corridor", "Gachibowli", "Jubilee Hills",
           "Bangalore Whitefield", "Outer Ring Road Tech Hub", "Koramangala", "Indiranagar",
           "Chennai TIDEL Park", "Anna Nagar", "Shollinganallur", "Coimbatore RS Puram",
-          "Ooty Nilgiri Retreat Belt", "Coorg Discreet Care Sanctuary", "Salem", "Erode", "Dindigul", "Vellore"
+          "Ooty Nilgiri Retreat Belt", "Coorg Discreet Care Sanctuary", "Vellore"
         ],
         "availableService": {
           "@type": "MedicalTest",

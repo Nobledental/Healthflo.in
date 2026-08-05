@@ -25,6 +25,7 @@ import PrivateRecoveryBanner from "@/components/locations/PrivateRecoveryBanner"
 import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
+import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates pages for every city × neighbourhood × procedure
@@ -200,6 +201,14 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           areaName={areaName}
         />
 
+        {/* Hospital Tier & Budget Matching Breakdown Engine */}
+        <HospitalTierBudgetSection 
+          procedureTitle={procedure.title}
+          cityName={location.name}
+          nativeLanguage={location.nativeLanguage}
+          whatsappUrl={WHATSAPP_URL}
+        />
+
         {/* AI Cashless Surgery & EMI Estimator Engine */}
         <InsuranceCostEstimator defaultProcedure={procedure.title} defaultCity={location.name} defaultState={location.stateName} />
 
@@ -228,7 +237,7 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
               rel="noopener noreferrer"
               className="px-5 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg"
             >
-              <span>Request {areaName} Pick-up Support</span>
+              <span>Request {areaName} Admission Support</span>
               <ChevronRight className="w-4 h-4" />
             </a>
           </div>

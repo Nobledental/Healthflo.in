@@ -59,13 +59,13 @@ export default function LeadCapture() {
         id: "1",
         sender: "bot",
         senderName: "FLO Agent",
-        text: "Hello! Welcome to HealthFlo Surgical Network. I am FLO Agent, your automated medical triage concierge. We serve every city, town, and village across Tamil Nadu, Karnataka, and Hyderabad with 100% cashless laser surgery and free hospital transit. Which procedure or assistance do you need today?",
+        text: "Hello! Welcome to HealthFlo Surgical Network. I am FLO Agent, your automated medical triage concierge. We serve every city, town, and village across Tamil Nadu, Karnataka, and Hyderabad with 100% cashless laser surgery and dedicated admission coordination. Which procedure or assistance do you need today?",
         options: [
           "Laser Proctology (Piles, Fistula & Fissure)",
           "Laparoscopic Care (Hernia & Gallbladder)",
           "Laser Urology (Circumcision & Kidney Stones)",
           "Vascular Care (Varicose Veins)",
-          "Out-of-Town / Village Transit & Cab Support",
+          "Out-of-Town / Village Transit & Admission Support",
           "Speak with Coordinator in Tamil, Kannada or Telugu"
         ],
         action: "SELECT_TREATMENT",
@@ -100,7 +100,7 @@ export default function LeadCapture() {
         setStep("city");
         let responseText = `HealthFlo specializes in advanced ${option} with zero-pain recovery and same-day discharge. Which state or regional district are you visiting from?`;
         if (option.includes("Transit") || option.includes("Coordinator")) {
-          responseText = `We proudly assist patients traveling from rural districts, villages, and towns with free hospital cab coordination and fluent coordinators in Tamil, Kannada, and Telugu. Please select your region below:`;
+          responseText = `We proudly assist patients traveling from rural districts, villages, and towns with complete hospital admission coordination and fluent coordinators in Tamil, Kannada, and Telugu. Please select your region below:`;
         }
 
         setMessages(prev => [...prev, {
@@ -112,7 +112,7 @@ export default function LeadCapture() {
             "Tamil Nadu Network (Chennai, Coimbatore, Madurai, Salem & All Districts)",
             "Karnataka Network (Bengaluru, Mysuru, Hubballi, Mangaluru & All Towns)",
             "Hyderabad & Telangana (Hyderabad, Warangal, Karimnagar & All Towns)",
-            "Rural / Out-of-Town Village Patient (Need Free Cab & Travel Support)",
+            "Rural / Out-of-Town Village Patient (Need Admission & Travel Guidance)",
             "Online Tele-Consultation (Pan-India & NRI Care)"
           ],
           action: "SELECT_CITY",
@@ -205,7 +205,7 @@ export default function LeadCapture() {
           "Laparoscopic Care (Hernia & Gallbladder)",
           "Laser Urology (Circumcision & Kidney Stones)",
           "Vascular Care (Varicose Veins)",
-          "Out-of-Town / Village Transit & Cab Support",
+          "Out-of-Town / Village Transit & Admission Support",
           "Speak with Coordinator in Tamil, Kannada or Telugu"
         ],
         action: "SELECT_TREATMENT",

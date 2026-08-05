@@ -45,7 +45,7 @@ export default function NeighbourhoodGrid({
               Patients from all areas of {cityName} reach our HealthFlo-empanelled hospitals within{" "}
               {transitTime.toLowerCase()}.
               {railwayStation && (
-                <> Free cab pickup available from <strong>{railwayStation}</strong> and key transit terminals.</>
+                <> Direct surgical scheduling and admission coordination available from <strong>{railwayStation}</strong> and key transit corridors.</>
               )}
             </>
           )}

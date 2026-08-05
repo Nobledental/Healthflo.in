@@ -145,55 +145,55 @@ export default function AdvancedHumanlikeAIPage() {
         replyText = `We are deeply committed to maintaining a supportive, respectful, and dignified medical space for every patient. I am unable to engage with offensive or inappropriate language.\n\nIf you or someone in your family is seeking legitimate surgical assistance or hospital treatment guidance, our HealthFlo Care Desk is ready to assist you professionally and confidentially.`;
         
         notesData = {
-          symptomSummary: "Guardrail activated: Inappropriate or profanity language detected. Conversation realigned to medical etiquette.",
+          symptomSummary: "Guardrail activated: Inappropriate language detected. Realigned to medical etiquette.",
           urgencyTier: "Safety & Guardrail Policy",
           specialityCategory: "Clinical Protocol Guidance"
         };
       }
       // ─────────────────────────────────────────────────────────────
-      // 🛡️ GUARDRAIL 2: SPAM, GIBBERISH & UNOPTIMIZED CONTENT (e.g., "asdf", "www", random keystrokes)
+      // 🛡️ GUARDRAIL 2: SPAM, GIBBERISH & UNOPTIMIZED CONTENT
       // ─────────────────────────────────────────────────────────────
       else if (text.length < 2 || /^(asdf|qwer|zxcv|1234|test|lol|ok|yeah|no|yes|hihi|yyyy|xxxx)/i.test(text) || (!/[aeiou]/i.test(text) && text.length > 5)) {
-        replyText = `I didn't quite catch a specific surgical symptom or procedure name in your message! To give you accurate guidance, I evaluate your symptoms and match you with hospitals in **${userCity}** based on proven surgical success rates and your exact budget.\n\nPlease feel free to type your procedure (like *Piles, Hernia, Kidney Stones, Knee Replacement, Fibroids*) or simply give our care desk a call for instant, personalized reassurance!`;
+        replyText = `I didn't quite catch a specific symptom or procedure in your message! I'm here to help evaluate your symptoms and schedule your consultation at empanelled hospitals in **${userCity}** based on proven surgical success rates and your exact budget.\n\nPlease feel free to type your condition (like *Piles, Hernia, Kidney Stones, Knee Replacement*) or simply give our care doctors a quick call for instant guidance!`;
         
         notesData = {
-          symptomSummary: "Unstructured or brief input detected. Prompted user to clarify surgical condition or call directly for care coordination.",
+          symptomSummary: "Brief input detected. Prompted user to clarify condition or call directly.",
           urgencyTier: "General Medical Inquiry",
           specialityCategory: "Triage & Symptom Clarification"
         };
       }
       // ─────────────────────────────────────────────────────────────
-      // 🛡️ GUARDRAIL 3: OFF-TOPIC (Politics, Crypto, Sports, Competitors, Movies, Coding)
+      // 🛡️ GUARDRAIL 3: OFF-TOPIC SUBJECTS
       // ─────────────────────────────────────────────────────────────
       else if (/(cricket|modi|bjp|congress|bitcoin|crypto|movie|actor|song|python|javascript|who won|election|stock|nifty|market)/i.test(text)) {
-        replyText = `As your dedicated HealthFlo Care Companion, my ethical guidance is strictly devoted to surgical treatments, hospital matching, and cashless insurance support. I am unable to comment on general world affairs or non-medical topics.\n\nHow can we support your healthcare or hospital admission needs in **${userCity}** today?`;
+        replyText = `As your HealthFlo care companion, my guidance is strictly dedicated to surgical treatments, empanelled hospital matching, and insurance support. I cannot assist with non-medical topics.\n\nHow can our medical team support your healthcare or hospital admission needs in **${userCity}** today?`;
 
         notesData = {
-          symptomSummary: "Off-topic subject query intercepted by safety guardrail. Re-centered conversation on surgical care.",
+          symptomSummary: "Off-topic query intercepted by safety guardrail. Re-centered conversation on surgical care.",
           urgencyTier: "Safety & Guardrail Policy",
           specialityCategory: "Ethical Care Boundary"
         };
       }
       // ─────────────────────────────────────────────────────────────
-      // 🌟 EXPLAINING HOW HEALTHFLO WORKS (Surgical Aggregator Logic)
+      // 🌟 EXPLAINING HOW HEALTHFLO WORKS
       // ─────────────────────────────────────────────────────────────
       else if (/(how do you work|how does healthflo work|who are you|what is healthflo|what do you do|why healthflo|how it works)/i.test(text)) {
-        replyText = `We simplify surgery so you never have to navigate confusing hospital billing or finding the right doctor alone.\n\nWhen you reach out to us from **${userCity}**, we analyze your exact medical diagnosis, evaluate your insurance policy or budget, and review real-time hospital success rate records. **We then guide you directly to the top-performing specialized hospital and surgeon that fits your budget perfectly**—complete with express 100% cashless pre-approval and complimentary cab transit!\n\nYou don't deal with hospital billing desks directly; our care coordinators manage everything on your behalf from start to finish.`;
+        replyText = `We simplify healthcare so you never have to navigate hospital billing or search for the right doctor alone!\n\nWhen you reach out from **${userCity}**, our team of doctors reviews your diagnosis and pairs you with an empanelled hospital that matches your exact budget range and has the highest surgical success rate. **There is zero compromise on surgical quality and USFDA safety standards**—we simply tailor hospital room comfort tiers to protect your finances, complete with dedicated admission coordination and cashless insurance support!`;
 
         cardData = {
           procedure: "Personalized Hospital & Success-Rate Matching",
           category: "HealthFlo Care Coordination",
           recoveryTime: "2-Hour Express Hospital Placement",
-          estCost: "Tailored exactly to your insurance or budget",
+          estCost: "Tailored exactly to your budget & comfort tier",
           cashless: true,
           hospitalsCount: 25,
-          recommendedDoctor: "Assigned Senior Medical Coordinator",
+          recommendedDoctor: "Assigned HealthFlo Senior Doctor",
           doctorQualifications: "Hospital Success Rate & Budget Advisor",
-          packageInclusions: ["Success-rate verified hospital placement", "100% Cashless TPA desk assistance", "Zero upfront hospital deposit support", "Complimentary pick-up & drop cab transit"]
+          packageInclusions: ["Success-rate verified hospital placement", "100% Cashless TPA desk assistance", "Zero upfront hospital deposit support", "Dedicated admission coordination & guidance"]
         };
 
         notesData = {
-          symptomSummary: `User inquired about HealthFlo care aggregator model from ${userCity}. Explained success-rate & budget matching framework.`,
+          symptomSummary: `Inquired about HealthFlo model from ${userCity}. Explained empanelled hospital placement & budget matching.`,
           urgencyTier: "Hospital Matching Protocol",
           specialityCategory: "Care Coordination Model"
         };
@@ -202,10 +202,10 @@ export default function AdvancedHumanlikeAIPage() {
       // 👋 REGULAR GREETINGS (Hi, Hello, Good Morning, Help)
       // ─────────────────────────────────────────────────────────────
       else if (/^(hi|hello|hey|namaste|good morning|good afternoon|good evening|how are you|help|start|can you help)[\s.?!]*$/i.test(text)) {
-        replyText = `Hello and welcome! I am your HealthFlo personal care companion, here to assist you from **${userCity}**.\n\nWhenever you share a symptom or surgery name, we instantly review local hospital success rates and insurance plans to find your ideal treatment path. How are you feeling today? Tell me what symptoms or surgeries you are evaluating, or call our care team for instant reassurance!`;
+        replyText = `Hi there! 👋 Welcome to HealthFlo. I'm your personal clinical companion for **${userCity}**.\n\nWe assist patients by scheduling consultations at verified empanelled hospitals that match your exact budget range and maintain the highest surgical success rates—with zero compromise on treatment quality. How can we help you today? Tell us what symptom or procedure you are evaluating!`;
 
         notesData = {
-          symptomSummary: `User from ${userCity} initiated conversational triage. Ready to evaluate budget and hospital success rates.`,
+          symptomSummary: `User from ${userCity} initiated conversational triage. Ready to evaluate budget and empanelled hospitals.`,
           urgencyTier: "General Medical Inquiry",
           specialityCategory: "Patient Care Coordinator Desk"
         };
@@ -214,31 +214,31 @@ export default function AdvancedHumanlikeAIPage() {
       // 🔍 SECOND OPINION & UNNECESSARY SURGERY CHECK
       // ─────────────────────────────────────────────────────────────
       else if (/(second opinion|advised surgery|is surgery required|do i really need surgery|doubt|doctor told|unnecessary)/i.test(text)) {
-        replyText = `Getting a second opinion before undergoing surgery is the smartest decision you can make! Many patients in **${userCity}** come to us after being advised surgery elsewhere, only to discover through our specialist board that conservative medication or simple daycare laser treatment works just as well.\n\n**We offer a complimentary, unbiased 2nd Surgical Opinion from senior doctors with 15+ years of expertise**. Call our desk now or send us your medical diagnosis on WhatsApp—we will evaluate your scans immediately at zero cost!`;
+        replyText = `Seeking a second opinion is the wisest step you can take! Many patients in **${userCity}** consult our senior surgical board after being advised surgery elsewhere, only to discover that conservative medication or non-invasive daycare treatment is sufficient.\n\n**We provide a complimentary 2nd Surgical Opinion from senior specialists with 15+ years of expertise**. Give our doctors a quick call or message on WhatsApp—we will review your reports immediately!`;
 
         cardData = {
           procedure: "Unbiased Senior Surgeon 2nd Opinion",
           category: "Medical Authenticity Protocol",
-          recoveryTime: "Same Day Diagnostic Scan Evaluation",
+          recoveryTime: "Same Day Diagnostic Review",
           estCost: "Complimentary Clinical Screening",
           cashless: true,
           hospitalsCount: 25,
           recommendedDoctor: "Senior Specialist Clinical Board",
           doctorQualifications: "MS, M.Ch / DNB Diagnostic Review Lead",
-          packageInclusions: ["Independent evaluation of surgery necessity", "Zero pressure or obligation guidance", "Comparison of laser vs traditional methods", "Transparent budget matching if surgery needed"]
+          packageInclusions: ["Independent evaluation of surgery necessity", "Zero pressure or obligation guidance", "Comparison of advanced vs traditional methods", "Transparent budget matching if procedure needed"]
         };
 
         notesData = {
-          symptomSummary: `Requested second surgical opinion from ${userCity}. Aligned with complimentary diagnostic screening and specialist review.`,
+          symptomSummary: `Requested second surgical opinion from ${userCity}. Aligned with diagnostic screening.`,
           urgencyTier: "Priority Clinical Guidance",
           specialityCategory: "Second Opinion & Diagnostic Review"
         };
       }
       // ─────────────────────────────────────────────────────────────
-      // 💳 EMI, ZERO INTEREST & UNINSURED BUDGET SUPPORT
+      // 💳 EMI, ZERO INTEREST & BUDGET SUPPORT
       // ─────────────────────────────────────────────────────────────
       else if (/(no insurance|without insurance|emi|installment|poor|discount|monthly|afford|finance|cash bill)/i.test(text)) {
-        replyText = `You should never have to compromise on surgical safety or hospital quality due to upfront finances! If you do not have corporate MediClaim or need assistance managing out-of-pocket medical bills in **${userCity}**, HealthFlo has you covered.\n\n**We coordinate Zero-Interest (0% EMI) flexible monthly installment plans and negotiate specialized hospital package rates directly on your behalf**. Give our Care Desk a quick call today—tell us your budget limit, and we will direct you to a high-success hospital that fits your financial comfort!`;
+        replyText = `You should never have to compromise on surgical safety or clinical excellence due to immediate finances! If you do not have MediClaim or need a customized hospital package in **${userCity}**, our doctors are here to support you.\n\n**We coordinate flexible 0% interest EMI installment plans and schedule your procedure at empanelled hospitals according to your budget range**. We never compromise on medical quality—we simply align hospital comfort tiers to your financial peace of mind!`;
 
         cardData = {
           procedure: "Zero-Interest EMI & Custom Budget Placement",
@@ -249,22 +249,22 @@ export default function AdvancedHumanlikeAIPage() {
           hospitalsCount: 25,
           recommendedDoctor: "Senior Financial & Care Coordinator",
           doctorQualifications: "Hospital Pricing & EMI Concierge",
-          packageInclusions: ["0% Interest flexible EMI payment options", "Negotiated transparent hospital package pricing", "Zero hidden operating theatre charges", "Dedicated budget placement across top hospitals"]
+          packageInclusions: ["0% Interest flexible EMI payment options", "Transparent empanelled hospital package pricing", "Zero compromise on USFDA operating excellence", "Dedicated hospital admission coordinator"]
         };
 
         notesData = {
-          symptomSummary: `Inquired from ${userCity} regarding non-insurance financing, 0% EMI installments, and discounted hospital pricing tiers.`,
+          symptomSummary: `Inquired from ${userCity} regarding non-insurance financing, 0% EMI, and empanelled budget tiers.`,
           urgencyTier: "Hospital Matching Protocol",
           specialityCategory: "Healthcare Financing & EMI Support"
         };
       }
       // ─────────────────────────────────────────────────────────────
-      // 🚀 STEP 1: DYNAMIC SEMANTIC MATCHING AGAINST AUTHORITATIVE WEBSITE DATABASE (`specialitiesData` & `treatments`)
+      // 🚀 STEP 1: DYNAMIC SEMANTIC MATCHING AGAINST WEBSITE DATABASE
       // ─────────────────────────────────────────────────────────────
       else {
         let matchedSpec: { title: string; category: string; usfdaProtocol?: string; recoveryTime?: string; benefits: string[] } | null = null;
 
-        // Search in fullSpecialitiesList (from @/data/specialities)
+        // Search in fullSpecialitiesList
         const foundSpec = Object.values(fullSpecialitiesList).find((spec) => {
           const matchesId = spec.id.toLowerCase().includes(text) || text.includes(spec.id.toLowerCase());
           const matchesTitle = spec.title.toLowerCase().includes(text) || text.includes(spec.shortTitle.toLowerCase());
@@ -275,21 +275,21 @@ export default function AdvancedHumanlikeAIPage() {
         if (foundSpec) {
           matchedSpec = {
             title: foundSpec.title,
-            category: foundSpec.category || "Verified High-Success Roster",
+            category: foundSpec.category || "Empanelled High-Success Network",
             usfdaProtocol: foundSpec.usfdaProtocol,
             recoveryTime: foundSpec.recoveryTime,
             benefits: foundSpec.benefits
           };
         }
 
-        // Search in specialtiesData (from @/data/treatments) if not matched yet
+        // Search in specialtiesData if not matched yet
         if (!matchedSpec) {
           for (const sec of specialtiesData) {
             for (const trt of sec.treatments) {
               if (text.includes(trt.name.toLowerCase()) || trt.name.toLowerCase().includes(text)) {
                 matchedSpec = {
                   title: trt.name,
-                  category: sec.name || "Hernia, Veins & General Care",
+                  category: sec.name || "Specialized Surgical Care",
                   usfdaProtocol: "Minimally Invasive Daycare Protocol",
                   recoveryTime: "24 – 48 Hours Rapid Discharge",
                   benefits: trt.benefits
@@ -303,11 +303,11 @@ export default function AdvancedHumanlikeAIPage() {
 
         if (matchedSpec !== null) {
           const doc = getDoc(0);
-          replyText = `I see you are inquiring about **${matchedSpec.title}**. Please be reassured that modern surgical techniques allow this to be managed smoothly with virtually zero pain or lengthy hospital stays!\n\nIn and around **${userCity}**, our care network specializes in **${matchedSpec.usfdaProtocol || "Advanced Minimally Invasive Protocols"}**, ensuring you can return to normal routine within **${matchedSpec.recoveryTime || "24 to 48 hours"}**.\n\nTo protect your budget and guarantee safety, **we actively match you with the hospital boasting the highest success rate for this exact procedure within your insurance or financial limit**. Call our care desk right now—we will secure your hospital placement immediately!`;
+          replyText = `We completely understand what you're experiencing with **${matchedSpec.title}**, and we want to assure you that you are in safe hands! Modern minimally invasive laser techniques allow this to be resolved smoothly with virtually zero pain or lengthy stays.\n\nTo guarantee safety and protect your finances in **${userCity}**, our HealthFlo team of doctors analyzes proven hospital success rates and schedules your treatment at an empanelled hospital that fits your exact budget range—with zero compromise on treatment quality. Give our care doctors a quick call right now—we will coordinate your admission seamlessly!`;
 
           cardData = {
             procedure: matchedSpec.title,
-            category: matchedSpec.category || "Verified High-Success Roster",
+            category: matchedSpec.category || "Empanelled High-Success Network",
             recoveryTime: matchedSpec.recoveryTime || "24 – 48 Hours Rapid Recovery",
             estCost: "Matched to your budget or 100% Cashless",
             cashless: true,
@@ -315,177 +315,177 @@ export default function AdvancedHumanlikeAIPage() {
             recommendedDoctor: doc.name,
             doctorQualifications: "Senior Specialist & Surgical Lead",
             packageInclusions: [
-              "Hospital placement by highest success rate",
+              "Hospital selection by verified success rates",
               matchedSpec.benefits[0] || "100% Cashless insurance TPA desk support",
               matchedSpec.benefits[1] || "Zero upfront admission deposit assistance",
-              "Complimentary pick-up & drop cab transit"
+              "Dedicated hospital admission coordination"
             ]
           };
 
           notesData = {
-            symptomSummary: `Dynamic DB Match from ${userCity}: Patient inquiring about ${matchedSpec.title}. Guided to success-rate hospital redirection.`,
+            symptomSummary: `Dynamic DB Match from ${userCity}: Patient inquiring about ${matchedSpec.title}. Guided to empanelled hospital placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: matchedSpec.category || "Specialist Surgical Care"
           };
         }
         // ─────────────────────────────────────────────────────────────
-        // 🚀 STEP 2: BROAD SURGICAL DEPARTMENT & SPECIALTY RECOGNITION
+        // 🚀 STEP 2: BROAD DEPARTMENT & SPECIALTY RECOGNITION
         // ─────────────────────────────────────────────────────────────
-        // 🦴 ORTHOPEDICS & JOINT REPLACEMENT
+        // 🦴 ORTHOPEDICS & JOINT CARE
         else if (/(ortho|knee|hip|joint|bone|fracture|acl|ligament|sports|arthritis|spine|slip disc|disc|back pain)/i.test(text)) {
           const doc = getDoc(3);
-          replyText = `For joint discomfort, ligament tears, or knee/hip surgery, precision mobility matters most! Our accredited orthopedic centers around **${userCity}** specialize in **Robotic & Arthroscopic Minimally Invasive Surgery**, ensuring rapid walking recovery with minimal scarring.\n\nWe don't let you guess which hospital has the safest orthopedic room; **our clinical desk analyzes verified joint surgery success rates in ${userCity} and directs you to the top hospital that honors your exact insurance or budget**. Call us today for instant alignment!`;
+          replyText = `For joint discomfort, ligament tears, or orthopedic relief, precision mobility matters most! Our empanelled orthopedic centers in **${userCity}** specialize in minimally invasive and robotic procedures for swift recovery.\n\nOur clinical team evaluates verified joint surgery outcomes in **${userCity}** and schedules your consultation at a hospital that honors your exact insurance or budget tier with zero compromise on treatment quality. Call our doctors today!`;
 
           cardData = {
-            procedure: "Robotic Joint & Arthroscopic Sports Surgery",
+            procedure: "Advanced Joint & Arthroscopic Sports Care",
             category: "Orthopaedic & Spine Sciences",
             recoveryTime: "3 – 5 Days Early Mobility Protocol",
             estCost: "Matched to your insurance or budget tier",
             cashless: true,
             hospitalsCount: 18,
             recommendedDoctor: doc.name,
-            doctorQualifications: "MS Orthopaedics, Robotic Joint & Spine Lead",
-            packageInclusions: ["Hospital placement by high orthopedic success rate", "Robotic-assisted precision alignment available", "100% Cashless TPA insurance pre-authorization", "Complimentary transit and rehab physiotherapy support"]
+            doctorQualifications: "MS Orthopaedics, Joint & Spine Lead",
+            packageInclusions: ["Hospital placement by high orthopedic success rate", "Advanced minimally invasive precision alignment", "100% Cashless TPA insurance pre-authorization", "Dedicated admission and rehab coordination"]
           };
 
           notesData = {
-            symptomSummary: `Orthopedic/Joint care inquiry from ${userCity}. Recommended success-rate placement for arthroscopic/robotic joint procedure.`,
+            symptomSummary: `Orthopedic/Joint care inquiry from ${userCity}. Recommended empanelled hospital placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: "Orthopedic & Spine Care"
           };
         }
-        // 🌸 GYNECOLOGY & WOMEN'S SURGICAL CARE
+        // 🌸 GYNECOLOGY & WOMEN'S CARE
         else if (/(gynee|gyno|uterus|fibroid|ovarian|cyst|hysterec|c-section|pregnancy|bleeding|pelvic|laparoscopy|women|lady)/i.test(text)) {
           const doc = getDoc(2);
-          replyText = `Women's surgical procedures require total empathy, personal privacy, and delicate precision. For uterine fibroids, ovarian cysts, or laparoscopic hysterectomy around **${userCity}**, our empanelled gynecological suites utilize **3D Keyhole Minimally Invasive Technology** with same-day or next-day discharge.\n\n**We can pair you directly with senior female operating surgeons with the highest patient success ratings in ${userCity}, tailored perfectly to your cashless MediClaim or budget**. Call our care team confidentially right now!`;
+          replyText = `Women's surgical care requires empathy, complete privacy, and advanced precision. For uterine fibroids, cysts, or gynecological procedures in **${userCity}**, our empanelled suites utilize advanced keyhole technology with same-day or next-day home discharge.\n\n**We pair you with senior female operating surgeons at empanelled hospitals according to your budget range or cashless policy**. Connect confidentially with our team right now!`;
 
           cardData = {
-            procedure: "Laparoscopic Hysterectomy & Fibroid Removal",
+            procedure: "Laparoscopic Gynecological Care",
             category: "Women's Advanced Surgical Care",
             recoveryTime: "24 – 48 Hours Comfortable Discharge",
-            estCost: "Covered completely under corporate MediClaim",
+            estCost: "Matched to your budget or corporate MediClaim",
             cashless: true,
             hospitalsCount: 15,
             recommendedDoctor: doc.name,
             doctorQualifications: "MS Obstetrics & Gynecology, Laparoscopy Lead",
-            packageInclusions: ["Priority preference for female surgical lead", "100% Confidential patient record protection", "Express cashless MediClaim pre-authorization", "Complimentary private pick-up & drop cabs"]
+            packageInclusions: ["Priority preference for female surgical lead", "100% Confidential patient record protection", "Express cashless MediClaim pre-authorization", "Dedicated personal admission coordination"]
           };
 
           notesData = {
-            symptomSummary: `Gynecological surgery inquiry from ${userCity}. Aligned with private, high-success keyhole surgical placement.`,
+            symptomSummary: `Gynecological surgery inquiry from ${userCity}. Aligned with private empanelled hospital placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: "Gynecology & Women's Health"
           };
         }
-        // 👁️ OPHTHALMOLOGY & LASIK EYE SURGERY
+        // 👁️ OPHTHALMOLOGY & EYE SURGERY
         else if (/(eye|vision|cataract|lasik|glaucoma|lens|blury|retina|cornea|specs|glasses)/i.test(text)) {
-          replyText = `When it comes to your vision, advanced laser precision is essential! Whether you need blade-free **Cataract Phacoemulsification with imported IOL lenses** or **Contoura Vision LASIK** to remove glasses around **${userCity}**, our network guarantees zero injection and zero pad recovery in under 15 minutes!\n\n**Let HealthFlo guide you to the top accredited eye hospital in ${userCity} with 100% optical success rates at a price tailored to your exact budget**. Give our desk a quick call now to review lens options and insurance!`;
+          replyText = `When it comes to eyesight, absolute laser precision is essential! Whether you need blade-free cataract procedure or advanced laser vision correction in **${userCity}**, our network ensures smooth recovery in minutes without injections or stitches.\n\n**Our doctors guide you to accredited eye hospitals with proven optical success rates at a cost tailored to your exact budget**. Give our team a quick call to review lens options and insurance!`;
 
           cardData = {
-            procedure: "Blade-Free Laser Cataract & Contoura LASIK",
+            procedure: "Blade-Free Laser Cataract & Vision Correction",
             category: "Advanced Ophthalmic Laser Suite",
-            recoveryTime: "15-Minute Procedure (Same Day Clear Vision)",
+            recoveryTime: "15-Minute Procedure (Same Day Vision)",
             estCost: "Matched to your budget or cashless insurance",
             cashless: true,
             hospitalsCount: 16,
-            recommendedDoctor: "Senior Anterior Segment & LASIK Specialist",
-            doctorQualifications: "MS, DNB Ophthalmology (Fellow Cornea & Refractive)",
-            packageInclusions: ["Hospital selection by verified vision success rates", "Choice of imported monofocal & multifocal lenses", "100% Cashless cataract insurance approval", "Dedicated admissions coordinator & cab transit"]
+            recommendedDoctor: "Senior Anterior Segment Specialist",
+            doctorQualifications: "MS, DNB Ophthalmology (Fellow Refractive)",
+            packageInclusions: ["Hospital selection by verified optical outcomes", "Choice of advanced monofocal & multifocal lenses", "100% Cashless cataract insurance approval", "Dedicated eye care admission coordinator"]
           };
 
           notesData = {
-            symptomSummary: `Ophthalmic/Cataract/LASIK inquiry from ${userCity}. Matched with blade-free daycare laser placement.`,
+            symptomSummary: `Ophthalmic/Cataract inquiry from ${userCity}. Matched with blade-free daycare laser placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: "Ophthalmic & Laser Vision Suite"
           };
         }
-        // 👂 ENT (EAR, NOSE, THROAT) SURGERY
+        // 👂 ENT (EAR, NOSE, THROAT)
         else if (/(ent|tonsil|sinus|septum|ear|nose|throat|deaf|thyroid|adenoidal|snoring|smell|polyps)/i.test(text)) {
-          replyText = `Chronic sinusitis, breathing blockages, deviated septum (DNS), and enlarged tonsils can be solved permanently without external scars! Our ENT specialists across **${userCity}** utilize **Endoscopic & Coblator Plasma techniques** that heal in just a few days with minimal discomfort.\n\n**We review hospital success ratings across your locality to place you with the most experienced ENT surgical lead that aligns with your MediClaim or budget**. Call our team today for quick answers!`;
+          replyText = `Sinusitis, nasal breathing issues, and enlarged tonsils can be treated gently without external scars! Our empanelled ENT specialists in **${userCity}** utilize advanced endoscopic techniques that heal rapidly with minimal discomfort.\n\n**We review hospital success ratings across your locality to schedule your procedure with an experienced surgical lead within your budget range**. Call our doctors today for immediate assistance!`;
 
           cardData = {
-            procedure: "Endoscopic Sinus (FESS) & Coblator Tonsillectomy",
-            category: "Advanced ENT & Skull Base Suite",
+            procedure: "Endoscopic Sinus & Minimally Invasive ENT Care",
+            category: "Advanced ENT Surgical Suite",
             recoveryTime: "24-Hour Daycare Discharge",
             estCost: "Tailored to your insurance or affordable budget",
             cashless: true,
             hospitalsCount: 14,
             recommendedDoctor: "Senior Consultant Otorhinolaryngologist",
             doctorQualifications: "MS ENT, Endoscopic Airway Specialist",
-            packageInclusions: ["Hospital matching by highest ENT surgical ratings", "Coblation plasma technology with minimal bleeding", "100% Paperless cashless hospital admission", "Complimentary pick-up & drop transit cab"]
+            packageInclusions: ["Hospital matching by verified ENT success ratings", "Advanced tissue-sparing technology with fast recovery", "100% Paperless cashless hospital admission", "Dedicated regional hospital admission coordination"]
           };
 
           notesData = {
-            symptomSummary: `ENT surgery query from ${userCity}. Recommended hospital placement for endoscopic sinus / coblation protocol.`,
+            symptomSummary: `ENT surgery query from ${userCity}. Recommended empanelled hospital placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: "ENT & Endoscopic Airway Care"
           };
         }
-        // 🩸 VASCULAR, COSMETIC & VARICOSE VEINS
+        // 🩸 VASCULAR & COSMETIC CARE
         else if (/(vein|varicose|varicocele|spider|cosmetic|fat|lipo|lipoma|gynecomastia|breast|plastic|scar|cyst)/i.test(text)) {
-          replyText = `For vascular conditions like Varicose Veins or cosmetic procedures like Lipomatosis and Gynecomastia around **${userCity}**, non-invasive precision is key. We utilize **Endovenous Laser Treatment (EVLT)** and precision micro-sculpting, leaving virtually no visible scars with same-day home discharge!\n\n**We connect you exclusively with accredited plastic and vascular surgeons boasting the highest aesthetic success rates within your budget**. Call us right now for complete confidentiality and pricing answers!`;
+          replyText = `For conditions like Varicose Veins, Lipoma, or aesthetic procedures in **${userCity}**, precision and rapid recovery are essential. We utilize advanced Endovenous Laser and micro-precision techniques, ensuring walk-home recovery with virtually zero scarring!\n\n**We schedule your consultation with accredited specialists boasting high patient satisfaction rates within your exact budget tier**. Call us right now for complete confidentiality and immediate guidance!`;
 
           cardData = {
-            procedure: "Laser Varicose EVLT & Daycare Micro-Surgery",
-            category: "Vascular & Aesthetic Surgical Care",
+            procedure: "Laser Varicose & Daycare Specialist Care",
+            category: "Vascular & Specialist Surgical Suite",
             recoveryTime: "24 – 48 Hours Walk-Home Recovery",
             estCost: "Matched exactly to your budget or MediClaim",
             cashless: true,
             hospitalsCount: 15,
-            recommendedDoctor: "Senior Vascular & Aesthetic Surgeon",
-            doctorQualifications: "M.Ch Plastic & Peripheral Vascular Specialist",
-            packageInclusions: ["Hospital selection by high aesthetic success rates", "Endovenous laser EVLT without large skin incisions", "Complete personal privacy and confidential record", "Zero upfront hospital deposit billing guidance"]
+            recommendedDoctor: "Senior Vascular & Specialist Surgeon",
+            doctorQualifications: "M.Ch Specialist Vascular Care Lead",
+            packageInclusions: ["Hospital selection by high clinical satisfaction rates", "Advanced endovenous laser without large incisions", "Complete personal privacy and confidential record", "Dedicated hospital admission and pricing support"]
           };
 
           notesData = {
-            symptomSummary: `Vascular/Aesthetic procedure inquiry from ${userCity}. Aligned with EVLT laser / daycare microsurgery placement.`,
+            symptomSummary: `Vascular/Specialist inquiry from ${userCity}. Aligned with laser daycare placement.`,
             urgencyTier: "Priority Clinical Guidance",
-            specialityCategory: "Vascular & Cosmetic Surgery"
+            specialityCategory: "Vascular & Specialist Surgery"
           };
         }
-        // 🩹 GASTROENTEROLOGY & GENERAL ABDOMINAL SURGERY
+        // 🩹 GASTROENTEROLOGY & ABDOMINAL CARE
         else if (/(gastro|stomach|gallbladder|gallstone|appendix|appendicitis|reflux|acidity|ulcer|endoscopy|colonoscopy|biopsy)/i.test(text)) {
           const doc = getDoc(2);
-          replyText = `Gallbladder stones (cholelithiasis) and acute appendix issues require swift, expert intervention! Our advanced GI surgical centers in **${userCity}** perform **3D Laparoscopic Cholecystectomy and Appendectomy**, removing the issue through miniature keyholes with rapid 24-hour hospital discharge and virtually zero scarring.\n\n**Why risk calling random hospitals? We instantly match your surgery with the GI center having the highest documented surgical recovery rates within your exact insurance tier**. Call our desk now for priority placement!`;
+          replyText = `Gallbladder stones and acute abdominal symptoms require swift, experienced evaluation! Our empanelled GI centers in **${userCity}** perform advanced keyhole procedures, allowing rapid hospital discharge and virtually zero scarring.\n\n**Why risk calling hospitals without verified outcomes? We instantly schedule your consultation with a center having the highest surgical recovery rates within your exact budget range**. Call our doctors now for priority placement!`;
 
           cardData = {
-            procedure: "Laparoscopic Gallbladder & Appendix Surgery",
+            procedure: "Laparoscopic Gallbladder & Abdominal Care",
             category: "Gastroenterology & GI Surgical Care",
             recoveryTime: "24 – 36 Hours Hospital Stay",
-            estCost: "Covered 100% under corporate MediClaim",
+            estCost: "Matched to your budget or 100% Cashless",
             cashless: true,
             hospitalsCount: 18,
             recommendedDoctor: doc.name,
             doctorQualifications: "MS, M.Ch Surgical Gastroenterology",
-            packageInclusions: ["Hospital selection by verified GI surgical success", "Precision 3D keyhole camera instrumentation", "Express 2-hour cashless pre-authorization check", "Personal admissions buddy and complimentary cab"]
+            packageInclusions: ["Hospital selection by verified GI surgical success", "Precision minimally invasive camera instrumentation", "Express cashless MediClaim pre-authorization check", "Personal hospital admission coordinator"]
           };
 
           notesData = {
-            symptomSummary: `Gastrointestinal / Gallbladder inquiry from ${userCity}. Aligned with high-success laparoscopic GI surgical placement.`,
+            symptomSummary: `Gastrointestinal inquiry from ${userCity}. Aligned with empanelled laparoscopic placement.`,
             urgencyTier: "Priority Clinical Guidance",
             specialityCategory: "Gastroenterology & GI Suite"
           };
         }
         // ─────────────────────────────────────────────────────────────
-        // 🏥 STEP 3: SMART GENERAL AGGREGATOR FALLBACK (Surgical matching)
+        // 🏥 STEP 3: SMART EMPANELLED AGGREGATOR FALLBACK
         // ─────────────────────────────────────────────────────────────
         else {
-          replyText = `Thank you for consulting us from **${userCity}**. No matter what health symptom or surgical treatment you are evaluating, HealthFlo ensures you receive gentle, minimally invasive medical care without any stress or hospital price inflation.\n\nBecause every patient's diagnosis and MediClaim policy is unique, **our clinical team will analyze your requirements and redirect you directly to the hospital in ${userCity} with the absolute highest surgical success rate within your budget**. Call us or tap the button below—a brief 3-minute phone conversation will answer everything!`;
+          replyText = `Thank you for connecting with us from **${userCity}**! No matter what symptom or treatment you are evaluating, HealthFlo ensures you receive gentle, USFDA gold-standard care without stress or billing surprises.\n\nBecause every patient's needs and budget are unique, **our HealthFlo team of doctors will evaluate your condition and schedule you with an empanelled hospital in ${userCity} according to your budget range**—with zero compromise on treatment quality! Call us or tap below—a quick phone conversation will answer everything!`;
 
           cardData = {
-            procedure: "Personalized Hospital & Surgeon Matching",
-            category: "Verified High-Success Network",
-            recoveryTime: "Same Day Coordinator Consultation",
-            estCost: "Tailored to your budget or insurance",
+            procedure: "Personalized Hospital & Specialist Matching",
+            category: "Empanelled High-Success Network",
+            recoveryTime: "Same Day Medical Consultation",
+            estCost: "Tailored to your budget or insurance plan",
             cashless: true,
             hospitalsCount: 25,
-            recommendedDoctor: "Assigned HealthFlo Senior Coordinator",
+            recommendedDoctor: "Assigned HealthFlo Senior Doctor",
             doctorQualifications: "Surgical Success Rate & Care Specialist",
-            packageInclusions: ["Hospital redirection by high success rate", "100% Paperless cashless insurance guidance", "Dedicated personalized care coordinator", "Free transit cab assistance for admissions"]
+            packageInclusions: ["Empanelled hospital matching by success rate", "100% Paperless cashless insurance support", "Zero compromise on USFDA treatment quality", "Dedicated personalized admission coordination"]
           };
 
           notesData = {
-            symptomSummary: `General consultation from ${userCity}: "${userPrompt.substring(0, 60)}...". Guided toward hospital success rate matching.`,
+            symptomSummary: `General consultation from ${userCity}. Guided toward empanelled hospital budget matching.`,
             urgencyTier: "Hospital Matching Protocol",
             specialityCategory: "Care Coordination Hub"
           };
@@ -609,292 +609,251 @@ export default function AdvancedHumanlikeAIPage() {
           </div>
         </div>
 
-        {/* ── MODE 1: ASSISTANT MODE (ADVANCED FLANKING DESIGN) ── */}
+        {/* ── MODE 1: ASSISTANT MODE (CENTER ORB TO TOP BEACON DESIGN) ── */}
         {aiMode === "assistant" && (
-          <div className="flex-1 w-full flex items-center justify-center relative overflow-y-auto sm:overflow-hidden scrollbar-none px-1">
+          <div className="flex-1 w-full flex flex-col items-center justify-center relative overflow-y-auto sm:overflow-hidden scrollbar-none px-2 sm:px-4 py-4">
             
-            <div className="w-full h-full max-w-[92rem] grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-6 items-center my-auto px-1 sm:px-2 animate-[fadeIn_0.4s_ease-out]">
-              
-              {/* ── LEFT COLUMN (COL-SPAN-4): CLINICAL CARE CONSULTATION ── */}
-              <div className="lg:col-span-4 flex flex-col items-start w-full max-h-[70vh] sm:max-h-[72vh] order-2 lg:order-1 transition-all">
+            {/* STATE 1: INITIAL / DEFAULT (ORB IN CENTER) */}
+            {!latestAiMessage && !isThinking ? (
+              <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto my-auto animate-[fadeIn_0.4s_ease-out]">
                 
-                <div className="flex items-center gap-2 px-3.5 py-1.5 bg-slate-950 text-slate-100 rounded-full shadow-lg border border-cyan-500/40 self-start mb-2 z-10">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#00E5FF] animate-[pulse_0.6s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_10px_rgba(0,229,255,0.9)] shrink-0" />
-                  <span className="text-[11px] font-black tracking-widest uppercase text-cyan-300">💬 Clinical Care Consultation</span>
-                </div>
-
-                <div className="w-full overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent p-5 sm:p-6 rounded-[2.2rem] bg-[#13203A]/90 backdrop-blur-3xl border border-slate-600/70 shadow-[0_20px_60px_rgba(0,0,0,0.4)] space-y-4 text-left relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
-
-                  {latestAiMessage && !isThinking ? (
-                    /* AI RESPONDED */
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between border-b border-slate-700/80 pb-2.5">
-                        <span className="text-xs font-black text-cyan-400 flex items-center gap-1.5 uppercase tracking-wider">
-                          <Stethoscope className="w-4 h-4 text-cyan-400" /> Care Coordinator Guidance
-                        </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-cyan-400" /> {userCity}
-                        </span>
-                      </div>
-
-                      <p className="text-xs sm:text-sm text-slate-100 font-semibold leading-relaxed whitespace-pre-wrap">
-                        {latestAiMessage.text}
-                      </p>
-
-                      {/* CLINICAL ASSESSMENT PROFILE */}
-                      {latestAiMessage.clinicalNotes && (
-                        <div className="p-4 rounded-2xl bg-[#0C1527]/90 border border-cyan-500/40 space-y-2 text-left shadow-inner">
-                          <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] font-black text-[#00E5FF] uppercase tracking-wider">
-                            <span className="flex items-center gap-1.5">
-                              <FileText className="w-3.5 h-3.5 text-cyan-400" /> Care Matching Evaluation
-                            </span>
-                            <span className="px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700/50 font-extrabold text-[10px]">
-                              {latestAiMessage.clinicalNotes.urgencyTier}
-                            </span>
-                          </div>
-                          <p className="text-xs font-medium text-slate-300 italic">
-                            &quot;{latestAiMessage.clinicalNotes.symptomSummary}&quot;
-                          </p>
-                          <div className="pt-1 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400 font-bold">
-                            <span>Focus: <strong className="text-slate-200">{latestAiMessage.clinicalNotes.specialityCategory}</strong></span>
-                            <span className="flex items-center gap-1 text-emerald-400"><Shield className="w-3 h-3" /> Confidential Care</span>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* How HealthFlo Works Advisory */}
-                      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-900/40 to-emerald-900/40 border border-emerald-500/30 flex items-start gap-3">
-                        <HeartHandshake className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                        <p className="text-[11px] sm:text-xs font-semibold text-slate-200 leading-snug">
-                          <strong>How HealthFlo Works:</strong> We never let you navigate hospitals alone. Our coordinators review your symptoms and match you with the hospital boasting the highest success rate in <strong>{userCity}</strong> within your budget!
-                        </p>
-                      </div>
-                    </div>
-                  ) : isThinking ? (
-                    /* THINKING STATE */
-                    <div className="py-12 space-y-4 text-center animate-pulse">
-                      <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(0,229,255,0.2)]">
-                        <Radio className="w-6 h-6 text-[#00E5FF] animate-spin" />
-                      </div>
-                      <p className="text-sm font-black text-cyan-300 uppercase tracking-widest">Analyzing {userCity} Hospital Data...</p>
-                      <p className="text-xs font-medium text-slate-400 max-w-xs mx-auto">Comparing surgical success rates, patient feedback, and cashless insurance tiers...</p>
-                    </div>
-                  ) : (
-                    /* INITIAL STATE ON LEFT PANEL */
-                    <div className="space-y-4 py-2">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 font-extrabold text-xs">
-                        <MapPin className="w-3.5 h-3.5 text-[#00E5FF]" />
-                        <span>Connected to Accredited Hospitals in {userCity}</span>
-                      </div>
-                      <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
-                        We Guide You to the <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00E5FF] via-teal-300 to-[#00A88F]">Highest Success Rate Hospital.</span>
-                      </h2>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-relaxed">
-                        Don&apos;t call hospitals blindly or worry about hidden costs. You share your symptoms and budget—**HealthFlo directly connects you to the top-performing hospital and surgeon** in your area with 100% cashless insurance!
-                      </p>
-                      <div className="p-3.5 rounded-2xl bg-[#0C1629] border border-cyan-500/30 flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">
-                          <HeartHandshake className="w-5 h-5 text-cyan-300" />
-                        </div>
-                        <div className="text-xs font-semibold text-slate-300">
-                          <strong className="text-white block">Surgical Aggregator & Care Protection</strong>
-                          <span>Type a symptom or ask how we protect your surgical budget and guarantee transparent healing.</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-
-              {/* ── CENTER COLUMN (COL-SPAN-4): 100% UNOBSCURED, NEON-GLOWING SOVEREIGN AI ORB ── */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center relative my-3 lg:my-0 order-1 lg:order-2 shrink-0">
-                
-                <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 flex items-center justify-center select-none">
-                  
-                  <div className="absolute -inset-2 sm:-inset-4 rounded-full bg-gradient-to-tr from-cyan-500/15 via-blue-600/10 to-emerald-500/15 blur-2xl pointer-events-none animate-pulse" />
-                  <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/60 animate-[spin_25s_linear_infinite] pointer-events-none shadow-[0_0_20px_rgba(0,229,255,0.2)]" />
-                  <div className="absolute -inset-5 sm:-inset-7 rounded-full border border-emerald-400/40 animate-[spin_40s_linear_infinite_reverse] pointer-events-none" />
-                  <div className="absolute -inset-10 sm:-inset-12 rounded-full border border-slate-700/60 animate-[spin_60s_linear_infinite] pointer-events-none hidden sm:block" />
-
-                  {isThinking && (
-                    <div className="absolute -inset-3 rounded-full border-2 border-dashed border-[#00E5FF] animate-[spin_2s_linear_infinite] shadow-[0_0_55px_rgba(0,229,255,0.6)] pointer-events-none" />
-                  )}
-
-                  <div className="absolute left-0 top-1/2 -translate-x-3.5 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-950 border-2 border-[#00E5FF] shadow-[0_0_15px_#00e5ff] animate-pulse hidden lg:flex items-center justify-center pointer-events-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                  </div>
-                  <div className="absolute right-0 top-1/2 translate-x-3.5 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-950 border-2 border-emerald-400 shadow-[0_0_15px_#34d399] animate-pulse hidden lg:flex items-center justify-center pointer-events-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                  </div>
+                {/* Center Stage Glowing AI Orb */}
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 flex items-center justify-center select-none mb-6">
+                  <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-cyan-500/20 via-teal-500/15 to-emerald-500/20 blur-3xl pointer-events-none animate-pulse" />
+                  <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/50 animate-[spin_30s_linear_infinite] pointer-events-none shadow-[0_0_30px_rgba(0,229,255,0.3)]" />
+                  <div className="absolute -inset-5 rounded-full border border-emerald-400/30 animate-[spin_45s_linear_infinite_reverse] pointer-events-none" />
+                  <div className="absolute -inset-10 rounded-full border border-slate-700/50 animate-[spin_60s_linear_infinite] pointer-events-none hidden sm:block" />
 
                   <div className="w-full h-full flex items-center justify-center transform scale-110 sm:scale-125 transition-transform duration-700 hover:scale-130">
-                    <AiOrb preset={activePreset} className="w-full h-full filter drop-shadow-[0_0_35px_rgba(0,229,255,0.45)]" />
+                    <AiOrb preset={activePreset} className="w-full h-full filter drop-shadow-[0_0_40px_rgba(0,229,255,0.5)]" />
+                  </div>
+                </div>
+
+                {/* Status Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/40 shadow-lg mb-4">
+                  <Volume2 className="w-4 h-4 text-[#00E5FF] animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-wider text-cyan-300">Personal Clinical Companion • {userCity}</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                  We Guide You to the <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00E5FF] via-teal-300 to-[#00A88F]">Highest Success Rate Hospital</span> in {userCity}.
+                </h2>
+
+                <p className="text-sm sm:text-base font-semibold text-slate-300 max-w-2xl leading-relaxed mb-8">
+                  Never navigate hospital billing alone. Tell us your symptom or procedure—our HealthFlo team of doctors analyzes real hospital outcomes and schedules your consultation at an empanelled hospital that fits your exact budget range, with <strong className="text-white font-black">zero compromise on treatment quality</strong>!
+                </p>
+
+                {/* Quick Conversation Suggestions */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-3xl text-left">
+                  {sampleSuggestions.map((sug, idx) => (
+                    <button
+                      type="button"
+                      key={idx}
+                      onClick={() => {
+                        if (isThinking) return;
+                        haptic.light();
+                        const userMsg: ChatMessage = {
+                          id: Date.now().toString() + "-user",
+                          sender: "user",
+                          text: sug,
+                          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        };
+                        setMessages((prev) => [...prev, userMsg]);
+                        generateAIResponse(sug);
+                      }}
+                      className="p-4 rounded-2xl bg-[#122240]/90 hover:bg-[#1B3058] text-xs sm:text-sm font-bold text-slate-200 border border-slate-700/80 shadow-md hover:border-cyan-400/60 transition-all flex items-center justify-between group"
+                    >
+                      <span className="line-clamp-2 pr-3">{sug}</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#00E5FF] group-hover:translate-x-1 transition-transform shrink-0" />
+                    </button>
+                  ))}
+                </div>
+
+              </div>
+            ) : (
+              /* STATE 2: ACTIVE CONVERSATION (ORB MOVES TO TOP CENTER) */
+              <div className="w-full h-full max-w-[88rem] flex flex-col items-center justify-start py-2 animate-[fadeIn_0.35s_ease-out] overflow-y-auto">
+                
+                {/* Compact Top Header Orb */}
+                <div className="flex flex-col items-center justify-center shrink-0 mb-6 transition-all duration-500">
+                  <div className="relative w-36 h-36 sm:w-40 sm:h-40 flex items-center justify-center select-none">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500/20 to-emerald-500/20 blur-xl pointer-events-none animate-pulse" />
+                    <div className="absolute inset-2 rounded-full border border-dashed border-cyan-400/50 animate-[spin_20s_linear_infinite] pointer-events-none" />
+                    <div className="w-full h-full flex items-center justify-center transform scale-110">
+                      <AiOrb preset={activePreset} className="w-full h-full filter drop-shadow-[0_0_25px_rgba(0,229,255,0.4)]" />
+                    </div>
+                  </div>
+
+                  {/* Live Speaking Status Badge */}
+                  <div className="mt-3 px-4 py-1 rounded-full bg-slate-900/90 border border-slate-700 flex items-center gap-2 shadow-md">
+                    {isThinking ? (
+                      <>
+                        <Radio className="w-3.5 h-3.5 text-[#00E5FF] animate-spin" />
+                        <span className="text-[11px] font-black uppercase text-cyan-300 tracking-widest animate-pulse">Analyzing Empanelled Hospitals...</span>
+                      </>
+                    ) : isAiSpeaking ? (
+                      <>
+                        <div className="flex items-center gap-0.5">
+                          <span className="w-1 h-3 bg-cyan-400 rounded-full animate-[pulse_0.4s_infinite]" />
+                          <span className="w-1 h-5 bg-emerald-400 rounded-full animate-[pulse_0.6s_infinite_0.1s]" />
+                          <span className="w-1 h-2 bg-cyan-400 rounded-full animate-[pulse_0.5s_infinite_0.2s]" />
+                        </div>
+                        <span className="text-[11px] font-black text-emerald-300 uppercase tracking-widest">HealthFlo Care Companion Speaking</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-[11px] font-extrabold text-slate-300 uppercase tracking-wider">Hospital Match Guidance Ready</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Response & Pathway Grid */}
+                <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
+                  
+                  {/* Left Column: Care Coordinator Guidance (NO TECH/DB NOTES) */}
+                  <div className="lg:col-span-6 w-full flex flex-col items-start">
+                    <div className="flex items-center gap-2 px-3.5 py-1.5 bg-slate-950 text-slate-100 rounded-full shadow-lg border border-cyan-500/40 self-start mb-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#00E5FF] animate-[pulse_0.6s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_10px_rgba(0,229,255,0.9)] shrink-0" />
+                      <span className="text-[11px] font-black tracking-widest uppercase text-cyan-300">💬 Care Coordinator Guidance</span>
+                    </div>
+
+                    <div className="w-full p-6 sm:p-7 rounded-[2.5rem] bg-[#122240]/90 backdrop-blur-3xl border border-slate-600/70 shadow-[0_20px_60px_rgba(0,0,0,0.4)] space-y-5 text-left relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+
+                      {isThinking ? (
+                        <div className="py-12 space-y-3 text-center animate-pulse">
+                          <Radio className="w-8 h-8 text-[#00E5FF] animate-spin mx-auto" />
+                          <p className="text-sm font-black text-cyan-300 uppercase tracking-widest">Evaluating Hospital Success Rates in {userCity}...</p>
+                          <p className="text-xs font-semibold text-slate-400 max-w-xs mx-auto">Matching your treatment requirements with verified senior surgeons within your budget range...</p>
+                        </div>
+                      ) : latestAiMessage ? (
+                        <>
+                          <div className="flex items-center justify-between border-b border-slate-700/80 pb-3">
+                            <span className="text-xs font-black text-cyan-300 flex items-center gap-1.5 uppercase tracking-wider">
+                              <Stethoscope className="w-4 h-4 text-cyan-400" /> HealthFlo Clinical Desk
+                            </span>
+                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center gap-1">
+                              <MapPin className="w-3 h-3 text-cyan-400" /> {userCity} Network
+                            </span>
+                          </div>
+
+                          <p className="text-sm sm:text-base text-slate-100 font-semibold leading-relaxed whitespace-pre-wrap">
+                            {latestAiMessage.text}
+                          </p>
+
+                          <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-900/50 to-emerald-900/50 border border-emerald-500/30 flex items-start gap-3">
+                            <HeartHandshake className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                            <div className="text-xs text-slate-200 space-y-1">
+                              <strong className="text-white font-black uppercase tracking-wide block">Our Promise to You</strong>
+                              <p className="font-medium leading-snug">
+                                We schedule your procedure at empanelled hospitals according to your budget range. We never compromise on treatment quality or USFDA safety standards—we simply match hospital comfort tiers to protect your finances!
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      ) : null}
+
+                    </div>
+                  </div>
+
+                  {/* Right Column: Personalized HealthFlo Pathway Card */}
+                  <div className="lg:col-span-6 w-full flex flex-col items-start lg:items-end">
+                    <div className="flex items-center gap-2 px-3.5 py-1.5 bg-slate-950 text-slate-100 rounded-full shadow-lg border border-emerald-500/40 self-start lg:self-end mb-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-[pulse_0.6s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_10px_rgba(52,211,153,0.9)] shrink-0" />
+                      <span className="text-[11px] font-black tracking-widest uppercase text-emerald-300">✨ Personalized HealthFlo Pathway</span>
+                    </div>
+
+                    <div className="w-full">
+                      {isThinking ? (
+                        <div className="p-8 rounded-[2.5rem] bg-[#122240]/90 border-2 border-emerald-500/40 shadow-2xl py-16 text-center space-y-3 animate-pulse">
+                          <Activity className="w-10 h-10 text-emerald-400 animate-bounce mx-auto" />
+                          <p className="text-sm font-black text-emerald-300 uppercase tracking-widest">Matching Budget & Insurance Tier...</p>
+                          <p className="text-xs font-semibold text-slate-400">Selecting an empanelled hospital in {userCity} with verified surgical success.</p>
+                        </div>
+                      ) : latestAiMessage && latestAiMessage.treatmentCard ? (
+                        <div className="p-6 sm:p-7 rounded-[2.5rem] bg-gradient-to-br from-[#122240] via-[#0E1C36] to-[#091528] text-white shadow-2xl border-2 border-emerald-500/50 space-y-5 text-left relative overflow-hidden animate-[scaleUp_0.35s_ease-out]">
+                          <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/80 pb-3.5">
+                            <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-xs border border-emerald-500/30 inline-flex items-center gap-1.5 shadow-sm">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Success-Rate Verified
+                            </span>
+                            <span className="text-xs text-cyan-300 font-black tracking-wide uppercase">{latestAiMessage.treatmentCard.category}</span>
+                          </div>
+
+                          <div>
+                            <h4 className="text-xl sm:text-2xl font-black text-white leading-tight">{latestAiMessage.treatmentCard.procedure}</h4>
+                            <div className="mt-3 p-3 rounded-2xl bg-[#0F1D35] border border-slate-700/70 flex items-center gap-3">
+                              <div className="w-9 h-9 rounded-xl bg-emerald-600/30 flex items-center justify-center shrink-0 font-black text-sm text-emerald-300">✓</div>
+                              <div className="text-xs text-slate-300">
+                                <strong className="text-white font-black block">Scheduled by HealthFlo Doctors</strong>
+                                <span>Matched with accredited hospitals in <strong className="text-white">{userCity}</strong> that fit your budget range with zero compromise on quality.</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                              <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Recovery Protocol</span>
+                              <span className="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-1.5 mt-1">
+                                <Clock className="w-4 h-4 shrink-0" /> {latestAiMessage.treatmentCard.recoveryTime}
+                              </span>
+                            </div>
+                            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                              <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Budget Alignment</span>
+                              <span className="text-xs sm:text-sm font-black text-[#00E5FF] block mt-1">
+                                {latestAiMessage.treatmentCard.estCost}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Package Inclusions Pills */}
+                          {latestAiMessage.treatmentCard.packageInclusions && (
+                            <div className="space-y-2">
+                              <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 block">HealthFlo Care Coordination:</span>
+                              <div className="flex flex-wrap gap-2">
+                                {latestAiMessage.treatmentCard.packageInclusions.map((inc, i) => (
+                                  <span key={i} className="text-xs font-bold px-3 py-1 rounded-lg bg-emerald-950/80 text-emerald-200 border border-emerald-500/30">
+                                    ✓ {inc}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="pt-2">
+                            <p className="text-xs font-bold text-amber-300 mb-3 text-center flex items-center justify-center gap-1.5">
+                              <span>💡 Connect with us now—our doctors coordinate your admission at zero extra cost!</span>
+                            </p>
+                            <a
+                              href={WHATSAPP_URL}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => haptic.medium()}
+                              className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_10px_25px_rgba(16,185,129,0.4)] transition-all active:scale-95"
+                            >
+                              <Phone className="w-4 h-4 fill-current shrink-0 animate-bounce" />
+                              <span>📞 Speak to HealthFlo Care Doctors Now</span>
+                            </a>
+                          </div>
+
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
 
                 </div>
-
-                {/* Live Status Badge */}
-                <div className="mt-4 sm:mt-6 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700 flex items-center gap-2.5 shadow-md">
-                  {isThinking ? (
-                    <>
-                      <Zap className="w-4 h-4 text-[#00E5FF] animate-bounce" />
-                      <span className="text-xs font-black uppercase text-cyan-300 tracking-widest animate-pulse">Filtering Hospital Success Rates...</span>
-                    </>
-                  ) : isAiSpeaking ? (
-                    <>
-                      <div className="flex items-center gap-0.5">
-                        <span className="w-1 h-3 bg-cyan-400 rounded-full animate-[pulse_0.4s_infinite]" />
-                        <span className="w-1 h-5 bg-emerald-400 rounded-full animate-[pulse_0.6s_infinite_0.1s]" />
-                        <span className="w-1 h-2 bg-cyan-400 rounded-full animate-[pulse_0.5s_infinite_0.2s]" />
-                        <span className="w-1 h-4 bg-blue-400 rounded-full animate-[pulse_0.3s_infinite]" />
-                      </div>
-                      <span className="text-xs font-black text-emerald-300 uppercase tracking-widest">HealthFlo Companion Speaking</span>
-                    </>
-                  ) : (
-                    <>
-                      <Volume2 className="w-4 h-4 text-slate-400 animate-pulse" />
-                      <span className="text-xs font-extrabold text-slate-300 uppercase tracking-wider">Assistant Mode • Ready for Conversation</span>
-                    </>
-                  )}
-                </div>
-
               </div>
+            )}
 
-              {/* ── RIGHT COLUMN (COL-SPAN-4): YOUR PERSONALIZED HEALTHFLO PATHWAY ── */}
-              <div className="lg:col-span-4 flex flex-col items-start lg:items-end w-full max-h-[70vh] sm:max-h-[72vh] order-3 transition-all">
-                
-                <div className="flex items-center gap-2 px-3.5 py-1.5 bg-slate-950 text-slate-100 rounded-full shadow-lg border border-emerald-500/40 self-start lg:self-end mb-2 z-10">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-[pulse_0.6s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_10px_rgba(52,211,153,0.9)] shrink-0" />
-                  <span className="text-[11px] font-black tracking-widest uppercase text-emerald-300">✨ Your Personalized HealthFlo Pathway</span>
-                </div>
-
-                <div className="w-full overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent rounded-[2.2rem] transition-all">
-                  
-                  {latestAiMessage && latestAiMessage.treatmentCard && !isThinking ? (
-                    /* AI HAS ANSWERED WITH SURGERY & SUCCESS-RATE MATCHING CARD */
-                    <div className="p-5 sm:p-6 rounded-[2.2rem] bg-gradient-to-br from-[#122240] via-[#0D1C36] to-[#0A162B] text-white shadow-2xl border-2 border-emerald-500/50 space-y-4 text-left relative overflow-hidden animate-[scaleUp_0.35s_ease-out]">
-                      <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                      <div className="flex items-center justify-between border-b border-slate-700/80 pb-3">
-                        <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-xs border border-emerald-500/30 inline-flex items-center gap-1.5 shadow-xs">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Success-Rate Verified
-                        </span>
-                        <span className="text-xs text-cyan-300 font-bold">{latestAiMessage.treatmentCard.category}</span>
-                      </div>
-
-                      <div>
-                        <h4 className="text-lg sm:text-xl font-black text-white leading-tight">{latestAiMessage.treatmentCard.procedure}</h4>
-                        <div className="mt-2 p-2.5 rounded-xl bg-[#0E1B33] border border-slate-700/70 flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-emerald-600/30 flex items-center justify-center shrink-0 font-black text-xs text-emerald-300">✓</div>
-                          <div>
-                            <p className="text-xs font-black text-white">Matched by Highest Surgical Success</p>
-                            <p className="text-[10px] text-slate-400 font-medium">Filtered across top accredited hospitals in <strong>{userCity}</strong> to match your exact financial & MediClaim tier.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2.5">
-                        <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
-                          <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Recovery Time</span>
-                          <span className="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-1 mt-0.5">
-                            <Clock className="w-3.5 h-3.5 shrink-0" /> {latestAiMessage.treatmentCard.recoveryTime}
-                          </span>
-                        </div>
-                        <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
-                          <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">Budget & Insurance</span>
-                          <span className="text-xs sm:text-sm font-black text-[#00E5FF] block mt-0.5">
-                            {latestAiMessage.treatmentCard.estCost}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Package Inclusions Pills */}
-                      {latestAiMessage.treatmentCard.packageInclusions && (
-                        <div className="space-y-1.5">
-                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">HealthFlo Aggregator Benefits:</span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {latestAiMessage.treatmentCard.packageInclusions.map((inc, i) => (
-                              <span key={i} className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-900/40 text-emerald-200 border border-emerald-500/20">
-                                ✓ {inc}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="pt-1">
-                        <p className="text-[11px] font-bold text-amber-300 mb-2 text-center flex items-center justify-center gap-1">
-                          <span>💡 Speak to us first — we match your budget with top hospital success rates!</span>
-                        </p>
-                        <a
-                          href={WHATSAPP_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => haptic.medium()}
-                          className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_10px_25px_rgba(16,185,129,0.4)] transition-all active:scale-95"
-                        >
-                          <Phone className="w-4 h-4 fill-current shrink-0 animate-bounce" />
-                          <span>📞 Speak to HealthFlo Care Desk Now</span>
-                        </a>
-                      </div>
-
-                    </div>
-                  ) : isThinking ? (
-                    /* THINKING ON RIGHT PANEL */
-                    <div className="p-6 sm:p-7 rounded-[2.2rem] bg-[#13203A]/90 border-2 border-emerald-500/40 shadow-2xl py-12 text-center space-y-3 animate-pulse">
-                      <Activity className="w-10 h-10 text-emerald-400 animate-bounce mx-auto" />
-                      <p className="text-sm font-black text-emerald-300 uppercase tracking-widest">Matching Success Rates in {userCity}...</p>
-                      <p className="text-xs font-semibold text-slate-400">Selecting best hospital fit based on surgical ratings and cashless insurance coverage.</p>
-                    </div>
-                  ) : (
-                    /* INITIAL STATE ON RIGHT PANEL */
-                    <div className="p-5 sm:p-6 rounded-[2.2rem] bg-[#13203A]/90 backdrop-blur-3xl border border-slate-600/70 shadow-[0_20px_60px_rgba(0,0,0,0.35)] space-y-4 text-left relative">
-                      <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
-
-                      <div className="flex items-center gap-2 text-xs font-black text-emerald-300 bg-emerald-950/70 p-2.5 rounded-xl border border-emerald-500/40 w-fit">
-                        <Award className="w-4 h-4 shrink-0 text-emerald-400" />
-                        <span>Why We Connect You to Hospitals</span>
-                      </div>
-                      <h3 className="text-xl font-black text-white tracking-tight leading-tight">
-                        Hospital Success Rate & Budget Alignment
-                      </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-relaxed">
-                        When you connect with HealthFlo, **we analyze real hospital outcomes in {userCity}** and redirect you to the safest center that completely honors your financial budget or MediClaim limit—no extra deposits!
-                      </p>
-                      <div className="pt-2 border-t border-slate-700/80 space-y-3">
-                        <div className="flex items-center justify-between text-xs font-bold text-slate-300">
-                          <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Highest Success Ratings</span>
-                          <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-cyan-400" /> 100% Budget Alignment</span>
-                        </div>
-                        <div className="p-3 rounded-xl bg-[#0B1527] border border-slate-700/60 text-center">
-                          <p className="text-xs font-bold text-slate-200 mb-2">Want immediate assistance finding your ideal hospital?</p>
-                          <a
-                            href={WHATSAPP_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs uppercase tracking-wider w-full transition-all shadow-md active:scale-95"
-                          >
-                            <Phone className="w-3.5 h-3.5 fill-current" />
-                            <span>📞 Connect to HealthFlo Desk Now</span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-
-              </div>
-
-            </div>
           </div>
         )}
 
-        {/* ── MODE 2: CONVERSATION CHAT MODE (SCROLLABLE THREAD + QUICK SUGGESTIONS) ──── */}
+        {/* ── MODE 2: CONVERSATION CHAT MODE (SCROLLABLE THREAD + QUICK SUGGESTIONS, NO TECH/DB NOTES) ──── */}
         {aiMode === "chat" && (
-          <div className="flex-1 overflow-y-auto w-full px-2 py-4 flex flex-col space-y-6 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto w-full px-2 sm:px-4 py-4 flex flex-col space-y-6 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
             
             {messages.length === 0 ? (
               <div className="my-auto flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 animate-[fadeIn_0.4s_ease-out]">
@@ -902,8 +861,8 @@ export default function AdvancedHumanlikeAIPage() {
                   <HeartHandshake className="w-8 h-8 text-[#00E5FF]" />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">Hospital Success & Budget Advisor</h2>
-                <p className="text-sm font-semibold text-slate-300 max-w-xl mb-6 leading-relaxed">
-                  We take the anxiety out of choosing a hospital in <strong>{userCity}</strong>. Tell us your medical symptoms and budget, and we will guide you to the specialized hospital with the highest proven success rate!
+                <p className="text-sm sm:text-base font-semibold text-slate-300 max-w-xl mb-6 leading-relaxed">
+                  We take the anxiety out of surgery in <strong>{userCity}</strong>. Tell us your medical symptoms and budget range, and our doctors will schedule your consultation at an empanelled hospital with the highest proven success rate!
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full text-left">
@@ -923,7 +882,7 @@ export default function AdvancedHumanlikeAIPage() {
                         setMessages((prev) => [...prev, userMsg]);
                         generateAIResponse(sug);
                       }}
-                      className="p-4 rounded-2xl bg-[#13203A]/90 hover:bg-[#1C2F55] text-xs sm:text-sm font-bold text-slate-200 border border-slate-700/80 shadow-md hover:border-cyan-400/60 transition-all flex items-center justify-between group"
+                      className="p-4 rounded-2xl bg-[#122240]/90 hover:bg-[#1C3058] text-xs sm:text-sm font-bold text-slate-200 border border-slate-700/80 shadow-md hover:border-cyan-400/60 transition-all flex items-center justify-between group"
                     >
                       <span className="line-clamp-2 pr-3">{sug}</span>
                       <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-[#00E5FF] group-hover:translate-x-1 transition-transform shrink-0" />
@@ -952,12 +911,12 @@ export default function AdvancedHumanlikeAIPage() {
                       <div className={`p-5 sm:p-6 rounded-[2rem] text-xs sm:text-sm font-semibold leading-relaxed shadow-lg ${
                         msg.sender === "user"
                           ? "bg-gradient-to-r from-[#0055ff] to-[#0077ff] text-white rounded-br-none border border-blue-400/30"
-                          : "bg-[#13213C]/95 text-slate-100 border border-slate-600/80 rounded-bl-none shadow-xl"
+                          : "bg-[#122240]/95 text-slate-100 border border-slate-600/80 rounded-bl-none shadow-xl"
                       }`}>
                         {msg.sender === "ai" && (
                           <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-700/80 text-xs font-black text-cyan-400 uppercase tracking-wider">
                             <span className="flex items-center gap-1.5">
-                              <HeartHandshake className="w-4 h-4 text-cyan-400" /> HealthFlo Care Companion
+                              <HeartHandshake className="w-4 h-4 text-cyan-400" /> HealthFlo Clinical Desk
                             </span>
                             <span className="text-slate-400 font-bold lowercase text-[11px]">{msg.timestamp}</span>
                           </div>
@@ -965,26 +924,11 @@ export default function AdvancedHumanlikeAIPage() {
                         <div className="whitespace-pre-wrap leading-relaxed">{msg.text}</div>
                       </div>
 
-                      {/* CLINICAL ASSESSMENT PROFILE */}
-                      {msg.clinicalNotes && (
-                        <div className="p-4 rounded-2xl bg-[#0B1526]/90 border border-cyan-500/40 space-y-1.5 text-left shadow-md">
-                          <div className="flex items-center justify-between text-[11px] font-black text-[#00E5FF] uppercase tracking-wider">
-                            <span className="flex items-center gap-1.5">
-                              <FileText className="w-3.5 h-3.5 text-cyan-400" /> Care Matching Evaluation
-                            </span>
-                            <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 font-extrabold border border-cyan-800/50">{msg.clinicalNotes.urgencyTier}</span>
-                          </div>
-                          <p className="text-xs font-medium text-slate-300 italic">
-                            &quot;{msg.clinicalNotes.symptomSummary}&quot;
-                          </p>
-                        </div>
-                      )}
-
-                      {/* INTERACTIVE TREATMENT CARD IN CHAT THREAD */}
+                      {/* INTERACTIVE TREATMENT CARD IN CHAT THREAD (NO TECH NOTES OR CLINICAL EVALUATION EXPOSED) */}
                       {msg.treatmentCard && (
-                        <div className="p-6 rounded-[2.2rem] bg-gradient-to-br from-[#122240] via-[#0D1C36] to-[#0A162B] text-white shadow-2xl border-2 border-emerald-500/50 space-y-5 animate-[scaleUp_0.3s_ease-out]">
+                        <div className="p-6 rounded-[2.2rem] bg-gradient-to-br from-[#122240] via-[#0E1D38] to-[#0A162B] text-white shadow-2xl border-2 border-emerald-500/50 space-y-5 animate-[scaleUp_0.3s_ease-out]">
                           
-                          <div className="flex items-center justify-between border-b border-slate-700 pb-3">
+                          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-3">
                             <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-xs border border-emerald-500/30 inline-flex items-center gap-1.5">
                               <CheckCircle2 className="w-3.5 h-3.5" /> Success-Rate Verified
                             </span>
@@ -993,7 +937,7 @@ export default function AdvancedHumanlikeAIPage() {
 
                           <div>
                             <h4 className="text-xl sm:text-2xl font-black text-white">{msg.treatmentCard.procedure}</h4>
-                            <p className="text-xs text-slate-300 font-medium mt-1">Matched by highest surgical outcomes in <strong className="text-white font-black">{userCity}</strong> to match your exact budget & insurance tier.</p>
+                            <p className="text-xs text-slate-300 font-medium mt-1">Scheduled by HealthFlo doctors across top accredited hospitals in <strong className="text-white font-black">{userCity}</strong> to match your exact budget & insurance tier.</p>
                           </div>
 
                           <div className="grid grid-cols-2 gap-3 pt-1">
@@ -1036,7 +980,7 @@ export default function AdvancedHumanlikeAIPage() {
                     <div className="relative w-10 h-10 rounded-full bg-slate-900 border border-cyan-500 flex items-center justify-center shrink-0">
                       <Radio className="w-5 h-5 text-[#00E5FF] animate-spin" />
                     </div>
-                    <span>HealthFlo companion is comparing hospital success rates in {userCity} and tailoring your budget path...</span>
+                    <span>HealthFlo doctors are analyzing proven hospital outcomes in {userCity} for your budget...</span>
                   </div>
                 )}
 

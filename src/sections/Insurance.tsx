@@ -43,7 +43,7 @@ export default function Insurance() {
                 transition={{ delay: 0.1 }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-tight mb-4 md:mb-6"
               >
-                Insurance Support
+                100% Cashless & Easy EMI Support
               </motion.h2>
               
               <motion.p 
@@ -53,7 +53,7 @@ export default function Insurance() {
                 transition={{ delay: 0.2 }}
                 className="text-[14px] md:text-lg text-blue-100 leading-relaxed mb-6 md:mb-10 max-w-lg"
               >
-                Don&apos;t let cost or paperwork delay your care. Our dedicated in-house insurance coordinators handle all approvals — TATA AIG, Star Health, HDFC Ergo — so you walk in and focus only on healing.
+                Don&apos;t let money or hospital paperwork delay your healing. Our friendly team handles all health insurance forms directly with Star Health, HDFC Ergo, ICICI, and 50+ providers—so you can get treated with zero out-of-pocket stress.
               </motion.p>
 
               <motion.div 
@@ -64,10 +64,10 @@ export default function Insurance() {
                 className="flex flex-wrap items-center gap-3 md:gap-4"
               >
                 <button className="bg-white text-[#05f] px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-[14px] md:text-lg hover:bg-blue-50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  Check Eligibility
+                  Check My Insurance
                 </button>
                 <button className="flex items-center gap-2 bg-transparent text-white border border-white/30 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-[14px] md:text-lg hover:bg-white/10 transition-colors duration-300">
-                  No-Cost EMI <ArrowRight size={16} />
+                  No-Cost Easy EMI <ArrowRight size={16} />
                 </button>
               </motion.div>
             </div>
@@ -87,8 +87,8 @@ export default function Insurance() {
                   <Clock size={20} />
                 </div>
                 <div>
-                  <h4 className="text-[15px] md:text-xl font-bold text-slate-900 mb-0.5 md:mb-1">30-Minute In-House Approval</h4>
-                  <p className="text-slate-600 text-[12px] md:text-sm leading-snug">Express insurance processing by our dedicated coordinators — from first call to OT clearance.</p>
+                  <h4 className="text-[15px] md:text-xl font-bold text-slate-900 mb-0.5 md:mb-1">Quick 30-Minute Insurance Check</h4>
+                  <p className="text-slate-600 text-[12px] md:text-sm leading-snug">We verify your policy quickly before you arrive—so your room booking and surgical treatment begin without delay.</p>
                 </div>
               </motion.div>
 
@@ -100,7 +100,7 @@ export default function Insurance() {
                 transition={{ delay: 0.5 }}
                 className="bg-[#0038ff] p-5 md:p-8 rounded-[20px] md:rounded-[24px] border border-white/10"
               >
-                <h5 className="text-white font-semibold mb-4 md:mb-6 text-[14px] md:text-base">Accepted at All HealthFlo Surgical Centers</h5>
+                <h5 className="text-white font-semibold mb-4 md:mb-6 text-[14px] md:text-base">Accepted at All Our Empanelled Hospital Centers</h5>
                 <div className="flex flex-wrap gap-2 md:gap-3">
                   {insurers.map((insurer, idx) => (
                     <div key={idx} className="bg-white/10 px-3 py-1.5 md:px-4 md:py-2 rounded-lg backdrop-blur-sm border border-white/10 text-white font-medium text-[12px] md:text-sm">

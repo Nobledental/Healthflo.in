@@ -142,17 +142,17 @@ export default function RegionalLocationsDirectory() {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#0055FF] text-[11px] font-black uppercase tracking-widest">
               <HospitalShieldSVG className="w-3.5 h-3.5" />
-              Regional Surgical Network
+              Our Empanelled Hospital Network
             </span>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-black uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              24/7 Dispatch Online
+              24/7 Doctor Guidance Available
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-            Find Your Local Surgical Hub
+            Find Empanelled Hospitals Near You
           </h2>
-          <p className="mt-1.5 text-[14px] text-slate-500 font-medium">Select your city to activate patient transit &amp; insurance coordination.</p>
+          <p className="mt-1.5 text-[14px] text-slate-500 font-medium">Choose your town or city to view empanelled hospital partners, success rates, and insurance support in your area.</p>
         </div>
 
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 flex flex-col gap-5">
@@ -255,7 +255,7 @@ export default function RegionalLocationsDirectory() {
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight flex items-center gap-1.5">
-                        {activeLocation.name} Surgical Hub
+                        {activeLocation.name} Hospital Network
                         <ShieldCheck className="w-4 h-4 text-[#0066FF] shrink-0" />
                       </h3>
                       <span className="text-[11px] font-extrabold text-[#0066FF] px-2.5 py-0.5 rounded-full bg-blue-100 border border-blue-200">
@@ -292,7 +292,7 @@ export default function RegionalLocationsDirectory() {
                     onClick={() => haptic.light()}
                     className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,102,255,0.3)] transition-all"
                   >
-                    <span>Enter {activeLocation.name} Portal</span>
+                    <span>Explore {activeLocation.name} Hospitals</span>
                     <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -334,7 +334,7 @@ export default function RegionalLocationsDirectory() {
             onClick={() => haptic.medium()}
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white font-black text-sm uppercase tracking-wider shadow-[0_4px_18px_rgba(0,102,255,0.3)] transition-all hover:scale-105 active:scale-95"
           >
-            View All Regional Hubs
+            View All Empanelled Locations
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -343,3 +343,4 @@ export default function RegionalLocationsDirectory() {
   </section>
 );
 }
+

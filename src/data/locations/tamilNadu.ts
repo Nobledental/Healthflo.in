@@ -502,18 +502,44 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
     railwayStation: "Tiruchirappalli Junction Railway Station",
     hubCity: "Trichy Central Tamil Nadu Medical Desk",
     transitTime: "Free cab from Trichy Junction to empanelled hospital",
-    description: "Insurance Eligible laser surgical care for Thillai Nagar, Cantonment, Srirangam, and K.K. Nagar residents. Avoid Apollo Trichy queues — same-day discharge via HealthFlo network.",
+    description: "Connect with verified empanelled laser hospitals across Thillai Nagar, Cantonment, Srirangam, and BHEL Township. Choose your hospital room tier to fit your budget with zero compromise on USFDA surgical safety. Complete cashless insurance processing and financial assistance provided.",
     keyNeighbourhoods: [
       "Thillai Nagar", "Cantonment", "K.K. Nagar", "Srirangam",
-      "Kattur", "Woraiyur", "Puthur", "Ariyamangalam"
+      "BHEL Township", "Kailasapuram", "Woraiyur", "Kattur", "Puthur", "Ariyamangalam"
     ],
     localHospitals: [
-      "Apollo Speciality Hospitals Chennai Bypass Road", "Kauvery Hospital Trichy"
+      "Apollo Speciality Hospitals Chennai Bypass Road", "Kauvery Hospital Trichy", "Maruti Hospital"
     ],
     specializedProcedures: [
-      "Laser Piles & Fissure", "Laparoscopic Hernia & Gallbladder",
-      "Laser Circumcision", "Varicose Vein EVLT"
-    ]
+      "Laser Piles Treatment", "Laser Anal Fissure Care", "Laser Anal Fistula Sealing",
+      "Painless Laser Circumcision", "Keyhole 3D Mesh Hernia Repair", "Laser Varicose Veins & Lipoma Removal"
+    ],
+    cityOffer: {
+      badge: "Trichy Empanelled Surgical Network",
+      headline: "Choose Your Hospital Tier to Match Your Exact Budget — Zero Surgical Compromise",
+      subtext: "Our empanelled USFDA surgical centers across Central Tamil Nadu maintain gold-standard surgical safety. Price differences reflect room type and amenities only—never the medical quality.",
+      bundleItems: [
+        "Select Economy, Standard or Executive empanelled hospital tiers",
+        "100% Cashless insurance processing & 0% EMI financial assistance",
+        "Free cab pickup from Trichy Junction, Thillai Nagar & surrounding towns",
+        "Dedicated Tamil-speaking care coordinator from consultation to recovery"
+      ],
+      urgency: "Instant 30-minute cashless pre-approval check available today"
+    },
+    procedureOffers: {
+      "piles": {
+        badge: "Trichy Piles Triage Package",
+        headline: "Painless Laser Piles Care — Choose Your Hospital Tier & Budget",
+        subtext: "No hospital queues or opaque billing. Zero surgical compromise across all empanelled hospital tiers.",
+        bundleItems: ["USFDA laser precision (0 stitches)", "Same-day walk home protocol", "Free hospital transit across Trichy & Delta districts"],
+      },
+      "hernia": {
+        badge: "Trichy Hernia Support Package",
+        headline: "Keyhole 3D Mesh Hernia Repair With Complete Financial Support",
+        subtext: "Avoid overpriced open surgery quotes. Choose an empanelled tier that aligns with your health policy or budget.",
+        bundleItems: ["3D structural mesh protection", "Complete insurance documentation handling", "Minimal discomfort & 48-hour routine recovery"],
+      }
+    }
   },
 
   {

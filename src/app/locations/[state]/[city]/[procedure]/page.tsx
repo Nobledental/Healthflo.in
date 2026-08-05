@@ -25,6 +25,7 @@ import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
 import GoogleTrendsEEATBanner from "@/components/seo/GoogleTrendsEEATBanner";
+import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates one page per city × procedure combination
@@ -77,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     openGraph: {
       title: `${procedure.shortTitle} in ${location.name} — Same-Day Discharge | HealthFlo`,
-      description: `Zero-pain ${procedure.shortTitle.toLowerCase()} at HealthFlo-empanelled hospitals in ${location.name}. Insurance Eligible. ${location.nativeLanguage} support. Free cab from ${location.railwayStation ?? location.name}.`,
+      description: `Zero-pain ${procedure.shortTitle.toLowerCase()} at HealthFlo-empanelled hospitals in ${location.name}. Insurance Eligible with transparent hospital tier budget matching and ${location.nativeLanguage} coordinator support across ${location.name}.`,
       url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}`,
     },
     alternates: {
@@ -176,6 +177,14 @@ export default async function CityProcedurePage({ params }: Props) {
         <CityProcedureHero
           location={location}
           procedure={procedure}
+          whatsappUrl={WHATSAPP_URL}
+        />
+
+        {/* Hospital Tier & Budget Matching Breakdown Engine */}
+        <HospitalTierBudgetSection 
+          procedureTitle={procedure.title}
+          cityName={location.name}
+          nativeLanguage={location.nativeLanguage}
           whatsappUrl={WHATSAPP_URL}
         />
 

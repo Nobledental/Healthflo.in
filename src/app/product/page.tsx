@@ -17,66 +17,66 @@ export default function ProductLoginPage() {
   const { config } = useSiteConfig();
   const [selectedOS, setSelectedOS] = useState<"ios" | "android">("android");
 
-  const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=91${config.helplineRaw}&text=${encodeURIComponent("Hello HealthFlo Support, I need help downloading the Mobile App and connecting with a surgical coordinator.")}`;
+  const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=91${config.helplineRaw}&text=${encodeURIComponent("Hello HealthFlo Support, I need help downloading the app and speaking with a doctor about my treatment.")}`;
 
   const products = [
     {
       badge: "Most Popular",
       title: "HealthFlo Mobile App",
       subtitle: "For Patients & Family Members",
-      desc: "Your complete surgical companion on iOS & Android. Book consultations with empanelled doctors, view laser treatment estimates, securely store post-op prescriptions, and chat with your care navigator 24/7 in your local language.",
+      desc: "Your easy-to-use health app on iPhone & Android. Book appointments with senior surgical doctors, check transparent hospital cost breakdowns, store prescriptions safely, and chat with our support team anytime in Tamil, Telugu, Kannada, or Hindi.",
       icon: Smartphone,
       color: "text-[#0055ff]",
       bg: "bg-blue-50/80 border-blue-200",
       highlights: [
-        "Instant Doctor Appointment Booking",
-        "Digital Medical Records & Discharge Advice",
-        "24/7 Local Language Navigation Chat"
+        "Easy Doctor Consultation Booking",
+        "Safe Medical Records & prescriptions",
+        "24/7 Support in Your Local Language"
       ],
       action: { text: "Explore Mobile App", link: "#app-download" }
     },
     {
       badge: "Free Online Tool",
-      title: "AI Symptom Checker",
-      subtitle: "Instant Guidance in 60 Seconds",
-      desc: "Not sure if your discomfort is Piles, Fistula, Fissure, or Hernia? Answer 3 simple questions privately online to understand your condition and see if you qualify for painless laser day-care surgery.",
+      title: "Quick Symptom Checker",
+      subtitle: "Get Clear Answers in 60 Seconds",
+      desc: "Not sure about your pain or discomfort? Answer 3 simple, completely confidential questions online to understand your health condition in everyday words and see if painless laser surgery is the right choice for you.",
       icon: Sparkles,
       color: "text-[#E58325]",
       bg: "bg-amber-50/80 border-amber-200",
       highlights: [
         "100% Private & Confidential",
-        "Doctor-Reviewed Clinical Accuracy",
-        "Immediate Specialist Recommendation"
+        "Doctor-Reviewed Health Guidance",
+        "Immediate Treatment & Hospital Advice"
       ],
-      action: { text: "Try AI Checker Now", link: "/ai" }
+      action: { text: "Try Free Checker Now", link: "/ai" }
     },
     {
       badge: "Cashless Support",
-      title: "Instant Insurance Verification",
-      subtitle: "Corporate & Personal Health Policies",
-      desc: "Don't let hospital paperwork delay your healing. Use our automated verification tool to check your Mediclaim or Private Health Insurance eligibility for zero upfront out-of-pocket laser surgery.",
+      title: "Insurance & Budget Checker",
+      subtitle: "Personal & Company Health Policies",
+      desc: "Don't let hospital paperwork stress you out. We check your health card or MediClaim instantly and coordinate with empanelled hospitals so you get premium surgical treatment without paying out-of-pocket expenses.",
       icon: ShieldCheck,
       color: "text-emerald-600",
       bg: "bg-emerald-50/80 border-emerald-200",
       highlights: [
-        "Works with all major insurance cards",
-        "Zero upfront payment approval guidance",
-        "Dedicated insurance specialist support"
+        "Works with all major health insurance cards",
+        "100% cashless hospital admission support",
+        "Zero compromise on surgical treatment quality"
       ],
-      action: { text: "Check Cashless Eligibility", link: "/insurance" }
+      action: { text: "Check Insurance Support", link: "/insurance" }
     },
     {
-      badge: "For Doctors & Clinics",
+      badge: "For Doctors & Hospitals",
       title: "Hospital & Specialist Suite",
-      subtitle: "Practice Management & Surgical Triage",
-      desc: "A simple, clutter-free schedule and admission portal designed for operating proctologists and empanelled surgical hospitals across South India to review patient consultations seamlessly.",
+      subtitle: "Easy Appointment & Room Coordination",
+      desc: "A clean, clutter-free dashboard designed for our empanelled surgeons and hospital partners to manage consultation schedules, prepare treatment packages, and guide patients smoothly through admission.",
       icon: Building2,
       color: "text-purple-600",
       bg: "bg-purple-50/80 border-purple-200",
       highlights: [
-        "Effortless OPD & Theatre Roster",
-        "Paperless insurance claims collaboration",
-        "Live patient care tracking"
+        "Simple surgical scheduling & notes",
+        "Paperless insurance claims assistance",
+        "Seamless hospital discharge tracking"
       ],
       action: { text: "Open Doctor Dashboard", link: "/login/hospital" }
     },
@@ -97,18 +97,18 @@ export default function ProductLoginPage() {
         <div className="text-center max-w-3xl mx-auto space-y-5">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#1D3A6F]/10 to-[#0055ff]/10 border border-[#1D3A6F]/20 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-xs">
             <Heart className="w-4 h-4 text-[#0055ff] fill-current" />
-            <span className="text-[#1D3A6F] font-extrabold uppercase tracking-wider">Healthcare Made Simple & Transparent</span>
+            <span className="text-[#1D3A6F] font-extrabold uppercase tracking-wider">Simple & Compassionate Healthcare</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#1D3A6F] tracking-tight leading-[1.15]">
-            HealthFlo Products & <br />
+            Your Care Tools & <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#0055ff] via-[#2D5DAF] to-[#00A88F]">
-              Access Portals
+              Patient Logins
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
-            Select your dedicated gateway below to securely log in to your personal health record or hospital dashboard, or explore our interactive mobile patient suite.
+            Easily check your doctor appointments, view transparent hospital costs, download discharge advice, or login to your hospital dashboard in just one click.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function ProductLoginPage() {
                   <UserCheck className="w-8 h-8 stroke-[2.2]" />
                 </div>
                 <span className="px-3.5 py-1 rounded-full bg-blue-50 text-[#0055ff] font-extrabold text-xs border border-blue-200">
-                  Patient Gateway
+                  Patient & Family
                 </span>
               </div>
 
@@ -139,18 +139,18 @@ export default function ProductLoginPage() {
                   <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1.5 transition-transform text-[#0055ff]" />
                 </h2>
                 <p className="text-sm text-slate-600 font-normal mt-2.5 leading-relaxed">
-                  View your surgical appointments, download hospital discharge summaries, review post-operative care prescriptions, and check cashless insurance claim progress.
+                  Log in to see your doctor consultation times, review hospital cost plans for your budget, download post-surgery precautions, and track your insurance claim.
                 </p>
               </div>
 
               <div className="space-y-2.5 pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-700 font-semibold">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>Instant OTP verification via Mobile / WhatsApp</span>
+                  <span>Quick OTP sign-in using Mobile / WhatsApp</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>24/7 direct access to your care coordinator</span>
+                  <span>Direct connection to your HealthFlo doctor team</span>
                 </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function ProductLoginPage() {
                   <Building2 className="w-8 h-8 stroke-[2.2]" />
                 </div>
                 <span className="px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-extrabold text-xs border border-emerald-200">
-                  Partner Suite
+                  Hospital Partner
                 </span>
               </div>
 
@@ -187,18 +187,18 @@ export default function ProductLoginPage() {
                   <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1.5 transition-transform text-emerald-600" />
                 </h2>
                 <p className="text-sm text-slate-600 font-normal mt-2.5 leading-relaxed">
-                  Empanelled proctologists, general surgeons, and tier-1 hospital partner centers can access operation theatre rosters, AI symptom triage reports, and patient files.
+                  Empanelled surgery specialists and partner hospitals log in here to check patient consultation bookings, arrange operating rooms, and finalize insurance approvals.
                 </p>
               </div>
 
               <div className="space-y-2.5 pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-700 font-semibold">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>Paperless day-care surgery coordination</span>
+                  <span>Smooth patient appointment scheduling</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>Quick demo preview mode available</span>
+                  <span>Fast cashless claim file preparation</span>
                 </div>
               </div>
             </div>
@@ -282,16 +282,16 @@ export default function ProductLoginPage() {
           <div className="space-y-6 max-w-xl relative z-10">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-300 uppercase tracking-wider bg-white/10 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20">
               <Award className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>South India's Most Trusted Surgical App</span>
+              <span>South India's Most Trusted Care App</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
-              Take Your Hospital Experience <br />
-              <span className="text-[#00E5FF]">Into Your Own Hands</span>
+              Manage Your Hospital Care <br />
+              <span className="text-[#00E5FF]">Right From Your Phone</span>
             </h2>
 
             <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed font-normal">
-              No more waiting in long OPD clinic queues or worrying about hospital bill surprises. With the HealthFlo App, you can connect directly with laser surgery specialists in Chennai, Bangalore, Hyderabad, Coimbatore, and 25+ cities in your own native language.
+              No more waiting in long clinic queues or worrying about unexpected hospital bills. With the HealthFlo App, you can connect directly with experienced surgery specialists across Tamil Nadu, Karnataka, and Telangana in your own native language.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -337,11 +337,11 @@ export default function ProductLoginPage() {
                 HF
               </div>
               <h4 className="text-base font-black text-white">HealthFlo Care App</h4>
-              <p className="text-xs text-slate-300">Hello! Dr. Coordinator is online to assist with your laser treatment inquiry.</p>
+              <p className="text-xs text-slate-300">Hello! Our clinical team is ready to match you with top hospital success rates within your budget.</p>
               
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-left text-xs font-medium space-y-1">
                 <span className="text-emerald-400 font-bold block">✓ Cashless Pre-Approval Verified</span>
-                <span className="text-slate-300">Ambulatory discharge: 3 hours</span>
+                <span className="text-slate-300">Go Home Same Day (3 to 24 Hours)</span>
               </div>
 
               <a
@@ -362,11 +362,11 @@ export default function ProductLoginPage() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-[#0055ff] uppercase tracking-wider">
               <Lock className="w-4 h-4" />
-              <span>Private & Secure Medical Promise</span>
+              <span>Private & Secure Promise</span>
             </div>
             <h3 className="text-2xl font-black text-[#1D3A6F]">We Keep Your Medical Details Safe & Confidential</h3>
             <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-2xl leading-relaxed">
-              Whether you are seeking consultation for piles, hernia, or kidney stones, your diagnosis and insurance paperwork are treated with strictest medical discretion and bank-grade digital privacy.
+              Whether you are consulting for piles, hernia, fistula, or fissure, your symptoms and insurance details are kept strictly confidential with top bank-grade digital privacy.
             </p>
           </div>
           <a
