@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, Bell, Search } from "lucide-react";
 import InteractiveOrb from "./InteractiveOrb";
 import { useSiteConfig } from "@/context/SiteConfigContext";
@@ -9,6 +10,7 @@ import { haptic } from "@/utils/haptics";
 
 export default function Navbar() {
   const { config } = useSiteConfig();
+  const pathname = usePathname() || "";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastOrbSection, setIsPastOrbSection] = useState(false);
   const [searchVal, setSearchVal] = useState("");
@@ -42,46 +44,65 @@ export default function Navbar() {
     }
   };
 
+  const navLinks = [
+    { name: "Overview", href: "/" },
+    { name: "Specialities", href: "/specialities", dot: "bg-emerald-500 animate-pulse" },
+    { name: "⚡ AI Triage", href: "/ai", textClass: "text-cyan-700 hover:text-blue-700" },
+    { name: "Regional Hubs", href: "/locations" },
+    { name: "Products & Login", href: "/product" },
+    { name: "Contact Us", href: "/contact" },
+  ];
+
+  const getLinkClass = (targetHref: string, textClass?: string) => {
+    const isActive = pathname === targetHref || (targetHref !== "/" && pathname.startsWith(targetHref));
+    const baseClass = "px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] lg:text-[14px] transition-all flex items-center gap-1.5 whitespace-nowrap ";
+    if (isActive) {
+      return baseClass + "bg-white text-slate-900 font-black shadow-xs border border-slate-200/80";
+    }
+    return baseClass + `font-bold ${textClass || "text-slate-600 hover:text-slate-900"} hover:bg-white/80 bg-transparent`;
+  };
+
   return (
     <>
-      {/* ── TOP NAVBAR: TRANSPARENT & CAPSULE UI DESIGN ────────────────────────────── */}
+      {/* ── TOP NAVBAR: TRANSPARENT & UNIFORM CAPSULE UI DESIGN ────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 w-full flex items-center justify-between px-3 sm:px-6 lg:px-8 py-3.5 z-50 bg-transparent pointer-events-none">
         
         {/* Left Section: Brand Badge & Connected Capsule Navigator */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0 pointer-events-auto">
           
-          {/* HealthFlo Brand Logo with "Flo" in Medical Blue */}
-          <Link 
-            href="/" 
-            onClick={() => haptic.light()}
-            className="text-[18px] md:text-[20px] font-bold text-slate-900 tracking-tight flex items-center shrink-0 hover:opacity-90 transition-opacity"
-          >
-            <div className="relative w-5 h-5 mr-2 flex items-center justify-center">
-              <div className="absolute w-5 h-5 bg-[#0055ff]/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-              <div className="absolute w-3.5 h-3.5 bg-[#0055ff]/40 rounded-full animate-pulse" />
-              <div className="w-2 h-2 bg-[#0055ff] rounded-full shadow-[0_0_8px_3px_rgba(0,85,255,0.6)] z-10" />
-            </div>
-            <span className="bg-white/60 backdrop-blur-xl px-3 py-1 rounded-full text-slate-900 border border-white/60 inline-flex items-center shadow-2xs hover:bg-white/80 transition-colors">
-              <span>Health</span><span className="text-[#0055ff] font-black ml-0.5">Flo</span>
-            </span>
-          </Link>
+          {/* Uniform Brand Capsule */}
+          <div className="flex items-center p-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.06)] h-11 sm:h-12 lg:h-13">
+            <Link 
+              href="/" 
+              onClick={() => haptic.light()}
+              className="px-3.5 py-1.5 rounded-full bg-white text-slate-900 shadow-2xs border border-slate-200/60 font-black text-base sm:text-[17px] tracking-tight flex items-center gap-2 hover:bg-slate-50 transition-colors h-full"
+            >
+              <div className="relative w-4 h-4 flex items-center justify-center shrink-0">
+                <div className="absolute w-4 h-4 bg-[#0055ff]/20 rounded-full animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                <div className="w-2 h-2 bg-[#0055ff] rounded-full shadow-[0_0_8px_3px_rgba(0,85,255,0.6)] z-10" />
+              </div>
+              <span className="leading-none">
+                <span>Health</span><span className="text-[#0055ff]">Flo</span>
+              </span>
+            </Link>
+          </div>
 
-          {/* Connected Twin Pills (Reference UI Design - hides on scroll) */}
-          <div className={`hidden xl:flex items-center p-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.06)] gap-1 text-xs font-bold shrink-0 transition-all duration-500 ease-in-out ${
+          {/* Connected Twin Pills - Uniform Height */}
+          <div className={`hidden xl:flex items-center p-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.06)] gap-1 text-xs font-bold shrink-0 h-11 sm:h-12 lg:h-13 transition-all duration-500 ease-in-out ${
             isScrolled ? "-translate-y-12 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
           }`}>
             <Link
               href="/#lead-capture"
               onClick={() => haptic.light()}
-              className="px-3 py-1.5 rounded-full text-slate-500 hover:text-slate-900 transition-all bg-transparent hover:bg-white/60"
+              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-slate-900 font-bold hover:bg-white/80 transition-all"
             >
               Diagnose
             </Link>
-            <div className="w-[1.5px] h-3.5 bg-slate-300/60 rounded-full" />
+            <div className="w-[1.5px] h-4 bg-slate-300/60 rounded-full my-auto" />
             <Link
               href="/specialities"
               onClick={() => haptic.light()}
-              className="px-3 py-1.5 rounded-full bg-white text-slate-900 shadow-2xs border border-slate-200/60 hover:border-[#0055ff]/40 transition-all flex items-center gap-1 font-extrabold"
+              className="px-3.5 py-1.5 rounded-full bg-white text-slate-900 shadow-xs border border-slate-200/80 font-black hover:border-[#0055ff]/40 transition-all flex items-center gap-1.5"
             >
               <span className="w-2 h-2 rounded-full bg-[#0055ff] shrink-0 shadow-[0_0_6px_rgba(0,85,255,0.6)]" />
               <span>My Surgery</span>
@@ -90,66 +111,34 @@ export default function Navbar() {
 
         </div>
 
-        {/* Center Section: Core Navigation Links Capsule (Hides smoothly on scroll like before) */}
-        <div className={`hidden md:flex items-center p-1.5 px-5 lg:px-7 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.05)] gap-5 lg:gap-8 text-[13px] lg:text-[14px] font-extrabold shrink-0 pointer-events-auto transition-all duration-500 ease-in-out ${
+        {/* Center Section: Core Navigation Links Capsule with Uniform White Pill Effect */}
+        <div className={`hidden md:flex items-center p-1.5 px-3 lg:px-4 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.06)] gap-1 shrink-0 pointer-events-auto h-11 sm:h-12 lg:h-13 transition-all duration-500 ease-in-out ${
           isScrolled ? "-translate-y-12 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
         }`}>
-          <Link 
-            href="/" 
-            onClick={() => haptic.light()}
-            className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap"
-          >
-            Overview
-          </Link>
-          <Link 
-            href="/specialities" 
-            onClick={() => haptic.light()}
-            className="text-slate-900 hover:text-[#0055ff] transition-colors flex items-center gap-1.5 whitespace-nowrap"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" />
-            <span>Specialities</span>
-          </Link>
-          <Link 
-            href="/ai" 
-            onClick={() => haptic.light()}
-            className="text-cyan-600 hover:text-blue-700 transition-colors font-black flex items-center gap-1 whitespace-nowrap"
-          >
-            <span>⚡ AI Triage</span>
-          </Link>
-          <Link 
-            href="/locations" 
-            onClick={() => haptic.light()}
-            className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap"
-          >
-            Regional Hubs
-          </Link>
-          <Link 
-            href="/product" 
-            onClick={() => haptic.light()}
-            className="text-slate-900 hover:text-[#0055ff] transition-colors font-black whitespace-nowrap"
-          >
-            Products & Login
-          </Link>
-          <Link 
-            href="/contact" 
-            onClick={() => haptic.light()}
-            className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap"
-          >
-            Contact Us
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={() => haptic.light()}
+              className={getLinkClass(link.href, link.textClass)}
+            >
+              {link.dot && <span className={`w-2 h-2 rounded-full inline-block shrink-0 ${link.dot}`} />}
+              <span>{link.name}</span>
+            </Link>
+          ))}
         </div>
 
         {/* Right Section: Wide Search & Connected Triple-Circle Actions */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0 pointer-events-auto">
           
-          {/* Capsule Search Bar (Hides on scroll to keep top bar clean) */}
+          {/* Capsule Search Bar */}
           <form 
             onSubmit={handleSearchSubmit}
-            className={`hidden 2xl:flex items-center w-48 shrink-0 transition-all duration-500 ease-in-out ${
+            className={`hidden 2xl:flex items-center w-48 shrink-0 h-11 sm:h-12 lg:h-13 transition-all duration-500 ease-in-out ${
               isScrolled ? "-translate-y-12 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
             }`}
           >
-            <div className="w-full p-1 pl-4 pr-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full flex items-center justify-between shadow-[0_2px_15px_rgba(0,0,0,0.05)] focus-within:ring-2 focus-within:ring-[#0055ff]/30 focus-within:border-[#0055ff] transition-all">
+            <div className="w-full h-full p-1 pl-4 pr-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full flex items-center justify-between shadow-[0_2px_15px_rgba(0,0,0,0.06)] focus-within:ring-2 focus-within:ring-[#0055ff]/30 focus-within:border-[#0055ff] transition-all">
               <input 
                 type="text" 
                 value={searchVal}
@@ -160,7 +149,7 @@ export default function Navbar() {
               <button 
                 type="submit"
                 onClick={() => haptic.light()}
-                className="w-7 h-7 rounded-full bg-white hover:bg-[#0055ff] text-slate-700 hover:text-white flex items-center justify-center shadow-xs transition-all shrink-0 border border-slate-200/60 hover:border-[#0055ff]"
+                className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-white hover:bg-[#0055ff] text-slate-700 hover:text-white flex items-center justify-center shadow-xs transition-all shrink-0 border border-slate-200/60 hover:border-[#0055ff]"
                 aria-label="Search Surgery"
               >
                 <Search className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -168,8 +157,8 @@ export default function Navbar() {
             </div>
           </form>
 
-          {/* Connected Triple-Circle Actions (Reference UI Design) - Always visible for emergency triage access */}
-          <div className="flex items-center p-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.06)] gap-1 shrink-0">
+          {/* Connected Triple-Circle Actions - Uniform Height */}
+          <div className="flex items-center p-1 bg-[#EEF1F5]/90 backdrop-blur-xl border-2 border-white rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.06)] gap-1 shrink-0 h-11 sm:h-12 lg:h-13">
             
             {/* 1. Vibrant Blue Phone Circle */}
             <a
