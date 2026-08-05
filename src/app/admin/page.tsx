@@ -449,14 +449,15 @@ export default function AdminIntelligenceDashboard() {
     const doctor = assignedDoctors[item.id] || "Assigned Specialist";
     const status = leadStatuses[item.id] || item.leadContact?.status || "Under Review";
     const msg = `*HEALTHFLO SURGICAL CARE • PATIENT REFERRAL SUMMARY*\n\n` +
-      `👤 *Patient Name:* ${item.leadContact?.name}\n` +
-      `📞 *Contact Phone:* ${item.leadContact?.phone}\n` +
-      `📍 *Location:* ${item.city}, ${item.state}\n` +
-      `🔬 *Requested Procedure:* ${item.leadContact?.procedure}\n` +
-      `🏥 *Partner Hospital:* ${hospital}\n` +
-      `🩺 *Attending Surgeon:* ${doctor}\n` +
-      `📋 *Care Status:* ${status}\n\n` +
-      `_Medical Confidentiality Disclaimer: This diagnostic triage summary is generated exclusively for internal surgical care coordination by authorized hospital doctors and coordinators._`;
+      `[PATIENT REFERRAL & SURGICAL TRIAGE SUMMARY]\n\n` +
+      `Patient Name: ${item.leadContact?.name}\n` +
+      `Contact Phone: ${item.leadContact?.phone}\n` +
+      `Surgical Facility & City: ${item.city}, ${item.state}\n` +
+      `Requested Procedure: ${item.leadContact?.procedure}\n` +
+      `Partner Hospital: ${hospital}\n` +
+      `Attending Surgeon: ${doctor}\n` +
+      `Care Status: ${status}\n\n` +
+      `Medical Confidentiality Disclaimer: This diagnostic triage summary is generated exclusively for internal surgical care coordination by authorized hospital doctors and coordinators.`;
     
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -898,7 +899,7 @@ export default function AdminIntelligenceDashboard() {
               </div>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 text-center font-semibold">
-              📈 Laser Circumcision & Hernia protocols trending highest in outpatient conversions.
+              Laser Circumcision & Hernia protocols trending highest in outpatient conversions.
             </div>
           </div>
 
@@ -911,9 +912,9 @@ export default function AdminIntelligenceDashboard() {
               {intelligence?.recentQueries.map((item, idx) => (
                 <div key={idx} className="p-2.5 rounded-lg bg-[#0E1830] border border-slate-800/80 hover:border-slate-700 transition">
                   <p className="text-xs text-amber-300 font-mono truncate">&gt; "{item.query}"</p>
-                  <div className="flex justify-between items-center mt-1 text-[10px] text-slate-400">
-                    <span>📍 {item.location}</span>
-                    <span>⏱ {item.timestamp}</span>
+                  <div className="flex justify-between items-center mt-1 text-[10px] text-slate-400 font-semibold">
+                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-cyan-400 inline" /> {item.location}</span>
+                    <span className="flex items-center gap-1"><Clock className="w-3 h-3 text-slate-500 inline" /> {item.timestamp}</span>
                   </div>
                 </div>
               ))}

@@ -1,25 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ShieldCheck, 
-  Calculator, 
   CheckCircle2, 
-  Sparkles, 
   PhoneCall, 
   Building2, 
   FileText, 
   ArrowRight, 
   Lock, 
-  HelpCircle, 
   Clock, 
   Check, 
   AlertCircle,
-  Car
+  Car,
+  MapPin,
+  Stethoscope,
+  ChevronDown,
+  Award,
+  Activity
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
 import { useSiteConfig } from "@/context/SiteConfigContext";
+import { REGIONAL_LOCATIONS } from "@/data/regionalLocations";
 
 interface Props {
   defaultProcedure?: string;
@@ -29,47 +32,91 @@ interface Props {
 }
 
 const PROCEDURES = [
-  { name: "Laser Circumcision & Foreskin Care", basePrice: "₹28,500", emi: "₹2,850/mo", recovery: "24-48 Hours", usfda: "Zsr & Diode 980nm Laser" },
-  { name: "USFDA Laser Piles / Hemorrhoidoplasty", basePrice: "₹32,000", emi: "₹3,200/mo", recovery: "0-Day Discharge", usfda: "LHP 1470nm Biolitec Protocol" },
-  { name: "Anal Fistula Laser Closure (FiLaC)", basePrice: "₹38,500", emi: "₹3,850/mo", recovery: "Same-day ambulatory", usfda: "Sphincter-Preserving Radial Fiber" },
-  { name: "Anal Fissure Laser Sphincterotomy", basePrice: "₹29,000", emi: "₹2,900/mo", recovery: "Immediate relief", usfda: "Precision Contact Diode" },
-  { name: "Painless Lipoma / Swelling / Cyst Excision", basePrice: "₹22,000", emi: "₹2,200/mo", recovery: "No sutures / Cosmetic", usfda: "Micro-incision USFDA Protocol" },
-  { name: "Laparoscopic Hernia Repair (Inguinal/Umbilical)", basePrice: "₹45,000", emi: "₹4,500/mo", recovery: "1-Day hospital observation", usfda: "3D Mesh Fixation Laparoscopy" },
-  { name: "Hydrocele Laser / Minimally Invasive Surgery", basePrice: "₹34,000", emi: "₹3,400/mo", recovery: "24 Hours return to work", usfda: "Bloodless Hydrocelectomy" },
-  { name: "Varicose Vein Laser Ablation (EVLA)", basePrice: "₹42,000", emi: "₹4,200/mo", recovery: "Walk out same day", usfda: "Endovenous Radial Laser Fiber" },
-  { name: "Kidney Stone Laser Lithotripsy (RIRS/PCNL)", basePrice: "₹48,000", emi: "₹4,800/mo", recovery: "Painless laser dust removal", usfda: "Holmium Laser & Flexible Scope" },
+  { name: "Laser Circumcision & Foreskin Care", basePrice: "₹28,500", emi: "₹2,850/mo", recovery: "24-48 Hours", usfda: "Zsr & Diode 980nm Laser Protocol" },
+  { name: "USFDA Laser Piles / Hemorrhoidoplasty", basePrice: "₹32,000", emi: "₹3,200/mo", recovery: "0-Day Ambulatory Discharge", usfda: "LHP 1470nm Biolitec Protocol" },
+  { name: "Anal Fistula Laser Closure (FiLaC)", basePrice: "₹38,500", emi: "₹3,850/mo", recovery: "Same-Day Day-Care Protocol", usfda: "Sphincter-Preserving Radial Fiber" },
+  { name: "Anal Fissure Laser Sphincterotomy", basePrice: "₹29,000", emi: "₹2,900/mo", recovery: "Immediate Post-Op Relief", usfda: "Precision Contact Diode Laser" },
+  { name: "Painless Lipoma / Swelling / Cyst Excision", basePrice: "₹22,000", emi: "₹2,200/mo", recovery: "No Sutures • Cosmetic Technique", usfda: "Micro-Incision USFDA Standard" },
+  { name: "Laparoscopic Hernia Repair (Inguinal/Umbilical)", basePrice: "₹45,000", emi: "₹4,500/mo", recovery: "1-Day Hospital Observation", usfda: "3D Anatomical Mesh Fixation" },
+  { name: "Hydrocele Laser / Minimally Invasive Surgery", basePrice: "₹34,000", emi: "₹3,400/mo", recovery: "24-Hour Return to Daily Activity", usfda: "Bloodless Micro-Hydrocelectomy" },
+  { name: "Varicose Vein Laser Ablation (EVLA)", basePrice: "₹42,000", emi: "₹4,200/mo", recovery: "Walk Out Same Day", usfda: "Endovenous Radial Laser Fiber" },
+  { name: "Kidney Stone Laser Lithotripsy (RIRS/PCNL)", basePrice: "₹48,000", emi: "₹4,800/mo", recovery: "Painless Laser Dust Elimination", usfda: "Holmium Laser & Flexible Scope" },
 ];
 
-const HEALTH_HUBS = [
-  { city: "Bengaluru (Whitefield, Outer Ring Rd, HSR)", state: "Karnataka", lang: "kn" },
-  { city: "Hyderabad (Jubilee Hills, HITEC City, Gachibowli)", state: "Telangana", lang: "te" },
-  { city: "Chennai (Anna Nagar, Adyar, OMR IT Corridor)", state: "Tamil Nadu", lang: "ta" },
-  { city: "Coimbatore (RS Puram, Avinashi Rd Hub)", state: "Tamil Nadu", lang: "ta" },
-  { city: "Mysuru (Gokulam, Kuvempunagar Hub)", state: "Karnataka", lang: "kn" },
-  { city: "Warangal & Karimnagar Care Directory", state: "Telangana", lang: "te" },
-  { city: "Salem, Madurai & Erode Surgical Hubs", state: "Tamil Nadu", lang: "ta" },
-  { city: "Hubballi, Mangaluru & Belagavi Centers", state: "Karnataka", lang: "kn" },
-  { city: "Pan-South India Speciality Referral Network", state: "Multi-State", lang: "en" },
-];
+interface MedicalHubOption {
+  id: string;
+  display: string;
+  cityName: string;
+  state: string;
+  lang: string;
+  group: "Metro Referral Centers" | "Tamil Nadu Regional Hubs" | "Karnataka Regional Hubs" | "Telangana Regional Hubs";
+}
 
 const INSURERS = [
-  { group: "Corporate Employee Group Policy (TCS, Infosys, Wipro, etc.)", status: "100% Cashless Pre-Approved", badge: "Instant Corporate Fast-Track", color: "text-emerald-400" },
-  { group: "Star Health / HDFC Ergo / ICICI Lombard / Care", status: "100% Cashless Pre-Approved", badge: "Zero Upfront Hospital Deposit", color: "text-emerald-400" },
-  { group: "Medi Assist / Niva Bupa / United India / National Ins.", status: "100% Cashless Eligible", badge: "Direct TPA Billing Authorization", color: "text-blue-400" },
-  { group: "Self-Pay No-Cost EMI (Bajaj Finserv / UPI / Cards)", status: "No-Cost EMI Available", badge: "0% Interest / Flexible 12-Mo Tenure", color: "text-amber-400" },
+  { group: "Corporate Employee Group Policy (TCS, Infosys, Wipro, Cognizant, etc.)", status: "100% Cashless Pre-Approved", badge: "Instant Corporate Fast-Track", color: "text-emerald-400" },
+  { group: "Star Health / HDFC Ergo / ICICI Lombard / Care Insurance", status: "100% Cashless Pre-Approved", badge: "Zero Upfront Hospital Deposit", color: "text-emerald-400" },
+  { group: "Medi Assist / Niva Bupa / United India / National Insurance (TPAs)", status: "100% Cashless Eligible", badge: "Direct TPA Billing Authorization", color: "text-blue-400" },
+  { group: "Self-Pay No-Cost EMI (Bajaj Finserv / UPI / Major Credit Cards)", status: "No-Cost EMI Approved", badge: "0% Interest • Flexible 12-Month Tenure", color: "text-amber-400" },
 ];
 
 export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, defaultState, className = "" }: Props) {
   const { config } = useSiteConfig();
-  // Initial state selection
+
+  // Dynamically assemble all 75+ medical centers into clean, highly professional categorized groups
+  const hubOptions = useMemo<MedicalHubOption[]>(() => {
+    const metros: MedicalHubOption[] = [
+      { id: "metro-che", display: "Chennai (Anna Nagar, Adyar, OMR IT Corridor) — Tamil Nadu", cityName: "Chennai", state: "Tamil Nadu", lang: "ta", group: "Metro Referral Centers" },
+      { id: "metro-blr", display: "Bengaluru (Whitefield, Outer Ring Road, HSR Layout) — Karnataka", cityName: "Bengaluru", state: "Karnataka", lang: "kn", group: "Metro Referral Centers" },
+      { id: "metro-hyd", display: "Hyderabad (Jubilee Hills, HITEC City, Gachibowli) — Telangana", cityName: "Hyderabad", state: "Telangana", lang: "te", group: "Metro Referral Centers" },
+      { id: "metro-cbe", display: "Coimbatore (RS Puram, Avinashi Road Care Hub) — Tamil Nadu", cityName: "Coimbatore", state: "Tamil Nadu", lang: "ta", group: "Metro Referral Centers" },
+      { id: "metro-mys", display: "Mysuru (Gokulam, Kuvempunagar Medical Hub) — Karnataka", cityName: "Mysuru", state: "Karnataka", lang: "kn", group: "Metro Referral Centers" },
+    ];
+
+    const regionalTN: MedicalHubOption[] = REGIONAL_LOCATIONS
+      .filter(l => l.stateSlug === "tamil-nadu" && !["chennai", "coimbatore"].includes(l.slug))
+      .map(l => ({
+        id: `tn-${l.slug}`,
+        display: `${l.name} (${l.cluster.split("—")[0].trim()}) — Tamil Nadu`,
+        cityName: l.name,
+        state: "Tamil Nadu",
+        lang: "ta",
+        group: "Tamil Nadu Regional Hubs"
+      }));
+
+    const regionalKA: MedicalHubOption[] = REGIONAL_LOCATIONS
+      .filter(l => l.stateSlug === "karnataka" && !["bengaluru", "mysuru"].includes(l.slug))
+      .map(l => ({
+        id: `ka-${l.slug}`,
+        display: `${l.name} (${l.cluster.split("—")[0].trim()}) — Karnataka`,
+        cityName: l.name,
+        state: "Karnataka",
+        lang: "kn",
+        group: "Karnataka Regional Hubs"
+      }));
+
+    const regionalTS: MedicalHubOption[] = REGIONAL_LOCATIONS
+      .filter(l => l.stateSlug === "telangana" && !["hyderabad"].includes(l.slug))
+      .map(l => ({
+        id: `ts-${l.slug}`,
+        display: `${l.name} (${l.cluster.split("—")[0].trim()}) — Telangana`,
+        cityName: l.name,
+        state: "Telangana",
+        lang: "te",
+        group: "Telangana Regional Hubs"
+      }));
+
+    return [...metros, ...regionalTN, ...regionalKA, ...regionalTS];
+  }, []);
+
+  // Initial state selections
   const initialProcIndex = PROCEDURES.findIndex(p => p.name.toLowerCase().includes(defaultProcedure?.toLowerCase() || ""));
-  const initialHubIndex = HEALTH_HUBS.findIndex(h => h.city.toLowerCase().includes(defaultCity?.toLowerCase() || ""));
+  const initialHubIndex = hubOptions.findIndex(h => h.cityName.toLowerCase().includes(defaultCity?.toLowerCase() || "") || h.display.toLowerCase().includes(defaultCity?.toLowerCase() || ""));
 
   const [selectedProc, setSelectedProc] = useState(PROCEDURES[initialProcIndex !== -1 ? initialProcIndex : 0]);
-  const [selectedHub, setSelectedHub] = useState(HEALTH_HUBS[initialHubIndex !== -1 ? initialHubIndex : 0]);
+  const [selectedHub, setSelectedHub] = useState<MedicalHubOption>(hubOptions[initialHubIndex !== -1 ? initialHubIndex : 0]);
   const [selectedInsurer, setSelectedInsurer] = useState(INSURERS[0]);
 
-  // Form states
+  // Form registration state
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,31 +130,30 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
   const handleClaimSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone || phone.length < 10) {
-      setErrorMsg("Please enter a valid 10-digit mobile number for immediate SMS/WhatsApp pre-auth.");
+      setErrorMsg("Please provide a valid 10-digit mobile number for instantaneous SMS and WhatsApp pre-authorization.");
       return;
     }
     setErrorMsg("");
     setIsSubmitting(true);
     haptic.medium();
 
-    const noteText = `[INSTANT ESTIMATOR TRIAGE] Patient ${name} executed real-time cost & insurance calculation for ${selectedProc.name} in ${selectedHub.city}. Selected Payment/Policy Plan: "${selectedInsurer.group}". Estimated status: ${selectedInsurer.status}. Requesting priority coordinator outreach and empanelled hospital appointment scheduling.`;
+    const noteText = `[CLINICAL ESTIMATOR TRIAGE] Patient ${name} verified treatment tariff & cashless TPA eligibility for ${selectedProc.name} at ${selectedHub.cityName} (${selectedHub.state}). Policy/Payment Plan: "${selectedInsurer.group}". Estimated eligibility: ${selectedInsurer.status}. Priority coordinator callback & hospital outpatient appointment requested.`;
 
     try {
-      // Beam silently to Phase 4 Admin Intelligence & Coordinator Tracking CRM
       await fetch("/api/coordinator/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          city: selectedHub.city.split(" ")[0] || "Bengaluru",
-          state: selectedHub.state || "South India",
-          device: typeof window !== "undefined" && window.navigator ? (window.navigator.userAgent.includes("Mobile") ? "Mobile Estimator Widget" : "Desktop Estimator Widget") : "Web Estimator",
+          city: selectedHub.cityName || "South India",
+          state: selectedHub.state || "Multi-State",
+          device: typeof window !== "undefined" && window.navigator ? (window.navigator.userAgent.includes("Mobile") ? "Mobile Estimator Concierge" : "Desktop Estimator Concierge") : "Web Estimator",
           pagesViewed: [typeof window !== "undefined" ? window.location.pathname : "/estimator"],
-          lastClickedElement: `Claim Estimator: ${selectedProc.name}`,
+          lastClickedElement: `Pre-Auth Registration: ${selectedProc.name}`,
           coordinatorClinicalNote: noteText,
           leadContact: {
             name: name,
             phone: phone,
-            email: "estimator-lead@healthflo.in",
+            email: "triage-concierge@healthflo.in",
             procedure: selectedProc.name,
             status: "Insurance Verified",
           },
@@ -119,201 +165,295 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
       haptic.success();
     } catch (err) {
       setIsSubmitting(false);
-      setIsSubmitted(true); // Proceed to confirmation even on network hiccup to assure UX
+      setIsSubmitted(true);
     }
   };
 
-  // Build localized WhatsApp connection URL
+  // Build localized WhatsApp direct connection URL
   const buildWhatsAppLink = () => {
     let greeting = "Hello HealthFlo Clinical Team,";
     if (selectedHub.lang === "ta") greeting = "வணக்கம் HealthFlo Clinical Team,";
     if (selectedHub.lang === "kn") greeting = "ನಮಸ್ಕಾರ HealthFlo Clinical Team,";
     if (selectedHub.lang === "te") greeting = "నమస్కారం HealthFlo Clinical Team,";
 
-    const msg = `${greeting} I just checked the Cashless Insurance Estimator for *${selectedProc.name}* at your *${selectedHub.city}* empanelled hospital network under *${selectedInsurer.group}*. My name is ${name || "a patient"}. Please connect me with my senior triage coordinator for instant appointment scheduling.`;
+    const msg = `${greeting} I have verified the Cashless Insurance Treatment Estimate for *${selectedProc.name}* at your *${selectedHub.cityName}* empanelled surgical network under *${selectedInsurer.group}*. My name is ${name || "a patient"}. Please connect me with my senior clinical coordinator for rapid hospital appointment appointment scheduling.`;
     return `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(msg)}`;
   };
 
   return (
-    <section className={`w-full my-8 rounded-3xl bg-gradient-to-br from-[#061229] via-[#0A1836] to-[#0E1E45] text-white p-6 md:p-8 lg:p-10 border border-blue-500/30 shadow-2xl relative overflow-hidden font-sans ${className}`}>
-      {/* Background Cyber Glowing Gradients */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
+    <section className={`w-full my-10 rounded-3xl bg-[#060D1A] border border-slate-800 text-slate-100 p-6 sm:p-8 lg:p-10 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] relative overflow-hidden font-sans ${className}`}>
       
-      {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10 relative z-10">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-xs font-bold uppercase tracking-wider">
-            <Calculator className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span>AI Cashless Surgery & EMI Estimator</span>
+      {/* Subtle Premium Architectural Background Glow */}
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none" />
+      
+      {/* ── HEADER BANNER ────────────────────────────────────────────────────── */}
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 mb-8 pb-7 border-b border-slate-800/90 relative z-10">
+        <div className="space-y-2.5 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0E1A33] border border-cyan-500/30 text-cyan-300 text-xs font-extrabold uppercase tracking-wider shadow-inner">
+            <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Clinical Package &amp; Cashless TPA Estimator</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-            Instant Hospital Pre-Approval & Treatment Cost Engine
+          
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
+            Instant Hospital Pre-Approval &amp; Treatment Cost Engine
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
-            Check live cashless insurance compatibility and package rates across HealthFlo’s empanelled surgical hospital network in Tamil Nadu, Karnataka & Hyderabad.
+          
+          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+            Verify real-time surgical package tariffs, USFDA operational protocols, and 100% cashless insurance compatibility across our empanelled network centers in Tamil Nadu, Karnataka &amp; Telangana.
           </p>
         </div>
-        <div className="hidden lg:flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-slate-300 shrink-0">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+
+        {/* Clinical Transparency Assurance Badge */}
+        <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#091224]/90 border border-slate-700/80 shadow-lg shrink-0">
+          <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 text-emerald-400">
+            <Award className="w-6 h-6" />
+          </div>
           <div>
-            <p className="font-bold text-white">100% Transparent Protocols</p>
-            <p className="text-[11px] text-slate-400">Zero hidden OT or room charges</p>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span className="font-extrabold text-white text-xs sm:text-sm">100% Transparent Protocols</span>
+            </div>
+            <p className="text-[11px] text-slate-400 font-medium mt-0.5">Zero hidden room or surgical OT exclusions</p>
           </div>
         </div>
       </div>
 
+      {/* ── MAIN ESTIMATOR GRID ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         
-        {/* LEFT COLUMN: INTERACTIVE SELECTORS (7 cols) */}
+        {/* LEFT COLUMN: MEDICAL SELECTOR PARAMETERS (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          {/* 1. SELECT PROCEDURE */}
+          {/* 1. SURGICAL PROCEDURE SELECTOR */}
           <div className="space-y-2">
-            <label className="block text-xs font-black uppercase text-cyan-400 tracking-wider flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-mono text-[11px]">1</span>
-              Select Target Procedure or Speciality
+            <label className="text-xs font-black uppercase text-cyan-400 tracking-wider flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono font-bold text-[10px]">STEP 01</span>
+              <span>Target Surgical Procedure &amp; Protocol</span>
             </label>
-            <select
-              value={selectedProc.name}
-              onChange={(e) => {
-                const found = PROCEDURES.find(p => p.name === e.target.value);
-                if (found) {
-                  setSelectedProc(found);
-                  handleCalculateChange();
-                }
-              }}
-              className="w-full px-4 py-3.5 rounded-2xl bg-[#09152E] border border-blue-400/40 text-white font-bold text-sm sm:text-base focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition cursor-pointer shadow-inner"
-            >
-              {PROCEDURES.map((p) => (
-                <option key={p.name} value={p.name} className="bg-[#0A1836] text-white">
-                  {p.name} ({p.usfda})
-                </option>
-              ))}
-            </select>
-          </div>
 
-          {/* 2. SELECT CITY & REGIONAL HUB */}
-          <div className="space-y-2">
-            <label className="block text-xs font-black uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-mono text-[11px]">2</span>
-              Select Preferred Hospital Hub or City
-            </label>
-            <select
-              value={selectedHub.city}
-              onChange={(e) => {
-                const found = HEALTH_HUBS.find(h => h.city === e.target.value);
-                if (found) {
-                  setSelectedHub(found);
-                  handleCalculateChange();
-                }
-              }}
-              className="w-full px-4 py-3.5 rounded-2xl bg-[#09152E] border border-emerald-400/40 text-white font-semibold text-sm sm:text-base focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition cursor-pointer shadow-inner"
-            >
-              {HEALTH_HUBS.map((h) => (
-                <option key={h.city} value={h.city} className="bg-[#0A1836] text-white">
-                  📍 {h.city} ({h.state})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* 3. SELECT INSURANCE POLICY OR PAYMENT MODE */}
-          <div className="space-y-2">
-            <label className="block text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-mono text-[11px]">3</span>
-              Select Insurance Provider or Payment Plan
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-              {INSURERS.map((ins) => (
-                <button
-                  key={ins.group}
-                  type="button"
-                  onClick={() => {
-                    setSelectedInsurer(ins);
+            <div className="relative">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-cyan-400">
+                <FileText className="w-5 h-5" />
+              </div>
+              <select
+                value={selectedProc.name}
+                onChange={(e) => {
+                  const found = PROCEDURES.find(p => p.name === e.target.value);
+                  if (found) {
+                    setSelectedProc(found);
                     handleCalculateChange();
-                  }}
-                  className={`text-left p-3.5 rounded-2xl border transition flex flex-col justify-between ${
-                    selectedInsurer.group === ins.group
-                      ? "bg-blue-600/30 border-cyan-400 shadow-md shadow-cyan-500/15"
-                      : "bg-[#0B1730] border-slate-700 hover:border-slate-500"
-                  }`}
-                >
-                  <p className="text-xs font-bold text-slate-100 line-clamp-2">{ins.group}</p>
-                  <span className={`text-[10px] font-extrabold tracking-wide uppercase mt-2 inline-flex items-center gap-1 ${ins.color}`}>
-                    <CheckCircle2 className="w-3 h-3 shrink-0" /> {ins.badge}
-                  </span>
-                </button>
-              ))}
+                  }
+                }}
+                className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-bold text-sm sm:text-base focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition cursor-pointer shadow-inner appearance-none"
+              >
+                {PROCEDURES.map((p) => (
+                  <option key={p.name} value={p.name} className="bg-[#091224] text-white py-2">
+                    {p.name} ({p.usfda})
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                <ChevronDown className="w-5 h-5" />
+              </div>
             </div>
           </div>
 
-          {/* INCLUDED NETWORK EXTRAS */}
-          <div className="p-4 rounded-2xl bg-[#09142A]/80 border border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-              <Car className="w-4 h-4 text-cyan-400 shrink-0" />
-              <span>Free Round-Trip Patient Cab Included</span>
+          {/* 2. REGIONAL HOSPITAL HUB & CITY SELECTOR */}
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase text-emerald-400 tracking-wider flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold text-[10px]">STEP 02</span>
+              <span>Empanelled Surgical Center &amp; City Hub (All Southern Locations)</span>
+            </label>
+
+            <div className="relative">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-400">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <select
+                value={selectedHub.id}
+                onChange={(e) => {
+                  const found = hubOptions.find(h => h.id === e.target.value);
+                  if (found) {
+                    setSelectedHub(found);
+                    handleCalculateChange();
+                  }
+                }}
+                className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-semibold text-sm sm:text-base focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition cursor-pointer shadow-inner appearance-none truncate"
+              >
+                <optgroup label="Primary Metro Surgical Hubs" className="bg-[#060D1A] text-cyan-300 font-extrabold text-xs uppercase">
+                  {hubOptions.filter(h => h.group === "Metro Referral Centers").map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                      {h.display}
+                    </option>
+                  ))}
+                </optgroup>
+
+                <optgroup label="Tamil Nadu Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                  {hubOptions.filter(h => h.group === "Tamil Nadu Regional Hubs").map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                      {h.display}
+                    </option>
+                  ))}
+                </optgroup>
+
+                <optgroup label="Karnataka Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                  {hubOptions.filter(h => h.group === "Karnataka Regional Hubs").map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                      {h.display}
+                    </option>
+                  ))}
+                </optgroup>
+
+                <optgroup label="Telangana Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                  {hubOptions.filter(h => h.group === "Telangana Regional Hubs").map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                      {h.display}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                <ChevronDown className="w-5 h-5" />
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-              <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>{selectedProc.recovery} Discharge Protocol</span>
+          </div>
+
+          {/* 3. INSURANCE POLICY OR PAYMENT MODE */}
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold text-[10px]">STEP 03</span>
+              <span>TPA Insurance Policy or Payment Protocol</span>
+            </label>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              {INSURERS.map((ins) => {
+                const isSelected = selectedInsurer.group === ins.group;
+                return (
+                  <button
+                    key={ins.group}
+                    type="button"
+                    onClick={() => {
+                      setSelectedInsurer(ins);
+                      handleCalculateChange();
+                    }}
+                    className={`text-left p-4 rounded-2xl border transition-all flex flex-col justify-between ${
+                      isSelected
+                        ? "bg-gradient-to-br from-blue-900/60 via-[#0C1B3A] to-[#0D2246] border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+                        : "bg-[#091224]/80 border-slate-800 hover:border-slate-700 hover:bg-[#0A162C]"
+                    }`}
+                  >
+                    <p className={`text-xs font-bold leading-relaxed line-clamp-2 ${isSelected ? "text-white" : "text-slate-300"}`}>
+                      {ins.group}
+                    </p>
+                    <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center gap-1.5">
+                      <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${ins.color}`} />
+                      <span className={`text-[10px] font-black tracking-wider uppercase ${ins.color}`}>
+                        {ins.badge}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
-              <Building2 className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>USFDA Accredited Operation Theatres</span>
+          </div>
+
+          {/* SURGICAL NETWORK PROTOCOL HIGHLIGHTS */}
+          <div className="p-4 rounded-2xl bg-[#080E1C] border border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
+              <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0 border border-cyan-500/20">
+                <Car className="w-4 h-4" />
+              </div>
+              <span>Complimentary Round-Trip Patient Transit</span>
+            </div>
+            
+            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
+              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0 border border-emerald-500/20">
+                <Clock className="w-4 h-4" />
+              </div>
+              <span>{selectedProc.recovery} Discharge Target</span>
+            </div>
+
+            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
+              <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 shrink-0 border border-amber-500/20">
+                <Building2 className="w-4 h-4" />
+              </div>
+              <span>USFDA Accredited Surgical Suites</span>
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: CALCULATED ESTIMATE & LEAD CLAIM (5 cols) */}
+        {/* RIGHT COLUMN: PRE-AUTHORIZATION DESK & CLAIM ENGINE (5 cols) */}
         <div className="lg:col-span-5 flex flex-col">
-          <div className="h-full rounded-3xl bg-gradient-to-b from-[#0E214A] to-[#0A1734] border-2 border-cyan-400/50 p-6 shadow-2xl flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-0 right-0 px-4 py-1 rounded-bl-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-[10px] font-black uppercase tracking-widest text-white shadow">
-              Live Pre-Auth Desk
+          <div className="h-full rounded-3xl bg-gradient-to-b from-[#09152C] via-[#0A1734] to-[#0D1F42] border border-slate-700 p-6 sm:p-7 shadow-[0_15px_45px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
+            
+            {/* Live Triage Status Flag */}
+            <div className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-500 text-[10px] font-black uppercase tracking-widest text-white shadow-lg flex items-center gap-1.5">
+              <Activity className="w-3 h-3 animate-pulse" />
+              <span>Live Pre-Auth Desk</span>
             </div>
 
-            <div>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                Estimated Treatment Profile:
-              </span>
-              <h3 className="text-lg font-bold text-white pr-20 line-clamp-1">{selectedProc.name}</h3>
+            <div className="space-y-5">
+              <div>
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  Estimated Treatment Profile:
+                </span>
+                <h3 className="text-lg sm:text-xl font-extrabold text-white pr-28 line-clamp-1">
+                  {selectedProc.name}
+                </h3>
+              </div>
               
-              {/* PRICE / CASHLESS BADGE */}
-              <div className="my-5 p-4 rounded-2xl bg-[#071126] border border-cyan-500/30 flex items-center justify-between">
+              {/* FINANCIAL & INSURANCE VALUATION TILE */}
+              <div className="p-5 rounded-2xl bg-[#060D1A]/90 border border-cyan-500/30 shadow-inner flex items-center justify-between gap-4">
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block">
                     Estimated Patient Liability:
                   </span>
                   {selectedInsurer.group.includes("Self-Pay") ? (
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-2xl sm:text-3xl font-black text-amber-400 font-mono">{selectedProc.emi}</span>
-                      <span className="text-xs text-slate-400 font-semibold">(No-Cost EMI)</span>
+                    <div className="flex items-baseline gap-2 mt-1.5">
+                      <span className="text-2xl sm:text-3xl font-black text-amber-400 font-mono tracking-tight">{selectedProc.emi}</span>
+                      <span className="text-[11px] text-slate-400 font-bold">(0% EMI)</span>
                     </div>
                   ) : (
-                    <div className="mt-1">
-                      <span className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">₹0 Upfront</span>
-                      <p className="text-[11px] font-bold text-cyan-300 mt-0.5">100% Cashless Insurance Eligible</p>
+                    <div className="mt-1.5">
+                      <span className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight">₹0 Upfront</span>
+                      <p className="text-[11px] font-extrabold text-cyan-300 mt-0.5 flex items-center gap-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                        <span>100% Cashless Insurance Eligible</span>
+                      </p>
                     </div>
                   )}
                 </div>
-                <div className="text-right shrink-0">
-                  <span className="text-[10px] text-slate-500 block">Package Valuation</span>
-                  <span className="text-base font-mono font-bold text-slate-300 line-through">{selectedProc.basePrice}</span>
+
+                <div className="text-right shrink-0 pl-4 border-l border-slate-800">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase block">Package Tariff</span>
+                  <span className="text-lg font-mono font-black text-slate-400 line-through block mt-1">{selectedProc.basePrice}</span>
+                  <span className="text-[10px] text-emerald-400 font-bold uppercase block mt-0.5">Direct Billing</span>
                 </div>
               </div>
 
-              {/* LOCATION BADGE */}
-              <div className="text-xs text-slate-300 bg-blue-950/50 p-3 rounded-xl border border-blue-800/40 flex items-center justify-between mb-6">
-                <span className="flex items-center gap-1.5 font-medium truncate">
-                  📍 Hub: <strong className="text-white">{selectedHub.city.split(" ")[0]} Network</strong>
-                </span>
-                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold shrink-0">
-                  Empanelled Active
+              {/* HOSPITAL FACILITY NETWORK BADGE */}
+              <div className="p-3.5 rounded-2xl bg-[#0B172E] border border-slate-700/80 flex items-center justify-between gap-3 shadow-sm">
+                <div className="flex items-center gap-2.5 truncate">
+                  <div className="p-2 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/30 shrink-0">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                  <div className="truncate">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Empanelled Facility Network:</span>
+                    <strong className="text-xs sm:text-sm text-white font-extrabold truncate block">
+                      {selectedHub.cityName} Surgical Care Network
+                    </strong>
+                  </div>
+                </div>
+
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold uppercase tracking-wider shrink-0 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Empanelled</span>
                 </span>
               </div>
             </div>
 
-            {/* FORM OR CONFIRMATION */}
+            {/* PRE-AUTHORIZATION REGISTRATION FORM */}
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.form 
@@ -322,24 +462,24 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleClaimSubmit} 
-                  className="space-y-3 pt-4 border-t border-white/10"
+                  className="space-y-4 pt-5 mt-5 border-t border-slate-800/90"
                 >
-                  <div className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>Lock In Your Pre-Approval & Free Transit:</span>
+                  <div className="text-xs font-extrabold text-cyan-300 flex items-center gap-1.5 uppercase tracking-wide">
+                    <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span>Secure Your Pre-Approval &amp; Hospital Transit:</span>
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-3">
                     <input
                       type="text"
                       required
                       placeholder="Patient or Guardian Full Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-[#060D1E] border border-slate-700 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 transition font-medium"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#060D1A] border border-slate-700/90 text-white placeholder:text-slate-500 text-xs sm:text-sm font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
                     />
                     <div className="relative">
-                      <span className="absolute left-3.5 top-3 text-xs font-mono font-bold text-slate-400">+91</span>
+                      <span className="absolute left-4 top-3.5 text-xs sm:text-sm font-mono font-bold text-slate-400">+91</span>
                       <input
                         type="tel"
                         required
@@ -347,34 +487,36 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                         placeholder="10-Digit WhatsApp Mobile Number"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                        className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#060D1E] border border-slate-700 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-cyan-400 transition font-mono font-medium"
+                        className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-[#060D1A] border border-slate-700/90 text-white placeholder:text-slate-500 text-xs sm:text-sm font-mono font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
                       />
                     </div>
                   </div>
 
                   {errorMsg && (
-                    <p className="text-[11px] text-rose-400 font-medium flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0" /> {errorMsg}
+                    <p className="text-[11px] text-rose-400 font-semibold flex items-center gap-1.5">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" /> 
+                      <span>{errorMsg}</span>
                     </p>
                   )}
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-emerald-500/20 hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:opacity-95 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(6,182,212,0.35)] transition-all transform active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
-                      "Securing Pre-Approval..."
+                      <span>Verifying Policy &amp; Hospital Roster...</span>
                     ) : (
                       <>
-                        <span>Claim Package & Pre-Auth</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>Claim Package &amp; Pre-Auth</span>
+                        <ArrowRight className="w-4 h-4 text-slate-950 stroke-[2.5]" />
                       </>
                     )}
                   </button>
 
-                  <p className="text-[10px] text-center text-slate-400 flex items-center justify-center gap-1 pt-1">
-                    <Lock className="w-3 h-3 text-emerald-400" /> Confidential Patient Triage • Zero Third-Party Sharing
+                  <p className="text-[10px] font-semibold text-center text-slate-400 flex items-center justify-center gap-1.5 pt-1">
+                    <Lock className="w-3 h-3 text-emerald-400" /> 
+                    <span>Confidential Patient Triage • Zero Third-Party Sharing</span>
                   </p>
                 </motion.form>
               ) : (
@@ -382,15 +524,16 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                   key="confirmation-view"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="p-5 rounded-2xl bg-gradient-to-tr from-emerald-950/90 to-[#0C2038] border border-emerald-500/40 text-center space-y-4 my-2"
+                  className="p-6 rounded-2xl bg-[#071328] border border-emerald-500/40 text-center space-y-5 my-3 shadow-lg"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30 font-black">
-                    <Check className="w-7 h-7 stroke-[3]" />
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-slate-950 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+                    <Check className="w-8 h-8 stroke-[3]" />
                   </div>
-                  <div>
-                    <h4 className="text-base font-extrabold text-white">Estimate Locked & Registered!</h4>
-                    <p className="text-xs text-slate-300 mt-1">
-                      Your clinical dossier has been securely logged with our senior surgical triage team for <strong className="text-emerald-300">{selectedHub.city.split(" ")[0]}</strong>.
+                  
+                  <div className="space-y-1.5">
+                    <h4 className="text-lg font-black text-white">Pre-Authorization Registered!</h4>
+                    <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                      Your diagnostic profile has been securely logged with our senior surgical coordinator for the <strong className="text-emerald-400">{selectedHub.cityName} Network</strong>.
                     </p>
                   </div>
 
@@ -399,17 +542,17 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => haptic.success()}
-                    className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 transition"
+                    className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2 transition"
                   >
-                    <PhoneCall className="w-4 h-4 text-slate-950 animate-bounce" />
+                    <PhoneCall className="w-4 h-4 text-slate-950 stroke-[2.5] animate-bounce" />
                     <span>Connect Live WhatsApp Coordinator</span>
                   </a>
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="text-[11px] text-cyan-400 hover:underline inline-block font-semibold"
+                    className="text-xs text-cyan-400 hover:underline inline-block font-extrabold mt-2"
                   >
-                    ← Check Another Procedure or City
+                    ← Check Another Procedure or Location
                   </button>
                 </motion.div>
               )}

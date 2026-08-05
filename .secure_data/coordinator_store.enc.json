@@ -1,5 +1,126 @@
 [
   {
+    "id": "LOG_20260805_P6QF3_41QD",
+    "timestamp": "2026-08-05 06:20:12",
+    "sessionId": "SESS_WEB_91Y0N",
+    "city": "Chennai Metro Hub",
+    "state": "Tamil Nadu",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/laser-piles"
+    ],
+    "lastClickedElement": "Active Reading (/locations/tamil-nadu/chennai/laser-piles)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  LOCATIONS/TAMIL-NADU/CHENNAI/LASER-PILES. Ready for surgical consultation guidance.",
+    "encryptedPayload": "Nlg+dEobYv7btfo7:qrisS/L0chjUj85NKENVTg==:ZUmCvnYn9weYBzekgWVnzK2KhRokjTFHmcBr5JC6rhS9ezIM1ue461rlGcVyznkJyYjlOxNGEHiOms/QmQ9IkYLAJ+8ZzMlXaO5ahtbM63+hM9JJ7Im9/LKRxp4HW5vRVQt6ui5IH7MUx8zhBzMAGZmfRyCkyUui9NTE0WQsJrzNYb41Oj6rV/rrUZ4jt3x1XX2PGEdT4pR5EcK38mg=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_P6PNB_BKR6",
+    "timestamp": "2026-08-05 06:20:11",
+    "sessionId": "SESS_WEB_AI1M5",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/"
+    ],
+    "lastClickedElement": "Active Reading (/)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing Main Hospital Network Homepage. Ready for surgical consultation guidance.",
+    "encryptedPayload": "uuSsIfwyZDZ2sfHC:BQFuetuVsuxCsAZxcdjtZA==:yoebqzWD0LE1qBergAIt+9FnqLwgiSmW4K9wAYK+bdvCFzyUTi5vIOkRDM222PQ0ZVuiFoS8mUac63ax/D3JoSU+PcIU1iGI0DWd3y9vD0Yp6qi0ppy9hWW4+nbg6im1ebxxkoJrkj/xpNyIQWeLG/oj7M3z7iZP6D/ipqeBdoqnZdZBnXnkxLYm8v5bpROnC6Ao",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_P5TDE_6C6M",
+    "timestamp": "2026-08-05 06:19:29",
+    "sessionId": "SESS_WEB_AI1M5",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/"
+    ],
+    "lastClickedElement": "Viewing Home Page",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing Home Page'. Sections viewed: Home Page. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "7n0SG4UQui9jdRXZ:TkUhKOdhxNclmZfqGbIKfw==:O7UHqsiVJFjG+glw8rhWdgsHIrio2+agHCyyEWovVhlxHrvB5NkBp2oDKWk+420d39eUuyeBbWZlvfpzdNYnIlwnR4wH3jSiIaC544TpwxdPOxzR6PafhrduQzkJQbiTtbT5bZf3p9jEOfxQ7U0mVn0fdhTE3dKjSuLD3whm/LE+uK7srsxiMmtmVyAkLcy2DhoFfEDoht96ndcnDJdf2V6F7YE88LSKD1nCOaAFiWvkAPLJpG/1YogWFOgv+QZIIQrG/TUnSq4gxi8nwFQ0ycCVPQkXdev7kqRo4oC1VLLLwQ3XY74Y",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_P0U3M_KQ4J",
+    "timestamp": "2026-08-05 06:15:37",
+    "sessionId": "SESS_WEB_AI1M5",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/circumcision",
+      "/"
+    ],
+    "lastClickedElement": "Viewing Home Page",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing Home Page'. Sections viewed:  locations/tamil-nadu/chennai/circumcision ➔ Home Page. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "zGUUxb/APoDE8p1Q:9WYUznqZ2XoBWekJdyxDuw==:E2IPs71leON08ZkTpQ2FM+neWDQttGPTK0yrIj7Q3rUPIY1lFxR/7hX1yhs3HAvjqyOs083gYKMTfRIHExYcRZf5aMYtZsoImqsAV4SSEWHfUy1b6fX3lwCov8Rm/7aw05tLVWax+OoyxiSg2rVHYl7QymYOt0rkH7/y8sj1f5q8WIy4HzKTGVQMw7At3tlyinoljKVJ3NHWGMBKB4r8odHDSVlnh7C1FtzH4dn7Co24MJQpCFbmH70nJM+x6fjqbTPgHYM529KUC8k9DuuVPz8N141o+SIwYHFevaXacif+fM1iR9BQKs5vdtUdkgqF35viL1nxWfXW4us4pkLbqpZk5oRSKdIlGlAllGqUMGFURp2frL0=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OZ94E_42FS",
+    "timestamp": "2026-08-05 06:14:23",
+    "sessionId": "SESS_WEB_9PP0Z",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/rajapalayam"
+    ],
+    "lastClickedElement": "Active Reading (/locations/tamil-nadu/rajapalayam)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  LOCATIONS/TAMIL-NADU/RAJAPALAYAM. Ready for surgical consultation guidance.",
+    "encryptedPayload": "xA5mXDG+eB/Qv77t:I5qa4pmAG1nG0i7ofnAqYg==:zqdpegILrxZGDHTC7s8rdoBSEPzLUEv9ylJA3/6QPTKQzMSuCAuEQI1BUdKrQ7e+3MvqBl4RBw1HcS+TjYuP+Q8giEsWdxWopJpKxWA47RdNaD2/PquTT7KZzu1jg45tVwZMv1tQQexYe4bHSsL8BocIh6V0TNsC5l0laFzZoKoIVpQ8x4By/SXDNB9hk1ovPMwTehfD",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OYC3O_7AQR",
+    "timestamp": "2026-08-05 06:13:40",
+    "sessionId": "SESS_WEB_9PP0Z",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/rajapalayam"
+    ],
+    "lastClickedElement": "Viewing /locations/tamil-nadu/rajapalayam",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /locations/tamil-nadu/rajapalayam'. Sections viewed:  locations/tamil-nadu/rajapalayam. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "tkbpJQFor8IrInwM:VBw6mDyRWCIQL8Zfrse0eQ==:4aRSHqVIh+PqLrf75UuPPkhGp7wOBUzbqllSC1AWsnLPEdlLK2L7g7sfyQxqLreVokvo+CN+vpettMuEB8Ulzptikn0BQanM7xi6L1Jyo6A2k8kIgSQFG1ZahPMG0PQKybmv8SNzM74GPJLKe/S1HeVfpkoIu8ZXX9fo4ojGJm1eZJiAg0nn3fMb8uYyzasFLk4eBSgnLhtuC7Fh4LoYf7wsKyYiqwnHQylVoy3S67j/z4+ux5sOsXPq64yCMsrqVTMiWJsCkoF8WU7VJkh9WEJ36b6pmD/lzQn+Ofzg/vRDSOFk5MU2kTsgRsiUSNfDiQCnxsJROc4IJ6E8714u5yZepo8Gr1h+azs+FZ7pO8+e4cWpeuFG",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
     "id": "LOG_20260805_OVJEF_CEZS",
     "timestamp": "2026-08-05 06:11:30",
     "sessionId": "SESS_WEB_91Y0N",
