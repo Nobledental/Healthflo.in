@@ -110,11 +110,25 @@ export default function Navbar() {
             <span>Specialities</span>
           </Link>
           <Link 
+            href="/ai" 
+            onClick={() => haptic.light()}
+            className="text-cyan-600 hover:text-blue-700 transition-colors font-black flex items-center gap-1 whitespace-nowrap"
+          >
+            <span>⚡ AI Triage</span>
+          </Link>
+          <Link 
             href="/locations" 
             onClick={() => haptic.light()}
             className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap"
           >
             Regional Hubs
+          </Link>
+          <Link 
+            href="/product" 
+            onClick={() => haptic.light()}
+            className="text-slate-900 hover:text-[#0055ff] transition-colors font-black whitespace-nowrap"
+          >
+            Products & Login
           </Link>
           <Link 
             href="/contact" 
@@ -225,7 +239,9 @@ export default function Navbar() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" />
               Specialities
             </Link>
+            <Link className="text-cyan-600 hover:text-blue-700 transition-colors font-black whitespace-nowrap" href="/ai">⚡ AI Triage</Link>
             <Link className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap" href="/locations">Regional Hubs</Link>
+            <Link className="text-slate-900 hover:text-[#0055ff] transition-colors font-black whitespace-nowrap" href="/product">Products & Login</Link>
             <Link className="text-slate-700 hover:text-[#0055ff] transition-colors whitespace-nowrap" href="/contact">Contact Us</Link>
           </div>
         </div>

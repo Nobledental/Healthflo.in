@@ -23,6 +23,8 @@ import ProcedureComparisonTable from "@/components/locations/ProcedureComparison
 import PrivateRecoveryBanner from "@/components/locations/PrivateRecoveryBanner";
 import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
+import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
+import GoogleTrendsEEATBanner from "@/components/seo/GoogleTrendsEEATBanner";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates one page per city × procedure combination
@@ -156,7 +158,7 @@ export default async function CityProcedurePage({ params }: Props) {
 
       <Navbar />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-[90px] md:pt-[140px] pb-20 relative z-10 flex flex-col gap-16">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-[90px] md:pt-[140px] pb-32 md:pb-20 relative z-10 flex flex-col gap-16">
         {/* Breadcrumbs */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 flex-wrap">
           <Link href="/" className="hover:text-[#1D3A6F] transition-colors">Home</Link>
@@ -256,7 +258,20 @@ export default async function CityProcedurePage({ params }: Props) {
             </Link>
           </div>
         </div>
+
+        <GoogleTrendsEEATBanner 
+          cityName={location.name}
+          stateName={location.stateName}
+          procedureTitle={procedure.title}
+        />
       </main>
+
+      <RegionalMobileBar 
+        cityName={location.name} 
+        nativeLanguage={location.nativeLanguage} 
+        procedureTitle={procedure.shortTitle} 
+        whatsappUrl={WHATSAPP_URL} 
+      />
 
       <Footer />
     </>
