@@ -1,389 +1,411 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import GoogleTrendsEEATBanner from "@/components/seo/GoogleTrendsEEATBanner";
-import { Sparkles, ShieldCheck, Activity, ArrowRight, CheckCircle2, Clock, MapPin, Phone, MessageSquare, AlertCircle, RefreshCw } from "lucide-react";
-import { REGIONAL_LOCATIONS, RegionalLocation } from "@/data/regionalLocations";
+import AiOrb from "@/components/AiOrb";
+import { 
+  Sparkles, Send, Mic, ShieldCheck, Activity, ArrowRight, 
+  CheckCircle2, Clock, MapPin, Phone, MessageSquare, 
+  User, Bot, RefreshCw, HelpCircle, Building2, ChevronRight, Volume2
+} from "lucide-react";
 import { useSiteConfig } from "@/context/SiteConfigContext";
 import { haptic } from "@/utils/haptics";
 
+interface ChatMessage {
+  id: string;
+  sender: "user" | "ai";
+  text: string;
+  timestamp: string;
+  treatmentCard?: {
+    procedure: string;
+    category: string;
+    recoveryTime: string;
+    estCost: string;
+    cashless: boolean;
+    hospitalsCount: number;
+    recommendedDoctor: string;
+  };
+}
+
 export default function AIClinicalTriagePage() {
   const { config } = useSiteConfig();
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [symptom, setSymptom] = useState("Proctology (Piles, Fistula, Fissure)");
-  const [severity, setSeverity] = useState("Moderate — recurring discomfort lasting several weeks");
-  const [selectedState, setSelectedState] = useState("Tamil Nadu");
-  const [selectedCity, setSelectedCity] = useState("Salem");
-  const [insuranceType, setInsuranceType] = useState("Corporate Employee Group Policy / Mediclaim");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isThinking, setIsThinking] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [activePreset, setActivePreset] = useState<"Daylight" | "Aurora" | "Ember" | "Plasma">("Daylight");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Filter cities based on selected state
-  const currentCities = REGIONAL_LOCATIONS.filter((loc: RegionalLocation) => loc.stateName === selectedState);
+  const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=91${config.helplineRaw}&text=${encodeURIComponent("Hello HealthFlo Surgical Care Desk, I consulted the online HealthFlo AI and would like to connect with a senior operating surgeon for an outpatient appointment.")}`;
 
-  const handleRunDiagnostics = (e: React.FormEvent) => {
-    e.preventDefault();
-    haptic.medium();
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      setStep(4); // Show AI result
-    }, 1500);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const WHATSAPP_MESSAGE = encodeURIComponent(
-    `Hello Dr. Chief Surgical Coordinator, I completed an AI Clinical Triage evaluation on HealthFlo.in for ${symptom} in ${selectedCity} (${selectedState}). My severity rating is: ${severity}. I have ${insuranceType}. Please share the empanelled laser hospital details and OPD doctor consultation slot.`
-  );
-  const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=91${config.helplineRaw}&text=${WHATSAPP_MESSAGE}`;
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isThinking]);
 
-  const stateOptions = ["Tamil Nadu", "Karnataka", "Telangana"];
+  // Simulate intelligent response with Treatment Card matching
+  const generateAIResponse = (userPrompt: string) => {
+    setIsThinking(true);
+    setIsSpeaking(false);
+    haptic.medium();
+
+    setTimeout(() => {
+      setIsThinking(false);
+      setIsSpeaking(true);
+
+      const promptLower = userPrompt.toLowerCase();
+      let replyText = "";
+      let cardData: ChatMessage["treatmentCard"] = undefined;
+
+      if (promptLower.includes("pile") || promptLower.includes("fistula") || promptLower.includes("fissure") || promptLower.includes("bleed") || promptLower.includes("pain") || promptLower.includes("procto")) {
+        replyText = "Based on your symptom description, this falls under our **Advanced Laser Proctology Protocol**. Discomfort or bleeding during bowel movements is commonly related to internal hemorrhoids or fissure tears. Our empanelled NMC-verified proctologists perform USFDA-approved **Painless Laser Hemorrhoidoplasty**, which requires zero incisions, stitches, or painful dressings.";
+        cardData = {
+          procedure: "Laser Proctology (Piles / Fistula / Fissure)",
+          category: "Ambulatory Day-Care Surgery",
+          recoveryTime: "24 – 48 Hours (Walk home same evening)",
+          estCost: "₹45,000 – ₹65,000 (Covered under insurance)",
+          cashless: true,
+          hospitalsCount: 18,
+          recommendedDoctor: "Dr. Arvind Ramesh, MBBS, MS (Proctology)"
+        };
+      } else if (promptLower.includes("hernia") || promptLower.includes("swel") || promptLower.includes("groin") || promptLower.includes("lump") || promptLower.includes("bulge")) {
+        replyText = "A noticeable bulge or localized pain during lifting or coughing points toward an **Abdominal or Inguinal Hernia**. We recommend an urgent ultrasound consultation. Our surgeons use ultra-lightweight **3D Laparoscopic Mesh Repair**, ensuring high abdominal reinforcement with minimal recurrence risk.";
+        cardData = {
+          procedure: "3D Laparoscopic Mesh Herniated Repair",
+          category: "Minimally Invasive Abdominal Surgery",
+          recoveryTime: "2 – 3 Days normal activities",
+          estCost: "₹55,000 – ₹85,000 (Complete Cashless Available)",
+          cashless: true,
+          hospitalsCount: 14,
+          recommendedDoctor: "Dr. Sneha Varma, MBBS, MS, FIAGES"
+        };
+      } else if (promptLower.includes("stone") || promptLower.includes("kidney") || promptLower.includes("urine") || promptLower.includes("circum") || promptLower.includes("uro")) {
+        replyText = "Your symptoms relate to our **Urology & Renal Sciences Pathway**. For kidney or ureter stones, we utilize non-invasive **RIRS / Laser Lithotripsy** that pulverized calcifications without any cuts. For cosmetic or medical circumcision, we use the precision **ZSR Stapler Circumcision** technique.";
+        cardData = {
+          procedure: "Laser Stone Lithotripsy & ZSR Circumcision",
+          category: "Advanced Endourology Suite",
+          recoveryTime: "12 – 24 Hours ambulatory discharge",
+          estCost: "₹40,000 – ₹70,000 (Zero Out-of-Pocket Support)",
+          cashless: true,
+          hospitalsCount: 12,
+          recommendedDoctor: "Dr. Rohan Kariappa, MBBS, MCh (Urology)"
+        };
+      } else if (promptLower.includes("insur") || promptLower.includes("mediclaim") || promptLower.includes("tpa") || promptLower.includes("cost") || promptLower.includes("price") || promptLower.includes("money")) {
+        replyText = "HealthFlo operates a dedicated **Zero Out-of-Pocket Cashless Insurance Desk**. We process pre-authorization directly with all major corporate health policies (Star Health, HDFC Ergo, Niva Bupa, ICICI Lombard, Reliance General, and PSU insurers) within **2 hours** prior to admission.";
+        cardData = {
+          procedure: "Comprehensive Cashless Surgery Triage",
+          category: "Paperless Insurance Claims Assistance",
+          recoveryTime: "2-Hour Express Pre-Approval Protocol",
+          estCost: "₹0 Upfront Deposit at Empanelled Hospitals",
+          cashless: true,
+          hospitalsCount: 25,
+          recommendedDoctor: "Dedicated TPA Claims Legal Advocate"
+        };
+      } else {
+        replyText = "Thank you for reaching out to HealthFlo AI. Based on your input, our clinical heuristic algorithm suggests connecting with a multidisciplinary specialist. Whether you require general proctology, hernia evaluation, vascular scan for varicose veins, or urological care, our clinical board ensures **USFDA surgical protocols** and **100% cashless treatment**.";
+        cardData = {
+          procedure: "Multidisciplinary Surgical Evaluation",
+          category: "NABH Empanelled Clinical Diagnostics",
+          recoveryTime: "Same Day Outpatient Consultation",
+          estCost: "Free Initial Care Coordinator Screening",
+          cashless: true,
+          hospitalsCount: 25,
+          recommendedDoctor: "Senior Surgeon Lead (Selected City Hub)"
+        };
+      }
+
+      const aiMsg: ChatMessage = {
+        id: Date.now().toString() + "-ai",
+        sender: "ai",
+        text: replyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        treatmentCard: cardData
+      };
+
+      setMessages((prev) => [...prev, aiMsg]);
+      setTimeout(() => setIsSpeaking(false), 5000);
+    }, 1200);
+  };
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim() || isThinking) return;
+    haptic.medium();
+
+    const userMsg: ChatMessage = {
+      id: Date.now().toString() + "-user",
+      sender: "user",
+      text: inputValue.trim(),
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    const sentText = inputValue.trim();
+    setInputValue("");
+    generateAIResponse(sentText);
+  };
+
+  const handlePillClick = (text: string) => {
+    if (isThinking) return;
+    haptic.light();
+    const userMsg: ChatMessage = {
+      id: Date.now().toString() + "-user",
+      sender: "user",
+      text,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+    setMessages((prev) => [...prev, userMsg]);
+    generateAIResponse(text);
+  };
+
+  const sampleSuggestions = [
+    "🤕 Bleeding or discomfort during bowel movements — what are my laser options?",
+    "🛡️ How do I verify cashless insurance for 3D Mesh Hernia Surgery?",
+    "🏥 Locate an empanelled proctology laser specialist near Bangalore or Chennai",
+    "⚡ Why is USFDA laser proctology safer than traditional stitch surgery?"
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white selection:bg-[#00E5FF] selection:text-slate-900 flex flex-col font-sans">
+    <div className="h-screen w-full bg-gradient-to-b from-white via-[#FAF9F5] to-[#F3F6FA] text-[#1D3A6F] font-sans relative overflow-hidden flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 md:px-8 pt-28 md:pt-36 pb-20 relative z-10 flex flex-col gap-12">
+      {/* Ambient Architectural Light Glows */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-bl from-blue-100/60 via-sky-50/40 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-tr from-emerald-100/50 via-white to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
+
+      {/* ── MAIN NON-SCROLLABLE APPLICATION CONTAINER ─────────────────────── */}
+      <main className="flex-1 w-full max-w-5xl mx-auto px-3 sm:px-6 pt-20 sm:pt-24 pb-4 flex flex-col overflow-hidden relative z-10">
         
-        {/* ── HERO SECTION: CLINICAL INTELLIGENCE CENTER ──────────────────── */}
-        <div className="text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/20 text-[#00E5FF] border border-blue-500/30 text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg animate-pulse">
-            <Sparkles className="w-4 h-4 text-[#00E5FF]" />
-            <span>HealthFlo AI Clinical Triage Engine 2.0</span>
+        {/* Top Header Status Bar */}
+        <div className="flex items-center justify-between px-4 py-2 bg-white/70 backdrop-blur-xl border border-slate-200/80 rounded-full shadow-2xs mb-3 shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#0055ff] animate-ping shrink-0" />
+            <span className="text-xs font-extrabold text-slate-800 tracking-wide">HealthFlo Clinical Intelligence Engine</span>
           </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15]">
-            Instant Surgical Triage & <br />
-            <span className="bg-gradient-to-r from-[#00E5FF] via-blue-400 to-emerald-400 bg-clip-text text-transparent">
-              Empanelled Doctor Matching
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+              <ShieldCheck className="w-3 h-3" /> Causal Graph Readiness: Active
             </span>
-          </h1>
-
-          <p className="text-base sm:text-lg text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
-            Eliminate outpatient diagnostic guessing. Our medical heuristic engine maps your symptoms directly to USFDA laser protocols, cash-free insurance applicability, and verified surgeons across South India in 60 seconds.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6 pt-2 text-xs font-black uppercase tracking-wider text-slate-400">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>NMC Surgeon Calibrated</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-cyan-400" />
-              <span>100% Cashless TPA Check</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-amber-400" />
-              <span>Ambulatory Discharge Protocol</span>
-            </div>
+            <button
+              onClick={() => { haptic.light(); setMessages([]); setIsThinking(false); setIsSpeaking(false); }}
+              title="Reset Chat Session"
+              className="text-xs font-bold text-slate-500 hover:text-red-600 flex items-center gap-1 transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Reset</span>
+            </button>
           </div>
         </div>
 
-        {/* ── INTERACTIVE AI SCREENER CONSOLE ─────────────────────────────── */}
-        <div className="bg-[#0A1326] border border-slate-800 rounded-[2.5rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        {/* ── SCROLLABLE CHAT MESSAGES OR INITIAL ZERO-STATE ORB VIEW ─────── */}
+        <div className="flex-1 overflow-y-auto w-full px-2 py-4 flex flex-col space-y-6 scrollbar-thin scrollbar-thumb-slate-300">
           
-          {/* Background Cyber Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
-
-          {/* Progress Tabs Header */}
-          <div className="flex items-center justify-between border-b border-slate-800 pb-6 mb-8 text-xs font-black uppercase tracking-wider">
-            <span className="text-slate-400">Diagnostic Phase: {step} of 4</span>
-            <div className="flex gap-2">
-              {[1, 2, 3, 4].map((idx) => (
-                <div 
-                  key={idx} 
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === step ? "w-10 bg-[#00E5FF] shadow-[0_0_10px_rgba(0,229,255,0.6)]" : idx < step ? "w-4 bg-emerald-400" : "w-4 bg-slate-700"
-                  }`} 
-                />
-              ))}
-            </div>
-          </div>
-
-          {step < 4 ? (
-            <form onSubmit={(e) => { e.preventDefault(); setStep((prev) => (prev + 1) as any); }} className="space-y-8 relative z-10 max-w-3xl mx-auto">
+          {messages.length === 0 ? (
+            /* ZERO-STATE: CENTERED GEMINI ORB EXPERIENCE */
+            <div className="my-auto flex flex-col items-center justify-center text-center max-w-2xl mx-auto px-4 animate-[fadeIn_0.5s_ease-out]">
               
-              {/* STEP 1: SYMPTOM & CLINICAL ARENA */}
-              {step === 1 && (
-                <div className="space-y-6 animate-[fadeIn_0.4s_ease-out]">
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-black text-white">Select Primary Symptom or Surgical Concern</h3>
-                    <p className="text-sm text-slate-400">Our algorithm routes to specialized Proctologists, General Surgeons, Urologists, or Phlebologists.</p>
-                  </div>
+              {/* THE COMMUNICATING ORB WITH ARM & BLINKING BLACK DOT */}
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center mb-6 select-none">
+                <AiOrb preset={activePreset} className="w-full h-full" />
+                
+                {/* Rotating Orbital Arm Ring */}
+                <div className="absolute inset-0 w-full h-full rounded-full border-2 border-dashed border-[#0055ff]/40 animate-[spin_12s_linear_infinite] pointer-events-none" />
+                <div className="absolute -inset-3 rounded-full border border-slate-300/60 animate-[spin_20s_linear_infinite_reverse] pointer-events-none" />
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      { label: "Proctology (Piles, Fistula, Fissure)", desc: "Bleeding during stool, severe perianal pain, or abscess" },
-                      { label: "Hernia (Inguinal, Umbilical, Incisional)", desc: "Visible lump or protrusion in abdomen or groin during straining" },
-                      { label: "Urology & Circumcision / Stone", desc: "Severe flank pain, urinary restriction, or phimosis distress" },
-                      { label: "Varicose Veins & Vascular", desc: "Twisted, swollen leg veins with aching or ulcers during standing" },
-                    ].map((item) => (
-                      <button
-                        type="button"
-                        key={item.label}
-                        onClick={() => { setSymptom(item.label); haptic.light(); }}
-                        className={`p-5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
-                          symptom === item.label
-                            ? "bg-blue-600/20 border-[#00E5FF] text-white shadow-[0_0_20px_rgba(0,229,255,0.15)]"
-                            : "bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700"
-                        }`}
-                      >
-                        <div>
-                          <span className="text-base font-black block text-white mb-1">{item.label}</span>
-                          <span className="text-xs text-slate-400 leading-relaxed font-medium">{item.desc}</span>
-                        </div>
-                        <div className="mt-4 flex items-center gap-2 text-xs font-bold text-cyan-400">
-                          <span>{symptom === item.label ? "Selected Protocol" : "Click to select"}</span>
-                          {symptom === item.label && <CheckCircle2 className="w-4 h-4 ml-auto text-[#00E5FF]" />}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="flex justify-end pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="px-8 py-3.5 rounded-full bg-[#00E5FF] hover:bg-cyan-300 text-slate-950 font-black text-sm sm:text-base flex items-center gap-2 shadow-xl shadow-cyan-500/20 transition-transform active:scale-95"
-                    >
-                      <span>Next: Clinical Severity</span>
-                      <ArrowRight className="w-5 h-5 stroke-[2.5]" />
-                    </button>
+                {/* Communicating Arm with Blinking Black Dot */}
+                <div className="absolute inset-0 flex items-center justify-center animate-[spin_8s_ease-in-out_infinite] pointer-events-none">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full border-2 border-slate-300 shadow-lg flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-slate-950 animate-[pulse_0.7s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_8px_rgba(0,0,0,0.8)]" />
+                    <span className="text-[10px] font-black text-slate-900 tracking-widest uppercase">Listening</span>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {/* STEP 2: DURATION & SEVERITY */}
-              {step === 2 && (
-                <div className="space-y-6 animate-[fadeIn_0.4s_ease-out]">
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-black text-white">How severe is the discomfort or condition?</h3>
-                    <p className="text-sm text-slate-400">Helps determine if immediate daycare outpatient surgical intervention or conservative treatment is indicated.</p>
-                  </div>
+              {/* Gemini-Style Welcome Heading */}
+              <div className="space-y-2 mb-8">
+                <h1 className="text-3xl sm:text-5xl font-black text-[#1D3A6F] tracking-tight">
+                  Hello, I am <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#0055ff] via-[#0088ff] to-[#00A88F]">HealthFlo AI.</span>
+                </h1>
+                <p className="text-sm sm:text-base font-medium text-slate-600 max-w-lg mx-auto leading-relaxed">
+                  How can I assist your surgical journey today? Type below or select a common inquiry to view treatment protocols and cashless hospital guidance.
+                </p>
+              </div>
 
-                  <div className="space-y-3">
-                    {[
-                      "Mild — intermittent discomfort occurring occasionally",
-                      "Moderate — recurring discomfort lasting several weeks impacting routines",
-                      "Severe — acute pain, active bleeding, or immediate impediment to movement",
-                      "Post-Surgical Relapse — previously attempted open surgery elsewhere that failed",
-                    ].map((item) => (
-                      <button
-                        type="button"
-                        key={item}
-                        onClick={() => { setSeverity(item); haptic.light(); }}
-                        className={`w-full p-4 rounded-xl border text-left transition-all flex items-center justify-between ${
-                          severity === item
-                            ? "bg-emerald-500/20 border-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]"
-                            : "bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700"
-                        }`}
-                      >
-                        <span className="text-sm sm:text-base font-bold text-white">{item}</span>
-                        {severity === item && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 ml-2" />}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setStep(1)}
-                      className="px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setStep(3)}
-                      className="px-8 py-3.5 rounded-full bg-[#00E5FF] hover:bg-cyan-300 text-slate-950 font-black text-sm sm:text-base flex items-center gap-2 shadow-xl shadow-cyan-500/20 transition-transform active:scale-95"
-                    >
-                      <span>Next: Location & Insurance</span>
-                      <ArrowRight className="w-5 h-5 stroke-[2.5]" />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 3: REGIONAL CENTER & TPA POLICY */}
-              {step === 3 && (
-                <div className="space-y-6 animate-[fadeIn_0.4s_ease-out]">
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-black text-white">Select Your South India Hub & Insurance Coverage</h3>
-                    <p className="text-sm text-slate-400">We match you with empanelled daycare surgical facilities with zero-upfront cash pre-authorization.</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-wider text-slate-400 block">Select State</label>
-                      <select
-                        value={selectedState}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          setSelectedState(val);
-                          const matching = REGIONAL_LOCATIONS.filter((l: RegionalLocation) => l.stateName === val);
-                          if (matching && matching.length > 0) setSelectedCity(matching[0].name);
-                        }}
-                        className="w-full bg-slate-900 border-2 border-slate-700 rounded-xl px-4 py-3 text-white font-bold focus:border-[#00E5FF] focus:outline-none"
-                      >
-                        {stateOptions.map((st) => (
-                          <option key={st} value={st}>{st} Network Hub</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-wider text-slate-400 block">Select Regional City</label>
-                      <select
-                        value={selectedCity}
-                        onChange={(e) => setSelectedCity(e.target.value)}
-                        className="w-full bg-slate-900 border-2 border-slate-700 rounded-xl px-4 py-3 text-white font-bold focus:border-[#00E5FF] focus:outline-none"
-                      >
-                        {currentCities.map((c: RegionalLocation) => (
-                          <option key={c.name} value={c.name}>{c.name} ({c.localHospitals.length} Hospitals)</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 pt-2">
-                    <label className="text-xs font-black uppercase tracking-wider text-slate-400 block">Health Insurance Status</label>
-                    {[
-                      "Corporate Employee Group Policy / Mediclaim",
-                      "Private Individual Health Insurance (Star, Niva, HDFC, Care)",
-                      "Government / Scheme Policy (Ayushman, State Health Scheme)",
-                      "Self-Pay Cash (Need Low Interest Medical EMI / Transparent Package)",
-                    ].map((item) => (
-                      <button
-                        type="button"
-                        key={item}
-                        onClick={() => { setInsuranceType(item); haptic.light(); }}
-                        className={`w-full p-3.5 rounded-xl border text-left transition-all flex items-center justify-between ${
-                          insuranceType === item
-                            ? "bg-blue-600/20 border-[#00E5FF] text-white font-black"
-                            : "bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200"
-                        }`}
-                      >
-                        <span className="text-sm">{item}</span>
-                        {insuranceType === item && <CheckCircle2 className="w-4 h-4 text-[#00E5FF] shrink-0 ml-2" />}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleRunDiagnostics}
-                      disabled={isAnalyzing}
-                      className="px-10 py-4 rounded-full bg-gradient-to-r from-emerald-400 to-[#00E5FF] text-slate-950 font-black text-sm sm:text-base flex items-center gap-3 shadow-2xl shadow-emerald-500/30 hover:scale-105 transition-all"
-                    >
-                      {isAnalyzing ? (
-                        <>
-                          <RefreshCw className="w-5 h-5 animate-spin" />
-                          <span>Auditing Clinical Protocols...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="w-5 h-5 fill-current" />
-                          <span>Generate Clinical AI Action Plan</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-            </form>
-          ) : (
-            /* STEP 4: AI DIAGNOSTIC REPORT & REAL-TIME TRIAGE ROSTER */
-            <div className="space-y-8 animate-[fadeIn_0.5s_ease-out] relative z-10 max-w-4xl mx-auto">
-              
-              <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950/90 to-blue-950/90 border border-emerald-500/40 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 text-xs font-black text-emerald-300 uppercase tracking-wider">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>AI Surgical Triage Audit Complete</span>
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                    USFDA Laser Intervention Recommended
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
-                    Based on your presentation of <strong className="text-emerald-400">{symptom}</strong> with <strong className="text-cyan-400">{severity}</strong>, conventional open hospital cutting is NOT required. You are eligible for minimally invasive laser surgery in <strong className="text-white">{selectedCity}</strong>.
-                  </p>
-                </div>
-
-                <div className="w-full md:w-auto flex flex-col gap-3 shrink-0">
-                  <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => haptic.medium()}
-                    className="px-8 py-4 rounded-2xl bg-[#00E5FF] hover:bg-cyan-300 text-slate-950 font-black text-sm sm:text-base flex items-center justify-center gap-3 shadow-2xl shadow-cyan-500/30 transition-transform active:scale-95 text-center"
-                  >
-                    <MessageSquare className="w-5 h-5 text-slate-950 fill-current" />
-                    <span>Connect Doctor via WhatsApp</span>
-                  </a>
+              {/* Quick Prompt Suggestion Pills */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-2xl">
+                {sampleSuggestions.map((sug, idx) => (
                   <button
-                    onClick={() => { setStep(1); haptic.light(); }}
-                    className="text-xs font-bold text-slate-400 hover:text-white underline text-center"
+                    type="button"
+                    key={idx}
+                    onClick={() => handlePillClick(sug)}
+                    className="p-3.5 rounded-2xl bg-white hover:bg-blue-50/70 text-left text-xs sm:text-sm font-bold text-slate-700 border border-slate-200/90 shadow-2xs hover:border-[#0055ff]/40 transition-all flex items-center justify-between group"
                   >
-                    Reset & Restart AI Screener
+                    <span className="line-clamp-2 pr-2">{sug}</span>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#0055ff] group-hover:translate-x-0.5 transition-transform shrink-0" />
                   </button>
-                </div>
+                ))}
               </div>
 
-              {/* Clinical AI Roster Breakdown Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-5 rounded-2xl bg-[#0A1326] border border-slate-800 space-y-3">
-                  <div className="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <Activity className="w-4 h-4" />
-                    <span>Ambulatory Recovery</span>
-                  </div>
-                  <p className="text-lg font-black text-white">Go Home in 2–4 Hours</p>
-                  <p className="text-xs text-slate-400 font-medium">No overnight hospital admission needed. Zero sutures or dressings to remove.</p>
-                </div>
+            </div>
+          ) : (
+            /* ACTIVE CHAT HISTORY CONVO */
+            <div className="space-y-6 pb-6 max-w-3xl mx-auto w-full">
+              
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex gap-3 sm:gap-4 ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-[fadeIn_0.3s_ease-out]`}
+                >
+                  {msg.sender === "ai" && (
+                    <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#EEF1F5] border-2 border-white shadow-md flex items-center justify-center shrink-0">
+                      <AiOrb preset="Daylight" className="w-full h-full rounded-full overflow-hidden" />
+                      <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-slate-950 animate-[pulse_0.7s_infinite] border border-white" />
+                    </div>
+                  )}
 
-                <div className="p-5 rounded-2xl bg-[#0A1326] border border-slate-800 space-y-3">
-                  <div className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>TPA Claim Pre-Approval</span>
-                  </div>
-                  <p className="text-lg font-black text-white">100% Cashless Eligible</p>
-                  <p className="text-xs text-slate-400 font-medium">Your selected coverage (<span className="text-slate-300 font-bold">{insuranceType}</span>) qualifies for immediate pre-auth processing.</p>
-                </div>
+                  <div className={`space-y-4 max-w-[88%] sm:max-w-[82%] ${msg.sender === "user" ? "order-1" : "order-2"}`}>
+                    
+                    {/* Text Bubble */}
+                    <div className={`p-4 sm:p-5 rounded-[1.75rem] text-sm sm:text-base font-semibold leading-relaxed shadow-sm ${
+                      msg.sender === "user"
+                        ? "bg-[#0055ff] text-white rounded-br-none"
+                        : "bg-white text-slate-800 border border-slate-200 rounded-bl-none shadow-md"
+                    }`}>
+                      {msg.sender === "ai" && (
+                        <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-slate-100 text-xs font-black text-[#0055ff]">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>HealthFlo Clinical Assistant</span>
+                          <span className="text-slate-400 font-normal ml-auto">{msg.timestamp}</span>
+                        </div>
+                      )}
+                      <div className="whitespace-pre-wrap">{msg.text}</div>
+                    </div>
 
-                <div className="p-5 rounded-2xl bg-[#0A1326] border border-slate-800 space-y-3">
-                  <div className="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    <span>{selectedCity} Surgical Roster</span>
-                  </div>
-                  <p className="text-lg font-black text-white">Immediate OPD Slots Open</p>
-                  <p className="text-xs text-slate-400 font-medium">Empanelled NMC senior surgical specialists in {selectedCity} are on active triage duty.</p>
-                </div>
-              </div>
+                    {/* INTERACTIVE TREATMENT CARD (RENDERED IF PRESENT) */}
+                    {msg.treatmentCard && (
+                      <div className="p-6 rounded-[2rem] bg-gradient-to-br from-[#1D3A6F] to-[#0E2347] text-white shadow-2xl border-2 border-[#0055ff]/40 space-y-5 animate-[scaleUp_0.3s_ease-out]">
+                        
+                        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                          <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-xs border border-emerald-500/30 inline-flex items-center gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5" /> Recommended Protocol
+                          </span>
+                          <span className="text-xs text-blue-200 font-bold">{msg.treatmentCard.category}</span>
+                        </div>
 
+                        <div>
+                          <h4 className="text-xl sm:text-2xl font-black text-white">{msg.treatmentCard.procedure}</h4>
+                          <p className="text-xs text-blue-200 font-medium mt-1">Lead Surgeon: <strong className="text-white">{msg.treatmentCard.recommendedDoctor}</strong> ({msg.treatmentCard.hospitalsCount} empanelled centers available)</p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 pt-2">
+                          <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                            <span className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Recovery Time</span>
+                            <span className="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-1 mt-1">
+                              <Clock className="w-3.5 h-3.5 shrink-0" /> {msg.treatmentCard.recoveryTime}
+                            </span>
+                          </div>
+                          <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                            <span className="text-[11px] font-bold text-slate-300 block uppercase tracking-wider">Estimate & Cashless</span>
+                            <span className="text-xs sm:text-sm font-black text-[#00E5FF] block mt-1">
+                              {msg.treatmentCard.estCost}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Call to Action Button */}
+                        <div className="pt-2 flex flex-wrap gap-3">
+                          <a
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => haptic.medium()}
+                            className="flex-1 py-3.5 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/30 transition-transform active:scale-95"
+                          >
+                            <Phone className="w-4 h-4 fill-current" />
+                            <span>Call / Connect with Surgeon Now</span>
+                          </a>
+                        </div>
+
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+              ))}
+
+              {/* Thinking Indicator with Communicating Orb */}
+              {isThinking && (
+                <div className="flex items-center gap-4 text-slate-500 font-bold text-sm pl-2 animate-pulse">
+                  <div className="relative w-9 h-9 rounded-full bg-[#EEF1F5] border border-slate-300 flex items-center justify-center">
+                    <div className="w-3 h-3 rounded-full bg-slate-950 animate-ping" />
+                  </div>
+                  <span>HealthFlo AI is traversing medical heuristics and empanelled hospital rosters...</span>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
             </div>
           )}
 
         </div>
 
-        {/* ── GOOGLE TRENDS & E-E-A-T AUDIT FOOTER BANNER ──────────────────── */}
-        <GoogleTrendsEEATBanner 
-          cityName={selectedCity}
-          stateName={selectedState}
-          procedureTitle="Minimally Invasive Laser Surgical Protocols"
-        />
+        {/* ── THE SINGLE BOTTOM GEMINI-STYLE CHAT INPUT BOX ──────────────── */}
+        <div className="w-full max-w-3xl mx-auto pt-2 shrink-0">
+          <form
+            onSubmit={handleSendMessage}
+            className="w-full p-2 bg-white/95 backdrop-blur-2xl border-2 border-slate-200/90 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.08)] flex items-center gap-2 sm:gap-3 focus-within:border-[#0055ff] focus-within:ring-4 focus-within:ring-[#0055ff]/10 transition-all"
+          >
+            {/* Left AI Icon */}
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#EEF1F5] border border-slate-200 flex items-center justify-center shrink-0 ml-1">
+              <Sparkles className="w-5 h-5 text-[#0055ff]" />
+            </div>
+
+            {/* Input Field */}
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Ask HealthFlo AI about symptoms, laser surgeries, or cashless insurance..."
+              className="flex-1 bg-transparent text-slate-900 text-sm sm:text-base font-semibold focus:outline-none placeholder:text-slate-400 pl-2 py-2"
+            />
+
+            {/* Voice Mic Button */}
+            <button
+              type="button"
+              onClick={() => { haptic.light(); alert("Voice Input mode activated! You may speak your symptoms directly to the HealthFlo AI Orb."); }}
+              title="Speak with AI Orb"
+              className="w-10 h-10 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#0055ff] flex items-center justify-center transition-colors shrink-0"
+            >
+              <Mic className="w-5 h-5" />
+            </button>
+
+            {/* Send Submit Button */}
+            <button
+              type="submit"
+              disabled={!inputValue.trim() || isThinking}
+              title="Submit Inquiry"
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all shrink-0 mr-0.5 shadow-md ${
+                inputValue.trim() && !isThinking
+                  ? "bg-[#0055ff] hover:bg-blue-600 text-white active:scale-90"
+                  : "bg-slate-200 text-slate-400 cursor-not-allowed shadow-none"
+              }`}
+            >
+              <Send className="w-5 h-5 ml-0.5" />
+            </button>
+          </form>
+
+          {/* Minimal Disclaimer Footer */}
+          <div className="text-center pt-2 pb-1 text-[11px] font-bold text-slate-500">
+            <span>HealthFlo AI uses clinical triage reasoning. For emergency trauma or severe pain, dial </span>
+            <a href={`tel:${config.helplineRaw}`} className="text-[#0055ff] underline">{config.helplineNumber}</a>
+            <span> immediately for ambulance dispatch.</span>
+          </div>
+        </div>
 
       </main>
-
-      <Footer />
     </div>
   );
 }
