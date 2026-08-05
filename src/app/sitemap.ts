@@ -44,6 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.90,
     },
+    {
+      url: `${BASE_URL}/login/patient`,
+      lastModified: SITE_LAST_MOD,
+      changeFrequency: 'monthly',
+      priority: 0.80,
+    },
+    {
+      url: `${BASE_URL}/login/hospital`,
+      lastModified: SITE_LAST_MOD,
+      changeFrequency: 'monthly',
+      priority: 0.80,
+    },
   ];
 
   // 2. Individual Daycare Speciality Landing Pages
