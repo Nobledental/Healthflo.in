@@ -1,5 +1,87 @@
 [
   {
+    "id": "LOG_20260805_KX8XM_6XOS",
+    "timestamp": "2026-08-05 21:08:37",
+    "sessionId": "SESS_WEB_JYX56",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/tiruchirappalli/circumcision"
+    ],
+    "lastClickedElement": "Active Reading (/locations/tamil-nadu/tiruchirappalli/circumcision)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  LOCATIONS/TAMIL-NADU/TIRUCHIRAPPALLI/CIRCUMCISION. Ready for surgical consultation guidance.",
+    "encryptedPayload": "C7bUGnqDOfr6gsTV:DqeghOjzubJ9FViWMLSJEQ==:gVO1Vyx4nzSWI1Lccdu1nZBNAHCvfanXqw/7o/N3Em92OvGMQP6Xu2mw6JXGQ0rDYlisPdM7ZQZj68fVx3JEGiihBbXD0FdOjz4EiJ9CF/hcrtSjLhByUHtcp8Tgt1EKwKHbTSgpv967hCJFPMNohMb3zjKiFCxb60VfgVi88w7VnrR9/hf8Ps/FXZ9e49zZg92FLsz7uGzsFrbGq+6S+FXpTxSDAQo=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_KWQHR_N3AP",
+    "timestamp": "2026-08-05 21:08:13",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/ai",
+      "/specialities"
+    ],
+    "lastClickedElement": "Active Reading (/specialities)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  SPECIALITIES. Ready for surgical consultation guidance.",
+    "encryptedPayload": "hFkV9QgV+Km7XzfN:OWKuovDKKVB3mxfS5fZcdA==:KYKyE+YE71vmTfVWYMpHebfJMDnbOL5qmxchXGZNrL3+uREcqXBL2/G/BzSy3EraFwIsEfpB75hfVjvX3mNqHKpf+ezAVzBbH4GJvTGaL5qUmWAyvyj4VzkJfqpBKbzP3BV8brkJBkUos6jfDGjIc+W5mUvDD+XoeXGpHTVlZxFzrQ==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_KWBAQ_GYU3",
+    "timestamp": "2026-08-05 21:07:54",
+    "sessionId": "SESS_WEB_JYX56",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/tiruchirappalli/circumcision"
+    ],
+    "lastClickedElement": "Viewing /locations/tamil-nadu/tiruchirappalli/circumcision",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /locations/tamil-nadu/tiruchirappalli/circumcision'. Sections viewed:  locations/tamil-nadu/tiruchirappalli/circumcision. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "7KGrxKRv8UqhVaF2:7FR+s1Ec9JhePyrmSW2GAA==:t1In7sATvxeRUdiW55XDptcWdv9r3CuIiWcA4x8XVC8Hsh4A3U4B1yaaDoAgrOAbQnp3X+RxYGueaZJZsQVRGVeT2zQY+5HWqmQXFwTiGNBUr/7YyyvX6ITKHXqejPeogEw51okjjbd1ZSZMw47bwApPa0tZb7foFxt7iGWvSm2FkuqBv/Qp5V2MKZvKcZIzGYZsHxXqvWjimXKi3RWB36nCVyu7dEl8m+G3yX3ul4t0FfQL3jMdg9bRXzy/90toWPURqpuenPi879kC6iZFi8Ysj+xP9ZtkJ1dproDHHMKm2M2aGQCy2nGUohe+fDi4dCyOcDN5k/Jx+Pp27soqP4Zgif8wB+zYAKy/zc1Oa2yRHLlMGOXNTR5GOxuuRFyqLO2aKqKQcO8fAcoiWVHz/4A2+4bSzyKXgA==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_KVTHY_C33F",
+    "timestamp": "2026-08-05 21:07:31",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/ai",
+      "/specialities"
+    ],
+    "lastClickedElement": "Viewing /specialities",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /specialities'. Sections viewed:  ai ➔  specialities. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "olzxEPx1+2QIgJ5V:PCKZ7bKajCzKdvK98Np/5g==:ZmF19knKoSMT7jYR6CRozJ3Jzs3Qm/86D3O/HNiSZz+YAgckJ1bw6yFEowhPjMWmHHVu4oa4jR9UGiWXSc+U6Fl/lho7PMW8GOMxtJ69GFigvpB3bzrJQadsS/UoJDgfbyRZHXrv/sZS7Msv5Pch1S2godU02xJ9FKJmthlhTMB9r0QnurmInbtNA/fW2srMv8qHI3KbKudJSapMG0oS1/GvwZP5ZYvzes/wHcb6UXj2GuQa8D6xAlMlCZ+qwoz4vYeg5nFTEtDd9FIvdNXuyYMxQHOtusb1/H21KmdaxHekr2jfUFrPWlCDy7bjIsne5YsNshBiIQ==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
     "id": "LOG_20260805_FOTQO_LWAR",
     "timestamp": "2026-08-05 18:42:06",
     "sessionId": "SESS_WEB_BW4TV",

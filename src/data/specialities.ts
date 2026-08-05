@@ -43,16 +43,16 @@ export interface SpecialityData {
 export const specialitiesData: Record<string, SpecialityData> = {
   "circumcision": {
     id: "circumcision",
-    title: "Painless Laser & ZSR Circumcision (No Stitches)",
+    title: "Advanced Laser & ZSR Circumcision (No Stitches)",
     shortTitle: "Laser Circumcision",
     category: "Circumcision & Men's Health",
     subtitle: "Advanced 15-Minute Procedure for Tight Foreskin (Phimosis) & Better Hygiene",
-    description: "Simple, 100% pain-free procedure performed to safely remove tight or problematic foreskin (phimosis, repeated infections, balanitis) without manual cutting or stitches. Choose from empanelled hospital tiers based on your room budget needs with zero compromise on USFDA surgical safety and precision.",
-    usfdaProtocol: "Automated ZSR Stapler & Painless Laser Technique",
+    description: "Simple, minimally invasive procedure performed to safely remove tight or problematic foreskin (phimosis, repeated infections, balanitis) without manual cutting or stitches. Choose from empanelled hospital tiers based on your room budget needs with zero compromise on USFDA surgical safety and precision.",
+    usfdaProtocol: "Automated ZSR Stapler & Precision Laser Technique",
     recoveryTime: "24 to 48 Hours Quick Walk-Home Recovery",
     procedureDuration: "15 - 20 Minutes (Simple Daycare)",
     hospitalStay: "0 Nights (Go home comfortably in 2 hours)",
-    anesthesia: "Painless Local Cream or Gentle Sleep Sedation",
+    anesthesia: "Advanced Local Numbing or Gentle Sleep Sedation",
     benefits: [
       "100% Bloodless procedure with zero manual stitches",
       "Choose empanelled hospital tiers to fit your budget with zero surgical compromise",
@@ -62,7 +62,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
     keywords: [
       "male circumcision procedure Tiruchirappalli Trichy",
       "phimosis tight foreskin treatment Thillai Nagar Srirangam",
-      "painless circumcision surgery near me",
+      "minimally invasive circumcision surgery near me",
       "laser circumcision cost in India Chennai Hyderabad Bangalore",
       "ZSR stapler circumcision benefits Central Tamil Nadu",
       "adult male circumcision hygiene and recovery",
@@ -71,7 +71,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
     ],
     comparison: [
       { metric: "How It Is Done", healthflo: "Automated ZSR Stapler & Gentle Laser (No scalpel cutting)", traditional: "Open knife cuts and scissors" },
-      { metric: "Pain & Bleeding", healthflo: "Zero bleeding & completely painless recovery", traditional: "Bleeding and sharp stitch pain for days" },
+      { metric: "Pain & Bleeding", healthflo: "Zero bleeding & advanced comfort recovery", traditional: "Bleeding and sharp stitch pain for days" },
       { metric: "Stitches / Wounds", healthflo: "No manual stitches (Self-healing soft silicon ring)", traditional: "10 to 15 rough thread stitches requiring removal" },
       { metric: "Hospital Stay", healthflo: "0 Nights (Walk out comfortably in 2 hours)", traditional: "1 to 2 days hospital room admission" },
       { metric: "Returning to Work", healthflo: "Next Day or weekend recovery", traditional: "2 to 3 weeks of awkward bed rest" }
@@ -79,12 +79,12 @@ export const specialitiesData: Record<string, SpecialityData> = {
     intentHooks: {
       default: {
         badge: "Empanelled Network • Choose Your Hospital Tier • 100% Cashless",
-        headline: "Painless Laser & ZSR Circumcision Without Stitches or Hospital Stay",
+        headline: "Advanced Laser & ZSR Circumcision Without Stitches or Hospital Stay",
         subheadline: "Solve tight foreskin and intimate discomfort in just 15 minutes. Choose empanelled hospital room tiers based on your budget with zero compromise on surgical safety."
       },
       intimacy: {
         badge: "Total Privacy Shield • Unlabeled Triage • Confidential Care",
-        headline: "Discreet & Painless Circumcision for Complete Comfort & Hygiene",
+        headline: "Discreet & Minimally Invasive Circumcision for Complete Comfort & Hygiene",
         subheadline: "Designed for men seeking neat, stitch-free healing and improved intimate hygiene with fully confidential care coordinators."
       },
       corporate: {
@@ -100,20 +100,20 @@ export const specialitiesData: Record<string, SpecialityData> = {
       second_opinion: {
         badge: "Got an Open-Surgery Quote? Choose Your Budget Tier With Us",
         headline: "Avoid Painful Stitches and Unrestricted Hospital Billing",
-        subheadline: "Upgrade your existing surgical advice to our painless laser care. Choose an empanelled hospital tier that aligns with your exact budget with zero surgical compromise."
+        subheadline: "Upgrade your existing surgical advice to our precision laser care. Choose an empanelled hospital tier that aligns with your exact budget with zero surgical compromise."
       }
     },
     faqs: [
       { question: "How does empanelled hospital tier selection and budget matching work?", answer: "HealthFlo connects you with accredited empanelled laser surgical centers. You can freely choose your hospital room tier (Economy, Standard, or Executive) based on your personal budget or health insurance limits. There is ZERO compromise on the medical or surgical quality across tiers—price differences reflect room comfort and non-clinical amenities only, never the gold-standard surgical care or specialist expertise. We handle complete insurance processing and financial support." },
       { question: "Why is circumcision performed and what is Phimosis?", answer: "Beyond hygiene and personal preferences, circumcision is medically recommended for Phimosis (a tight foreskin that cannot pull back normally), repeated foreskin inflammation (balanitis), and to prevent recurring infections. Removing the tight foreskin restores everyday comfort and easy hygiene." },
-      { question: "Is laser & ZSR circumcision really painless?", answer: "Yes! Using specialized local numbing creams or short sedative naps, you feel zero pain or discomfort during the short 15-minute procedure. Recovery is smooth without any sharp stitch pulling." },
+      { question: "Is laser & ZSR circumcision comfortable and safe?", answer: "Yes! Using specialized local numbing creams or short sedative naps, patients experience advanced comfort with minimal to zero discomfort during the short 15-minute procedure. Recovery is smooth without any sharp stitch pulling." },
       { question: "How fast is recovery and when can I return to normal routine?", answer: "You can walk out of the hospital within 2 hours of the procedure. Most men comfortably resume regular desktop work or driving the very next day, with complete skin healing within about one week." },
       { question: "Will my consultation and records remain completely private?", answer: "Absolutely. Under our HealthFlo Privacy Shield protocol, all consultations, WhatsApp messaging, and diagnosis files remain completely confidential and unlabeled for maximum personal dignity." }
     ]
   },
   "laser-piles": {
     id: "laser-piles",
-    title: "Painless Laser Treatment for Piles (Hemorrhoids)",
+    title: "Advanced Laser Treatment for Piles (Hemorrhoids)",
     shortTitle: "Laser Piles Care",
     category: "Piles, Fissure & Anal Care",
     subtitle: "Quick 20-Minute Laser Healing Without Scalpel Cutting or Stitches",
@@ -122,7 +122,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
     recoveryTime: "Next Day Normal Routine Resumption",
     procedureDuration: "15 - 20 Minutes (Simple Daycare)",
     hospitalStay: "0 Nights (Go home comfortably in 3 hours)",
-    anesthesia: "Painless Sleep Sedation or Local Triage",
+    anesthesia: "Gentle Sleep Sedation or Local Triage",
     benefits: [
       "No Surgical Cuts, No Stitches, and Zero Scars",
       "Choose empanelled hospital tiers based on your budget with zero surgical compromise",
@@ -130,7 +130,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
       "Complete cashless insurance processing & 0% EMI financial assistance"
     ],
     keywords: [
-      "painless laser piles surgery Tiruchirappalli Trichy",
+      "minimally invasive laser piles surgery Tiruchirappalli Trichy",
       "hemorrhoid laser treatment Thillai Nagar Srirangam Cantonment",
       "piles hospital Bangalore Hyderabad Chennai Coimbatore Trichy",
       "laser piles surgery cost in Central Tamil Nadu India",
@@ -147,8 +147,8 @@ export const specialitiesData: Record<string, SpecialityData> = {
     intentHooks: {
       default: {
         badge: "Empanelled Network • Choose Your Hospital Tier • 100% Cashless",
-        headline: "Painless Laser Piles Treatment Without Cutting, Stitches, or Scars",
-        subheadline: "End bleeding and restroom pain permanently in 20 minutes. Choose your hospital room tier to match your exact budget with zero compromise on USFDA surgical safety."
+        headline: "Advanced Laser Piles Treatment Without Cutting, Stitches, or Scars",
+        subheadline: "End bleeding and restroom discomfort effectively in 20 minutes. Choose your hospital room tier to match your exact budget with zero compromise on USFDA surgical safety."
       },
       intimacy: {
         badge: "Complete Dignity & Privacy • Unlabeled Medical Records",
@@ -189,7 +189,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
     recoveryTime: "2 to 3 Days Normal Routine",
     procedureDuration: "20 - 30 Minutes (Simple Daycare)",
     hospitalStay: "0 Nights (Same-Day Home Recovery)",
-    anesthesia: "Painless Sleep Sedation",
+    anesthesia: "Gentle Sleep Sedation",
     benefits: [
       "100% Protection of anal sphincter muscle & bowel control",
       "Choose empanelled hospital tiers based on budget with zero surgical compromise",
@@ -200,7 +200,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
       "laser fistula treatment near me Tiruchirappalli Trichy",
       "anal fistula surgery cost Thillai Nagar Srirangam Bangalore Chennai",
       "fistula without surgery cuts Central Tamil Nadu",
-      "painless fistula empanelled hospital tier choice",
+      "minimally invasive fistula empanelled hospital tier choice",
       "perianal fistula laser cure India"
     ],
     comparison: [
@@ -243,18 +243,18 @@ export const specialitiesData: Record<string, SpecialityData> = {
   },
   "fissure": {
     id: "fissure",
-    title: "Painless Laser Relief for Anal Fissure & Spasm",
+    title: "Advanced Laser Relief for Anal Fissure & Spasm",
     shortTitle: "Laser Fissure Care",
     category: "Piles, Fissure & Anal Care",
     subtitle: "Instant Relief from Sharp Restroom Burning and Chronic Bleeding Tears",
     description: "Quick 15-minute laser therapy that instantly releases painful anal muscle spasms and cures chronic fissures without surgical cuts. Choose empanelled hospital tiers based on your room budget needs with zero surgical compromise and full insurance processing support.",
     usfdaProtocol: "Precision Laser Sphincter Relaxation",
-    recoveryTime: "Immediate Pain Relief & Next Day Routine",
+    recoveryTime: "Immediate Comfort & Next Day Routine",
     procedureDuration: "10 - 15 Minutes (Simple Daycare)",
     hospitalStay: "0 Nights (Walk out comfortably in 2 hours)",
-    anesthesia: "Painless Local Cream or Gentle Sleep",
+    anesthesia: "Advanced Local Numbing or Gentle Sleep",
     benefits: [
-      "Instant stop to sharp burning pain during restroom visits",
+      "Fast relief from sharp burning sensations during restroom visits",
       "Choose empanelled hospital tiers based on budget with zero surgical compromise",
       "Simultaneous gentle removal of associated skin tags without stitches",
       "100% Cashless insurance processing & 0% EMI financial assistance"
@@ -263,7 +263,7 @@ export const specialitiesData: Record<string, SpecialityData> = {
       "anal fissure pain relief treatment Tiruchirappalli Trichy",
       "laser fissure surgery cost Thillai Nagar Srirangam Chennai Bangalore",
       "chronic anal tear cure without cuts Central Tamil Nadu",
-      "painless fissure empanelled hospital budget tiers India"
+      "minimally invasive fissure empanelled hospital budget tiers India"
     ],
     comparison: [
       { metric: "Pain Relief", healthflo: "Immediate comfort right after treatment", traditional: "Ongoing wound burning for days after surgery" },
@@ -367,21 +367,21 @@ export const specialitiesData: Record<string, SpecialityData> = {
     shortTitle: "Varicose & Lipoma Care",
     category: "Hernia, Veins & General Care",
     subtitle: "Non-Surgical Laser Vein Healing & Scar-Free Swelling Removal",
-    description: "Gentle internal laser treatment (EVLT) to relieve painful varicose leg veins and painless micro-removal of fatty skin swellings (lipomas and cysts) without open surgery or scarring. Choose empanelled hospital tiers based on your budget with zero surgical compromise.",
+    description: "Gentle internal laser treatment (EVLT) to relieve painful varicose leg veins and precision micro-removal of fatty skin swellings (lipomas and cysts) without open surgery or scarring. Choose empanelled hospital tiers based on your budget with zero surgical compromise.",
     usfdaProtocol: "Internal Laser Vein Care (EVLT) & Micro-Excision",
     recoveryTime: "Same-Day Immediate Walk-Home",
     procedureDuration: "20 - 40 Minutes (Simple Daycare)",
     hospitalStay: "0 Nights (Go home immediately after care)",
-    anesthesia: "Painless Local Numbing or Brief Sedation",
+    anesthesia: "Advanced Local Numbing or Brief Sedation",
     benefits: [
       "No painful surgical vein stripping or leg incisions",
       "Choose empanelled hospital tiers based on budget with zero surgical compromise",
-      "Painless micro-removal of lipomas and swellings without ugly stitch scars",
+      "Precision micro-removal of lipomas and swellings without ugly stitch scars",
       "Complete cashless insurance processing & 0% EMI financial assistance"
     ],
     keywords: [
       "laser varicose vein surgery near me Tiruchirappalli Trichy",
-      "painless lipoma swelling removal Thillai Nagar Srirangam Bangalore Chennai",
+      "minimally invasive lipoma swelling removal Thillai Nagar Srirangam Bangalore Chennai",
       "laser treatment for leg vein pain Central Tamil Nadu",
       "cyst removal empanelled hospital budget tier without scar marks India"
     ],

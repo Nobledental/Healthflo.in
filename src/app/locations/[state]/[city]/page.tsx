@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     openGraph: {
       title: `Laser & Laparoscopic Surgical Care in ${location.name} | HealthFlo`,
-      description: `Painless USFDA laser procedures with instant Insurance Eligible pre-approval in ${location.name}. Dedicated ${location.nativeLanguage} language support & free hospital transit.`,
+      description: `Advanced minimally invasive USFDA laser procedures with instant Insurance Eligible pre-approval in ${location.name}. Dedicated ${location.nativeLanguage} language support & free hospital transit.`,
       url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}`,
     },
     alternates: {
@@ -230,7 +230,7 @@ export default async function RegionalLocationPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-white font-extrabold block">Insurance Eligible Triage</strong>
+                      <strong className="text-white font-extrabold block">100% Cashless TPA & Insurance Assistance</strong>
                       <span>30+ major health insurers. 30-minute pre-auth approvals.</span>
                     </div>
                   </div>

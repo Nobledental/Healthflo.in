@@ -26,6 +26,7 @@ import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
 import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
+import PatientJourneySteps from "@/components/locations/PatientJourneySteps";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates pages for every city × neighbourhood × procedure
@@ -80,7 +81,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     openGraph: {
       title: `${procedure.shortTitle} near ${areaName}, ${location.name} — USFDA Laser Protocols | HealthFlo`,
-      description: `Zero-pain ${procedure.shortTitle.toLowerCase()} accessible from ${areaName} at empanelled hospitals in ${location.name}. Insurance Eligible with dedicated ${location.nativeLanguage} support.`,
+      description: `Minimally invasive, stitch-free ${procedure.shortTitle.toLowerCase()} accessible from ${areaName} at empanelled hospitals in ${location.name}. Insurance Eligible with dedicated ${location.nativeLanguage} support.`,
       url: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}/${resolved.area}`,
     },
     alternates: {
@@ -201,7 +202,14 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           areaName={areaName}
         />
 
-        {/* Hospital Tier & Budget Matching Breakdown Engine */}
+        {/* 3-Step Scan-Friendly Patient Journey & TPA Process */}
+        <PatientJourneySteps
+          cityName={location.name}
+          nativeLanguage={location.nativeLanguage}
+          whatsappUrl={WHATSAPP_URL}
+        />
+
+        {/* Hospital Tier & Budget Matching Breakdown */}
         <HospitalTierBudgetSection 
           procedureTitle={procedure.title}
           cityName={location.name}
@@ -217,7 +225,7 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="text-xs font-black px-3 py-1 rounded-full bg-blue-500/20 text-[#00E5FF] uppercase tracking-wider border border-blue-400/30">
-                {areaName} Patient Triage Protocol
+                {areaName} Patient Care Protocol
               </span>
               <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Priority Admission

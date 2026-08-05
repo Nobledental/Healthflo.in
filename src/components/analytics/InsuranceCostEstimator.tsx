@@ -36,11 +36,11 @@ const PROCEDURES = [
   { name: "USFDA Laser Piles / Hemorrhoidoplasty", basePrice: "₹32,000", emi: "₹3,200/mo", recovery: "0-Day Ambulatory Discharge", usfda: "LHP 1470nm Biolitec Protocol" },
   { name: "Anal Fistula Laser Closure (FiLaC)", basePrice: "₹38,500", emi: "₹3,850/mo", recovery: "Same-Day Day-Care Protocol", usfda: "Sphincter-Preserving Radial Fiber" },
   { name: "Anal Fissure Laser Sphincterotomy", basePrice: "₹29,000", emi: "₹2,900/mo", recovery: "Immediate Post-Op Relief", usfda: "Precision Contact Diode Laser" },
-  { name: "Painless Lipoma / Swelling / Cyst Excision", basePrice: "₹22,000", emi: "₹2,200/mo", recovery: "No Sutures • Cosmetic Technique", usfda: "Micro-Incision USFDA Standard" },
+  { name: "Minimally Invasive Lipoma / Cyst Excision", basePrice: "₹22,000", emi: "₹2,200/mo", recovery: "No Sutures • Cosmetic Technique", usfda: "Micro-Incision USFDA Standard" },
   { name: "Laparoscopic Hernia Repair (Inguinal/Umbilical)", basePrice: "₹45,000", emi: "₹4,500/mo", recovery: "1-Day Hospital Observation", usfda: "3D Anatomical Mesh Fixation" },
-  { name: "Hydrocele Laser / Minimally Invasive Surgery", basePrice: "₹34,000", emi: "₹3,400/mo", recovery: "24-Hour Return to Daily Activity", usfda: "Bloodless Micro-Hydrocelectomy" },
+  { name: "Hydrocele Laser / Minimally Invasive Surgery", basePrice: "₹34,000", emi: "₹3,400/mo", recovery: "24-Hour Return to Daily Activity", usfda: "Minimally Invasive Hydrocelectomy" },
   { name: "Varicose Vein Laser Ablation (EVLA)", basePrice: "₹42,000", emi: "₹4,200/mo", recovery: "Walk Out Same Day", usfda: "Endovenous Radial Laser Fiber" },
-  { name: "Kidney Stone Laser Lithotripsy (RIRS/PCNL)", basePrice: "₹48,000", emi: "₹4,800/mo", recovery: "Painless Laser Dust Elimination", usfda: "Holmium Laser & Flexible Scope" },
+  { name: "Kidney Stone Laser Lithotripsy (RIRS/PCNL)", basePrice: "₹48,000", emi: "₹4,800/mo", recovery: "Advanced Laser Dust Elimination", usfda: "Holmium Laser & Flexible Scope" },
 ];
 
 interface MedicalHubOption {
@@ -108,13 +108,47 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
     return [...metros, ...regionalTN, ...regionalKA, ...regionalTS];
   }, []);
 
-  // Initial state selections
-  const initialProcIndex = PROCEDURES.findIndex(p => p.name.toLowerCase().includes(defaultProcedure?.toLowerCase() || ""));
-  const initialHubIndex = hubOptions.findIndex(h => h.cityName.toLowerCase().includes(defaultCity?.toLowerCase() || "") || h.display.toLowerCase().includes(defaultCity?.toLowerCase() || ""));
+  // Smart fuzzy matching for procedure & city to ensure accuracy from programmatic routes
+  const initialProc = useMemo(() => {
+    if (!defaultProcedure) return PROCEDURES[0];
+    const lower = defaultProcedure.toLowerCase();
+    let idx = -1;
+    if (lower.includes("circumcision") || lower.includes("foreskin")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("circumcision"));
+    else if (lower.includes("piles") || lower.includes("hemorrhoid")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("piles"));
+    else if (lower.includes("fistula")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("fistula"));
+    else if (lower.includes("fissure")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("fissure"));
+    else if (lower.includes("lipoma") || lower.includes("cyst") || lower.includes("swelling")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("lipoma"));
+    else if (lower.includes("hernia")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("hernia"));
+    else if (lower.includes("hydrocele")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("hydrocele"));
+    else if (lower.includes("varicose") || lower.includes("vein")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("varicose"));
+    else if (lower.includes("stone") || lower.includes("lithotripsy")) idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes("stone"));
+    else idx = PROCEDURES.findIndex(p => p.name.toLowerCase().includes(lower) || lower.includes(p.name.toLowerCase()));
 
-  const [selectedProc, setSelectedProc] = useState(PROCEDURES[initialProcIndex !== -1 ? initialProcIndex : 0]);
-  const [selectedHub, setSelectedHub] = useState<MedicalHubOption>(hubOptions[initialHubIndex !== -1 ? initialHubIndex : 0]);
+    if (idx !== -1) return PROCEDURES[idx];
+    return { name: defaultProcedure, basePrice: "₹28,500", emi: "₹2,850/mo", recovery: "Same-Day Daycare", usfda: "Advanced USFDA Minimally Invasive Protocol" };
+  }, [defaultProcedure]);
+
+  const initialHub = useMemo<MedicalHubOption>(() => {
+    if (!defaultCity) return hubOptions[0];
+    const lower = defaultCity.toLowerCase();
+    const idx = hubOptions.findIndex(h => h.cityName.toLowerCase() === lower || h.display.toLowerCase().includes(lower) || lower.includes(h.cityName.toLowerCase()));
+    if (idx !== -1) return hubOptions[idx];
+    return {
+      id: `custom-${defaultCity.toLowerCase().replace(/\s+/g, "-")}`,
+      display: `${defaultCity} — ${defaultState || "Tamil Nadu"}`,
+      cityName: defaultCity,
+      state: defaultState || "Tamil Nadu",
+      lang: defaultState?.toLowerCase().includes("karnataka") ? "kn" : defaultState?.toLowerCase().includes("telangana") ? "te" : "ta",
+      group: "Tamil Nadu Regional Hubs"
+    };
+  }, [defaultCity, defaultState, hubOptions]);
+
+  const [selectedProc, setSelectedProc] = useState(initialProc);
+  const [selectedHub, setSelectedHub] = useState<MedicalHubOption>(initialHub);
   const [selectedInsurer, setSelectedInsurer] = useState(INSURERS[0]);
+
+  // Lock selectors when landing on specific procedure + city page to preserve Ad Scent and reduce cognitive load
+  const [isLocked, setIsLocked] = useState(Boolean(defaultProcedure || defaultCity));
 
   // Form registration state
   const [name, setName] = useState("");
@@ -137,7 +171,7 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
     setIsSubmitting(true);
     haptic.medium();
 
-    const noteText = `[CLINICAL ESTIMATOR TRIAGE] Patient ${name} verified treatment tariff & cashless TPA eligibility for ${selectedProc.name} at ${selectedHub.cityName} (${selectedHub.state}). Policy/Payment Plan: "${selectedInsurer.group}". Estimated eligibility: ${selectedInsurer.status}. Priority coordinator callback & hospital outpatient appointment requested.`;
+    const noteText = `[CLINICAL ESTIMATOR CONCIERGE] Patient ${name} verified treatment tariff & cashless TPA eligibility for ${selectedProc.name} at ${selectedHub.cityName} (${selectedHub.state}). Policy/Payment Plan: "${selectedInsurer.group}". Estimated eligibility: ${selectedInsurer.status}. Priority coordinator callback & hospital outpatient appointment requested.`;
 
     try {
       await fetch("/api/coordinator/log", {
@@ -153,7 +187,7 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
           leadContact: {
             name: name,
             phone: phone,
-            email: "triage-concierge@healthflo.in",
+            email: "care-concierge@healthflo.in",
             procedure: selectedProc.name,
             status: "Insurance Verified",
           },
@@ -169,14 +203,15 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
     }
   };
 
-  // Build localized WhatsApp direct connection URL
+  // Build localized WhatsApp direct connection URL in natural conversational language
   const buildWhatsAppLink = () => {
     let greeting = "Hello HealthFlo Clinical Team,";
     if (selectedHub.lang === "ta") greeting = "வணக்கம் HealthFlo Clinical Team,";
     if (selectedHub.lang === "kn") greeting = "ನಮಸ್ಕಾರ HealthFlo Clinical Team,";
     if (selectedHub.lang === "te") greeting = "నమస్కారం HealthFlo Clinical Team,";
 
-    const msg = `${greeting} I have verified the Cashless Insurance Treatment Estimate for *${selectedProc.name}* at your *${selectedHub.cityName}* empanelled surgical network under *${selectedInsurer.group}*. My name is ${name || "a patient"}. Please connect me with my senior clinical coordinator for rapid hospital appointment appointment scheduling.`;
+    const langName = selectedHub.lang === "ta" ? "Tamil" : selectedHub.lang === "kn" ? "Kannada" : selectedHub.lang === "te" ? "Telugu" : "clinical";
+    const msg = `${greeting} I am looking for *${selectedProc.name}* in *${selectedHub.cityName}* under *${selectedInsurer.group}*. My name is ${name || "a patient"}. Can I speak to a ${langName} care coordinator about the treatment cost and 100% cashless insurance?`;
     return `https://wa.me/${config.helplineRaw}?text=${encodeURIComponent(msg)}`;
   };
 
@@ -192,11 +227,11 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
         <div className="space-y-2.5 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0E1A33] border border-cyan-500/30 text-cyan-300 text-xs font-extrabold uppercase tracking-wider shadow-inner">
             <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Clinical Package &amp; Cashless TPA Estimator</span>
+            <span>Clinical Package &amp; Cashless TPA Concierge</span>
           </div>
           
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
-            Instant Hospital Pre-Approval &amp; Treatment Cost Engine
+            Instant Hospital Pre-Approval &amp; Clinical Care Concierge
           </h2>
           
           <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
@@ -225,104 +260,140 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
         {/* LEFT COLUMN: MEDICAL SELECTOR PARAMETERS (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           
-          {/* 1. SURGICAL PROCEDURE SELECTOR */}
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase text-cyan-400 tracking-wider flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono font-bold text-[10px]">STEP 01</span>
-              <span>Target Surgical Procedure &amp; Protocol</span>
-            </label>
-
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-cyan-400">
-                <FileText className="w-5 h-5" />
+          {/* LOCKED TARGET AD SCENT BANNER OR OPEN DROPDOWNS */}
+          {isLocked ? (
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-[#0C1932] to-slate-900 border-2 border-cyan-500/40 shadow-xl space-y-4">
+              <div className="flex items-center justify-between gap-3">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-[11px] uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1.5">
+                  <Lock className="w-3 h-3 text-emerald-400" />
+                  <span>Target Profile Pre-Configured</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsLocked(false)}
+                  className="text-xs text-cyan-400 font-extrabold hover:text-cyan-300 underline transition-all"
+                >
+                  Change Procedure or City ✏️
+                </button>
               </div>
-              <select
-                value={selectedProc.name}
-                onChange={(e) => {
-                  const found = PROCEDURES.find(p => p.name === e.target.value);
-                  if (found) {
-                    setSelectedProc(found);
-                    handleCalculateChange();
-                  }
-                }}
-                className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-bold text-sm sm:text-base focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition cursor-pointer shadow-inner appearance-none"
-              >
-                {PROCEDURES.map((p) => (
-                  <option key={p.name} value={p.name} className="bg-[#091224] text-white py-2">
-                    {p.name} ({p.usfda})
-                  </option>
-                ))}
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                <ChevronDown className="w-5 h-5" />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                <div className="bg-[#070D1B] p-3.5 rounded-2xl border border-slate-800">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-0.5">SELECTED PROCEDURE</span>
+                  <p className="text-white font-extrabold text-sm sm:text-base">{selectedProc.name}</p>
+                  <p className="text-cyan-400 font-bold text-xs mt-0.5">✔️ {selectedProc.usfda}</p>
+                </div>
+                <div className="bg-[#070D1B] p-3.5 rounded-2xl border border-slate-800">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-0.5">TARGET SURGICAL HUB</span>
+                  <p className="text-white font-extrabold text-sm sm:text-base">{selectedHub.cityName}</p>
+                  <p className="text-emerald-400 font-bold text-xs mt-0.5">✔️ Empanelled Hospital Network</p>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <>
+              {/* 1. SURGICAL PROCEDURE SELECTOR */}
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase text-cyan-400 tracking-wider flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono font-bold text-[10px]">STEP 01</span>
+                  <span>Target Surgical Procedure &amp; Protocol</span>
+                </label>
 
-          {/* 2. REGIONAL HOSPITAL HUB & CITY SELECTOR */}
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase text-emerald-400 tracking-wider flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold text-[10px]">STEP 02</span>
-              <span>Empanelled Surgical Center &amp; City Hub (All Southern Locations)</span>
-            </label>
-
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-400">
-                <MapPin className="w-5 h-5" />
+                <div className="relative">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-cyan-400">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <select
+                    value={selectedProc.name}
+                    onChange={(e) => {
+                      const found = PROCEDURES.find(p => p.name === e.target.value);
+                      if (found) {
+                        setSelectedProc(found);
+                        handleCalculateChange();
+                      }
+                    }}
+                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-bold text-sm sm:text-base focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition cursor-pointer shadow-inner appearance-none"
+                  >
+                    {PROCEDURES.map((p) => (
+                      <option key={p.name} value={p.name} className="bg-[#091224] text-white py-2">
+                        {p.name} ({p.usfda})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                    <ChevronDown className="w-5 h-5" />
+                  </div>
+                </div>
               </div>
-              <select
-                value={selectedHub.id}
-                onChange={(e) => {
-                  const found = hubOptions.find(h => h.id === e.target.value);
-                  if (found) {
-                    setSelectedHub(found);
-                    handleCalculateChange();
-                  }
-                }}
-                className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-semibold text-sm sm:text-base focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition cursor-pointer shadow-inner appearance-none truncate"
-              >
-                <optgroup label="Primary Metro Surgical Hubs" className="bg-[#060D1A] text-cyan-300 font-extrabold text-xs uppercase">
-                  {hubOptions.filter(h => h.group === "Metro Referral Centers").map((h) => (
-                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
-                      {h.display}
-                    </option>
-                  ))}
-                </optgroup>
 
-                <optgroup label="Tamil Nadu Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
-                  {hubOptions.filter(h => h.group === "Tamil Nadu Regional Hubs").map((h) => (
-                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
-                      {h.display}
-                    </option>
-                  ))}
-                </optgroup>
+              {/* 2. REGIONAL HOSPITAL HUB & CITY SELECTOR */}
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase text-emerald-400 tracking-wider flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold text-[10px]">STEP 02</span>
+                  <span>Empanelled Surgical Center &amp; City Hub (All Southern Locations)</span>
+                </label>
 
-                <optgroup label="Karnataka Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
-                  {hubOptions.filter(h => h.group === "Karnataka Regional Hubs").map((h) => (
-                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
-                      {h.display}
-                    </option>
-                  ))}
-                </optgroup>
+                <div className="relative">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-400">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <select
+                    value={selectedHub.id}
+                    onChange={(e) => {
+                      const found = hubOptions.find(h => h.id === e.target.value);
+                      if (found) {
+                        setSelectedHub(found);
+                        handleCalculateChange();
+                      }
+                    }}
+                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-semibold text-sm sm:text-base focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition cursor-pointer shadow-inner appearance-none truncate"
+                  >
+                    <optgroup label="Primary Metro Surgical Hubs" className="bg-[#060D1A] text-cyan-300 font-extrabold text-xs uppercase">
+                      {hubOptions.filter(h => h.group === "Metro Referral Centers").map((h) => (
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                          {h.display}
+                        </option>
+                      ))}
+                    </optgroup>
 
-                <optgroup label="Telangana Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
-                  {hubOptions.filter(h => h.group === "Telangana Regional Hubs").map((h) => (
-                    <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
-                      {h.display}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                <ChevronDown className="w-5 h-5" />
+                    <optgroup label="Tamil Nadu Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                      {hubOptions.filter(h => h.group === "Tamil Nadu Regional Hubs").map((h) => (
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                          {h.display}
+                        </option>
+                      ))}
+                    </optgroup>
+
+                    <optgroup label="Karnataka Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                      {hubOptions.filter(h => h.group === "Karnataka Regional Hubs").map((h) => (
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                          {h.display}
+                        </option>
+                      ))}
+                    </optgroup>
+
+                    <optgroup label="Telangana Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                      {hubOptions.filter(h => h.group === "Telangana Regional Hubs").map((h) => (
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                          {h.display}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                    <ChevronDown className="w-5 h-5" />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
 
           {/* 3. INSURANCE POLICY OR PAYMENT MODE */}
           <div className="space-y-2">
             <label className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold text-[10px]">STEP 03</span>
+              <span className="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold text-[10px]">
+                {isLocked ? "STEP 01" : "STEP 03"}
+              </span>
               <span>TPA Insurance Policy or Payment Protocol</span>
             </label>
             
@@ -362,9 +433,9 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
           <div className="p-4 rounded-2xl bg-[#080E1C] border border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
               <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0 border border-cyan-500/20">
-                <Car className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4" />
               </div>
-              <span>Complimentary Round-Trip Patient Transit</span>
+              <span>100% Cashless TPA &amp; 0% EMI Support</span>
             </div>
             
             <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
@@ -516,7 +587,7 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
 
                   <p className="text-[10px] font-semibold text-center text-slate-400 flex items-center justify-center gap-1.5 pt-1">
                     <Lock className="w-3 h-3 text-emerald-400" /> 
-                    <span>Confidential Patient Triage • Zero Third-Party Sharing</span>
+                    <span>100% Confidential Care Coordination • Zero Third-Party Sharing</span>
                   </p>
                 </motion.form>
               ) : (
