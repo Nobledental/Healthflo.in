@@ -51,10 +51,10 @@ export default function SpecializedTreatments() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black text-slate-900 tracking-tight leading-[1.15] flex flex-wrap items-center justify-center gap-2 md:gap-3"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-light text-slate-800 tracking-tight leading-[1.15] flex flex-wrap items-center justify-center gap-2 md:gap-3"
         >
           <span>Medical</span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] via-[#0088ff] to-cyan-500 drop-shadow-sm">
+          <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#0055ff] via-[#0088ff] to-[#00A88F] drop-shadow-sm">
             Services
           </span>
         </motion.h2>
@@ -62,16 +62,16 @@ export default function SpecializedTreatments() {
 
       <div className="max-w-6xl mx-auto flex flex-col items-center px-3 md:px-6 relative">
         
-        {/* RADIANT BRIGHT BLUE BACKGROUND BEHIND THE GLASSMORPHIC CARDS */}
+        {/* RADIANT ASTER BLUE & MEDICAL TEAL BACKGROUND BEHIND THE GLASSMORPHIC CARDS */}
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-visible">
-          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[90%] md:w-[700px] h-[80%] bg-gradient-to-tr from-[#0055ff]/45 via-[#00aaff]/35 to-[#0044ee]/40 rounded-[80px] blur-[50px] md:blur-[110px] opacity-90 transition-all duration-700" />
-          <div className="absolute top-[35%] left-0 w-[280px] h-[280px] bg-[#0066FF]/50 rounded-full blur-[65px]" />
-          <div className="absolute bottom-[20%] right-0 w-[300px] h-[300px] bg-cyan-400/40 rounded-full blur-[70px]" />
+          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[90%] md:w-[700px] h-[80%] bg-gradient-to-tr from-[#0055ff]/40 via-[#0088ff]/30 to-[#00A88F]/40 rounded-[80px] blur-[50px] md:blur-[110px] opacity-90 transition-all duration-700" />
+          <div className="absolute top-[35%] left-0 w-[280px] h-[280px] bg-[#0066FF]/45 rounded-full blur-[65px]" />
+          <div className="absolute bottom-[20%] right-0 w-[300px] h-[300px] bg-[#00A88F]/45 rounded-full blur-[70px]" />
         </div>
 
         {/* Sleek Glassmorphic Tab Bar with Haptic Tactile Tap */}
         <div className="w-full max-w-2xl mb-8 md:mb-14">
-          <div className="flex items-center justify-between sm:justify-center p-1.5 bg-white/50 backdrop-blur-2xl rounded-2xl sm:rounded-full border border-white/80 shadow-[0_8px_30px_rgba(0,85,255,0.18)] gap-1">
+          <div className="flex items-center justify-between sm:justify-center p-1.5 bg-white/50 backdrop-blur-2xl rounded-2xl sm:rounded-full border border-white/80 shadow-[0_8px_30px_rgba(0,168,143,0.18)] gap-1">
             {specialtiesData.map((specialty) => {
               const isSelected = activeSpecialtyId === specialty.id;
               return (
@@ -121,7 +121,7 @@ export default function SpecializedTreatments() {
                     <GlowCard
                       href={`/specialities/${treatment.id}`}
                       hapticMode="medium"
-                      className="flex items-center justify-between gap-3.5 p-4 sm:p-5 rounded-[28px] bg-white/55 hover:bg-white/75 backdrop-blur-2xl border border-white/80 hover:border-white shadow-[0_12px_38px_rgba(0,70,220,0.22)] active:scale-[0.97] transition-all duration-300"
+                      className="flex items-center justify-between gap-3.5 p-4 sm:p-5 rounded-[28px] bg-white/55 hover:bg-white/75 backdrop-blur-2xl border border-white/80 hover:border-white shadow-[0_12px_38px_rgba(0,102,255,0.18)] hover:shadow-[0_15px_45px_rgba(0,168,143,0.25)] active:scale-[0.97] transition-all duration-300"
                     >
                       {/* Top glass sheen highlight */}
                       <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-white/45 to-transparent pointer-events-none z-0" />
@@ -189,14 +189,14 @@ export default function SpecializedTreatments() {
                     <GlowCard
                       href={`/specialities/${treatment.id}`}
                       hapticMode="medium"
-                      className="rounded-[32px] flex flex-col min-h-[460px] cursor-pointer bg-white/50 hover:bg-white/70 backdrop-blur-2xl border border-white/80 hover:border-white transition-all duration-500 shadow-[0_15px_45px_rgba(0,70,220,0.18)] hover:shadow-[0_20px_50px_rgba(0,85,255,0.28)]"
+                      className="rounded-[32px] flex flex-col min-h-[460px] cursor-pointer bg-white/50 hover:bg-white/70 backdrop-blur-2xl border border-white/80 hover:border-white transition-all duration-500 shadow-[0_15px_45px_rgba(0,102,255,0.16)] hover:shadow-[0_20px_50px_rgba(0,168,143,0.28)]"
                     >
                       <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/50 to-transparent pointer-events-none" />
                       
                       <div className="relative z-20 flex flex-col p-8 pb-0">
                         <div className="flex items-center gap-2 mb-3">
                           <span className="inline-flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 rounded-full bg-white/90 border border-blue-100 shadow-2xs text-[#0066FF]">
-                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> USFDA Approved
+                            <ShieldCheck className="w-3.5 h-3.5 text-[#00A88F]" /> USFDA Approved
                           </span>
                           <span className="text-[12px] font-extrabold text-blue-950/70">Zero Pain</span>
                         </div>
@@ -245,10 +245,10 @@ export default function SpecializedTreatments() {
           <Link
             href="/specialities"
             onClick={() => haptic.medium()}
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_10px_35px_rgba(0,102,255,0.4)] transition-all transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#0066FF] hover:bg-[#00A88F] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_10px_35px_rgba(0,102,255,0.35)] hover:shadow-[0_12px_40px_rgba(0,168,143,0.4)] transition-all transform hover:scale-105 active:scale-95"
           >
             <span>Explore All 15+ Laser Specialities & Treatments</span>
-            <ArrowRight className="w-5 h-5 text-[#00E5FF]" />
+            <ArrowRight className="w-5 h-5 text-[#99F6E4]" />
           </Link>
         </div>
       </div>

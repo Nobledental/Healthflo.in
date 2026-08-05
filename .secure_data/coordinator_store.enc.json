@@ -1,175 +1,67 @@
 [
   {
-    "id": "LOG_20260804_106",
-    "timestamp": "2026-08-04 06:48:17",
+    "id": "LOG_20260805_735",
+    "timestamp": "2026-08-05 02:06:21",
     "sessionId": "SESS_WEB_BW4TV",
     "city": "South India Regional Hub",
     "state": "Tamil Nadu",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
-      "/contact",
+      "/locations",
       "/",
       "/specialities",
-      "/specialities/circumcision"
+      "/locations",
+      "/contact",
+      "/"
     ],
-    "lastClickedElement": "Navigated to /specialities/circumcision",
+    "lastClickedElement": "Navigated to /",
     "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities/circumcision'. Traversed routes: /contact ➔ / ➔ /specialities ➔ /specialities/circumcision. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "p8VVhEP7ccXgQ0Mu:u5l9GTojYnrshFymFzFwng==:P75ojuAwHRba8Hxv7tBOP/pDgFBbChkPetoP1iCnzBG1tDdNqeW9yuNz4TE+PLJ1X4ZWaUvstsJSywEk+f8zIZT/sfPH8fDIZb+gL3kNHpDhdweDPWDN7LJzlDDHH+t7vYgCUQpJRTrpru9uNUl211iQm90N8LeJy3StN6AwYhhy+TTLgiDEL+312MoovQzHBJnyI3n7DDpUrrEt16v3QOkJF1K2S76XMxvJdfQkwjCpqfMvLJCsB8joVu/XSPygyznmZPL7wyOXAm57XqCM/bumQTS1w2N3AyjyAV/2sqpnz3K42uFohJY7eTPf5fsZSeW5PNQ2P6a0fbBR9i6d3x72GNHQk5PCpf51zD8nbrjRF0Hgs6lD3fWe1hy2dvYnuTfOtZuVRhbQwtTWC35etu8qPZzhlI9IecF+uYlMCbctRtAuJebqFA=="
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /locations ➔ / ➔ /specialities ➔ /locations ➔ /contact ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "3xs0/za4OjNbmktj:j6r5yJATmYQWQIn4Lp0KVQ==:1YH6wp5mEpc6EILTDExoOXs1KDkuRuY8TthFONE4ggcDZQoMQofQHXZ9DSxKfDarEkeeU6CTo3Xbg9Z6W3ACv/lDaGs7Gb8hdNqEnouLqqTyhBSx1xRW9sxK8ZYfov2+DES9ppsOhFNtlCdPnO/hDe7NP/G1z8DXURs/bqQ5cYcNMJgczfWD4m4VLc/P7lg5rjgxmFE4MqmH1GjDosK3wZ9WWQMN13URCpTZW0Ny8/yN50bcmcupC7dNQlP7S6soShW9RDjTa7qgfpMjfTkkkcsmi5M/VcLZ+PVORZVH3cfP3zmujULWuW2hOLxpDaSkPN3Ir8bFeGhlLGoDb6ISk04GLf5KDoIySbCDC24ld4fQwPr6TtJQSN/kRGoSKeHBUiprDAgHeb07rrnrKo1Odf91cKc="
   },
   {
-    "id": "LOG_20260804_621",
-    "timestamp": "2026-08-04 06:48:11",
+    "id": "LOG_20260805_331",
+    "timestamp": "2026-08-05 02:05:16",
     "sessionId": "SESS_WEB_BW4TV",
     "city": "South India Regional Hub",
     "state": "Tamil Nadu",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
-      "/contact",
+      "/locations",
       "/",
-      "/specialities"
+      "/specialities",
+      "/locations",
+      "/contact"
     ],
-    "lastClickedElement": "Navigated to /specialities",
+    "lastClickedElement": "Navigated to /contact",
     "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities'. Traversed routes: /contact ➔ / ➔ /specialities. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "UTkGkYs8iK4u4Qao:lpoZxMTcT/PQoSjVl5oDyA==:xBujJyKIOrdF46cZ5drXtkLXtD2WBKtUwXSnEVZoFRuBsm+MEBIyZXryPtD2lDrxA+7BQsd1w1Upyi6iKWLjOnXP/geMUJPjPSQ1D37r/QEdkmy128iYxIggzH2BJVNH9/ck0Y/hpgM95FJjkO/tHLF9b+u2U+f5ofSr+DgItTAKsomDkoT3VU8XN13+N8+hKoLhuxm01iDXPqqxMPZHxwiuIFmRG1Qat/hH6qbY+AitH5PJXXLQ9ZUx62iAUfnWctHl2NLRyyVkZGugcHeQkgchLyOGs8VqtYGDeiykJb2uZEDTHfV61XpF/wY2J4ohLlCPCfVDTTimTwDcFz58msdGHqBXXEvUl34Ia9ktWoo942lStvDP7UXpwSM="
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: /locations ➔ / ➔ /specialities ➔ /locations ➔ /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "6T8hExB3u96ilQZV:PH7Cm93Ki+X6szxJDY2umQ==:c2w8TQ8SCiaQe0nUcwhRjt8cs1mSyCh9m1qXVBeJsDIOzQ6DsQSm8MZjbiHJyY2jNsu0ma4//SHvgxaQp1dU6j91m8uhsQCpYHHELVpJg3gT+zNtDv9JkjZoTw3ezW/WPdf46/pD7H5OaAoP0B1EsRV0UQhNS5iOJEL8Rs5vc87r1OqiH1X7ktsw5PSNyiK2JmTh9Oszwrvxz2AmpXwMAuLMaeyakO68DW+4wbgsAX2T6csJKrsrB8N0DqqLNTBLhll3ofdTmr4k/H15UTQ9uR/cmfQJ7wFwQXDu2I2EyatsyD0Nr3wcda6cbFESK2ofUyGo1ysAPZOnjjJvp1yd8rGXjpedbxtEdL78kD3c5Z7wcTXFeIIMaC3CWfGW23In05iLcCxXQ1I2PVQkhSL38GaE9SHH"
   },
   {
-    "id": "LOG_20260804_698",
-    "timestamp": "2026-08-04 06:46:19",
+    "id": "LOG_20260805_101",
+    "timestamp": "2026-08-05 02:04:43",
     "sessionId": "SESS_WEB_BW4TV",
     "city": "South India Regional Hub",
     "state": "Tamil Nadu",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
-      "/contact",
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /contact ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "umK29Ui5m56y1nDX:pxk8mAuNHruJao0m8ynkNQ==:G11WJ8lQqf9Kt0rsI5Q96gr0XJsoPe2Rj5SeNKGzuVnq12AcMgr7FUeBQ1J9Pe1285c11TGFQk143LNjOcHk8C/rqmAzBYLPAI1ofvHu4u2kMyH66UgtEtJwWU+rSEyFpHos3b0742Lu0XZxAMs0+/evlxLu5urx1G+BU6lhVkzswugg39QmhlYOGEEZ7MIh3pBkHfLcA9c4Y0y8EK8r2gokAAjTRzoKtmCTkJ4hxf1Kg29Egg+hxlBsXPR7QdMzt14gcrXfZ1qkXLxRRWrGu4KlclDxpeurlQlG26Oo4ZOyamTO0VoSK72EEohpSu4qv9hQ6BTmMjP/dVU+4EE="
-  },
-  {
-    "id": "LOG_20260804_324",
-    "timestamp": "2026-08-04 06:30:55",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "2Xnc3OsYLuqtruey:6wco2xeA98mKis0uPKCU7w==:we0QeVrW4ftrz0T3e2USIRNp553/fMKuo+50mz4SPSxQA5rb+a/okztRVJSS9X+iPFX0VlL8ZU7F/jera0jzjHcPckUCJlWmwZWPLE+oWoBlrBY4JS0k+yHaaD1fSRnXARkj55D7/F59thz4Px2KrKSyQAo9+rAMrCj0SdiSUlaPrTXvDtksJgq1w/r3042udCKykQNguwGdRPxNYtFqc8IawOmCtYKKHqLNT2IT9Z0km8pFdIdPtCUSZBMZuK40QBizw0Stguct6PXMjwwU0oyI6GiDCAp85reTns7ICw8o1vTf/2HaENYa2Xi5B3zkLw=="
-  },
-  {
-    "id": "LOG_20260804_539",
-    "timestamp": "2026-08-04 06:00:28",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "6u2V9/faNmXQpGde:6c706mDYnC9OWbJiNYrkmg==:fgQGXtHJbVNOG9Khh7BLDDJiqZwZ4TMWUK6CnnlGhqxw9o5GrrJ0SEtmg0bOdrXpx22Aitay05eqp1RFhetTyWOzWYqPqXEWFwkEA8+KGq4KpvuQD5uYiCJylMSoB4m/Vz02rji8pfhINqTAoFwoFA32NpMqCB7rwhT9NYnhv8KQ8OUoTc7rVg2U7x8AL/dq4BFLipbG+qRbDmN3anfN/CcK55x+9ud/rvOPabxJAq0ac60aggD/ievc1UVs6+vsrIef5TOKj5Gl5uS3RCzQejTjmsKSWOMJVWVFgae4gmBVoWp+24a+D8ID5c3fAD/BkA=="
-  },
-  {
-    "id": "LOG_20260804_535",
-    "timestamp": "2026-08-04 06:00:13",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "KPMHXWUN9deW1cCk:bJ1/mvXl2MGnB70xyPHnew==:fw5HKBbaRlXL7VSIpfPG6rtq5h5CRL7wZuRpaO1hqXuGj1QMP8RN8pfOaePsiA0uOc5Z6UeQRfPV4g3xRCW/oi39vYwEITntGiV/0o3RecSfgEQ37JjKJvRVoXkC3vQcNQs08VoxziABeJqR45mwMX26w22X/QUlV2ajrTkHs4vXg76n04O3WHTknuwqN3UopwjM81/q7enRQPayvL2f8HaY4dtXeGIgmo3cEw65MoyFw5uAXLXFgcYRX+DdyspLY24ixbgiwX8ScTue3+nuxWEO25xpvWLYsHNTdANp/YOpw6QDYfn9CykwaUiIqun3aQ=="
-  },
-  {
-    "id": "LOG_20260804_426",
-    "timestamp": "2026-08-04 05:59:11",
-    "sessionId": "SESS_WEB_U8F5K",
-    "city": "South India Visitor Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/admin"
-    ],
-    "lastClickedElement": "Action Button: [Regional Triage Analytics]",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "High-Intent Telemetry: Visitor activated 'Regional Triage Analytics' on route /admin. Coordinator advised to verify empanelled hospital availability for immediate consultation.",
-    "encryptedPayload": "5qrjEgaNldCnS6oG:Qf3C59iPBMJKYQXkKet8ow==:2aKtqWfxUJ6QMcgMHb/AISBKRh7dkDOuMgh5VQ94WqfgMbTNo0cGS0elkqU+3k2LTrYKjYRqr+FdZGRx5dzjb66XhkG6/GyUocK6BebhaUf6kt3/l2sn0hdLozOuxhLkXVgC8VSVxotpKR13ZM6zlDfdSt3g0w0/zP4FkmTN54HwxSguMJdqN8Gi6v6YGEI7rCFwPQsS/DMduRbL47DuXf4h8DvaCuBnvx3Sv+l+H7o="
-  },
-  {
-    "id": "LOG_20260804_938",
-    "timestamp": "2026-08-04 05:59:05",
-    "sessionId": "SESS_WEB_U8F5K",
-    "city": "South India Visitor Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/admin"
-    ],
-    "lastClickedElement": "Action Button: [Lead Triage CRM (0)]",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "High-Intent Telemetry: Visitor activated 'Lead Triage CRM (0)' on route /admin. Coordinator advised to verify empanelled hospital availability for immediate consultation.",
-    "encryptedPayload": "KwfQDZIqnyMfm3+/:i2zuzgUrVCWyM2UDX9UytA==:cKOdmgjc9wtORNywTpBZDCKSRsrNIFLWCRtmoyi3dAy+VwwCAQQX9dSakJBX+xCCdh3TUwyfL+1ScbNhyGpvOAMQpy/Ov0VFnjT75Cx12oFeCYj7Z2xVUGseNXi54DVp4zS3sw4VFyvpm+X+oEU2/orEY8BMiZjS/UGFT6S8OUH3XVoTtnx29s97PQRKWHUVzknFaKytbjpn0sxjQE9PDUPVTCI7j5rzx6o="
-  },
-  {
-    "id": "LOG_20260804_707",
-    "timestamp": "2026-08-04 05:54:42",
-    "sessionId": "SESS_WEB_U8F5K",
-    "city": "South India Visitor Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/admin"
-    ],
-    "lastClickedElement": "Action Button: [AI Triage Copilot]",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "High-Intent Telemetry: Visitor activated 'AI Triage Copilot' on route /admin. Coordinator advised to verify empanelled hospital availability for immediate consultation.",
-    "encryptedPayload": "WUgVGquaj2lHQmUV:kO+pWoMbIQ4TEeOdCSjFJg==:RkKmxw2iNiICt5i8oS1AXh3xUJ/Fm1b5FuDJ9oFOk+SWWutgnZJNOqKprRr4SbMsyUxR/WFIhoJoVIxi/gOvtOchucbCXz/bWqdq+fCXEBBqjOTJiWDzPqmLdmNELDXGseRlAUUDCIcb2esPdE4hikwVxCTyB20UEJQsae0DhfPCMlH0modghkCXlRykydkWj2DTXkTrsdYNCXSJDeWbaRn4CzgYDRDe"
-  },
-  {
-    "id": "LOG_20260804_134",
-    "timestamp": "2026-08-04 05:53:42",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
+      "/locations",
       "/",
-      "/contact",
-      "/"
+      "/specialities",
+      "/locations"
     ],
-    "lastClickedElement": "Navigated to /",
+    "lastClickedElement": "Navigated to /locations",
     "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: / ➔ /contact ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "8evWAhkKTwr9QtJD:GafpgY+S6BWKIi92XDw1hA==:MqbCUxcYGaCWx6TGgNDFJVu6BAOUnvTLhEVFmbb9IoHzy5LvB+CGfcl21q7Q5QZcTSyoM0cc2xehxcP1RpQ8pOIonPwSB7JtPvewfTvj6jfVb8Si2GHIvOBdUTzLmPGwQDiEweqzNUbUIl24GQaLQ1W+1mI9yFRZYDVCPWqcyk9xMSOzM5frCwMpyGUJEuhRIlBGf5gCfKuunwsvd235QZoFQAsESH5kVO8N915SyIq2gLAL1gxAd0BaErMoztpkpd17ho5An6B2zDxLAa/os2M1SEOPQQoBUi2nz8yAx8Y/5C/rk1gUnASWmlgsXmfk0VUtcB5RWlei2kRtg5HVRCwNE14="
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /locations'. Traversed routes: /locations ➔ / ➔ /specialities ➔ /locations. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "HPcjFft3xDlaAxRc:erRfWxyOmBm5rf4gdVCCDg==:vOcabIPWAMioI4RpBbb8T7r3eX+RGpFGqr0lWxe763MezoYwrYTVAsZ2EKK36vQJ/RABRk/1WbbXZaU/x2nOxu2HNiiigQiEZrzN11VT0Sv3rH7aRl4k1akXzX9jMplaDJLprADKNYC3R2asL4t3EWHA5drvUP2pSxYtPcL65hpxeLBMCGQYMGlZhx6nQdr1mh2yIDzl8hIzTbMrtV1STCe7SKbJrB5VNhc3k4qIntDPESHDeyEWg22UGA3pHZTOGdarZlNWO5n5rcvk4zOZrUYMbSn3B7xVWYDbSEhSR3mc0MnGVe8bDXEX76GJ2wiBkmktPwuk0hNrVf5vX0JfDmG/ZsWRcDwEVuS/+LNAn22kUm0waptnkfQ/LxtSGWqsmi2vDGKGE1CRjg=="
   },
   {
-    "id": "LOG_20260804_184",
-    "timestamp": "2026-08-04 05:52:13",
+    "id": "LOG_20260805_951",
+    "timestamp": "2026-08-05 02:02:52",
     "sessionId": "SESS_WEB_U8F5K",
     "city": "South India Regional Hub",
     "state": "Tamil Nadu",
@@ -181,89 +73,57 @@
     "lastClickedElement": "Navigated to /admin",
     "searchQueries": [],
     "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /admin'. Traversed routes: /admin. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "RSyvML8jotEkbwaO:woo2+mnIc4O/kh0OF/o12w==:JwiXusqW1q0LLJMcyLnXrAOh6bexWRLPYSPd/3s9zbko+nTpbd0zueSTsU9k74LyUVk1wmLve/Ld/GYrKlirei71tM1sC6yT7eAXPF0ejVbkp4lw3hxPZMqrl4eE1e4BEMRPfD1eT0HWdm2yqrG0CR+HK8N542fB++WhOWpyy1tWkykkpM85buOdX92/gURfef08/quIC1zE2n7XAdsUbnd2SnnM0pfcsUgz4Q0xLAmuFZ6VI5mWijI9+J8PtWdwO0n7gutqLr2v+fiRALreoZMD8TjrPqcsGW7M/HN+tb2KzwEKBTjt3TB4mekz3Zzp+KVyHH+mlS/YymQ="
+    "encryptedPayload": "+8pa/uDIP0nuny1c:mDVHELh00FL/SpGazxWoJA==:SShSJrrfZpSGUODzGf3xLxjPpkE8umqv8MD2aPv/Jgwe7tsbhrrUi9TYeUPHLFOuwift2gDrYfvWQaWa0xqJvIdyZ+yyYJ4HBFfHjWDERq606Yjc5Y3QEDj2gCwVeMyFSoYEnB0qWcnF/AaY61mQIHCnMun2XuHOaKKUguyLFO1cW79ZpQAQ86oFTB/QrIZYmH4tjsTIM+IaZgN0ByLagMAUgb2/LFRN08IFaPDHGBQEtZChNxSfHJYy19eoSxuv1HNxL8IrsDJvRRVi9mI/2fH6rt5BJpgcMu5q9VkIYa+AbhC5JDpd616ATBHLwEj06xw5xX+PLqRGCFE="
   },
   {
-    "id": "LOG_20260804_174",
-    "timestamp": "2026-08-04 05:51:50",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/",
-      "/contact"
-    ],
-    "lastClickedElement": "Navigated to /contact",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: / ➔ /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "J15SO9ZBTm6P/Osi:03QZqnilgrX3kyEunsobAA==:WYz+fB1u1s+L4TcLSHJJ1GKGgtNsXzwreewuXdReitiQta5JMcEjX7A8Bt9NxjWKEd+xW9KuvDR7L0bwsVCb0bn8iVJ6vuNTYQQXvUlCo+nan1ehgekH+J63G2tRWu6HXuOrVCLu6Hu2Z9M1xDxsG0+MIQXClVJIWjElsInU2GQyaVAzG/wVhhVIlTHtbWjvO95UbkGdODlB6wrlK6bfK8Ac6f9Lw1NyGOtOdR8ZtFU7Zd7l1t7IoLWHF83tB3Er0oQVKeCQBn+JF1ggTcdnzcN5y2/YaZeOfVE9nogyKHQHbglc+OEfbr5EltCd1bfiQg42adWRsstWkAyKdedHamV5yaGh"
-  },
-  {
-    "id": "LOG_20260804_657",
-    "timestamp": "2026-08-04 05:51:48",
-    "sessionId": "SESS_WEB_1ZMB5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "fwFbLaJbA2gnNrsS:7pMtGZZUDdI5btRl/0BCNQ==:0i1bS9FBwj/eZHt6HIFjwWg7aw7UEoVsV39rIAQrCii1v5YcJB/X3DjgM1i3NOoX3QCS8MEpLhQd4rNHsVYfSjPDOSGNpu5vXLSr+FGJ6yMjYCavJZIB1p0yTqUCHWfysx3JGC28zL7rkLweFlbUD5vTZMOLj5lz05SnzJrtPunS21D3MhmNe/59NxIBR7LNrWHSw3DtGSjV8E1V+VLHTpCpVgFtZLIMVkM8SLB+/FrRU+O48Eh3PvEdbsTfbnb3Fvy+6Ozl+yOUuyX3kuuspi+PADfpzF1hzkSEOQEUWAkT956OeLRvwiPrcyKEiAFqmA=="
-  },
-  {
-    "id": "LOG_20260804_547",
-    "timestamp": "2026-08-04 05:50:57",
+    "id": "LOG_20260805_287",
+    "timestamp": "2026-08-05 02:02:39",
     "sessionId": "SESS_WEB_BW4TV",
     "city": "South India Regional Hub",
     "state": "Tamil Nadu",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
-      "/contact"
-    ],
-    "lastClickedElement": "Navigated to /contact",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "Q80Wbif5AHaDP+v6:mangtw/pci8SyBA7maTxqA==:LuU7r41hXU5i5z7JTAIm8hpvEcSTfky3DoRjB62rK5ITNdynz0rbFnAwev2bMUQ1WkbmfbKGGguXzuJSRWIACmvYuKZ96s5esPa7hk0+PBH+9Z5LuXE/GwcKSs0NZ1IbZHMlO1V4BNQaQ0zmFASq2EHW68+rR/hP5khfGEQB+jCInV0GkSq2zb9HPMYbr+wyG5GvYlHQvt1w7aMoD5/etageGaQhBDPXCuCFJkBQfW8QqcpxOfMXGZzM1+95RUeMS1bJYzx/1mxloMOHnAkeBr2Ga6QNqPvXnyRUs6TNVSOnht32CDlKqt/MFxDrPDCzAk6vVTxnYr7FxDRnQ2Xn"
-  },
-  {
-    "id": "LOG_20260804_499",
-    "timestamp": "2026-08-04 04:49:53",
-    "sessionId": "SESS_WEB_AZG66",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/"
-    ],
-    "lastClickedElement": "Navigated to /",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "vpaQPDNTK9+AmvKI:9jn3XsrC9HpBlyqQfZ/Lfw==:UrVgcl4pVEJcukLY5OSrcpzfeovVHk5GcwZ7DV5y4tsVvZ8ozV4/rIMGcKw5C1ao//t+Woiv579ihEBMevdbRWVqsbC3qJ272FkJ/otYuBcJuqnWX2RIN3NnIwFKd6dGSElgdYTFYhP+8R8aY7JQfPaFCf65N9Yf2zUn8lnCn4kRHqAAwdB6vb5UD6DzEOHiq+cgE+cREz8HYNT34C2TH5awRwV9gYmBM0rYYEqTUZiN5UfsRScrBSHwcHyII9ij6kfZbKPRKBR39ao360t6vMqNg66u/hV39XLZL3D5DHHs2ODVW//qb3kHLb+qNlv2OA=="
-  },
-  {
-    "id": "LOG_20260804_381",
-    "timestamp": "2026-08-04 04:33:48",
-    "sessionId": "SESS_WEB_SW7R5",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/contact",
+      "/locations",
       "/",
       "/specialities"
     ],
     "lastClickedElement": "Navigated to /specialities",
     "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities'. Traversed routes: /contact ➔ / ➔ /specialities. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "7OXTDKkPvSIG4937:Fc2Czx49NfI10DwessdmYA==:E/E/HlB6HpPU8AxYjnwWnaXcCzqJUhiDv6a44SX6sZlwx3bmMd66Z0m2EmoxII3iQ9J/DbSdiw0a/+UnXXAmX7L8/+VSM/f7ptTZSN7ZtJoG4wEOvOu2QpQV7+AxYrcAdnq0Lt4qJmqLKyGBimXl76jRGMOVj+M7JzPD6draCDXu2cMA1mmG2gQVOqN0USOD5BABmAqkEpkvuTwilggbJM3lmOG6VJi2hjQziAWXOKMZIGTkx4E8nkldq4z8/ILAkAlJ7FyTLYmECjE1PJcYIV/+jeWoSdWBR3vQ1/kL2wWvV7Na4AxzOelpWHbcM3rS9i3q9tBFx4PD675eaONDcCxF+FdcDIGYfm69YhNmd2dMnQSMvwOQ75igApE="
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities'. Traversed routes: /locations ➔ / ➔ /specialities. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "7wVe7LW4rhFggNGX:Q7F0Ub91jYqpavYHBKByuA==:IPOIT0zZBrfL7oPxeUWJtQkaUoeEddKjQruREyAW4Me9zbyDA1AboXHLAV8WvJRpXgC2zIoMSV1gsfzNof26XQP1C7u19qzJ4NVYJ3ki2iEABxl/wTlByR1qKsmPbfi93gk43WUCmHQqFq1ozb1TQS2qJijxlN9J+JcAdie2KFTKQTMFMaWxxI/iOQoZ0JEjj0q7SEtubnma5PuAmzya1jGbMMQGvck8gTtSV7NDiCPUe8h0KHJws5ex0uvEsm3M4w4tZCY3efzi9xVJoxUV3f2ChJy9Nga/oGP/oo9sKgk1sf0KnpcfVgI/Pg8Iv4AvBGXW0/9BPRAICBxuT9h28Uns5ZUNcGoUyEnl9WpK13HH10kGp/DlXvtJpSS3mw=="
+  },
+  {
+    "id": "LOG_20260804_488",
+    "timestamp": "2026-08-04 19:48:57",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "South India Regional Hub",
+    "state": "Tamil Nadu",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations",
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /locations ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "GD3rwtY58nnt9axn:N41hd5gFmYDkhD98NOkbEA==:h/QMIeRCBt0Qlp8Q4TqjpryzrGbW+ir/jSH4PbPDhN/t9gSUDLRCOQmH6ZqPTZcELigsND6YQlxI1pURZFS+0km9RFnS4xYn3kguK3JH9biVl7ILXA3LnBW4fcK7c5Bi1qhnzTZkHO53UjyAjY+tSQ7XRGqYN8KvuIhqED6+0JnXwcQLyQVEPRu7vW0MHJHob0zLgcYQwR0MJyy6/uP3Wt9Mm3zFPNabgdLKTjIUsmm1OmCOk/F48veukXooixc8SUYKAlMvSGOm+sKjnAuT6e9lM6yQLersrE2gBLoQdZcfrPqoRZVxtDf7nUYDVAUvB5r3AQH2t4rEGYjtvzBaBw=="
+  },
+  {
+    "id": "LOG_20260804_181",
+    "timestamp": "2026-08-04 19:45:36",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "South India Regional Hub",
+    "state": "Tamil Nadu",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations"
+    ],
+    "lastClickedElement": "Navigated to /locations",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /locations'. Traversed routes: /locations. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "Fk9kMvyhJGgosNLH:tO+ERZJlzSmJfNLpljlDSA==:cjvLlgyZclu7yusAbxkdyUNZ+HSdhV+Hqo7323cA9DtEQPSmvk97tyJSLWjbaDy/kmsKJ6Gj4wuevJ2I64kirBGjc+kkOI6xwveKaesdXaYWPHbVSMxfGsCW92JtJICXQleYdj++gbxIYVYs4ngSSe9neI68DQ0wQh/r2qqIIzsJPtDze4L5bqDyWwyEp6ruhpRECey9EpmekycPruq12oc5E18DFeAicDyolIQASkxwnfecjuUUBBGXS8hGie60z0WIw8uUOa4JPm01A+U35RQITaPSajc5pL1Pt1XFKmHBm2JMaFfKA5A++AxkmZAgXEpzb5XAJ3smq9JPF/j3xz50qg=="
   }
 ]

@@ -42,16 +42,21 @@ const SiteConfigContext = createContext<SiteConfigContextType>({
   refreshConfig: async () => {}
 });
 
-export function SiteConfigProvider({ children }: { children: ReactNode }) {
-  const [config, setConfig] = useState<SiteConfig>(DEFAULT_CONFIG_STATE);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const sanitizeConfig = (cfg: SiteConfig): SiteConfig => ({
+  ...cfg,
+  helplineRaw: (cfg.helplineRaw || "").toString().replace(/\D/g, "") || "919363650066",
+});
+
+export function SiteConfigProvider({ children, initialConfig }: { children: ReactNode; initialConfig?: SiteConfig }) {
+  const [config, setConfig] = useState<SiteConfig>(sanitizeConfig(initialConfig || DEFAULT_CONFIG_STATE));
+  const [isLoading, setIsLoading] = useState<boolean>(!initialConfig);
 
   const fetchConfig = async () => {
     try {
       const res = await fetch("/api/config", { cache: "no-store" });
       const data = await res.json();
       if (data.success && data.config) {
-        setConfig(data.config);
+        setConfig(sanitizeConfig(data.config));
       }
     } catch (err) {
       console.error("Error synchronizing live Directorate site configuration:", err);

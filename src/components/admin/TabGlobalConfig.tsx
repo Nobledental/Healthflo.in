@@ -34,11 +34,22 @@ export default function TabGlobalConfig({ passphrase, onAuditLog }: TabGlobalCon
   const [formData, setFormData] = useState({ ...config });
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const toastTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Synchronize form when production config updates (after broadcast or initial load)
   useEffect(() => {
     setFormData({ ...config });
   }, [config]);
+
+  // Auto-dismiss success toast after 6 seconds
+  useEffect(() => {
+    if (showToast) {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => setShowToast(false), 6000);
+    }
+    return () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); };
+  }, [showToast]);
 
   const hasUnsavedChanges = JSON.stringify(formData) !== JSON.stringify(config);
 
@@ -96,8 +107,9 @@ export default function TabGlobalConfig({ passphrase, onAuditLog }: TabGlobalCon
 
       setSaveStatus({
         type: "success",
-        message: "🎉 SUCCESS: All updates have been published! Your new Helpline, Addresses, WhatsApp links, and SEO tags are now live on every landing page across the website."
+        message: `✅ Published! Helpline: ${formData.helplineNumber} · All pages updated live.`
       });
+      setShowToast(true);
       onAuditLog(`[GLOBAL CONFIG] Director broadcasted updated site configuration for helpline (${formData.helplineNumber}) & address.`);
     } catch (err: any) {
       setSaveStatus({
@@ -118,8 +130,23 @@ export default function TabGlobalConfig({ passphrase, onAuditLog }: TabGlobalCon
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-8 text-slate-200">
-      
+    <div className="p-6 md:p-8 space-y-8 text-slate-200 relative">
+
+      {/* ── Floating Success / Error Toast ── */}
+      {showToast && saveStatus && (
+        <div className={`fixed top-5 right-5 z-[200] flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl border font-bold text-sm max-w-sm animate-fade-in transition-all ${
+          saveStatus.type === "success"
+            ? "bg-emerald-900 border-emerald-500/60 text-emerald-200"
+            : "bg-rose-900 border-rose-500/60 text-rose-200"
+        }`}>
+          {saveStatus.type === "success"
+            ? <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            : <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />}
+          <span className="flex-1">{saveStatus.message}</span>
+          <button onClick={() => setShowToast(false)} className="ml-2 text-slate-400 hover:text-white transition shrink-0">✕</button>
+        </div>
+      )}
+
       {/* Header Banner with Prominent Top Actions */}
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-slate-800">
         <div>

@@ -26,7 +26,8 @@ export default function ParticleCanvas() {
 
     let animationId: number;
 
-    const particles = Array.from({ length: 200 }).map(() => {
+    const particles = Array.from({ length: 200 }).map((_, i) => {
+      const isTeal = i % 2 === 0;
       return {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -34,6 +35,7 @@ export default function ParticleCanvas() {
         vy: (Math.random() - 0.5) * 1.5,
         size: Math.random() * 2 + 0.5,
         glow: Math.random() * 0.6 + 0.4,
+        color: isTeal ? "0, 168, 143" : "10, 132, 255",
       };
     });
 
@@ -60,7 +62,7 @@ export default function ParticleCanvas() {
         const opacity = Math.max(0, 0.04 * (1 - baseRadius / maxRadius));
         ctx!.beginPath();
         ctx!.arc(centerX, centerY, baseRadius, 0, Math.PI * 2);
-        ctx!.strokeStyle = `rgba(10, 132, 255, ${opacity})`;
+        ctx!.strokeStyle = i % 2 === 0 ? `rgba(0, 168, 143, ${opacity})` : `rgba(10, 132, 255, ${opacity})`;
         ctx!.lineWidth = 1;
         ctx!.stroke();
       }
@@ -76,9 +78,9 @@ export default function ParticleCanvas() {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(10, 132, 255, ${p.glow * 0.8})`;
+        ctx!.fillStyle = `rgba(${p.color}, ${p.glow * 0.85})`;
         
-        ctx!.shadowColor = "rgba(10, 132, 255, 0.4)";
+        ctx!.shadowColor = `rgba(${p.color}, 0.45)`;
         ctx!.shadowBlur = 8;
         
         ctx!.fill();

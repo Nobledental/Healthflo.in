@@ -64,8 +64,9 @@ export default function WhyHealthflo() {
 
           {/* HealthFlo Path */}
           <div className="flex-1 p-6 md:p-8 lg:p-12 bg-[#05f] text-white rounded-[1.5rem] md:rounded-[2rem] shadow-2xl m-2 relative overflow-hidden">
-            {/* Glow */}
+            {/* Glows combining Existing Blue & Aster Teal */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-blue-400 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#00A88F] rounded-full blur-3xl opacity-25 translate-y-1/3 -translate-x-1/4 pointer-events-none" />
             
             <h4 className="text-lg md:text-2xl font-bold text-white mb-6 md:mb-10 flex items-center gap-3 relative z-10 pl-1">
               <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white flex items-center justify-center text-[#05f] shadow-sm">
@@ -86,7 +87,7 @@ export default function WhyHealthflo() {
                 { label: "Recovery & Support", text: "Express Discharge & Free At-Home Follow-Up" },
               ].map((item, i) => (
                 <div key={i} className="relative pl-10 md:pl-12">
-                  <div className="absolute left-0 top-0.5 w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#10b981] flex items-center justify-center text-white shadow-md">
+                  <div className="absolute left-0 top-0.5 w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#00A88F] flex items-center justify-center text-white shadow-md">
                     <Check className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={3} />
                   </div>
                   <h5 className="text-[10px] md:text-[11px] font-bold text-blue-200 uppercase tracking-widest mb-1">{item.label}</h5>

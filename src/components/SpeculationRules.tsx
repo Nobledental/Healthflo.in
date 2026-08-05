@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useEffect } from 'react';
 
 /**
  * Speculation Rules Engine
@@ -9,23 +9,38 @@ import React from 'react';
  * Result: Next page loads at 0ms latency (instant transition).
  */
 export default function SpeculationRules() {
-  return (
-    <script
-      type="speculationrules"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          prerender: [
-            {
-              source: 'document',
-              where: {
-                href_matches: '/*',
-                relative_to: 'document',
-              },
-              eagerness: 'moderate', // Triggers automatically on hover (~200ms threshold)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('HTMLScriptElement' in window)) return;
+    
+    // Check if speculation rules are supported by checking HTMLScriptElement.supports
+    const supportsSpeculationRules = 
+      HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules');
+      
+    if (supportsSpeculationRules || !HTMLScriptElement.supports) {
+      const script = document.createElement('script');
+      script.type = 'speculationrules';
+      script.textContent = JSON.stringify({
+        prerender: [
+          {
+            source: 'document',
+            where: {
+              href_matches: '/*',
+              relative_to: 'document',
             },
-          ],
-        }),
-      }}
-    />
-  );
+            eagerness: 'moderate', // Triggers automatically on hover (~200ms threshold)
+          },
+        ],
+      });
+      
+      document.head.appendChild(script);
+      
+      return () => {
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+      };
+    }
+  }, []);
+
+  return null;
 }

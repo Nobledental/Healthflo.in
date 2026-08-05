@@ -205,7 +205,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${manrope.variable} ${inter.variable} h-full antialiased scroll-smooth font-sans`}
     >
       <head>
         <meta name="geo.region" content={siteConfig.seo.geoRegion} />
@@ -217,8 +217,8 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
-        <SiteConfigProvider>
+      <body className="font-sans min-h-full flex flex-col bg-white text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
+        <SiteConfigProvider initialConfig={siteConfig}>
           <SpeculationRules />
           <UIProtector />
           <CoordinatorIntelligenceTracker />

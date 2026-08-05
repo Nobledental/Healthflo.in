@@ -108,10 +108,10 @@ export default function FAQ() {
             <span className="w-2 h-2 rounded-full bg-[#0066FF]" />
             <span>Clinical Intelligence Desk</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-950 tracking-tight leading-tight mb-2.5">
-            Patient Frequently Asked <span className="text-[#0066FF]">Questions</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight mb-2.5">
+            Patient Frequently Asked <span className="text-[#0066FF] font-semibold">Questions</span>
           </h2>
-          <p className="text-slate-600 text-[14px] sm:text-[16px] font-semibold max-w-3xl leading-relaxed">
+          <p className="text-slate-600 text-[14px] sm:text-[16px] font-normal max-w-3xl leading-relaxed">
             Authoritative answers on USFDA surgical protocols, 100% cashless insurance claims, and same-day recovery procedures.
           </p>
         </div>

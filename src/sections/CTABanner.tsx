@@ -24,7 +24,7 @@ export default function CTABanner() {
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center p-6 md:p-10 lg:p-16">
           {/* Left: Copy */}
           <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-2 md:mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-tight mb-2 md:mb-3">
               Ready to Take the Next Step?
             </h2>
             <p className="text-blue-200 text-[14px] md:text-[16px] leading-relaxed mb-5 md:mb-8">

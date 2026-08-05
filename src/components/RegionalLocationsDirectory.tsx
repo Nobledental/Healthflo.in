@@ -133,38 +133,35 @@ export default function RegionalLocationsDirectory() {
   };
 
   return (
-    <section className="w-full py-8 sm:py-10 relative z-10" id="locations-hub">
-      {/* Ultra-Authentic Obsidian Medical Command Console */}
-      <div className="bg-gradient-to-br from-[#040A18] via-[#0A1428] to-[#050C1E] rounded-[2.5rem] p-6 sm:p-8 md:p-10 border border-slate-800/90 shadow-[0_25px_70px_rgba(0,0,0,0.5)] text-white overflow-hidden relative">
+    <section className="w-full py-12 sm:py-16 relative z-10 bg-[#f4f8ff]" id="locations-hub">
+      {/* Clean Light Container */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+
+        {/* Section header */}
+        <div className="mb-8">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#0055FF] text-[11px] font-black uppercase tracking-widest">
+              <HospitalShieldSVG className="w-3.5 h-3.5" />
+              Regional Surgical Network
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-black uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              24/7 Dispatch Online
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
+            Find Your Local Surgical Hub
+          </h2>
+          <p className="mt-1.5 text-[14px] text-slate-500 font-medium">Select your city to activate patient transit &amp; insurance coordination.</p>
+        </div>
+
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 flex flex-col gap-5">
         
-        {/* Subtle Radar & Grid Ambient Backdrop */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
-        <div className="absolute top-0 right-10 w-[450px] h-[300px] bg-[#0055ff]/15 rounded-full blur-[110px] pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-[350px] h-[250px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col gap-6">
+        <div className="flex flex-col gap-5">
           
-          {/* ── ROW 1: CLINICAL AUTHORITY HEADER & STATE NETWORK TABS ──────────── */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-800/80">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[#00E5FF] text-[11px] font-extrabold uppercase tracking-widest shadow-xs">
-                  <HospitalShieldSVG className="w-3.5 h-3.5" />
-                  <span>REGIONAL SURGICAL NETWORK & TRANSIT DESK</span>
-                </span>
-                
-                {/* Real-time Telemetry LED Indicator */}
-                <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-extrabold uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>24/7 Dispatch Online</span>
-                </span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2">
-                <span>Select Your Local Surgical Center</span>
-              </h2>
-            </div>
-
+          {/* ── STATE TABS & SEARCH ROW ──────────── */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-100">
+            
             {/* State Selection Bar */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
               {stateTabs.map((tab) => {
@@ -173,16 +170,15 @@ export default function RegionalLocationsDirectory() {
                   <button
                     key={tab.id}
                     onClick={() => handleTabChange(tab.id as any, tab.defaultSlug)}
-                    className={`px-4 py-2.5 rounded-xl font-black text-xs whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
+                    className={`px-3.5 py-2 rounded-xl font-black text-xs whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 shrink-0 ${
                       isSelected
-                        ? "bg-[#0066FF] text-white shadow-[0_4px_20px_rgba(0,102,255,0.4)] scale-[1.02] border border-blue-400/40"
-                        : "bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-700/60"
+                        ? "bg-[#0066FF] text-white shadow-[0_4px_12px_rgba(0,102,255,0.25)]"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200"
                     }`}
                   >
-                    <SlidersHorizontal className={`w-3.5 h-3.5 ${isSelected ? "text-white" : "text-slate-400"}`} />
                     <span>{tab.label}</span>
-                    <span className={`text-[11px] font-extrabold px-1.5 py-0.5 rounded-md ${
-                      isSelected ? "bg-white/20 text-white" : "bg-slate-800 " + tab.color
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      isSelected ? "bg-white/20 text-white" : "bg-white text-slate-400 border border-slate-200"
                     }`}>
                       {tab.tag}
                     </span>
@@ -190,31 +186,23 @@ export default function RegionalLocationsDirectory() {
                 );
               })}
             </div>
+
+            {/* Search Box */}
+            <div className="relative w-full sm:w-[220px] shrink-0">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search city or town..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 font-medium text-xs focus:outline-none focus:border-[#0066FF] focus:ring-1 focus:ring-blue-200 transition-all"
+              />
+            </div>
           </div>
 
-          {/* ── ROW 2: COMPACT CITY CHIP CLOUD & QUICK SEARCH ────────────────────── */}
-          <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                <Compass className="w-4 h-4 text-[#00E5FF] shrink-0" />
-                <span>Select a city or village district below to activate patient transit & insurance coordination:</span>
-              </span>
-              
-              {/* Compact Search Box */}
-              <div className="relative w-full sm:w-[240px] shrink-0">
-                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="text"
-                  placeholder="Search district or town..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 bg-[#040914] border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 font-bold text-xs focus:outline-none focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Clickable City Pill Cloud */}
-            <div className="p-4 rounded-2xl bg-[#030712]/80 border border-slate-800 shadow-inner max-h-[145px] overflow-y-auto scrollbar-thin">
+          {/* ── CITY CHIP CLOUD ────────────────────── */}
+          <div>
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 max-h-[160px] overflow-y-auto">
               <div className="flex flex-wrap gap-2">
                 {availableLocations.length > 0 ? (
                   availableLocations.map((loc) => {
@@ -226,65 +214,62 @@ export default function RegionalLocationsDirectory() {
                           haptic.medium();
                           setSelectedSlug(loc.slug);
                         }}
-                        className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 flex items-center gap-2 group ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
                           isCurrent
-                            ? "bg-gradient-to-r from-[#0066FF] to-teal-600 text-white shadow-[0_4px_16px_rgba(0,102,255,0.3)] ring-1 ring-white/30 scale-[1.03]"
-                            : "bg-slate-900/90 hover:bg-slate-800/90 text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white"
+                            ? "bg-[#0066FF] text-white shadow-[0_2px_8px_rgba(0,102,255,0.25)]"
+                            : "bg-white hover:bg-blue-50 text-slate-700 border border-slate-200 hover:border-blue-300 hover:text-[#0066FF]"
                         }`}
                       >
-                        <MapPin className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isCurrent ? "text-white fill-white/20" : "text-[#00E5FF]"}`} />
-                        <span>{loc.name}</span>
+                        <MapPin className={`w-3 h-3 shrink-0 ${isCurrent ? "text-white" : "text-[#0066FF]"}`} />
+                        {loc.name}
                       </button>
                     );
                   })
                 ) : (
-                  <div className="w-full py-4 text-center text-xs font-bold text-slate-500">
-                    No matching town found for &quot;{searchQuery}&quot;. Our medical coordinators organize hospital travel across all South India pin codes!
+                  <div className="w-full py-4 text-center text-xs font-bold text-slate-400">
+                    No matching city found for &quot;{searchQuery}&quot;
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          {/* ── ROW 3: ULTRA-AUTHENTIC INLINE TELEMETRY SPOTLIGHT DOCK ──────────── */}
+          {/* Selected Location Spotlight */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeLocation.slug}
-              initial={{ opacity: 0, y: 5 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
+              exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.2 }}
-              className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-950/70 via-[#0B162C] to-slate-900/90 border border-blue-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.3)] flex flex-col gap-5 relative overflow-hidden"
+              className="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-[#eef4ff] to-[#f0fbff] border border-blue-200 flex flex-col gap-4 relative overflow-hidden"
             >
-              {/* Subtle background circuit line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00E5FF]/40 to-transparent pointer-events-none" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0066FF]/30 to-transparent pointer-events-none" />
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative z-10 w-full">
-                <div className="flex items-center gap-4">
-                  
-                  {/* Custom Professional High-Precision GPS Pin SVG Badge */}
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0A162C] border border-slate-700/80 flex items-center justify-center shrink-0 shadow-lg p-2.5 group hover:border-[#00E5FF] transition-colors">
-                    <HighPrecisionMedicalPinSVG className="w-full h-full drop-shadow-[0_0_8px_rgba(0,229,255,0.5)]" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10 w-full">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 p-2.5">
+                    <HighPrecisionMedicalPinSVG className="w-full h-full" />
                   </div>
 
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-base sm:text-xl font-black text-white tracking-tight flex items-center gap-1.5">
-                        <span>{activeLocation.name} Surgical Hub</span>
-                        <ShieldCheck className="w-4 h-4 text-[#00E5FF] shrink-0" />
+                      <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight flex items-center gap-1.5">
+                        {activeLocation.name} Surgical Hub
+                        <ShieldCheck className="w-4 h-4 text-[#0066FF] shrink-0" />
                       </h3>
-                      <span className="text-[11px] font-extrabold text-[#00E5FF] px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/30 shadow-xs">
+                      <span className="text-[11px] font-extrabold text-[#0066FF] px-2.5 py-0.5 rounded-full bg-blue-100 border border-blue-200">
                         {activeLocation.nativeGreeting}
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-slate-300">
-                      <div className="flex items-center gap-1.5 text-slate-200">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-semibold text-slate-500">
+                      <div className="flex items-center gap-1.5 text-slate-700">
                         <TransitRouteSVG className="w-4 h-4 shrink-0" />
                         <span>{activeLocation.transitTime}</span>
                       </div>
-                      <span className="hidden sm:inline text-slate-600">•</span>
-                      <div className="flex items-center gap-1 text-emerald-400 font-bold">
+                      <span className="hidden sm:inline text-slate-300">•</span>
+                      <div className="flex items-center gap-1 text-emerald-600 font-bold">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>{activeLocation.nativeLanguage} Coordinator on Duty</span>
                       </div>
@@ -292,35 +277,35 @@ export default function RegionalLocationsDirectory() {
                   </div>
                 </div>
 
-                {/* Action Buttons Deck */}
-                <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-blue-100">
                   <a
                     href={`tel:+${config.helplineRaw}`}
-                    className="px-4 py-3 rounded-xl bg-[#0F1C36] hover:bg-[#16274B] text-slate-100 font-extrabold text-xs flex items-center justify-center gap-2 border border-slate-700 shadow-md transition-colors"
+                    className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs flex items-center justify-center gap-2 border border-slate-200 shadow-sm transition-colors"
                   >
-                    <Phone className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
+                    <Phone className="w-3.5 h-3.5 text-emerald-500 fill-emerald-400" />
                     <span>24/7 Helpline</span>
                   </a>
 
                   <Link
                     href={`/locations/${activeLocation.stateSlug}/${activeLocation.slug}`}
                     onClick={() => haptic.light()}
-                    className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#0052CC] hover:from-blue-600 hover:to-blue-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_6px_25px_rgba(0,102,255,0.4)] transition-all transform hover:scale-[1.02]"
+                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,102,255,0.3)] transition-all"
                   >
                     <span>Enter {activeLocation.name} Portal</span>
-                    <ChevronRight className="w-4 h-4 text-[#00E5FF]" />
+                    <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
 
-              {/* Procedure Matrix Quick Links Deck */}
-              <div className="w-full pt-3 border-t border-slate-800/80 relative z-10">
+              {/* Procedure Quick Links */}
+              <div className="w-full pt-3 border-t border-blue-100 relative z-10">
                 <div className="flex items-center justify-between mb-2.5">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#00E5FF] flex items-center gap-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#0066FF] flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5" />
-                    <span>Direct Procedure Access in {activeLocation.name}:</span>
+                    Procedures in {activeLocation.name}:
                   </span>
-                  <span className="text-[10px] font-semibold text-slate-400 hidden sm:inline">100% Insurance Eligible • USFDA Laser Suites</span>
+                  <span className="text-[10px] font-semibold text-slate-400 hidden sm:inline">100% Insurance Eligible · USFDA Laser</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {Object.entries(specialitiesData).map(([slug, spec]) => (
@@ -328,10 +313,10 @@ export default function RegionalLocationsDirectory() {
                       key={slug}
                       href={`/locations/${activeLocation.stateSlug}/${activeLocation.slug}/${slug}`}
                       onClick={() => haptic.light()}
-                      className="text-[11px] sm:text-xs font-black px-3 py-2 rounded-xl bg-slate-900/90 hover:bg-[#0066FF] text-slate-300 hover:text-white border border-slate-700/80 hover:border-blue-400 transition-all duration-200 flex items-center gap-1.5 shadow-xs group/btn"
+                      className="text-[11px] sm:text-xs font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-[#0066FF] hover:text-white text-slate-700 border border-slate-200 hover:border-blue-400 transition-all duration-200 flex items-center gap-1.5"
                     >
-                      <span>{spec.shortTitle}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-[#00E5FF] group-hover/btn:text-white transition-transform group-hover/btn:translate-x-0.5" />
+                      {spec.shortTitle}
+                      <ChevronRight className="w-3 h-3 text-slate-400" />
                     </Link>
                   ))}
                 </div>
@@ -342,18 +327,19 @@ export default function RegionalLocationsDirectory() {
 
         </div>
 
-        {/* Master Locations Action Button */}
-        <div className="mt-10 text-center relative z-20">
+        {/* View All Action */}
+        <div className="mt-6 text-center">
           <Link
             href="/locations"
             onClick={() => haptic.medium()}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1C3664] hover:bg-[#152B52] text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg border border-blue-400/30 transition-all transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white font-black text-sm uppercase tracking-wider shadow-[0_4px_18px_rgba(0,102,255,0.3)] transition-all hover:scale-105 active:scale-95"
           >
-            <span>View All Regional Hubs & Transit Coverage Directory</span>
-            <ChevronRight className="w-5 h-5 text-amber-400" />
+            View All Regional Hubs
+            <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

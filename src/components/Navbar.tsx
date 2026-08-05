@@ -1,6 +1,6 @@
 "use client";
 
-import { MagnifyingGlass, Bell, Phone, ShieldCheck, SignOut } from "@phosphor-icons/react";
+import { MagnifyingGlass, Phone } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,7 +11,6 @@ export default function Navbar() {
   const { config } = useSiteConfig();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPastOrbSection, setIsPastOrbSection] = useState(false);
-  const [showSafeTooltip, setShowSafeTooltip] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,11 +32,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Quick Exit / Safe Leave feature for patients researching private medical treatments (circumcision/proctology)
-  const handleSafeLeave = () => {
-    window.location.replace("https://www.google.com");
-  };
 
   return (
     <>
@@ -68,25 +62,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 md:gap-3 md:w-1/4 justify-end">
-          {/* Safe Leave / Quick Exit Privacy Button */}
-          <div className="relative">
-            <button
-              onClick={handleSafeLeave}
-              onMouseEnter={() => setShowSafeTooltip(true)}
-              onMouseLeave={() => setShowSafeTooltip(false)}
-              className="bg-rose-50 hover:bg-rose-100 border border-rose-200/60 text-rose-700 text-xs font-semibold px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-xs transition-all hover:scale-105"
-              title="Click to instantly switch screen to Google for personal privacy"
-            >
-              <ShieldCheck weight="fill" className="text-rose-600 text-sm" />
-              <span className="hidden sm:inline">Safe Leave</span>
-              <SignOut className="text-xs text-rose-600 hidden lg:inline" />
-            </button>
-            {showSafeTooltip && (
-              <div className="absolute top-10 right-0 bg-slate-900 text-white text-[11px] font-medium p-2 rounded-lg shadow-xl w-48 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <span className="text-rose-400 font-bold">Privacy Shield:</span> Click to instantly exit page if someone approaches your screen.
-              </div>
-            )}
-          </div>
 
           <div className="relative hidden xl:block">
             <input className="bg-white/60 border border-white/40 rounded-full py-1.5 pl-5 pr-10 text-[13px] font-medium text-slate-800 w-48 focus:outline-none focus:border-[#0a84ff] focus:bg-white placeholder-slate-400 backdrop-blur-md transition-all shadow-sm" placeholder="Search surgery..." type="text"/>

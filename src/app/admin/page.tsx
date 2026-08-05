@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import TabGlobalConfig from "@/components/admin/TabGlobalConfig";
 import TabAITriage from "@/components/admin/TabAITriage";
+import TabVisitorAnalytics from "@/components/admin/TabVisitorAnalytics";
 import { DashboardIntelligence, CoordinatorNoteRecord } from "@/lib/secureDb";
 import { 
   generateHardwareSignature, 
@@ -389,52 +390,63 @@ export default function AdminIntelligenceDashboard() {
   // ── UNVERIFIED / ZERO-TRUST LOGIN GATEWAY ──────────────────────────────────
   if (!isAuthenticated) {
     return (
-      <div className="w-full min-h-screen bg-[#050B14] text-slate-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 relative overflow-hidden font-sans flex-1">
-        {/* Background Cyber Security Glows */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="w-full min-h-screen bg-[#060B18] text-slate-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 relative overflow-hidden font-sans flex-1">
+        {/* Subtle Ambient Background Glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-600/15 via-indigo-600/15 to-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <motion.div 
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="w-full sm:min-w-[540px] md:min-w-[620px] max-w-2xl bg-[#0A1224]/95 border border-amber-400/40 rounded-3xl p-6 sm:p-10 shadow-[0_0_60px_rgba(245,158,11,0.2)] backdrop-blur-3xl relative z-10 mx-auto flex-shrink-0"
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="w-[92%] sm:w-[540px] md:w-[580px] lg:w-[600px] max-w-[620px] bg-[#0B132B] border border-slate-800/90 rounded-3xl p-6 sm:p-9 md:p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] backdrop-blur-2xl relative z-10 mx-auto my-8 flex-shrink-0"
         >
+          {/* Header Section */}
           <div className="flex flex-col items-center text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-blue-600 flex items-center justify-center shadow-lg shadow-amber-500/20 mb-4 border border-white/20">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#0066FF] to-indigo-600 flex items-center justify-center shadow-[0_8px_24px_rgba(0,102,255,0.3)] mb-4 border border-blue-400/30">
               <ShieldCheck className="w-8 h-8 text-white animate-pulse" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2">
+            
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
               HealthFlo Directorate
             </h1>
-            <p className="text-xs font-black text-amber-400 uppercase tracking-widest mt-2 bg-amber-400/10 px-4 py-1 rounded-full border border-amber-400/25 shadow-xs">
-              🔒 4-Layer Zero-Trust Command Hub
-            </p>
-            <p className="text-xs sm:text-[13px] text-slate-400 mt-3 max-w-md leading-relaxed">
-              Protected enclave. Encrypted visitor telemetry formatted strictly as <strong className="text-slate-200 font-bold">Internal Patient Care Coordinator Notes</strong> for empanelled hospitals.
+            
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-bold uppercase tracking-wider mt-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+              4-Layer Zero-Trust Command Hub
+            </span>
+
+            <p className="text-xs sm:text-sm text-slate-400 mt-4 leading-relaxed font-medium">
+              Protected executive enclave. Encrypted visitor telemetry formatted strictly as <strong className="text-slate-200 font-bold">Internal Patient Care Coordinator Notes</strong> for empanelled hospitals.
             </p>
           </div>
 
-          {/* Real-time Hardware & Geo Security Radar */}
-          <div className="mb-8 bg-[#060D1A]/90 border border-blue-500/30 rounded-2xl p-4 sm:p-5 space-y-3 font-mono text-xs shadow-inner">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 border-b border-slate-800/80 pb-2.5 gap-1.5">
-              <span className="flex items-center gap-2 text-cyan-400 font-extrabold shrink-0">
-                <Cpu className="w-4 h-4 text-cyan-400 animate-pulse shrink-0" /> [DEVICE-FINGERPRINT]:
+          {/* Real-time Security Radar Card */}
+          <div className="mb-7 bg-[#070D1F] border border-slate-800/90 rounded-2xl p-4 sm:p-4.5 space-y-3 shadow-inner">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 border-b border-slate-800/70 pb-3 gap-2">
+              <span className="flex items-center gap-2 text-indigo-400 text-xs font-bold shrink-0">
+                <Cpu className="w-4 h-4 text-indigo-400 animate-pulse shrink-0" />
+                Device Fingerprint
               </span>
-              <span className="text-amber-300 font-bold break-all text-left sm:text-right">
+              <span className="bg-indigo-950/60 border border-indigo-800/40 px-2.5 py-0.5 rounded-md text-indigo-300 font-mono text-[11px] font-semibold truncate max-w-[280px] sm:max-w-[320px]">
                 {hwAuth.signature?.deviceHash || "Scanning hardware security signatures..."}
               </span>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 gap-1.5">
-              <span className="flex items-center gap-2 text-emerald-400 font-extrabold shrink-0">
-                <Navigation className="w-4 h-4 text-emerald-400 shrink-0" /> [GEO-VERIFICATION]:
+            
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 gap-2">
+              <span className="flex items-center gap-2 text-emerald-400 text-xs font-bold shrink-0">
+                <Navigation className="w-4 h-4 text-emerald-400 shrink-0" />
+                Geo-Verification
               </span>
-              <span className="text-slate-200 break-all text-left sm:text-right font-medium">
-                {geoStatus ? `${geoStatus.city || "Authorized Zone"}, ${geoStatus.state || "India"} [Verified]` : "Triangulating encrypted GPS coordinates..."}
-              </span>
+              <div className="flex items-center gap-1.5 text-left sm:text-right text-xs font-medium text-slate-200 break-words">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 inline-block" />
+                <span>
+                  {geoStatus ? `${geoStatus.city || "Authorized Zone"}, ${geoStatus.state || "India"} [Verified]` : "Triangulating GPS coordinates..."}
+                </span>
+              </div>
             </div>
           </div>
 
+          {/* Brute Force Lockout or Login Form */}
           {lockout.locked ? (
             <div className="p-5 rounded-2xl bg-rose-500/15 border-2 border-rose-500 text-rose-300 text-center space-y-2 animate-bounce">
               <AlertTriangle className="w-8 h-8 text-rose-500 mx-auto" />
@@ -445,35 +457,35 @@ export default function AdminIntelligenceDashboard() {
           ) : (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <KeyRound className="w-3.5 h-3.5 text-amber-400" /> Executive Login ID
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-blue-400" /> Executive Login ID
                 </label>
                 <input
                   type="email"
                   value={loginId}
                   onChange={(e) => setLoginId(e.target.value)}
                   placeholder="director@healthflo.in"
-                  className="w-full px-4 py-3 rounded-xl bg-[#070D1C] border border-slate-700 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition text-sm font-mono"
+                  className="w-full px-4 py-3 rounded-xl bg-[#070D1E] border border-slate-700/80 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition text-sm font-medium"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-extrabold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5 text-amber-400" /> Master Decryption Passphrase
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-blue-400" /> Master Decryption Passphrase
                 </label>
                 <input
                   type="password"
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
-                  placeholder="Enter secret key (HealthFlo#2026!Secure)"
-                  className="w-full px-4 py-3 rounded-xl bg-[#070D1C] border border-slate-700 text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition text-sm font-mono"
+                  placeholder="Enter secret key..."
+                  className="w-full px-4 py-3 rounded-xl bg-[#070D1E] border border-slate-700/80 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition text-sm font-medium"
                   required
                 />
               </div>
 
               {error && (
-                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-medium flex items-center gap-2">
+                <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-medium flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
                   <span>{error}</span>
                 </div>
@@ -482,11 +494,11 @@ export default function AdminIntelligenceDashboard() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-blue-600 hover:opacity-95 text-white font-extrabold text-sm shadow-lg shadow-amber-500/25 transition disabled:opacity-50 flex items-center justify-center gap-2 active:scale-[0.99]"
+                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#0066FF] via-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-[0_6px_20px_rgba(0,102,255,0.3)] transition-all disabled:opacity-50 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
               >
                 {loading ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin" /> Verifying Hardware & AES Vault...
+                    <RefreshCw className="w-4 h-4 animate-spin" /> Verifying Security Enclave...
                   </>
                 ) : (
                   <>
@@ -498,32 +510,32 @@ export default function AdminIntelligenceDashboard() {
           )}
 
           {/* Device Enrollment Manual Override Toggle */}
-          <div className="mt-6 text-center">
+          <div className="mt-6 pt-2 text-center">
             <button
               type="button"
               onClick={() => setShowEnrollment(!showEnrollment)}
-              className="text-[11px] text-amber-400/80 hover:text-amber-300 font-semibold underline decoration-amber-500/50"
+              className="text-xs text-slate-400 hover:text-blue-400 font-semibold transition-colors inline-flex items-center gap-1.5"
             >
-              {showEnrollment ? "▲ Hide Device Enrollment Key" : "⚡ Need to register a new laptop or phone? Click to Bind Hardware"}
+              <span>{showEnrollment ? "▲ Cancel Hardware Registration" : "⚙️ Want to authorize a new device? Register Hardware Token"}</span>
             </button>
             
             {showEnrollment && (
-              <div className="mt-3 p-3.5 bg-white/5 border border-white/10 rounded-2xl text-left space-y-2 animate-fadeIn">
-                <p className="text-[11px] text-slate-300 font-medium">
-                  Enter your one-time hardware enrollment token to bind this machine to the security whitelist:
+              <div className="mt-3 p-4 bg-slate-950/80 border border-slate-800 rounded-2xl text-left space-y-3 animate-fadeIn">
+                <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                  Enter your master security token to whitelist this device&apos;s fingerprint for Directorate operations:
                 </p>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="password"
                     value={enrollmentKey}
                     onChange={(e) => setEnrollmentKey(e.target.value)}
                     placeholder="e.g. MASTER-KEY-2026"
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs font-mono"
+                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-mono focus:outline-none focus:border-blue-500"
                   />
                   <button
                     type="button"
                     onClick={handleDeviceEnrollment}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm whitespace-nowrap"
                   >
                     Bind Device
                   </button>
@@ -532,14 +544,15 @@ export default function AdminIntelligenceDashboard() {
             )}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/80 flex flex-col items-center text-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-sm">
-              <CheckCircle2 className="w-3.5 h-3.5" /> 100% Legal Safe-Harbor: Empanelled Hospital Network Only
+          {/* Safe-Harbor Footer */}
+          <div className="mt-8 pt-5 border-t border-slate-800/80 flex flex-col items-center text-center gap-2.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> 100% Legal Safe-Harbor Compliance
             </span>
-            <span className="text-[11px] text-slate-500 leading-tight">
-              All records encrypted in transit & at rest. Zero hospital ownership claims; exclusively patient concierge coordination notes.
-            </span>
-            <Link href="/" className="text-xs text-blue-400 hover:text-amber-300 font-semibold mt-1 inline-block transition-colors">
+            <p className="text-[11px] text-slate-400 leading-normal max-w-md">
+              Zero hospital ownership claims; exclusively patient concierge coordination notes for empanelled surgical centres.
+            </p>
+            <Link href="/" className="text-xs text-blue-400 hover:text-blue-300 font-semibold mt-1 inline-flex items-center gap-1 transition-colors">
               ← Return to HealthFlo Patient Portal
             </Link>
           </div>
@@ -1091,66 +1104,7 @@ export default function AdminIntelligenceDashboard() {
 
           {/* TAB 3: REGIONAL TRIAGE & CONVERSION ANALYTICS */}
           {activeTab === "analytics" && (
-            <div className="p-6 space-y-8 animate-fadeIn">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-5 rounded-2xl bg-[#0D1629] border border-slate-800 space-y-2 shadow-lg">
-                  <span className="text-xs text-slate-400 uppercase font-extrabold flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-amber-400" /> Triage to Consultation Conversion
-                  </span>
-                  <p className="text-3xl font-mono font-black text-white">78.4%</p>
-                  <p className="text-xs text-emerald-400 font-semibold">↑ +6.2% improvement vs last month</p>
-                  <div className="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
-                    <div className="w-[78%] bg-gradient-to-r from-amber-500 to-emerald-400 h-full rounded-full" />
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-[#0D1629] border border-slate-800 space-y-2 shadow-lg">
-                  <span className="text-xs text-slate-400 uppercase font-extrabold flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-cyan-400" /> Avg. Insurance Pre-Auth Speed
-                  </span>
-                  <p className="text-3xl font-mono font-black text-cyan-400">14 Mins</p>
-                  <p className="text-xs text-slate-300 font-semibold">Target: &lt; 30 mins across empanelled network</p>
-                  <div className="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
-                    <div className="w-[92%] bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full" />
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-[#0D1629] border border-slate-800 space-y-2 shadow-lg">
-                  <span className="text-xs text-slate-400 uppercase font-extrabold flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" /> DPDP Safe-Harbor Score
-                  </span>
-                  <p className="text-3xl font-mono font-black text-emerald-400">100 / 100</p>
-                  <p className="text-xs text-slate-300 font-semibold">Zero hospital ownership claims; strictly coordinator notes</p>
-                  <div className="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
-                    <div className="w-full bg-emerald-500 h-full rounded-full" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-[#0D182E] border border-slate-800/90 shadow-xl">
-                <h3 className="text-sm font-extrabold text-white uppercase tracking-wider flex items-center gap-2 mb-6">
-                  <FileSpreadsheet className="w-4 h-4 text-amber-400" /> Empanelled Hospital Triage Load (By Regional Hub)
-                </h3>
-                <div className="space-y-5">
-                  {[
-                    { hub: "Chennai (OMR / Greams Rd Hubs)", volume: 420, split: "44%", bar: 88, color: "bg-cyan-500" },
-                    { hub: "Bengaluru (Indiranagar / Whitefield Hubs)", volume: 340, split: "36%", bar: 72, color: "bg-emerald-500" },
-                    { hub: "Hyderabad (Jubilee Hills / Secunderabad Hubs)", volume: 295, split: "31%", bar: 62, color: "bg-purple-500" },
-                    { hub: "Coimbatore & Salem (Tier-2 Fast Track Hubs)", volume: 185, split: "20%", bar: 40, color: "bg-amber-500" }
-                  ].map((row, i) => (
-                    <div key={i} className="space-y-1.5">
-                      <div className="flex justify-between text-xs font-bold text-slate-200">
-                        <span>🏥 {row.hub}</span>
-                        <span className="font-mono text-slate-300">{row.volume} Surgical Packages ({row.split})</span>
-                      </div>
-                      <div className="w-full bg-slate-800/80 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
-                        <div className={`h-full ${row.color} rounded-full transition-all duration-500`} style={{ width: `${row.bar}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <TabVisitorAnalytics passphrase={passphrase} />
           )}
 
           {/* TAB 4: DPDP COMPLIANCE AUDIT TRAIL */}

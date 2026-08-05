@@ -238,14 +238,14 @@ export default function LeadCapture() {
             </div>
 
             {/* Headline */}
-            <h2 className="text-4xl sm:text-5xl lg:text-5xl font-black text-slate-950 tracking-tight leading-[1.08]">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-light text-slate-800 tracking-tight leading-tight">
               Every City.<br />
-              <span className="bg-gradient-to-r from-[#0055ff] via-[#0077ff] to-teal-600 bg-clip-text text-transparent">
+              <span className="font-semibold bg-gradient-to-r from-[#0055ff] via-[#0077ff] to-teal-600 bg-clip-text text-transparent">
                 Every Town & Village.
               </span>
             </h2>
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium">
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
               We eliminate healthcare distance barriers across Tamil Nadu, Karnataka, and Hyderabad. Experience 100% cashless laser surgery with free hospital travel coordination, native language coordinators (Tamil, Kannada, Telugu), and zero room rent cap surprises.
             </p>
           </div>

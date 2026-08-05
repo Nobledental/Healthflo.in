@@ -77,28 +77,35 @@ async function ensureConfigExists(): Promise<void> {
   }
 }
 
+function sanitizeSiteConfig(cfg: SiteConfig): SiteConfig {
+  return {
+    ...cfg,
+    helplineRaw: (cfg.helplineRaw || "").toString().replace(/\D/g, "") || "919363650066",
+  };
+}
+
 export async function readSiteConfig(): Promise<SiteConfig> {
   await ensureConfigExists();
   try {
     const data = await fs.readFile(CONFIG_FILE, "utf8");
     const parsed = JSON.parse(data);
-    return { ...DEFAULT_SITE_CONFIG, ...parsed };
+    return sanitizeSiteConfig({ ...DEFAULT_SITE_CONFIG, ...parsed });
   } catch (err) {
     console.error("Failed to read site config file, using default parameters:", err);
-    return DEFAULT_SITE_CONFIG;
+    return sanitizeSiteConfig(DEFAULT_SITE_CONFIG);
   }
 }
 
 export async function writeSiteConfig(newConfig: Partial<SiteConfig>): Promise<SiteConfig> {
   await ensureConfigExists();
   const current = await readSiteConfig();
-  const merged: SiteConfig = {
+  const merged: SiteConfig = sanitizeSiteConfig({
     ...current,
     ...newConfig,
     regionalAddresses: { ...current.regionalAddresses, ...(newConfig.regionalAddresses || {}) },
     socials: { ...current.socials, ...(newConfig.socials || {}) },
     seo: { ...current.seo, ...(newConfig.seo || {}) }
-  };
+  });
 
   try {
     await fs.writeFile(CONFIG_FILE, JSON.stringify(merged, null, 2), "utf8");

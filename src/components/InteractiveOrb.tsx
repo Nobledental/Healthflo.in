@@ -106,11 +106,11 @@ export default function InteractiveOrb({
     >
       <AiOrb preset={aiPreset} className="w-full h-full" isPaused={powerSavingMode} />
 
-      {/* Speech Bubble */}
+      {/* Speech Bubble — positioned above the orb, outside the bottom nav */}
       {showSpeechBubble && (
-        <div className={`absolute top-[-65px] left-1/2 -translate-x-1/2 w-[240px] bg-white/90 backdrop-blur-md border border-white/50 text-slate-800 text-[12px] leading-snug font-semibold px-4 py-3 rounded-2xl shadow-xl z-50 text-center origin-bottom transition-all duration-300 ${isActive ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100 animate-fade-in-up'}`}>
-          I'm your AI assistant, ping me if you need any assistance!
-          <div className="w-3 h-3 rotate-45 bg-white/90 border-b border-r border-white/50 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>
+        <div className={`absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[220px] bg-white/95 backdrop-blur-md border border-white/60 text-slate-800 text-[11px] leading-snug font-semibold px-3 py-2.5 rounded-2xl shadow-xl z-[60] text-center origin-bottom transition-all duration-300 ${isActive ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100 animate-fade-in-up'}`}>
+          I&apos;m your AI assistant, ping me if you need any assistance!
+          <div className="w-3 h-3 rotate-45 bg-white/95 border-b border-r border-white/50 absolute -bottom-1.5 left-1/2 -translate-x-1/2"></div>
         </div>
       )}
 

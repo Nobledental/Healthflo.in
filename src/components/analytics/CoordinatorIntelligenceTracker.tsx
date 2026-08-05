@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { usePageTracker } from "@/hooks/usePageTracker";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Client Telemetry & Coordinator Patient Care Listener
@@ -11,6 +12,7 @@ import { usePathname } from "next/navigation";
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function CoordinatorIntelligenceTracker() {
+  usePageTracker();
   const pathname = usePathname();
   const sessionIdRef = useRef<string>("");
   const pagesViewedRef = useRef<string[]>([]);

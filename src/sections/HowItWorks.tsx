@@ -35,8 +35,8 @@ const steps = [
 export default function HowItWorks() {
   const { config } = useSiteConfig();
   return (
-    <section className="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] py-14 md:py-24 overflow-hidden bg-gradient-to-br from-[#e8f2ff] via-[#f4f9ff] to-[#ffffff]" id="how-it-works">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 w-full">
+    <section className="w-full py-14 md:py-20 overflow-x-hidden bg-gradient-to-br from-[#e8f2ff] via-[#f4f9ff] to-[#ffffff] rounded-[2rem] md:rounded-[3rem] border border-blue-100/70 shadow-sm my-6" id="how-it-works">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 xl:px-12 w-full">
         
         {/* ── Top Row: Text & CTA ── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 md:mb-16 relative z-10">
@@ -54,9 +54,9 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-[44px] font-bold text-slate-900 tracking-tight leading-[1.15] mb-3 md:mb-5"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-light text-slate-800 tracking-tight leading-[1.15] mb-3 md:mb-5"
             >
-              From First Call to <span className="text-[#0055ff]">Full Recovery</span>
+              From First Call to <span className="text-[#0055ff] font-semibold">Full Recovery</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -126,9 +126,7 @@ export default function HowItWorks() {
               );
             })}
           </div>
-          
         </div>
-
       </div>
     </section>
   );

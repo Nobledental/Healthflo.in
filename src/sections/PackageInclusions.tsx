@@ -23,14 +23,12 @@ const packageHighlights = [
 export default function PackageInclusions() {
   const { config } = useSiteConfig();
   return (
-    <section className="w-full py-8 md:py-12 relative z-10" id="insurance-package">
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
-        
-        {/* Premium Blue Banner */}
-        <div className="bg-[#05f] rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-16 relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(5,100,255,0.4)]">
+    <div className="w-full relative z-10 mt-12 md:mt-16" id="insurance-package">
+      {/* Premium Blue Banner */}
+      <div className="w-full bg-[#05f] rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-16 relative overflow-hidden shadow-[0_30px_60px_-15px_rgba(5,100,255,0.4)]">
           
           {/* Abstract background shapes */}
-          <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-white/10 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#00A88F]/30 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-[#002bd9]/40 rounded-full blur-[80px] transform -translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -112,7 +110,7 @@ export default function PackageInclusions() {
                 transition={{ delay: 0.4 }}
                 className="bg-white p-4 md:p-5 rounded-[1.25rem] md:rounded-[20px] shadow-lg flex items-start gap-3 md:gap-4"
               >
-                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#e6f7f5] flex items-center justify-center text-[#00A88F] shrink-0">
                   <Clock size={18} />
                 </div>
                 <div>
@@ -158,6 +156,5 @@ export default function PackageInclusions() {
           </div>
         </div>
       </div>
-    </section>
   );
 }
