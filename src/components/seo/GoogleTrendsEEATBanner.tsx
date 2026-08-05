@@ -107,7 +107,7 @@ export default function GoogleTrendsEEATBanner({
             </div>
 
             <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-500 font-bold">
-              <span>Google Trends Telemetry</span>
+              <span>Live Regional Trend Insights</span>
               <span>Updated Today</span>
             </div>
           </div>

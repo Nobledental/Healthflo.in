@@ -1,0 +1,109 @@
+[
+  {
+    "id": "ai-note-1785954911771-vuxj",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:35:11.771Z",
+    "userPrompt": "how does this work",
+    "extractedSymptoms": [
+      "Patient query: \"how does this work...\". Guided toward multidisciplinary senior surgical desk.",
+      "Multidisciplinary Surgical Hub"
+    ],
+    "suggestedProcedure": "Multidisciplinary Specialist Evaluation & Second Opinion",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Hello! Thank you so much for consulting HealthFlo today. I am your online clinical companion, seamlessly connected to our network of 25+ accredited surgical hospitals and senior specialist doctors across Bangalore, Chennai, Hyderabad, and major regional medical hubs.\n\nWhatever health concern or symptom brings you here today—whether you are exploring laser treatment options, seeking a second surgical opinion, or managing a persistent discomfort—our clinical philosophy revolves around **minimally invasive, gentle USFDA procedures** designed to return you to comfort as fast as possible.\n\nWhile online information offers a helpful foundation, nothing compares to a supportive, human conversation with an experienced medical coordinator or senior operating surgeon. **To gain 100% certainty about your condition and discover how our cashless packages protect you, I warmly advise you to give us a call or tap the connect button right now**. We are here to listen, support your healing, and guide you every step of the way!",
+    "clinicalNotesSummary": "Patient prompt: \"how does this work...\". Matched with Multidisciplinary Surgical Hub. Recommended phone consultation with operating surgeons for clarity."
+  },
+  {
+    "id": "ai-note-1785954894935-svgw",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:34:54.935Z",
+    "userPrompt": "hi",
+    "extractedSymptoms": [
+      "Patient initiated conversational consultation. Welcomed and guided toward specialized care lines.",
+      "Patient Care Coordinator Desk"
+    ],
+    "suggestedProcedure": "Clinical Evaluation",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Hello and welcome to HealthFlo Surgical Care! I am your empathetic personal care guide, here to listen and assist you with complete privacy.\n\nHow are you feeling today? Whether you are experiencing discomfort like piles, fissures, hernia, or urological issues, or simply wish to learn about our 100% cashless hospital network in Bangalore, Chennai, Hyderabad, and major hubs—I am right here to help.\n\nPlease feel free to share any symptoms or questions on your mind, or tap the button to call our senior surgical desk directly for instant reassurance!",
+    "clinicalNotesSummary": "Patient prompt: \"hi...\". Matched with Patient Care Coordinator Desk. Recommended phone consultation with operating surgeons for clarity."
+  },
+  {
+    "id": "ai-note-1785954391340-ue1s",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:26:31.340Z",
+    "userPrompt": "hi",
+    "extractedSymptoms": [
+      "General patient health query: \"hi\". Matched with multidisciplinary clinical coordination desk.",
+      "Full Website Clinical Knowledge Roster"
+    ],
+    "suggestedProcedure": "Multidisciplinary Specialist Evaluation & Second Opinion",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Hello! Thank you so much for opening up to me today. I am your HealthFlo AI Clinical Assistant, and I am connected directly to the entire database of our 25+ empanelled hospital hubs, NABH surgical suites, and expert specialist rosters across Bangalore, Chennai, Hyderabad, and major regional centers.\n\nWhatever symptoms or health concerns brought you here—whether it's digestive discomfort, surgical second opinions, venous disorders, or finding the right specialist—our core philosophy is **minimally invasive, painless USFDA laser procedures** that get you back to your family and routine as quickly as possible.\n\nAs advanced as my clinical algorithm is, nothing ever replaces a genuine, compassionate conversation with our experienced medical coordinators and senior surgeons. **To get absolute clarity on your health condition and learn how our cashless surgical packages protect you, I warmly advise you to call us or tap the button on my right arm right now**. We are here to listen, guide you, and support you every step of the way!",
+    "clinicalNotesSummary": "Patient reported: \"hi...\". Matched with Full Website Clinical Knowledge Roster. Recommended direct call/connection with senior operating team for individualized clarity."
+  },
+  {
+    "id": "ai-note-1785953970586-1zvh",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:19:30.586Z",
+    "userPrompt": "piles",
+    "extractedSymptoms": [
+      "Rectal discomfort / hematochezia reported. Matched to non-invasive laser hemorrhoidectomy pathway."
+    ],
+    "suggestedProcedure": "Laser Proctology (Piles / Fistula / Fissure)",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Based on your symptom description, this falls under our **Advanced Laser Proctology Protocol**. Discomfort or bleeding during bowel movements is commonly related to internal hemorrhoids or fissure tears. Our empanelled NMC-verified proctologists perform USFDA-approved **Painless Laser Hemorrhoidoplasty**, which requires zero incisions, stitches, or painful dressings.",
+    "clinicalNotesSummary": "Patient presented with query: \"piles...\". AI recommended Laser Proctology (Piles / Fistula / Fissure)."
+  },
+  {
+    "id": "ai-note-1785953961593-q1p3",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:19:21.593Z",
+    "userPrompt": "contact number",
+    "extractedSymptoms": [
+      "General surgical diagnostic inquiry. Referred to multidisciplinary care coordinator desk."
+    ],
+    "suggestedProcedure": "Multidisciplinary Surgical Evaluation",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Thank you for consulting HealthFlo AI. Based on your inquiry, our clinical algorithm suggests connecting with a multidisciplinary surgical specialist. Whether you require laser proctology, hernia evaluation, varicose vein treatment, or urological care, our clinical board ensures **USFDA surgical protocols** and **100% cashless treatment**.",
+    "clinicalNotesSummary": "Patient presented with query: \"contact number...\". AI recommended Multidisciplinary Surgical Evaluation."
+  },
+  {
+    "id": "ai-note-1785953836664-6684",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:17:16.664Z",
+    "userPrompt": "cyst",
+    "extractedSymptoms": [
+      "General surgical diagnostic inquiry. Referred to multidisciplinary care coordinator desk."
+    ],
+    "suggestedProcedure": "Multidisciplinary Surgical Evaluation",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Thank you for consulting HealthFlo AI. Based on your inquiry, our clinical algorithm suggests connecting with a multidisciplinary surgical specialist. Whether you require laser proctology, hernia evaluation, varicose vein treatment, or urological care, our clinical board ensures **USFDA surgical protocols** and **100% cashless treatment**.",
+    "clinicalNotesSummary": "Patient presented with query: \"cyst...\". AI recommended Multidisciplinary Surgical Evaluation."
+  },
+  {
+    "id": "ai-note-1785953821306-f0lu",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:17:01.306Z",
+    "userPrompt": "circumcision",
+    "extractedSymptoms": [
+      "Urological / renal calculi symptoms noted. Triage assigned to laser endourological suite."
+    ],
+    "suggestedProcedure": "Laser Stone Lithotripsy & ZSR Circumcision",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Your symptoms relate to our **Urology & Renal Sciences Pathway**. For kidney or ureter stones, we utilize non-invasive **RIRS / Laser Lithotripsy** that pulverized calcifications without any cuts. For cosmetic or medical circumcision, we use the precision **ZSR Stapler Circumcision** technique.",
+    "clinicalNotesSummary": "Patient presented with query: \"circumcision...\". AI recommended Laser Stone Lithotripsy & ZSR Circumcision."
+  },
+  {
+    "id": "ai-note-1785953805694-u7nt",
+    "sessionId": "hf-ai-sess-msges0h6",
+    "timestamp": "2026-08-05T18:16:45.694Z",
+    "userPrompt": "piles",
+    "extractedSymptoms": [
+      "Rectal discomfort / hematochezia reported. Matched to non-invasive laser hemorrhoidectomy pathway."
+    ],
+    "suggestedProcedure": "Laser Proctology (Piles / Fistula / Fissure)",
+    "cashlessEligibility": true,
+    "aiDiagnosticResponse": "Based on your symptom description, this falls under our **Advanced Laser Proctology Protocol**. Discomfort or bleeding during bowel movements is commonly related to internal hemorrhoids or fissure tears. Our empanelled NMC-verified proctologists perform USFDA-approved **Painless Laser Hemorrhoidoplasty**, which requires zero incisions, stitches, or painful dressings.",
+    "clinicalNotesSummary": "Patient presented with query: \"piles...\". AI recommended Laser Proctology (Piles / Fistula / Fissure)."
+  }
+]
