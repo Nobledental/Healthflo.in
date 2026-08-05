@@ -328,7 +328,7 @@ CASHLESS CLEARANCE: ${insAdv}`;
         {/* LEFT 5 COLUMNS: PATIENT INGESTION & SYMPTOM CONSOLE */}
         <div className="lg:col-span-5 bg-[#070D1A] border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
           <h3 className="text-base font-black text-white flex items-center gap-2 border-b border-slate-800/80 pb-3">
-            <Stethoscope className="w-5 h-5 text-cyan-400" /> Patient Clinical Telemetry Input
+            <Stethoscope className="w-5 h-5 text-cyan-400" /> Patient Clinical Symptom & Vitals Input
           </h3>
 
           <form onSubmit={handleRunAI} className="space-y-4">

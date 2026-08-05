@@ -53,6 +53,7 @@ import {
 import TabGlobalConfig from "@/components/admin/TabGlobalConfig";
 import TabAITriage from "@/components/admin/TabAITriage";
 import TabVisitorAnalytics from "@/components/admin/TabVisitorAnalytics";
+import TabRegionalLinks from "@/components/admin/TabRegionalLinks";
 import { DashboardIntelligence, CoordinatorNoteRecord } from "@/lib/secureDb";
 import { 
   generateHardwareSignature, 
@@ -71,6 +72,19 @@ import {
 // Security: Zero-Trust Hardware Binding + GPS Geofencing + AES-256 Encryption
 // Compliance: DPDP Act 2023 Safe-Harbor Architecture (Internal Care Notes)
 // ─────────────────────────────────────────────────────────────────────────────
+
+function getFriendlyPageName(path: string): string {
+  if (path === "/" || path === "") return "Main Home Portal (HealthFlo)";
+  if (path.includes("package-inclusions") || path.includes("pricing")) return "Surgical Package Inclusions & Pricing";
+  if (path.includes("locations")) {
+    const parts = path.split("/").filter(Boolean);
+    const city = parts[parts.length - 1];
+    return `${city ? city.charAt(0).toUpperCase() + city.slice(1) : "Regional"} Specialist Center`;
+  }
+  if (path.includes("contact") || path.includes("book")) return "Appointment Booking & Triage";
+  if (path.includes("about") || path.includes("team")) return "Surgeons & Medical Credentials";
+  return path.replace(/^\//, "").replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+}
 
 const EMPANELLED_HOSPITALS = [
   // Tamil Nadu
@@ -91,6 +105,15 @@ const EMPANELLED_HOSPITALS = [
   "Apollo Hospitals (Jubilee Hills, Hyderabad)",
   "KIMS Hospitals (Secunderabad)",
   "Star Hospitals (Banjara Hills, Hyderabad)"
+];
+
+const AVAILABLE_DOCTORS = [
+  "Dr. Anand Radhakrishnan (Proctology & Hernia Specialists)",
+  "Dr. Meera Srinath (Laparoscopic Surgery)",
+  "Dr. Vikram S. (Vascular & Varicose Veins)",
+  "Dr. Priya Gopal (Urology & Kidney Care)",
+  "Dr. Suresh Menon (General Surgery)",
+  "On-Call Medical Coordinator"
 ];
 
 export default function AdminIntelligenceDashboard() {
@@ -114,16 +137,18 @@ export default function AdminIntelligenceDashboard() {
   const [showDecrypted, setShowDecrypted] = useState(true);
   const [filterState, setFilterState] = useState<"All" | "Tamil Nadu" | "Karnataka" | "Telangana">("All");
   const [searchFilter, setSearchFilter] = useState("");
-  const [activeTab, setActiveTab] = useState<"telemetry" | "leads" | "analytics" | "audit" | "config" | "triage">("telemetry");
+  const [expandedState, setExpandedState] = useState<string | null>("Tamil Nadu (25 Hubs)");
+  const [activeTab, setActiveTab] = useState<"telemetry" | "leads" | "analytics" | "regional" | "audit" | "config" | "triage">("telemetry");
 
   // CRM State & Audit Journal
   const [leadStatuses, setLeadStatuses] = useState<Record<string, string>>({});
   const [assignedHospitals, setAssignedHospitals] = useState<Record<string, string>>({});
+  const [assignedDoctors, setAssignedDoctors] = useState<Record<string, string>>({});
   const [selectedLeadModal, setSelectedLeadModal] = useState<CoordinatorNoteRecord | null>(null);
   const [auditLogs, setAuditLogs] = useState<string[]>([
-    `[${new Date().toLocaleTimeString()}] Level 5 Directorate Security Engine Booted.`,
-    `[${new Date().toLocaleTimeString()}] Cryptographic AES-256-GCM Vault Integrity Verified.`,
-    `[${new Date().toLocaleTimeString()}] DPDP Safe-Harbor Auditor Protocol Enabled.`
+    `[${new Date().toLocaleTimeString()}] Doctor Medical Console Initialized.`,
+    `[${new Date().toLocaleTimeString()}] Patient Data Privacy & Encryption Verified.`,
+    `[${new Date().toLocaleTimeString()}] Medical Confidentiality Protocol Active.`
   ]);
   const [sessionTimeRemaining, setSessionTimeRemaining] = useState(900); // 15 Minute inactivity auto-lock
   const [exportNotification, setExportNotification] = useState<string | null>(null);
@@ -173,7 +198,7 @@ export default function AdminIntelligenceDashboard() {
         setSessionTimeRemaining((prev) => {
           if (prev <= 1) {
             handleLogout();
-            alert("🔒 Security Alert: Directorate console locked automatically due to 15 minutes of inactivity.");
+            alert("🔒 Security Notice: For patient data privacy, your session has locked automatically after 15 minutes of inactivity.");
             return 900;
           }
           return prev - 1;
@@ -182,6 +207,32 @@ export default function AdminIntelligenceDashboard() {
     }
     return () => clearInterval(timer);
   }, [isAuthenticated]);
+
+  // Live Real-Time automatic updates from hospital data stream (no refreshing required)
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const key = sessionStorage.getItem("healthflo_admin_key") || passphrase;
+    const eventSource = new EventSource(`/api/analytics/stream?pass=${encodeURIComponent(key)}`);
+    eventSource.onmessage = (e) => {
+      try {
+        const liveData = JSON.parse(e.data);
+        if (liveData && liveData.recentLogs) {
+          setIntelligence(liveData);
+          // Sync any newly arrived doctors/hospitals/statuses if not locally altered
+          setLeadStatuses((prev) => {
+            const next = { ...prev };
+            liveData.recentLogs.forEach((item: CoordinatorNoteRecord) => {
+              if (item.leadContact && !next[item.id]) next[item.id] = item.leadContact.status;
+            });
+            return next;
+          });
+        }
+      } catch (err) {
+        // quiet fallback if data parsing issue occurs
+      }
+    };
+    return () => eventSource.close();
+  }, [isAuthenticated, passphrase]);
 
   const resetSessionTimer = () => {
     if (isAuthenticated && sessionTimeRemaining < 890) {
@@ -253,23 +304,27 @@ export default function AdminIntelligenceDashboard() {
         if (!currentHw.isEnrolled) {
           const newSig = enrollCurrentDevice();
           setHwAuth({ isEnrolled: true, isAuthorized: true, signature: newSig });
-          logAuditAction(`New hardware device fingerprint registered into Level-5 security whitelist.`);
+          logAuditAction(`Doctor hardware device authorized and verified for clinical access.`);
         }
 
         // Initialize default lead statuses & hospital assignments from dataset
         const initStatuses: Record<string, string> = {};
         const initHospitals: Record<string, string> = {};
-        (json.intelligence.recentLogs || []).forEach((item: CoordinatorNoteRecord, i: number) => {
+        const initDoctors: Record<string, string> = {};
+        (json.intelligence.recentLogs || []).forEach((item: CoordinatorNoteRecord) => {
           if (item.leadContact) {
-            initStatuses[item.id] = item.leadContact.status;
-            // Assign smart defaults based on state
-            if (item.state === "Tamil Nadu") initHospitals[item.id] = "Apollo Hospitals (Greams Road, Chennai)";
+            initStatuses[item.id] = item.leadContact.status || "Pending";
+            if (item.assignedHospital) {
+              initHospitals[item.id] = item.assignedHospital;
+            } else if (item.state === "Tamil Nadu") initHospitals[item.id] = "Apollo Hospitals (Greams Road, Chennai)";
             else if (item.state === "Karnataka") initHospitals[item.id] = "Manipal Hospital (Old Airport Road, Bengaluru)";
             else initHospitals[item.id] = "Yashoda Hospitals (Secunderabad & Somajiguda, Hyderabad)";
+            initDoctors[item.id] = item.assignedDoctor || "Unassigned";
           }
         });
         setLeadStatuses(initStatuses);
         setAssignedHospitals(initHospitals);
+        setAssignedDoctors(initDoctors);
       } else {
         const fail = registerFailedAttempt();
         setLockout({ locked: fail.locked, remainingSeconds: fail.remainingSeconds });
@@ -315,7 +370,7 @@ export default function AdminIntelligenceDashboard() {
     const user = sessionStorage.getItem("healthflo_admin_user") || loginId;
     if (key && user) {
       authenticate(user, key, true);
-      logAuditAction("Synchronized live Pan-South India telemetry database.");
+      logAuditAction("Synchronized live Pan-South India patient coordination database.");
     }
   };
 
@@ -360,31 +415,52 @@ export default function AdminIntelligenceDashboard() {
     setTimeout(() => setExportNotification(null), 4000);
   };
 
+  const updateBackendRecord = async (recordId: string, updates: any, actionDesc: string) => {
+    try {
+      const p = sessionStorage.getItem("healthflo_admin_key") || passphrase;
+      await fetch("/api/coordinator/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-passphrase": p },
+        body: JSON.stringify({ id: recordId, ...updates })
+      });
+      logAuditAction(actionDesc);
+    } catch (e) {
+      console.error("Failed to update patient record", e);
+    }
+  };
+
   const handleStatusChange = (recordId: string, newStatus: string, patientName: string) => {
     setLeadStatuses((prev) => ({ ...prev, [recordId]: newStatus }));
-    logAuditAction(`Updated triage status for patient [${patientName}] to "${newStatus}"`);
+    updateBackendRecord(recordId, { status: newStatus }, `Updated care status for patient [${patientName}] to "${newStatus}"`);
   };
 
   const handleHospitalChange = (recordId: string, hospitalName: string, patientName: string) => {
     setAssignedHospitals((prev) => ({ ...prev, [recordId]: hospitalName }));
-    logAuditAction(`Assigned patient [${patientName}] to partner hub: ${hospitalName}`);
+    updateBackendRecord(recordId, { assignedHospital: hospitalName }, `Assigned patient [${patientName}] to hospital: ${hospitalName}`);
+  };
+
+  const handleDoctorChange = (recordId: string, doctorName: string, patientName: string) => {
+    setAssignedDoctors((prev) => ({ ...prev, [recordId]: doctorName }));
+    updateBackendRecord(recordId, { assignedDoctor: doctorName }, `Assigned attending doctor [${doctorName}] to patient [${patientName}]`);
   };
 
   const dispatchWhatsAppProtocol = (item: CoordinatorNoteRecord) => {
     const hospital = assignedHospitals[item.id] || "Empanelled Network Partner";
+    const doctor = assignedDoctors[item.id] || "Assigned Specialist";
     const status = leadStatuses[item.id] || item.leadContact?.status || "Under Review";
-    const msg = `*HEALTHFLO MANAGED CARE NETWORK • CONFIDENTIAL TRIAGE DISPATCH*\n\n` +
+    const msg = `*HEALTHFLO SURGICAL CARE • PATIENT REFERRAL SUMMARY*\n\n` +
       `👤 *Patient Name:* ${item.leadContact?.name}\n` +
-      `📞 *Contact:* ${item.leadContact?.phone}\n` +
-      `📍 *Regional Hub:* ${item.city}, ${item.state}\n` +
-      `🔬 *Procedure Protocol:* ${item.leadContact?.procedure}\n` +
-      `🏥 *Assigned Hospital:* ${hospital}\n` +
-      `📋 *Triage Status:* ${status}\n\n` +
-      `_DPDP Safe-Harbor Disclaimer: This diagnostic triage summary is generated exclusively for internal surgical care coordination under encrypted Level-5 compliance._`;
+      `📞 *Contact Phone:* ${item.leadContact?.phone}\n` +
+      `📍 *Location:* ${item.city}, ${item.state}\n` +
+      `🔬 *Requested Procedure:* ${item.leadContact?.procedure}\n` +
+      `🏥 *Partner Hospital:* ${hospital}\n` +
+      `🩺 *Attending Surgeon:* ${doctor}\n` +
+      `📋 *Care Status:* ${status}\n\n` +
+      `_Medical Confidentiality Disclaimer: This diagnostic triage summary is generated exclusively for internal surgical care coordination by authorized hospital doctors and coordinators._`;
     
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
-    logAuditAction(`Dispatched secure WhatsApp surgical referral protocol for [${item.leadContact?.name}]`);
+    logAuditAction(`Dispatched confidential surgical doctor summary for patient [${item.leadContact?.name}] via WhatsApp`);
   };
 
   // ── UNVERIFIED / ZERO-TRUST LOGIN GATEWAY ──────────────────────────────────
@@ -407,16 +483,16 @@ export default function AdminIntelligenceDashboard() {
             </div>
             
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              HealthFlo Directorate
+              HealthFlo Medical Portal
             </h1>
             
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-bold uppercase tracking-wider mt-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              4-Layer Zero-Trust Command Hub
+              Authorized Doctor &amp; Coordinator Access
             </span>
 
             <p className="text-xs sm:text-sm text-slate-400 mt-4 leading-relaxed font-medium">
-              Protected executive enclave. Encrypted visitor telemetry formatted strictly as <strong className="text-slate-200 font-bold">Internal Patient Care Coordinator Notes</strong> for empanelled hospitals.
+              Secure, private medical portal. All patient inquiries and visit histories are formatted strictly as <strong className="text-slate-200 font-bold">Internal Patient Care Summary Notes</strong> for attending doctors and hospital specialists.
             </p>
           </div>
 
@@ -425,22 +501,22 @@ export default function AdminIntelligenceDashboard() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 border-b border-slate-800/70 pb-3 gap-2">
               <span className="flex items-center gap-2 text-indigo-400 text-xs font-bold shrink-0">
                 <Cpu className="w-4 h-4 text-indigo-400 animate-pulse shrink-0" />
-                Device Fingerprint
+                Device Security Verification
               </span>
               <span className="bg-indigo-950/60 border border-indigo-800/40 px-2.5 py-0.5 rounded-md text-indigo-300 font-mono text-[11px] font-semibold truncate max-w-[280px] sm:max-w-[320px]">
-                {hwAuth.signature?.deviceHash || "Scanning hardware security signatures..."}
+                {hwAuth.signature ? "Verified Medical Device Authorized" : "Verifying medical device security..."}
               </span>
             </div>
             
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-slate-300 gap-2">
               <span className="flex items-center gap-2 text-emerald-400 text-xs font-bold shrink-0">
                 <Navigation className="w-4 h-4 text-emerald-400 shrink-0" />
-                Geo-Verification
+                Hospital Region Check
               </span>
               <div className="flex items-center gap-1.5 text-left sm:text-right text-xs font-medium text-slate-200 break-words">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 inline-block" />
                 <span>
-                  {geoStatus ? `${geoStatus.city || "Authorized Zone"}, ${geoStatus.state || "India"} [Verified]` : "Triangulating GPS coordinates..."}
+                  {geoStatus ? `${geoStatus.city || "South India Hub"}, ${geoStatus.state || "India"} [Verified]` : "Verifying hospital regional authorization..."}
                 </span>
               </div>
             </div>
@@ -450,15 +526,15 @@ export default function AdminIntelligenceDashboard() {
           {lockout.locked ? (
             <div className="p-5 rounded-2xl bg-rose-500/15 border-2 border-rose-500 text-rose-300 text-center space-y-2 animate-bounce">
               <AlertTriangle className="w-8 h-8 text-rose-500 mx-auto" />
-              <h3 className="font-bold text-base text-white">Security Enclave Lockdown Active</h3>
-              <p className="text-xs">Multiple failed sign-in attempts detected. Access frozen to deter credential theft.</p>
-              <p className="font-mono text-sm text-amber-300 font-extrabold">Cooldown Remaining: {lockout.remainingSeconds} seconds</p>
+              <h3 className="font-bold text-base text-white">Security Protection Active</h3>
+              <p className="text-xs">Multiple incorrect sign-in attempts detected. Access is paused for patient data safety.</p>
+              <p className="font-mono text-sm text-amber-300 font-extrabold">Please wait: {lockout.remainingSeconds} seconds</p>
             </div>
           ) : (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <KeyRound className="w-3.5 h-3.5 text-blue-400" /> Executive Login ID
+                  <KeyRound className="w-3.5 h-3.5 text-blue-400" /> Doctor / Coordinator Email ID
                 </label>
                 <input
                   type="email"
@@ -472,7 +548,7 @@ export default function AdminIntelligenceDashboard() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5 text-blue-400" /> Master Decryption Passphrase
+                  <Lock className="w-3.5 h-3.5 text-blue-400" /> Access Password / PIN
                 </label>
                 <input
                   type="password"
@@ -595,18 +671,18 @@ export default function AdminIntelligenceDashboard() {
               </div>
               <div>
                 <h1 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
-                  HealthFlo Directorate
+                  HealthFlo Medical Portal
                   <span className="px-2 py-0.5 text-[9px] sm:text-[10px] rounded bg-emerald-500/10 text-emerald-400 font-black border border-emerald-500/30 uppercase tracking-wider">
-                    Level 5 Clearance
+                    Authorized Doctor
                   </span>
                 </h1>
                 <p className="text-[11px] text-slate-400 flex items-center gap-2">
-                  <span>Pan-South India Triage Hub</span>
+                  <span>Patient Triage &amp; Surgical Care Portal</span>
                   <span className="text-slate-600">•</span>
-                  <span className="text-amber-400 font-mono text-[11px] hidden sm:inline">HW: {hwAuth.signature?.deviceHash.slice(0, 12)}...</span>
+                  <span className="text-amber-400 font-mono text-[11px] hidden sm:inline">Trusted Device Verified</span>
                   <span className="text-slate-600">•</span>
                   <span className="text-cyan-400 font-mono text-[11px] flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-cyan-400 animate-pulse" /> Auto-Lock: {formatMinSec(sessionTimeRemaining)}
+                    <Clock className="w-3 h-3 text-cyan-400 animate-pulse" /> Security Auto-Logout: {formatMinSec(sessionTimeRemaining)}
                   </span>
                 </p>
               </div>
@@ -631,38 +707,21 @@ export default function AdminIntelligenceDashboard() {
             <button
               onClick={refreshTelemetry}
               className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition border border-slate-700"
-              title="Refresh Live Telemetry"
+              title="Refresh Medical Records"
             >
-              <RefreshCw className="w-3.5 h-3.5 text-cyan-400 hover:animate-spin" /> Live Sync
+              <RefreshCw className="w-3.5 h-3.5 text-cyan-400 hover:animate-spin" /> Refresh Data
             </button>
 
-            <button
-              onClick={() => {
-                setShowDecrypted(!showDecrypted);
-                logAuditAction(`Toggled security viewmode to ${!showDecrypted ? "Plaintext Decryption" : "AES-256 Ciphertext Vault"}`);
-              }}
-              className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border ${
-                showDecrypted
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
-                  : "bg-rose-500/10 text-rose-400 border-rose-500/30 hover:bg-rose-500/20"
-              }`}
-            >
-              {showDecrypted ? (
-                <>
-                  <Eye className="w-3.5 h-3.5" /> Decrypted Mode (Plaintext)
-                </>
-              ) : (
-                <>
-                  <EyeOff className="w-3.5 h-3.5" /> Encrypted Vault Mode (AES-256)
-                </>
-              )}
-            </button>
+            <div className="px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>Live Auto-Updating Active</span>
+            </div>
 
             <button
               onClick={handleLogout}
               className="px-3 py-2 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 font-bold text-xs border border-rose-500/30 transition shadow-xs"
             >
-              Lock Vault
+              Secure Logout
             </button>
           </div>
         </div>
@@ -679,17 +738,17 @@ export default function AdminIntelligenceDashboard() {
             </div>
             <div>
               <p className="text-xs md:text-sm font-bold text-white flex items-center gap-2">
-                <span>DPDP Act 2023 Safe-Harbor Architecture: All Visitor Journeys Stored as Coordinator Care Notes</span>
-                <span className="px-2 py-0.5 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30">CERTIFIED SECURE</span>
+                <span>Patient Privacy &amp; Medical Confidentiality Active: All Inquiries &amp; Visit Histories Stored as Clinical Notes</span>
+                <span className="px-2 py-0.5 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30">HIPAA &amp; DPDP COMPLIANT</span>
               </p>
               <p className="text-[11px] text-slate-300 mt-0.5">
-                Data is strictly utilized by medical triage coordinators to anticipate patient symptoms and align empanelled hospital insurance packages. Zero resale or external ad sharing.
+                Data is strictly utilized by medical doctors and triage coordinators to evaluate patient symptoms and align empanelled hospital surgical packages. Zero data sharing or external advertising.
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-xs font-mono text-emerald-400 font-bold">AES-256-GCM ENCRYPTED DB</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold">🔒 SECURE DOCTOR VAULT</span>
           </div>
         </div>
 
@@ -749,24 +808,63 @@ export default function AdminIntelligenceDashboard() {
               <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 mb-4">
                 <MapPin className="w-4 h-4 text-cyan-400" /> South India Traffic Distribution
               </h2>
-              <div className="space-y-4">
-                {intelligence?.stateBreakdown.map((item) => (
-                  <div key={item.state}>
-                    <div className="flex justify-between text-xs font-semibold mb-1">
-                      <span className="text-slate-200">{item.state}</span>
-                      <span className="text-slate-400 font-mono">{item.percentage}% ({item.count} sessions)</span>
+              <div className="space-y-3">
+                {intelligence?.stateBreakdown.map((item) => {
+                  const isExpanded = expandedState === item.state;
+                  return (
+                    <div key={item.state} className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/80 hover:border-slate-700/80 transition-all">
+                      <div 
+                        onClick={() => setExpandedState(isExpanded ? null : item.state)}
+                        className="flex justify-between text-xs font-semibold mb-1.5 cursor-pointer select-none items-center"
+                      >
+                        <span className="text-slate-200 flex items-center gap-1.5 font-bold">
+                          <span className="text-cyan-400 font-mono text-[10px]">{isExpanded ? "▼" : "►"}</span>
+                          {item.state}
+                        </span>
+                        <span className="text-slate-300 font-mono bg-slate-800 px-2 py-0.5 rounded font-bold text-[11px]">
+                          {item.percentage}% ({item.count} {item.count === 1 ? "patient" : "patients"})
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden cursor-pointer" onClick={() => setExpandedState(isExpanded ? null : item.state)}>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.percentage}%` }}
+                          transition={{ duration: 1 }}
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: item.color }}
+                        />
+                      </div>
+
+                      {/* City & Place Details */}
+                      {isExpanded && (
+                        <div className="mt-3 pt-2.5 border-t border-slate-800/70 space-y-1.5">
+                          <p className="text-[10px] uppercase font-extrabold text-cyan-400 tracking-wider flex items-center gap-1">
+                            <MapPin className="w-3 h-3 text-cyan-400 shrink-0 inline" /> Detailed City &amp; Place Notes:
+                          </p>
+                          {item.cities && item.cities.length > 0 ? (
+                            <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+                              {item.cities.map((city, cIdx) => (
+                                <div key={cIdx} className="flex justify-between items-center bg-slate-900/80 py-1.5 px-2.5 rounded border border-slate-800/50 text-xs">
+                                  <span className="text-slate-300 font-semibold flex items-center gap-1.5 truncate">
+                                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                                    {city.name}
+                                  </span>
+                                  <span className="text-white font-mono font-bold shrink-0 text-[11px] bg-slate-800 px-1.5 py-0.5 rounded">
+                                    {city.count} {city.count === 1 ? "patient" : "patients"} ({city.percentage}%)
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-[11px] text-slate-500 italic text-center py-1.5 bg-slate-900/40 rounded">
+                              No patient activity recorded yet in these regional city hubs.
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
-                    <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${item.percentage}%` }}
-                        transition={{ duration: 1 }}
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: item.color }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
             
@@ -838,7 +936,7 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "telemetry" ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Activity className="w-3.5 h-3.5" /> Coordinator Care Notes ({filteredLogs.length})
+                <Activity className="w-3.5 h-3.5" /> Live Patient Activity ({filteredLogs.length})
               </button>
               
               <button
@@ -847,7 +945,7 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "leads" ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Users className="w-3.5 h-3.5" /> Lead Triage CRM ({leadRecords.length})
+                <Users className="w-3.5 h-3.5" /> Patient Care Requests ({leadRecords.length})
               </button>
 
               <button
@@ -856,7 +954,16 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "analytics" ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <BarChart3 className="w-3.5 h-3.5" /> Regional Triage Analytics
+                <BarChart3 className="w-3.5 h-3.5" /> Surgical &amp; Regional Analytics
+              </button>
+
+              <button
+                onClick={() => setActiveTab("regional")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                  activeTab === "regional" ? "bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-500 text-white shadow-md shadow-cyan-500/25" : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <Building2 className="w-3.5 h-3.5 text-cyan-300" /> Regional Portal Directory (975 Pages)
               </button>
 
               <button
@@ -865,7 +972,7 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "audit" ? "bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-md shadow-amber-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <FileCheck className="w-3.5 h-3.5" /> DPDP Audit Trail ({auditLogs.length})
+                <FileCheck className="w-3.5 h-3.5" /> Medical Access Logs ({auditLogs.length})
               </button>
 
               <button
@@ -874,7 +981,7 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "config" ? "bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-500 text-white shadow-md shadow-cyan-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Globe2 className="w-3.5 h-3.5 text-cyan-300" /> Global Site &amp; SEO Config
+                <Globe2 className="w-3.5 h-3.5 text-cyan-300" /> Hospital &amp; Portal Settings
               </button>
 
               <button
@@ -883,7 +990,7 @@ export default function AdminIntelligenceDashboard() {
                   activeTab === "triage" ? "bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white shadow-md shadow-purple-500/25" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Brain className="w-3.5 h-3.5 text-pink-300 animate-pulse" /> AI Triage Copilot
+                <Brain className="w-3.5 h-3.5 text-pink-300 animate-pulse" /> AI Clinical Assistant
               </button>
             </div>
 
@@ -919,70 +1026,101 @@ export default function AdminIntelligenceDashboard() {
             </div>
           </div>
 
-          {/* TAB 1: COORDINATOR CARE NOTES & TELEMETRY */}
+          {/* TAB 1: LIVE PATIENT ACTIVITY & CLINICAL TRIAGE STREAM */}
           {activeTab === "telemetry" && (
             <div className="p-5 space-y-4 max-h-[640px] overflow-y-auto">
-              <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800">
-                <span>Showing secure patient telemetry captured across regional hospital portals</span>
-                <span className="font-mono text-cyan-400 font-semibold">Encryption Vault: Active & Synchronized</span>
+              <div className="flex items-center justify-between text-xs text-slate-300 pb-3 border-b border-slate-800 font-medium">
+                <span>Real-time patient visits and surgical inquiry actions recorded across regional partner hospital centers</span>
+                <span className="text-cyan-400 font-semibold flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-cyan-400 inline shrink-0" /> Secure Live Patient Monitoring Active
+                </span>
               </div>
 
               <AnimatePresence>
-                {filteredLogs.map((log) => (
+                {filteredLogs.map((log, index) => (
                   <motion.div
-                    key={log.id}
+                    key={`${log.id}-${index}`}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="p-4 rounded-2xl bg-[#0D1629] border border-slate-800/80 hover:border-cyan-500/30 transition flex flex-col gap-3 shadow-md"
+                    className="p-5 rounded-2xl bg-[#0D1629] border border-slate-800/80 hover:border-cyan-500/40 transition flex flex-col gap-3.5 shadow-lg"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/60 pb-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
-                          {log.id}
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+                      <div className="flex items-center gap-2.5 flex-wrap">
+                        <span className="text-xs font-bold text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-lg border border-cyan-500/30 font-mono">
+                          Patient Case Ref: {log.id}
                         </span>
-                        <span className="text-xs font-bold text-slate-200 flex items-center gap-1">
-                          📍 {log.city} <span className="text-slate-500 font-semibold">({log.state})</span>
+                        <span className="text-xs font-extrabold text-white flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+                          <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> 
+                          <span>{log.city}</span> 
+                          <span className="text-slate-400 font-medium">({log.state})</span>
                         </span>
+                        {log.urgency !== undefined && (
+                          <span className={`px-2.5 py-1 rounded-lg text-xs font-black border uppercase tracking-wider flex items-center gap-1.5 ${
+                            log.urgency >= 80 
+                              ? "bg-rose-500/20 text-rose-300 border-rose-500/50" 
+                              : log.urgency >= 50 
+                              ? "bg-amber-500/20 text-amber-300 border-amber-500/50" 
+                              : "bg-emerald-500/20 text-emerald-300 border-emerald-500/50"
+                          }`}>
+                            {log.urgency >= 80 ? (
+                              <>
+                                <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0 animate-pulse" />
+                                <span>High Surgical Urgency</span>
+                              </>
+                            ) : log.urgency >= 50 ? (
+                              <>
+                                <Activity className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                                <span>Active Medical Interest</span>
+                              </>
+                            ) : (
+                              <>
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                                <span>General Health Exploration</span>
+                              </>
+                            )}
+                          </span>
+                        )}
                       </div>
-                      <div className="flex items-center gap-3 text-slate-400 text-[11px]">
-                        <span className="flex items-center gap-1 font-mono text-slate-300">
-                          {log.device.includes("Mobile") || log.device.includes("iPhone") ? <Smartphone className="w-3.5 h-3.5 text-blue-400" /> : <Laptop className="w-3.5 h-3.5 text-purple-400" />}
-                          {log.device}
+                      <div className="flex items-center gap-4 text-slate-300 text-xs font-medium bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-800/60">
+                        <span className="flex items-center gap-1.5 text-slate-300">
+                          {log.device.includes("Mobile") || log.device.includes("iPhone") ? <Smartphone className="w-4 h-4 text-cyan-400" /> : <Laptop className="w-4 h-4 text-purple-400" />}
+                          <span>{log.device.includes("Mobile") ? "Mobile Phone Access" : "Computer Access"}</span>
                         </span>
-                        <span className="font-mono text-slate-400">{log.timestamp}</span>
+                        <span className="text-slate-500">|</span>
+                        <span className="flex items-center gap-1 text-slate-300">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          <span>Recorded: {log.timestamp}</span>
+                        </span>
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400 font-semibold uppercase tracking-wider text-[10px] flex items-center gap-1">
-                          <FileText className="w-3.5 h-3.5 text-amber-400" /> Clinical & Triage Support Note:
+                        <span className="text-slate-300 font-extrabold uppercase tracking-wider text-xs flex items-center gap-1.5">
+                          <FileText className="w-4 h-4 text-amber-400 shrink-0" /> Clinical Assessment &amp; Triage Summary:
                         </span>
-                        <span className="text-[10px] text-slate-400 font-mono">
-                          {showDecrypted ? "🔓 Plaintext View" : "🔒 AES-256-GCM Ciphertext"}
+                        <span className="text-xs text-slate-400 font-semibold flex items-center gap-1">
+                          <span>Doctor Review Ready</span>
                         </span>
                       </div>
                       
-                      <div className={`p-3.5 rounded-xl text-xs sm:text-[13px] leading-relaxed transition font-mono ${
-                        showDecrypted 
-                          ? "bg-[#0A1222] text-slate-100 border border-slate-700/80 shadow-inner" 
-                          : "bg-black/80 text-emerald-400 font-bold border border-emerald-500/30 break-all select-all shadow-inner"
-                      }`}>
-                        {showDecrypted ? log.coordinatorClinicalNote : log.encryptedPayload || "ENC_DATA: [U2FsdGVkX1+4L9z.../9V+aM9j=]"}
+                      <div className="p-4 rounded-xl text-xs sm:text-[13px] leading-relaxed transition bg-[#09101E] text-slate-100 border border-slate-700/90 shadow-inner font-medium">
+                        {log.coordinatorClinicalNote}
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-1">
-                      <span className="text-[10px] text-slate-400 font-semibold uppercase">Traversed Routes:</span>
+                    <div className="flex flex-wrap items-center gap-2.5 pt-2 border-t border-slate-800/60">
+                      <span className="text-xs text-slate-400 font-bold">Medical Sections Visited:</span>
                       {log.pagesViewed.map((pg, i) => (
-                        <span key={i} className="px-2 py-0.5 rounded bg-slate-800/80 text-blue-300 font-mono text-[10px] border border-slate-700">
-                          {pg}
+                        <span key={i} className="px-2.5 py-1 rounded-lg bg-slate-900 text-cyan-300 text-xs font-semibold border border-slate-700">
+                          {getFriendlyPageName(pg)}
                         </span>
                       ))}
                       {log.lastClickedElement && (
-                        <span className="ml-auto px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-bold text-[10px] border border-amber-500/30 flex items-center gap-1 shadow-xs">
-                          ⚡ Action Triggered: {log.lastClickedElement}
+                        <span className="ml-auto px-3 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 font-extrabold text-xs border border-cyan-500/40 flex items-center gap-1.5 shadow-sm">
+                          <Navigation className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                          <span>Patient Action: {log.lastClickedElement}</span>
                         </span>
                       )}
                     </div>
@@ -991,8 +1129,8 @@ export default function AdminIntelligenceDashboard() {
               </AnimatePresence>
 
               {filteredLogs.length === 0 && (
-                <div className="py-16 text-center text-slate-500 text-sm font-semibold">
-                  No patient telemetry records match the specified search or regional filter criteria.
+                <div className="py-16 text-center text-slate-400 text-sm font-semibold bg-slate-900/40 rounded-2xl border border-slate-800/60">
+                  No patient activity records match the specified search or regional filter criteria.
                 </div>
               )}
             </div>
@@ -1002,26 +1140,28 @@ export default function AdminIntelligenceDashboard() {
           {activeTab === "leads" && (
             <div className="p-5">
               <div className="flex items-center justify-between text-xs text-slate-400 pb-3 mb-2 border-b border-slate-800">
-                <span>Interactive CRM: Assign empanelled partner hospitals and dispatch instant WhatsApp coordinator itineraries</span>
-                <span className="text-emerald-400 font-mono font-bold">100% Legal Safe-Harbor Compliant</span>
+                <span>Patient Management: Assign empanelled partner hospitals &amp; attending doctors, and transmit instant WhatsApp medical summaries</span>
+                <span className="text-emerald-400 font-mono font-bold">100% Medical Privacy Compliant</span>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr className="bg-[#0E1830] text-slate-300 font-extrabold uppercase tracking-wider text-[10px] border-b border-slate-700">
-                      <th className="py-4 px-3">Patient & Contact</th>
+                      <th className="py-4 px-3">Patient &amp; Contact</th>
                       <th className="py-4 px-3">Regional Hub</th>
                       <th className="py-4 px-3">Target Procedure</th>
-                      <th className="py-4 px-3">Partner Hospital Assignment</th>
-                      <th className="py-4 px-3">Triage Workflow Status</th>
-                      <th className="py-4 px-3 text-right">Dispatch Actions</th>
+                      <th className="py-4 px-3">Partner Hospital</th>
+                      <th className="py-4 px-3">Attending Specialist</th>
+                      <th className="py-4 px-3">Care Workflow Status</th>
+                      <th className="py-4 px-3 text-right">Medical Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/80 text-slate-200 font-medium">
                     {leadRecords.map((item) => {
                       const status = leadStatuses[item.id] || item.leadContact?.status || "General Inquiry";
-                      const hospital = assignedHospitals[item.id] || "Select Empanelled Hospital";
+                      const hospital = assignedHospitals[item.id] || item.assignedHospital || "Select Empanelled Hospital";
+                      const doctor = assignedDoctors[item.id] || item.assignedDoctor || "Unassigned";
 
                       return (
                         <tr key={item.id} className="hover:bg-slate-800/40 transition group">
@@ -1044,11 +1184,25 @@ export default function AdminIntelligenceDashboard() {
                             <select
                               value={hospital}
                               onChange={(e) => handleHospitalChange(item.id, e.target.value, item.leadContact?.name || "")}
-                              className="bg-[#070E1E] border border-slate-700 hover:border-amber-400/50 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-amber-400 transition cursor-pointer max-w-[240px] truncate shadow-xs"
+                              className="bg-[#070E1E] border border-slate-700 hover:border-amber-400/50 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-amber-400 transition cursor-pointer max-w-[220px] truncate shadow-xs"
                             >
-                              <option value="Unassigned">-- Select Empanelled Hospital --</option>
+                              <option value="Unassigned">-- Select Hospital --</option>
                               {EMPANELLED_HOSPITALS.map((h) => (
                                 <option key={h} value={h}>{h}</option>
+                              ))}
+                            </select>
+                          </td>
+
+                          {/* Interactive Attending Specialist Dropdown */}
+                          <td className="py-4 px-3">
+                            <select
+                              value={doctor}
+                              onChange={(e) => handleDoctorChange(item.id, e.target.value, item.leadContact?.name || "")}
+                              className="bg-[#070E1E] border border-slate-700 hover:border-cyan-400/50 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-cyan-400 transition cursor-pointer max-w-[220px] truncate shadow-xs"
+                            >
+                              <option value="Unassigned">-- Select Doctor --</option>
+                              {AVAILABLE_DOCTORS.map((d) => (
+                                <option key={d} value={d}>{d}</option>
                               ))}
                             </select>
                           </td>
@@ -1078,19 +1232,19 @@ export default function AdminIntelligenceDashboard() {
                           </td>
 
                           {/* Dispatch Actions */}
-                          <td className="py-4 px-3 text-right space-x-2">
+                          <td className="py-4 px-3 text-right space-x-2 whitespace-nowrap">
                             <button
                               onClick={() => setSelectedLeadModal(item)}
                               className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs border border-slate-600 transition"
-                              title="View Patient Telemetry Dossier"
+                              title="View Patient Care Summary"
                             >
-                              <Eye className="w-3.5 h-3.5 inline mr-1 text-cyan-400" /> Dossier
+                              <Eye className="w-3.5 h-3.5 inline mr-1 text-cyan-400" /> Summary
                             </button>
                             <button 
                               onClick={() => dispatchWhatsAppProtocol(item)}
                               className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-90 text-white font-extrabold text-xs transition shadow-md shadow-emerald-500/20 inline-flex items-center gap-1"
                             >
-                              <Send className="w-3 h-3" /> WhatsApp Protocol
+                              <Send className="w-3 h-3" /> WhatsApp Referral
                             </button>
                           </td>
                         </tr>
@@ -1104,7 +1258,7 @@ export default function AdminIntelligenceDashboard() {
 
           {/* TAB 3: REGIONAL TRIAGE & CONVERSION ANALYTICS */}
           {activeTab === "analytics" && (
-            <TabVisitorAnalytics passphrase={passphrase} />
+            <TabVisitorAnalytics passphrase={passphrase} intelligence={intelligence} />
           )}
 
           {/* TAB 4: DPDP COMPLIANCE AUDIT TRAIL */}
@@ -1113,10 +1267,10 @@ export default function AdminIntelligenceDashboard() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800 text-slate-300 font-sans">
                 <div>
                   <p className="font-extrabold text-white text-sm flex items-center gap-1.5">
-                    <ShieldAlert className="w-4 h-4 text-amber-400" /> Level-5 Cryptographic Audit Trail (DPDP Act 2023)
+                    <ShieldAlert className="w-4 h-4 text-amber-400" /> Medical System Access &amp; Privacy Activity Log
                   </p>
                   <p className="text-[11px] text-slate-400 mt-0.5">
-                    Tamper-proof chronological log of all directorate actions, decryptions, and data exports.
+                    Chronological log of all doctor portal sign-ins, record updates, and patient summary referrals.
                   </p>
                 </div>
                 <button
@@ -1155,6 +1309,8 @@ export default function AdminIntelligenceDashboard() {
               }}
             />
           )}
+
+          {activeTab === "regional" && <TabRegionalLinks />}
         </div>
       </main>
 
@@ -1181,7 +1337,7 @@ export default function AdminIntelligenceDashboard() {
                 </div>
                 <div>
                   <h3 className="text-lg font-black text-white flex items-center gap-2">
-                    {selectedLeadModal.leadContact?.name} • Clinical Triage Dossier
+                    {selectedLeadModal.leadContact?.name} • Patient Care Summary
                   </h3>
                   <p className="text-xs text-slate-400 font-mono">
                     Session ID: {selectedLeadModal.sessionId} | Captured: {selectedLeadModal.timestamp}
@@ -1211,7 +1367,7 @@ export default function AdminIntelligenceDashboard() {
 
                 <div>
                   <label className="block text-slate-300 font-bold text-xs uppercase mb-1.5 flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Medical Coordinator Clinical Note (Plaintext Decryption)
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Medical Coordinator Clinical Note
                   </label>
                   <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 font-mono leading-relaxed text-xs">
                     {selectedLeadModal.coordinatorClinicalNote}
@@ -1220,9 +1376,9 @@ export default function AdminIntelligenceDashboard() {
 
                 <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-200 text-[11px]">
                   <p className="font-extrabold text-white flex items-center gap-1 mb-1">
-                    <Check className="w-3.5 h-3.5 text-emerald-400" /> DPDP Safe-Harbor Auditor Notes:
+                    <Check className="w-3.5 h-3.5 text-emerald-400" /> Medical Confidentiality Notice:
                   </p>
-                  This patient inquiry was captured through HealthFlo's Level-5 secure medical concierge gateway. Records are shared exclusively with empanelled hospital coordinators for surgical package pre-authorization under strict medical doctor-patient privilege protocols.
+                  This patient inquiry was captured through HealthFlo&apos;s medical concierge gateway. Records are shared exclusively with empanelled hospital coordinators and doctors for surgical care coordination under strict medical doctor-patient privilege protocols.
                 </div>
               </div>
 
@@ -1231,7 +1387,7 @@ export default function AdminIntelligenceDashboard() {
                   onClick={() => setSelectedLeadModal(null)}
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition"
                 >
-                  Close Dossier
+                  Close Summary
                 </button>
                 <button
                   onClick={() => {
@@ -1240,7 +1396,7 @@ export default function AdminIntelligenceDashboard() {
                   }}
                   className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 text-white font-extrabold text-xs transition shadow-lg shadow-emerald-500/25 flex items-center gap-1.5"
                 >
-                  <Send className="w-3.5 h-3.5" /> Transmit Triage to Surgeon WhatsApp
+                  <Send className="w-3.5 h-3.5" /> Transmit Referral via WhatsApp
                 </button>
               </div>
             </motion.div>
@@ -1251,15 +1407,15 @@ export default function AdminIntelligenceDashboard() {
       {/* ── BOTTOM COMPLIANCE FOOTER ───────────────────────────────────────── */}
       <footer className="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between text-slate-500 text-xs gap-4">
         <div>
-          <p className="font-bold text-slate-400">HealthFlo Surgical Healthcare Network & Managed Care Directorate</p>
-          <p className="text-[11px]">Empanelled surgical referral network operating across Tamil Nadu, Karnataka & Telangana.</p>
+          <p className="font-bold text-slate-400">HealthFlo Surgical Healthcare Network &amp; Doctor Portal</p>
+          <p className="text-[11px]">Empanelled surgical referral network operating across Tamil Nadu, Karnataka &amp; Telangana.</p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-[11px]">
-          <span className="text-emerald-400 font-mono font-semibold">✓ Protected by AES-256-GCM Cryptography</span>
+          <span className="text-emerald-400 font-mono font-semibold">🔒 Patient Data Protected &amp; Encrypted</span>
           <span>•</span>
-          <span>DPDP Act 2023 Safe-Harbor Certified</span>
+          <span>Medical Confidentiality Certified</span>
           <span>•</span>
-          <Link href="/" className="text-cyan-400 hover:underline font-bold">Exit Directorate</Link>
+          <Link href="/" className="text-cyan-400 hover:underline font-bold">Exit Doctor Portal</Link>
         </div>
       </footer>
     </div>

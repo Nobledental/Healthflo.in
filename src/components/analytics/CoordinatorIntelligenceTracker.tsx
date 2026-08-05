@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { usePageTracker } from "@/hooks/usePageTracker";
+import { useVisitorLocation } from "@/hooks/useVisitorLocation";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Client Telemetry & Coordinator Patient Care Listener
@@ -13,9 +14,13 @@ import { usePageTracker } from "@/hooks/usePageTracker";
 
 export default function CoordinatorIntelligenceTracker() {
   usePageTracker();
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
+  const { city, state } = useVisitorLocation();
   const sessionIdRef = useRef<string>("");
   const pagesViewedRef = useRef<string[]>([]);
+  
+  const locationRef = useRef({ city, state });
+  locationRef.current = { city, state };
 
   useEffect(() => {
     // Generate or retrieve persistent browser session ID for session continuation
@@ -28,50 +33,59 @@ export default function CoordinatorIntelligenceTracker() {
   }, []);
 
   useEffect(() => {
-    if (!pathname || !sessionIdRef.current) return;
+    if (!pathname || !sessionIdRef.current || pathname.startsWith("/admin")) return;
     
     // Avoid re-logging exact same consecutive page view
     if (pagesViewedRef.current[pagesViewedRef.current.length - 1] !== pathname) {
       pagesViewedRef.current.push(pathname);
     }
 
-    // Determine estimated regional cluster & state from pathname
-    let state = "Tamil Nadu";
-    let city = "South India Regional Hub";
-    if (pathname.includes("karnataka") || pathname.includes("bengaluru") || pathname.includes("mysuru")) {
-      state = "Karnataka";
-      city = pathname.includes("bengaluru") ? "Bengaluru Cluster" : "Karnataka Regional Hub";
-    } else if (pathname.includes("telangana") || pathname.includes("hyderabad") || pathname.includes("warangal")) {
-      state = "Telangana";
-      city = pathname.includes("hyderabad") ? "Hyderabad Metro Cluster" : "Telangana Regional Hub";
-    } else if (pathname.includes("chennai") || pathname.includes("coimbatore")) {
-      state = "Tamil Nadu";
-      city = pathname.includes("chennai") ? "Chennai Metro Cluster" : "Coimbatore Western Hub";
-    }
-
-    // Send anonymous background telemetry pulse to coordinator note engine
+    // Send anonymous background telemetry pulse to coordinator note engine with reliable geo hub
     const timer = setTimeout(() => {
       fetch("/api/coordinator/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId: sessionIdRef.current,
-          city,
-          state,
+          city: locationRef.current.city,
+          state: locationRef.current.state,
           pagesViewed: pagesViewedRef.current,
-          lastClickedElement: `Navigated to ${pathname}`,
+          lastClickedElement: pathname === "/" ? "Viewing Home Page" : `Viewing ${pathname}`,
           searchQueries: [],
         }),
       }).catch(() => {
         // Silently swallow errors to ensure zero UX disruption
       });
-    }, 1200); // 1.2s debounce to verify intentional page dwell
+    }, 1500); // 1.5s debounce to allow accurate geo location resolution before sending
 
     return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [pathname, city, state]);
+
+  // Active Dwell-Time Intelligence: Detect high surgical consultation intent after 45s of engagement
+  useEffect(() => {
+    if (!pathname || !sessionIdRef.current || pathname.startsWith("/admin")) return;
+    const dwellTimer = setTimeout(() => {
+      const pageName = pathname === "/" ? "Main Hospital Network Homepage" : pathname.replace("/", " ").toUpperCase();
+      fetch("/api/coordinator/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: sessionIdRef.current,
+          city: locationRef.current.city,
+          state: locationRef.current.state,
+          pagesViewed: pagesViewedRef.current,
+          lastClickedElement: `Active Reading (${pathname})`,
+          coordinatorClinicalNote: `High Clinical Intent: Patient has spent significant time (>45s) reviewing ${pageName}. Ready for surgical consultation guidance.`
+        }),
+      }).catch(() => {});
+    }, 45000); // 45 seconds active dwell
+
+    return () => clearTimeout(dwellTimer);
+  }, [pathname, city, state]);
 
   // Global click event capture for high-intent conversion buttons
   useEffect(() => {
+    if (pathname.startsWith("/admin")) return;
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const button = target.closest("button, a") as HTMLElement;
@@ -83,14 +97,17 @@ export default function CoordinatorIntelligenceTracker() {
         /claim|insurance|package|whatsapp|call|triage|book|eligibility|cost|network/i.test(buttonText) &&
         buttonText.length < 60
       ) {
+        const pageName = pathname === "/" ? "Home Page" : pathname.replace("/", " ");
         fetch("/api/coordinator/log", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             sessionId: sessionIdRef.current,
+            city: locationRef.current.city,
+            state: locationRef.current.state,
             pagesViewed: pagesViewedRef.current,
-            lastClickedElement: `Action Button: [${buttonText}]`,
-            coordinatorClinicalNote: `High-Intent Telemetry: Visitor activated '${buttonText}' on route ${pathname}. Coordinator advised to verify empanelled hospital availability for immediate consultation.`
+            lastClickedElement: `Button clicked: [${buttonText}]`,
+            coordinatorClinicalNote: `Urgent Patient Activity: Patient clicked on '${buttonText}' while reading the ${pageName} section. Doctor or care coordinator advised to verify hospital schedule and assist.`
           }),
         }).catch(() => {});
       }

@@ -1,10 +1,591 @@
 [
   {
+    "id": "LOG_20260805_OVJEF_CEZS",
+    "timestamp": "2026-08-05 06:11:30",
+    "sessionId": "SESS_WEB_91Y0N",
+    "city": "Chennai Metro Hub",
+    "state": "Tamil Nadu",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/laser-piles"
+    ],
+    "lastClickedElement": "Active Reading (/locations/tamil-nadu/chennai/laser-piles)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  LOCATIONS/TAMIL-NADU/CHENNAI/LASER-PILES. Ready for surgical consultation guidance.",
+    "encryptedPayload": "TMJF46MhytE1xo8V:/XvR7ZoTW1h49xKMaeqBwg==:GfqAigMfhju257HHnyF940mT09huCiNpWQflrkFjCqb/RTmHFbQpSewRhRLg2k9vfYH4fiG2LYKxcx6jNNqBasjRTnqS8wwHNYk26/bLMca6Ehv07YbVve1cFXhsRHJp02KpPj75Q50eK6xuCoJ00WKYCVgBM6vurIg0iBOpU4VpdsJ844CQZOo1EjhiTbJvX0Xww3TBarlJeOl8eok=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OUSM8_IMDA",
+    "timestamp": "2026-08-05 06:10:55",
+    "sessionId": "SESS_WEB_AI1M5",
+    "city": "Chennai Metro Hub",
+    "state": "Tamil Nadu",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/circumcision"
+    ],
+    "lastClickedElement": "Active Reading (/locations/tamil-nadu/chennai/circumcision)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  LOCATIONS/TAMIL-NADU/CHENNAI/CIRCUMCISION. Ready for surgical consultation guidance.",
+    "encryptedPayload": "DYksqFSOUuBLUPDg:NPBDxZQBJnpFzgxswMsfSQ==:8g65lNBpem20RgHIfvg6FvxOv+EKQXEtqX+5Jvq2qd8sQr30N656kelmCIX2QxFohm0b3AmCRVzxDsGZBfiJDZImpa+HK2nT48WW71alvzL7kh/oa7pXLke3lPs97ieMUHlxu15HJBdZJqJFveVVQAfc/RfphfwRQYc2t6ITUvcm2P8fHPVUZPnbWzsFX4mrFFvPRGXdnex3vDs9RTfI",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OUL1R_FO71",
+    "timestamp": "2026-08-05 06:10:45",
+    "sessionId": "SESS_WEB_91Y0N",
+    "city": "Chennai Metro Hub",
+    "state": "Tamil Nadu",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/laser-piles"
+    ],
+    "lastClickedElement": "Viewing /locations/tamil-nadu/chennai/laser-piles",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Chennai Metro Hub on Windows PC / Laptop. Selected option 'Viewing /locations/tamil-nadu/chennai/laser-piles'. Sections viewed:  locations/tamil-nadu/chennai/laser-piles. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "r4WPrx+tSfQUw0gF:Vz2eQbqX7vrzTQwL2fXGgA==:yPtbwmEzFuaBbZk9Uc/Z4iXWBWnysTZDcySe5drja/asKcafvGeEMRl41tgnpQMN2iIdLVxaPwKwM2hmFLJvbCeONEQYSigUNtpuNqsVFlHr/j0xd3/j3zromdXto20XU22jxle+p7u+Wci4p0yij9kGOx+u6EuvHJzsMiR+mWpplUqiITT2Tqn0xOJoWj5G/SYMmWYYCitjuSizNRoONcbRhQPXWTpKJ7k5OVGrzN9IPWHUF0o++JNEqhIWVGlMrY9giai47yaEhMZJwVhPJ5qNucFM+EadzG0o8AS7yDWAUbGY8VPmVSEOu2hliKsOoqk8YtlWapuwjUqGz8FZ5exvW2QHW731G9hfU1wjh5js6XwH",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OTVG4_RX2S",
+    "timestamp": "2026-08-05 06:10:12",
+    "sessionId": "SESS_WEB_AI1M5",
+    "city": "Chennai Metro Hub",
+    "state": "Tamil Nadu",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/locations/tamil-nadu/chennai/circumcision"
+    ],
+    "lastClickedElement": "Viewing /locations/tamil-nadu/chennai/circumcision",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Chennai Metro Hub on Windows PC / Laptop. Selected option 'Viewing /locations/tamil-nadu/chennai/circumcision'. Sections viewed:  locations/tamil-nadu/chennai/circumcision. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "n/z9S3XtJstvsuqS:m59x59BBJwrPB7Bg47IN2g==:fGqEMsut4GSo0VqtfZjMh+8gTyKmNP7tiHzk4rfjHUI7q3T9iku937M6AekSKchgTVsqh9p6bLpaYbwWcESuWog4y98yinY6DXp9vSwjpMEEkX5v6Edx4r9WmWWSjB3/DlK9BD3ZA/Jpe7BAxeba9XJ+7NYXUKqJCPjQmOsM+0YVQxUfcBmjl4Qd7CP1zALeMwH006hJNKpu5qDY4NBWW7G23hpau9I02Y7JlVxkTcFw4jRZoTtNSijfjbupHkkAgcJSSJk22nRU1gN5Ymp/xhfAPoEgWr8+tyhPxfyFUBk4AtDd7I1BxMOnkia4y3vHFO2FDVJaakDcojun4LiDGqFNalqUBy/hEWdr1RdP+rlO7QhEVCk=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OT8D1_CI1P",
+    "timestamp": "2026-08-05 06:09:42",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/specialities/circumcision"
+    ],
+    "lastClickedElement": "Active Reading (/specialities/circumcision)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  SPECIALITIES/CIRCUMCISION. Ready for surgical consultation guidance.",
+    "encryptedPayload": "UcvHo8EbFvAUoaDg:0wrpLs3V4FdcyOV6TPEasA==:DnZRz3eKShmKDGN+5bzSFi3BqgtliXUlnyQENIdbBbJzssrxrjU3BmuTxcmhb/mkEZ60N7pL9G204mM4DjdvZSOHUPrk8hT6hJPh13CPi2SDBDJPH09u6X9pGLdJgIC+5kuLAU5XTk83xcKNfUFFoDGS22rQZsqvEmGPlJLiDrs/JPwM0I2Lt4cry6GKLaE=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_OSB61_2F33",
+    "timestamp": "2026-08-05 06:08:59",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/specialities/circumcision"
+    ],
+    "lastClickedElement": "Viewing /specialities/circumcision",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /specialities/circumcision'. Sections viewed:  specialities/circumcision. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "1k9RqkrNNwMQ9n12:fN1iA2Mo7AGiXuvKP5ZpJA==:xJBgbrOcRAF5CcSa/yynArGkDl745YjzBkZmgX3MuG40GCrW6dma8NHD1G7R8fRQBokJ4EP5FSRLmbo3xrkFytmAE/D9BvdxbJvofdvDDc5Q7jfOLbE3QliIpte34Pl7hTKjNRTe3pJBmS0TKolWSQr40RfeYmEEQ48PyJrwi4PdzCadkgZFxeTu+i4xJAHPG0tWFprN0ecZJGFXiNLFMj4upQ4jKKHwKMpLucQMGe7q09nwpxGBUTtpSE+eDjU6CsB/XFjIRq/99Z3fL3YIobwIO1XgLJ/R1TrN8yeuFj697ZA8GS4nMbsB10+P34fwhTNTpDir3N6jpexepL9YTfTAk1v2ykRnug==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_NUEOW_HGQ0",
+    "timestamp": "2026-08-05 05:42:38",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities",
+      "/locations",
+      "/specialities",
+      "/specialities/circumcision"
+    ],
+    "lastClickedElement": "Active Reading (/specialities/circumcision)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  SPECIALITIES/CIRCUMCISION. Ready for surgical consultation guidance.",
+    "encryptedPayload": "xBjnpPjg7LDpvPW4:S0AVfc3UxllxTdj71k4mww==:0QHD6Pi3xEsX+ZoyXLxR44oItAkFd9SjHCIuVg/v3mXyS0b8gFAuuCiTjhnZmw/ctsc6gqLAohmW0DT+n30HXI/jMssd/ioE41xDLUCaBkfFEEwb14stXnqUBwIwpB/FuSx+jIkmqL3dKSnkHlORKMQqvT0Jz+KZJ4hGK2xYFSk3Fpgdm6t7BP4WNX4V0n8=",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_NTGLG_DRSC",
+    "timestamp": "2026-08-05 05:41:53",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities",
+      "/locations",
+      "/specialities",
+      "/specialities/circumcision"
+    ],
+    "lastClickedElement": "Viewing /specialities/circumcision",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /specialities/circumcision'. Sections viewed:  contact ➔  locations ➔  specialities ➔  locations ➔  specialities ➔  specialities/circumcision. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "1YJ1zEBGYcix2dCo:aJjqbUf99lvfmZZS8c9dMg==:CAsuM82oTBmRfZvOvZAsmDKqKkZ5aj8F1ma5S5h9aPX/QQIHHInVXHh6xMKMmqEtEJJAZREyaugK72zhTzgxkFmAaRQCXo1AfKEWVMQ93O082xyHTotQVS3SU3wVBDUrtbW7QLUKvurHM3sUlIkKlzrrK8MKvvY4281gbuo1ACuxmUIQjZDW4NVWiHJ70+UpXYNh4RGOEaBGE7HLSSQ8Kunzni9izJQoFC+7gKpNuRfppp90B88ORQF4awEvfY+5Y6waT6hVqEVx1jlSfOWbZ2KHXuWXnwFLMPLeK9R5clQYqh3yLkxE5j2kLgwHlxt6+ZrXiFmUjl+6Sxf2wc/VGTJrVDelF7849nORitlHLws1CnaDerD++kBzbsu/esdGcgZ5GbdxI/mqIwyx6RulPYui4F/bFbn8FCxOqRimJK/rJFXf8D/K2453mbTkUfik1ST09pQqT48=",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_134",
+    "timestamp": "2026-08-05 05:39:54",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities",
+      "/locations",
+      "/specialities"
+    ],
+    "lastClickedElement": "Active Reading (/specialities)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  SPECIALITIES. Ready for surgical consultation guidance.",
+    "encryptedPayload": "9OcndrJ4NAqVmWNm:OTJ1v5G3Cq8PjF6sMXGIFw==:F7CLRG5wfZ7XbZnFOmqVkc5tF8GMo89rTmx/jB0AWSzIb22SL5WbMLnV5sJOnAFgnRw7PUV/TviXqrT+BJPJNU8BzzqdyBrTOKy0Ao0iptYarsCeihI13rFcfHaXRztUJEOZr/YdL14slexr06LT1+5OnfVG7HJr6+56NirStyEuJg==",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_822",
+    "timestamp": "2026-08-05 05:39:11",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities",
+      "/locations",
+      "/specialities"
+    ],
+    "lastClickedElement": "Viewing /specialities",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /specialities'. Sections viewed:  contact ➔  locations ➔  specialities ➔  locations ➔  specialities. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "ArWIoZ87JX9UbKKB:A2sTcgt37vip/o6IbNPdcA==:nKXoxPsutkG3yc+oXAVb+WDcx6qMXf4m3txLNZ0WKrd5vE2+GeaqLc6wF0+VPzU9AVy3o199rkDlxS92CdkEvLc7XqqBRCWc63LK4yrb4saRvEnQynzFO67gNyKKWJpu/ml1qmHwWRYM9rQNOKInR+YOhHK+/prvB7VcePwOY4yWPNkQel1Z1mmeIUsMny3OW/HnyuaP37+mICxR7vvGfpecaDWG523OlmJBLPoCUa4UapMALjSPCSBnbttgcF1RVTnGK41Q9NJnXrgS9uwhivT+xJAqucKX7Bn6L2Vh1JdS34ZVtm1LcryrCC20nmCbqIynR3d++JNMTN6dhTvT4qcMiaA4534gWzC9irrelWIIkj5p2PrxoL8ZwBPLTQxrnlYKtlEKTxSx6tSy",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_442",
+    "timestamp": "2026-08-05 05:38:57",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities",
+      "/locations"
+    ],
+    "lastClickedElement": "Viewing /locations",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /locations'. Sections viewed:  contact ➔  locations ➔  specialities ➔  locations. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "HH/QLoHxJzDO6VXr:5DOGi+DKGN1RRgkygRopKw==:d4GedoG4LhBVJI0y1Ski7kU7THL2VvIzCN3wQbqj/0ht8W9Udyl2xfW7vX2joD2umYKUoHkeeLArvBKyg3nfrWVui9HlCI4sjtB4gXsAuCJwJ/IJwX/nAah6jxj8v3TfQ9pc9v3CNb9BTu6j6a5P7CScpp2yrVZ9gbdlox0640SJYy+5OeKZAlPAs2TGdy5sD0yWTienVMZNzXjkzT960ZefXqNgmKgHDd9r1IZK79shJNzw/re3hOsWr+gx1MKYYk21s7NtgUu2sBtxFUZRD2VPA1L4+X45Yh+TwW4gvYUo2/i8tzkMEiTOrivlW8AjERoCIAv1XNI1r2I8PsvbCutR+KKNltZvw3BYfNX7T7FCd7Z6vT6H",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_973",
+    "timestamp": "2026-08-05 05:38:53",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations",
+      "/specialities"
+    ],
+    "lastClickedElement": "Viewing /specialities",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /specialities'. Sections viewed:  contact ➔  locations ➔  specialities. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "+R5IpMDHgQ3e4VvW:XLxthp88eyxpx7EFU5+/CQ==:rVPapW8nSJ7p7mkRwo4ryNNq36R3nrOQgkWgT2G70rynika8P+GJeKuRyV6zIQ4laIhrbvuaHiIp4fAkXqE8EPytxcpajkIWzGZQ4sfOwjY0a7U4d54pU8v3+GbbmXJvFTYbZeuj8YJFOAMwDkU77Df/vUGRdgUPJphJ+akljYnebC2Ij9gleJh2MG+qx9LKhDjlKOxUkKuZiO3IXy79/40i4sPy0JdAJQHqmON1yRKh9Zh5U54YJNli4Qr8wvsfzFJH57B4vkyB9wJQDLyfbClWrz4oi0hN82S4LB8ls+L3nnc4KnWNzhBCmXwHKjyjyw4GA5lihXQM0QtabzYJeekcnWUmuPPo5I+L",
+    "urgencyScore": 50,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 50
+  },
+  {
+    "id": "LOG_20260805_980",
+    "timestamp": "2026-08-05 05:38:40",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/locations"
+    ],
+    "lastClickedElement": "Viewing /locations",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /locations'. Sections viewed:  contact ➔  locations. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "ayYou08vjqHO546x:8Q1fF10cCqIpCXByfSbOrg==:nyo1wQSIEhBRAbuL0RKyWhACXupJYU+d9N8dh2clqJDgZNrZI5tDdUXUFt4BDGIPE3pdwS72O/zaaCf9hQVMXXNNA3bNVPuOdAHycsYmJcB4cknPb9Gj4EfSF4uwz5+7FFNWrMLHyF2d30PPLMuVbGVzZYgBPd+9TdsjPFqwJ9dnsmxkI1x8kn4FR2v8wJc7GfY7wcODZ9xkx9mgOkeJUdxgyinWROaUZvHLuaAW0SXO/cc9EU8wgYmr7/N0UM3HvdnGL0fZfdC4y71qxt3f010uxDV8YRqEfEuJsg2L04/+IhPfgoPDhFs73bWdnaE2NAEKIe9J",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_527",
+    "timestamp": "2026-08-05 05:22:22",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Active Reading (/contact)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  CONTACT. Ready for surgical consultation guidance.",
+    "encryptedPayload": "RU3/ls/8pqiLmTyR:B6FMxOyPjUyCs0ri4gbz5w==:m+wL1fsvZfi/M/Vh0V1Zx/1GFw/snPZFS2729eWDTbCzgNbeISR4f3kVIVJzFnW0om9agI6/Ew/C1HikzdWsuLl+ySzDXiASuX3iyWXSMpOm1AxI8e3PRqIvHvTkYn9ChXUClS4KqYgHb8HGufOwM/BFiMQwto/R3QBWTf4=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_984",
+    "timestamp": "2026-08-05 05:21:38",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Viewing /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /contact'. Sections viewed:  contact. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "nYyF+yqJm0DQmmxX:tvzVDmGriXojgVD30BeFwQ==:3kq17yBBMINnHHvfyM2js5N7mNVc9F8DB9rgKq/RCx5wWa4PRdkEC1uGx5Hg7FhDI9zZkT41q8p7rq8w1gmiDiq5AIZwy80+GD4YyTa39JEdeqNqZLigJSMqOFqEs81QWECONmu14yqKPY9OPhiaiIXMnAsUcO0p6KE7LiHwwirBh4toDICFHEmioLlY2DGQS3iGrj8EozvvXadl/KGZR74tkL2CA25WMYGQ9p/fNYb4ilmd585Fec2qv6VRIMk5+KqcnWjsfx6tA5ZcQsPBOS3zMqrEGrQpnLhRORexcoePo9KtXQ==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_594",
+    "timestamp": "2026-08-05 05:15:31",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Active Reading (/contact)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  CONTACT. Ready for surgical consultation guidance.",
+    "encryptedPayload": "ViUHeUnhqYt//keX:KHRUHlHeiuohiM4zc9naJw==:xtCYWjqi+wZnyuJNCc0wZ/wCXddMH0E/icjPqYAKhNHp8DAYq5GLeqnD4Mal76Xsd23gZJc/vasj1sPfYcwlhIfDadotLDh9ZMx/Ns9hLLt+EeLlb3F2uGYciCZ600nRhSUplkDSydLBDCTpVTd5RRi7RwzRY/ofcDGV9DU=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_751",
+    "timestamp": "2026-08-05 05:14:48",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Viewing /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from Hyderabad Metro Area (Telangana Hub) on Windows PC / Laptop. Selected option 'Viewing /contact'. Sections viewed:  contact. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "gpZVdBaoUTLrmcMi:uKwV/7BbddB3h2cTkFbSdw==:A25OhJFsFZQwqNVL7uMOAf83CKxHYOMiWMP3Lc7qHLRw9ZlVD/NJ5RCh1pBRe6fQX9SFP2yEw7aIj2uQl0812VkuJGaAuhVh0JPHqjWd4qQGW/ZjNqf1DWZUFT+jDRbHKQDe8FNLk73ocpHqyumDuGggWKgtToadJxAZbIMfHT/DLWuX3DAlhl9wlXKOB8MGFKwx9NMJe+DoEbANm070wB/J728BjZu5FCygTqWVKZsXYPXlnaEmJXOqahUH9YVxfejJSajDeFl37ew6X9+Qq0w8jDIgu6/lKwuEX56/WQ240U/Mnw==",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_165",
+    "timestamp": "2026-08-05 03:55:12",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Windows PC / Laptop",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Active Reading (/contact)",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "High Clinical Intent: Patient has spent significant time (>45s) reviewing  CONTACT. Ready for surgical consultation guidance.",
+    "encryptedPayload": "rtUjw4B388Q2GImr:Qne9De1oyI5Y2JX5Shg2CQ==:/oUO+zllFvvpoFMOAi9iuT5LFTa+pfRMx2d0fE7HFl6Vm/N9GghD+zUlaeBfHDjuQkrWqyS2aUotpikmfiuOAbfC4MGITNW35CJ2wHD6StDMPTPszqDpX3tEOU4/v4WXVrUdg8mwUiLbNoLRmdtFYkDWiIzbvsvT4e81eek=",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_257",
+    "timestamp": "2026-08-05 03:53:23",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Viewing /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Clinical Activity Note: Patient inquiring from South India Regional Hub on Desktop Browser. Selected option 'Viewing /contact'. Sections viewed:  contact. Recommended for doctor review and consultation scheduling.",
+    "encryptedPayload": "PrhSown4teXzopxE:FoqgLaQ5uFso+nfnhwbbzA==:hgSqwDTxtFtimRLWR5z09J/PpVH8WOIiHxgaN4dfcDsDpX0uhfYxsKS2cRmG3hkAtSvwYdMBHGFtcn51CD+gEpffsFKs2Bedil7eWW72sIMR4Q8fu8UBQL2NeQYOVF28++okPmP5HZW+RjJgsQJ0p8TZD3EuB7KOJ8C6M1q8hBHMOtMBEv7Ggc4v9msK5i1Yv8ecJ228RTn665W9tM19kSAnGhvRBg8VRwJ37vM7CKtmawrEO9uD+ONgGd0DRNN3IBNnzhX3W97JtcgRTOy4Sf7Imj7k",
+    "urgencyScore": 35,
+    "urgencyLabel": "Casual Browser",
+    "assignedDoctor": "Unassigned - Pending Triage",
+    "urgency": 35
+  },
+  {
+    "id": "LOG_20260805_652",
+    "timestamp": "2026-08-05 02:47:35",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/contact"
+    ],
+    "lastClickedElement": "Navigated to /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: / ➔ /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "msjxyVc98SzaOhQ5:7MzrDKISlAnkxExwPHLWtg==:VJNRIOUczlDI7M7Es7G2hLQXmpD9VoQuk7UI6fo2q7su3iNjXwKcM7KbkZtCMtEqb+VPElpXMePQds3PDOM0NPD2XeWkH2wFLNC3isouAxclEg4g/CFl99nKvwnl40VuLcXABvidzCkD8q2AcqjOFXmL/dIhTEJDgoqq1YgIJMiTAqOKRudoLhslxvx0CwDMn27eNpG+bunjuCFax0QX0uV55WkXrBIDWXQKYgFtn5plHYDs5gb1ghauborK8eoCxdjxL55wB7zwDZOlQCVm1X3Ie4WW4g8H8w1CTdXdGBAWDRaTb+LK21++6fhkliGptOpoxWHBKiUnLX0wDN8vbyjG1xGh"
+  },
+  {
+    "id": "LOG_20260805_467",
+    "timestamp": "2026-08-05 02:47:07",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "5ayT15GRDghO94p6:/eHqeCA+dvRkwgz7BieqAA==:m3odQQaKcKLs8YGygZ8ImRalD2sA+bJL+xHVRr2uLFt4/bmOPdQyinXWwrbwi41si2HLlwE9NCEZyEcZCivG6ih3JSM6kTjtv7MgN88F5Qy3kH2NBOkwn9bc26Iklbh1Q/9stbLL4An8lsHB5e2GRtpDeXoeFNu8sNVH+BHcMdwcxo2Z/gI9yE4QDG/OnooEhx+P36kYRhQjSQrP7blXn43Xyca+4aCHXT46Sa0WJL8Pkn0VMfaMre6HZ14bJa4bInV+ImYlpiYSO8CrEM5z8vjYTcvjY4NbxO9eV70jAee4pByFvoIsVoffs7qDrAgYag=="
+  },
+  {
+    "id": "LOG_20260805_362",
+    "timestamp": "2026-08-05 02:34:37",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact",
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /contact ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "lURAMPux/GKmvCE2:uuu3RPyOzLabK63MMz/ifA==:k2W7ahY3p0gwcEBv2eDamVORpxvTp+TDWyG/9HDKI4GMlpJt8duBQohVCQ5ClK4eTB27ThqoCPcZYR1w7v5GBd5dE0FPEw2zNq0ShT5G2HH/7jLE0xcc/8RMrlOkPPoym5kruOot8F+48EP5+RWmtwFzqFCcNmVXS6oDqQFn1gV+kCdxDULYG+HzPXgILjaMcwtCE/ajhXtytwv5QU5ReHzZ3SHzDMINY1raPly6aN+TbRH1pnZvQhDSxwny2tZHDGsK3chHOXdVGJwcvZoO8PX/Y6Jrbr17amw89ORCfCAZuE5rd1Wt2G3i6he+xiRZJ4v6nrEwkP2WVkF2Noo="
+  },
+  {
+    "id": "LOG_20260805_984_14_97G",
+    "timestamp": "2026-08-05 02:21:38",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/contact"
+    ],
+    "lastClickedElement": "Navigated to /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "XttgFKUdY6KxDrQp:yO4ezcRMflPvWgVwsP0meA==:0VR2lTtmS47cQfeHfbn5aUT/9ktFzMi4pLqBhML+aBtjD1NGzWAT9NydZM8B0vRgBDjIPx4ViF/PoSd+Q8h2bjCj4TX0mSDuIa5zkgQOkIO/fbh3mnDfG3gXFvJhtxXY5JYCZsRGhFR3zCdIG+rlIWBe4ZL9dPiSOY7x/ofZMEcD086NLkg1c+1goPE7IdCSbxpPydTNo10+gPRf5MKhQzQFYUhseoMVEKpBHspAVqpZg+5LfgxVdMq8fvLeZJAF7OMe2HRYWLN1MgwqfHWHmkyNeFvvs3uz1r/Z2GrBdQ6AEVlK8qPcFzwwEjbF96crX+2JliZB7znhAOcc1ciO"
+  },
+  {
+    "id": "LOG_20260805_348",
+    "timestamp": "2026-08-05 02:20:50",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/specialities",
+      "/",
+      "/specialities",
+      "/",
+      "/contact"
+    ],
+    "lastClickedElement": "Navigated to /contact",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /contact'. Traversed routes: / ➔ /specialities ➔ / ➔ /specialities ➔ / ➔ /contact. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "FwMKISFi9MhYHG2t:VubZqr8UKd8hhR4zHuh2ig==:0p6Gwi54wr01pnjyomiMsT46Z9xkl3FYjUB+3P+VwjUXIZgEevxf3IDPdcHlrdT6Z5EHck0DafRWOzKWS/r7RHTYqRAhMY5GSwjzH38cenutzuO2z7W9hO5JoKMGRo58kAXob6mrkK5FiCsjkc8fO5lqpSH+BAarVmp8EXBLc6nGigtMaciDVrODkBXJ3c2WrMTn5n73OfT4p+hVCbuWq8XkqcY6sL9WPNsw6T/9azw5lNyodaQQuUKQtHU9whPJbCtT6Oay+tBQ8kEnCm1n6DxrmkccJUHXoWCeODGIq1gKujbik9OyH6//Zj2y1XOrZiB7ToZdgPW73si/nZ577Qo2lhou1eu7sDWrV9CSeuer5ez0qaM5Q7tYOPozZh8NCCwzYVCP+uas7i5ywikNdV65ZZPw"
+  },
+  {
+    "id": "LOG_20260805_413",
+    "timestamp": "2026-08-05 02:17:02",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/specialities",
+      "/",
+      "/specialities",
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: / ➔ /specialities ➔ / ➔ /specialities ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "oI/lfc8xeKVHN+DZ:+7FzeBynDZv+z7xzNLEihQ==:EWWrV8RYUhP0AP57VtgzCX148etgfORlaaWAQpncgaR7q+goqQU8DHfAv2z7qblqdcw9Twk9QdLCvwTnJFRDBBV35i5ucaT9R/c7rvsvHZghib7yqySTCT3iK7NW27xbjS11DArByIA01xedyMVpqNYjo2rlunv5zCgMCUMJcAuYz1k72p9b6xH3TyXc2Vtc/CHp5FqGTYNiw7bVza2L/ugrJtBa05dH+LTzGwhB00WumW3mZO2935T6xg0o5ya8IJmr/7uHWvBdAaQP2gFkEI31lwDaUDkQ8yIH/SDn9qxjB7kaVQvod3rvi0FMLDeTCi52VFHFS/KWTO81wcRxJjiYdnBaEaGA+U3FqV26MFXoujJtj8t3WCmgzTIMDECOBA=="
+  },
+  {
+    "id": "LOG_20260805_900",
+    "timestamp": "2026-08-05 02:16:09",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/specialities",
+      "/",
+      "/specialities"
+    ],
+    "lastClickedElement": "Navigated to /specialities",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities'. Traversed routes: / ➔ /specialities ➔ / ➔ /specialities. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "Svt/MXw1RGRKaUUY:qhHSOmdV1HNebNIaBu9zZw==:dU46A5/gjNyQEYZMLiXRR9/myILD1Lrf1uJFYzB592ijH2JsUrZMRDkCqqLHm5YgOS/jE9FiayAkpAHVW8soYEx2PKvYCU/kKH4CKm8Q1cmxxpNmj+haqoqoi0xqDooMXtFHuuu0CkoWQJjpTskjNJcvvVpjRyp2CxkCffu1AMjLgIFJIYEDsmTePwdJBlCDUGqzykMtpeDPJ9B1h4tlOsHPbCKO1853jLnnnm0BXY2UEUVE5Snq+kPy2ze/0bLzkwVwkk5Ekq/Xo4ogVl8g7r5HgYLIi4mktLTXbnLL8ZxamU0gOYOL8lteLXkoFel6hBGQec+JAAChWs6c3rKYu2IDRINpr19mR61NHFCYRuqmNtqTO7IFsz4Qg51A7ry9DB5sZSI1eA=="
+  },
+  {
+    "id": "LOG_20260805_509",
+    "timestamp": "2026-08-05 02:14:12",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/specialities",
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: / ➔ /specialities ➔ /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "T+GViWXJj+X3AMJ3:pSj93EZr/RDlSCEWerh1Gg==:rBCeUTxu7CcseJzjNlZweclT8NofICqZXmAN2bWRinO6pfDT7jHcA2XJfvHWgXEQ1b+EE59byhtCuSBLE9UTXo2fvbV4qFEeL7xGfGn4SarC1WOwgPKiuqLLlPAv9XoQ+cVCctHSbWxlBo+PvbDIjE0zMbZ/wmBCkPbSNM6kJJVYZkEZ3mgqr34s0WxZ/efKOAoOaAToCMatvBcwhmKzd6g4k4FH7uHZZcWSiY7/WhqMS8pX9rTjRWmLh1JcNR+VZOdws3Sq8WH36c4puM3c4B5t02Uu6HaD5wlL2I2MA8ElDyn+hy3H0BrGkSI0Dir0ItF5ee9ngNs5C5MrlFW1+od5zq/za6lhTQ=="
+  },
+  {
+    "id": "LOG_20260805_773",
+    "timestamp": "2026-08-05 02:14:08",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/",
+      "/specialities"
+    ],
+    "lastClickedElement": "Navigated to /specialities",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /specialities'. Traversed routes: / ➔ /specialities. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "Hz2c7Pkl21MT8vKL:YF+lnlQuL74kAnxbM1ujlg==:JGU4rtRIBcOJ8GBemDnoG0iN16wGFeE/P7zGkQQhzW2Ddn7Ar7Ibpo0maYqaZfKi343h0aPGWhWlIdsnJsfJvIcBmAYS/Ec9rWTWPiimJjW8yn9Ce3EBeChshmwdQWCqIVjelOXuni39IBQUcqliWC4vLK1Q5Vjz8hbin79YKW5gpEMFO/tkGE5JQcAQp8C5L9utwmPuX6C4CQTRPBv5s/lFuYVakYTMmc2ciOvy8lgYGWPot/0UzO82Bu7ELCz+ZAc0tXKwagrxiwR25jaGPmiALs8dELK8hqQbgo7ffh6YraIBpfpV0erOHYWEz3ZXRCohlELD7/nwAncbKZzxZI1XwcUwycFTQL086ZxPcw=="
+  },
+  {
+    "id": "LOG_20260805_373",
+    "timestamp": "2026-08-05 02:13:47",
+    "sessionId": "SESS_WEB_BW4TV",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
+    "device": "Desktop Browser",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "pagesViewed": [
+      "/"
+    ],
+    "lastClickedElement": "Navigated to /",
+    "searchQueries": [],
+    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /'. Traversed routes: /. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
+    "encryptedPayload": "QDVncfr5FF4IjYU4:MlB2V+VQbq8UggP3J4LL+w==:npxHRtT/gNsFeDiCZm4DdrE5dwY4BMlUt8JjihpClQINR+Qy1IOcbf5p93lbgLfiNY9UH3WcPbxOEGTL2s406BdBAkNaB4CHhVWCXfPp8iZRWqlqAl2O2LK3H0Jt+RnF1lwFPVftYYZDHRT5RDK/mu3k+gAxex1mCdhMSlRw9z8zJS7mZT09XZjqL5G1xFOuSld98WsnycEQ2DTKPfC/nlMBoCxfhNnrFydnyLsWsEvJnRV67uL5VRTrsvJXVrZFStY+e1H5h4ZBnTHNPdVFlj7qTfk/CwrEyPOk5+IbqIfpUNiJAo/RqRAlX/fIx/hFSg=="
+  },
+  {
     "id": "LOG_20260805_735",
     "timestamp": "2026-08-05 02:06:21",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
@@ -24,8 +605,8 @@
     "id": "LOG_20260805_331",
     "timestamp": "2026-08-05 02:05:16",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
@@ -44,8 +625,8 @@
     "id": "LOG_20260805_101",
     "timestamp": "2026-08-05 02:04:43",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
@@ -60,27 +641,11 @@
     "encryptedPayload": "HPcjFft3xDlaAxRc:erRfWxyOmBm5rf4gdVCCDg==:vOcabIPWAMioI4RpBbb8T7r3eX+RGpFGqr0lWxe763MezoYwrYTVAsZ2EKK36vQJ/RABRk/1WbbXZaU/x2nOxu2HNiiigQiEZrzN11VT0Sv3rH7aRl4k1akXzX9jMplaDJLprADKNYC3R2asL4t3EWHA5drvUP2pSxYtPcL65hpxeLBMCGQYMGlZhx6nQdr1mh2yIDzl8hIzTbMrtV1STCe7SKbJrB5VNhc3k4qIntDPESHDeyEWg22UGA3pHZTOGdarZlNWO5n5rcvk4zOZrUYMbSn3B7xVWYDbSEhSR3mc0MnGVe8bDXEX76GJ2wiBkmktPwuk0hNrVf5vX0JfDmG/ZsWRcDwEVuS/+LNAn22kUm0waptnkfQ/LxtSGWqsmi2vDGKGE1CRjg=="
   },
   {
-    "id": "LOG_20260805_951",
-    "timestamp": "2026-08-05 02:02:52",
-    "sessionId": "SESS_WEB_U8F5K",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
-    "device": "Desktop Browser",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-    "pagesViewed": [
-      "/admin"
-    ],
-    "lastClickedElement": "Navigated to /admin",
-    "searchQueries": [],
-    "coordinatorClinicalNote": "Automated Telemetry Triage Note: Visitor from South India Regional Hub utilizing Desktop Browser. Clicked on 'Navigated to /admin'. Traversed routes: /admin. Coordinator follow-up recommended for insurance verification and empanelled hospital booking.",
-    "encryptedPayload": "+8pa/uDIP0nuny1c:mDVHELh00FL/SpGazxWoJA==:SShSJrrfZpSGUODzGf3xLxjPpkE8umqv8MD2aPv/Jgwe7tsbhrrUi9TYeUPHLFOuwift2gDrYfvWQaWa0xqJvIdyZ+yyYJ4HBFfHjWDERq606Yjc5Y3QEDj2gCwVeMyFSoYEnB0qWcnF/AaY61mQIHCnMun2XuHOaKKUguyLFO1cW79ZpQAQ86oFTB/QrIZYmH4tjsTIM+IaZgN0ByLagMAUgb2/LFRN08IFaPDHGBQEtZChNxSfHJYy19eoSxuv1HNxL8IrsDJvRRVi9mI/2fH6rt5BJpgcMu5q9VkIYa+AbhC5JDpd616ATBHLwEj06xw5xX+PLqRGCFE="
-  },
-  {
     "id": "LOG_20260805_287",
     "timestamp": "2026-08-05 02:02:39",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
@@ -97,8 +662,8 @@
     "id": "LOG_20260804_488",
     "timestamp": "2026-08-04 19:48:57",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [
@@ -114,8 +679,8 @@
     "id": "LOG_20260804_181",
     "timestamp": "2026-08-04 19:45:36",
     "sessionId": "SESS_WEB_BW4TV",
-    "city": "South India Regional Hub",
-    "state": "Tamil Nadu",
+    "city": "Hyderabad Metro Area (Telangana Hub)",
+    "state": "Telangana",
     "device": "Desktop Browser",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
     "pagesViewed": [

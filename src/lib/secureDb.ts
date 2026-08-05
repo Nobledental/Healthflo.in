@@ -12,7 +12,7 @@ export interface CoordinatorNoteRecord {
   timestamp: string;
   sessionId: string;
   city: string;
-  state: "Tamil Nadu" | "Karnataka" | "Telangana" | "Pan-India";
+  state: string;
   device: string;
   userAgent: string;
   pagesViewed: string[];
@@ -36,12 +36,25 @@ export interface CoordinatorNoteRecord {
     recipient: string;
     messageSnippet: string;
   }[];
+  // Doctor-friendly urgency scoring and SLA assignment
+  urgencyScore?: number;
+  urgencyLabel?: "High Urgency" | "Active Inquiry" | "Casual Browser";
+  assignedDoctor?: string;
+  assignedHospital?: string;
+  urgency?: number;
+  targetCallDeadline?: string;
 }
 
 export interface DashboardIntelligence {
   totalVisitorSessions: number;
   activeLeadsCount: number;
-  stateBreakdown: { state: string; count: number; percentage: number; color: string }[];
+  stateBreakdown: { 
+    state: string; 
+    count: number; 
+    percentage: number; 
+    color: string;
+    cities: { name: string; count: number; percentage: number }[];
+  }[];
   topProcedures: { name: string; views: number; change: string; trend: "up" | "stable" }[];
   recentQueries: { query: string; location: string; timestamp: string }[];
   recentLogs: CoordinatorNoteRecord[];
@@ -151,18 +164,38 @@ export async function writeRecords(records: CoordinatorNoteRecord[]): Promise<vo
 export async function recordVisitorEvent(eventData: Partial<CoordinatorNoteRecord>): Promise<CoordinatorNoteRecord> {
   const records = await readAllRecords();
   
-  const id = `LOG_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}_${Math.floor(100 + Math.random() * 900)}`;
+  const id = `LOG_${new Date().toISOString().slice(0, 10).replace(/-/g, "")}_${Date.now().toString(36).slice(-5).toUpperCase()}_${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
   const now = new Date().toISOString().replace("T", " ").slice(0, 19);
   
-  // Construct automatic coordinator note based on real telemetry actions
-  const actionSummary = eventData.lastClickedElement ? `Clicked on '${eventData.lastClickedElement}'. ` : "";
+  // Construct automatic clinical note in clean, non-technical medical language
+  const actionSummary = eventData.lastClickedElement ? `Selected option '${eventData.lastClickedElement}'. ` : "";
   const querySummary = eventData.searchQueries && eventData.searchQueries.length > 0
-    ? `Typed search queries: [${eventData.searchQueries.join(", ")}]. `
+    ? `Symptom or procedure search: [${eventData.searchQueries.join(", ")}]. `
     : "";
-  const pageSummary = eventData.pagesViewed ? `Traversed routes: ${eventData.pagesViewed.join(" ➔ ")}.` : "";
+  const pageSummary = eventData.pagesViewed ? `Sections viewed: ${eventData.pagesViewed.map(p => p === "/" ? "Home Page" : p.replace("/", " ")).join(" ➔ ")}.` : "";
   
   const autoNote = eventData.coordinatorClinicalNote || 
-    `Automated Telemetry Triage Note: Visitor from ${eventData.city || "South India Cluster"} utilizing ${eventData.device || "Mobile Device"}. ${actionSummary}${querySummary}${pageSummary} Coordinator follow-up recommended for insurance verification and empanelled hospital booking.`;
+    `Clinical Activity Note: Patient inquiring from ${eventData.city || "South India Regional Hub"} on ${eventData.device || "Mobile Device"}. ${actionSummary}${querySummary}${pageSummary} Recommended for doctor review and consultation scheduling.`;
+
+  // Automatic Urgency Scoring for doctors & coordinators (0 to 100%)
+  let score = 35;
+  if (eventData.leadContact?.phone) score += 50;
+  const clickLower = (eventData.lastClickedElement || "").toLowerCase();
+  if (clickLower.match(/whatsapp|call|book|insurance|triage|consult|emergency/)) score += 25;
+  if (eventData.pagesViewed && eventData.pagesViewed.length > 2) score += 15;
+  score = Math.min(100, score);
+
+  let label: "High Urgency" | "Active Inquiry" | "Casual Browser" = "Casual Browser";
+  if (score >= 80 || eventData.leadContact?.phone) {
+    label = "High Urgency";
+  } else if (score >= 55) {
+    label = "Active Inquiry";
+  }
+
+  // 15-Minute Target Call Timer for urgent inquiries
+  const callDeadline = (label === "High Urgency" || eventData.leadContact)
+    ? new Date(Date.now() + 15 * 60000).toISOString()
+    : undefined;
 
   const newRecord: CoordinatorNoteRecord = {
     id,
@@ -178,7 +211,13 @@ export async function recordVisitorEvent(eventData: Partial<CoordinatorNoteRecor
     leadContact: eventData.leadContact as any,
     coordinatorClinicalNote: autoNote,
     encryptedPayload: encryptText(autoNote, DEFAULT_ADMIN_KEY),
-    autoResponderReceipts: eventData.autoResponderReceipts || undefined
+    autoResponderReceipts: eventData.autoResponderReceipts || undefined,
+    urgencyScore: eventData.urgencyScore || score,
+    urgencyLabel: eventData.urgencyLabel || label,
+    assignedDoctor: eventData.assignedDoctor || "Unassigned - Pending Triage",
+    assignedHospital: eventData.assignedHospital,
+    urgency: eventData.urgencyScore || score,
+    targetCallDeadline: eventData.targetCallDeadline || callDeadline
   };
 
   // Prepend new record to list (newest first)
@@ -203,24 +242,75 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
 
   const records = await readAllRecords();
   
-  // Decrypt clinical notes for authenticated admin view using standard decryption key
-  const decryptedRecords = records.map((r) => ({
-    ...r,
-    coordinatorClinicalNote: r.encryptedPayload ? decryptText(r.encryptedPayload, DEFAULT_ADMIN_KEY) : r.coordinatorClinicalNote
-  }));
+  // Decrypt clinical notes and guarantee urgency scoring exists on all records for doctors
+  const decryptedRecords = records.map((r) => {
+    const decNote = r.encryptedPayload ? decryptText(r.encryptedPayload, DEFAULT_ADMIN_KEY) : r.coordinatorClinicalNote;
+    let score = r.urgencyScore;
+    let label = r.urgencyLabel;
+    if (score === undefined || label === undefined) {
+      score = 35;
+      if (r.leadContact?.phone) score += 50;
+      if ((r.lastClickedElement || "").toLowerCase().match(/whatsapp|call|book|insurance|triage|consult|emergency/)) score += 25;
+      if (r.pagesViewed && r.pagesViewed.length > 2) score += 15;
+      score = Math.min(100, score);
+      label = (score >= 80 || r.leadContact?.phone) ? "High Urgency" : (score >= 55 ? "Active Inquiry" : "Casual Browser");
+    }
+    return {
+      ...r,
+      coordinatorClinicalNote: decNote,
+      urgencyScore: score,
+      urgency: score,
+      urgencyLabel: label,
+      assignedDoctor: r.assignedDoctor || "Unassigned - Pending Triage",
+      assignedHospital: r.assignedHospital
+    };
+  });
 
   const activeLeadsCount = records.filter((r) => !!r.leadContact).length;
 
-  // Calculate real state breakdown
+  // Calculate real state & detailed city breakdown
   const stateCounts: Record<string, number> = {
     "Tamil Nadu": 0,
     "Karnataka": 0,
     "Telangana": 0,
     "Pan-India": 0
   };
+  const cityCountsByState: Record<string, Record<string, number>> = {
+    "Tamil Nadu": {},
+    "Karnataka": {},
+    "Telangana": {},
+    "Pan-India": {}
+  };
+
   records.forEach((r) => {
-    stateCounts[r.state] = (stateCounts[r.state] || 0) + 1;
+    let st = "Pan-India";
+    if (r.state === "Tamil Nadu" || r.state === "Karnataka" || r.state === "Telangana") {
+      st = r.state;
+    }
+    stateCounts[st] = (stateCounts[st] || 0) + 1;
+
+    let ct = r.city;
+    if (!ct || ct === "Unknown" || ct === "Unspecified" || ct === "Unspecified Regional Hub") {
+      if (st === "Tamil Nadu") ct = "Chennai Metro Area (Primary Hub)";
+      else if (st === "Karnataka") ct = "Bengaluru Tech & Metro Hub";
+      else if (st === "Telangana") ct = "Hyderabad Metro Area (Telangana Hub)";
+      else ct = r.state ? `${r.state} Regional Visitor` : "National Tele-Triage Network";
+    } else if (st === "Pan-India" && r.state && r.state !== "Pan-India" && !ct.includes(r.state)) {
+      ct = `${ct} (${r.state})`;
+    }
+    if (!cityCountsByState[st]) cityCountsByState[st] = {};
+    cityCountsByState[st][ct] = (cityCountsByState[st][ct] || 0) + 1;
   });
+
+  const buildCities = (st: string, totalCount: number) => {
+    const map = cityCountsByState[st] || {};
+    const entries = Object.entries(map).map(([name, count]) => ({
+      name,
+      count,
+      percentage: totalCount > 0 ? Math.round((count / totalCount) * 100) : 0
+    }));
+    return entries.sort((a, b) => b.count - a.count);
+  };
 
   const total = records.length;
   const stateBreakdown = [
@@ -228,19 +318,29 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
       state: "Tamil Nadu (25 Hubs)", 
       count: stateCounts["Tamil Nadu"] || 0, 
       percentage: total > 0 ? Math.round(((stateCounts["Tamil Nadu"] || 0) / total) * 100) : 0, 
-      color: "#F59E0B" 
+      color: "#F59E0B",
+      cities: buildCities("Tamil Nadu", stateCounts["Tamil Nadu"] || 0)
     },
     { 
       state: "Karnataka (25 Hubs)", 
       count: stateCounts["Karnataka"] || 0, 
       percentage: total > 0 ? Math.round(((stateCounts["Karnataka"] || 0) / total) * 100) : 0, 
-      color: "#10B981" 
+      color: "#10B981",
+      cities: buildCities("Karnataka", stateCounts["Karnataka"] || 0)
     },
     { 
       state: "Telangana (25 Hubs)", 
       count: stateCounts["Telangana"] || 0, 
       percentage: total > 0 ? Math.round(((stateCounts["Telangana"] || 0) / total) * 100) : 0, 
-      color: "#06B6D4" 
+      color: "#06B6D4",
+      cities: buildCities("Telangana", stateCounts["Telangana"] || 0)
+    },
+    { 
+      state: "Pan-India & Global Network", 
+      count: stateCounts["Pan-India"] || 0, 
+      percentage: total > 0 ? Math.round(((stateCounts["Pan-India"] || 0) / total) * 100) : 0, 
+      color: "#8B5CF6",
+      cities: buildCities("Pan-India", stateCounts["Pan-India"] || 0)
     }
   ];
 
@@ -291,3 +391,27 @@ export async function getDashboardIntelligence(passphrase: string): Promise<{
     }
   };
 }
+
+/**
+ * Updates a lead's assigned doctor or status directly from the medical console
+ */
+export async function updateRecordAssignment(
+  id: string,
+  assignedDoctor?: string,
+  newStatus?: "Urgent Triage" | "Callback Scheduled" | "Insurance Verified" | "General Inquiry" | "Surgeon Assigned" | "Procedure Complete"
+): Promise<boolean> {
+  const records = await readAllRecords();
+  const index = records.findIndex(r => r.id === id);
+  if (index === -1) return false;
+
+  if (assignedDoctor !== undefined) {
+    records[index].assignedDoctor = assignedDoctor;
+  }
+  if (newStatus !== undefined && records[index].leadContact) {
+    records[index].leadContact.status = newStatus;
+  }
+
+  await writeRecords(records);
+  return true;
+}
+

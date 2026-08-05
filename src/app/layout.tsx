@@ -4,6 +4,7 @@ import "./globals.css";
 import SpeculationRules from "@/components/SpeculationRules";
 import UIProtector from "@/components/UIProtector";
 import CoordinatorIntelligenceTracker from "@/components/analytics/CoordinatorIntelligenceTracker";
+import PremiumSmoothScroll from "@/components/PremiumSmoothScroll";
 import { SiteConfigProvider } from "@/context/SiteConfigContext";
 import { readSiteConfig } from "@/lib/siteConfig";
 
@@ -205,7 +206,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} h-full antialiased scroll-smooth font-sans`}
+      className={`${manrope.variable} ${inter.variable} antialiased scroll-smooth font-sans`}
     >
       <head>
         <meta name="geo.region" content={siteConfig.seo.geoRegion} />
@@ -217,8 +218,9 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className="font-sans min-h-full flex flex-col bg-white text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
+      <body className="font-sans min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
         <SiteConfigProvider initialConfig={siteConfig}>
+          <PremiumSmoothScroll />
           <SpeculationRules />
           <UIProtector />
           <CoordinatorIntelligenceTracker />

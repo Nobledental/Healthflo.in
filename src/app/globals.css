@@ -60,10 +60,36 @@
   --font-inter: "Inter", sans-serif;
 }
 
-/* Base Styles */
+/* Base Styles & Smooth Hardware Accelerated Scroll */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 110px;
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Custom Premium Luxury Scrollbar (Medical Blue to Aster Teal Gradient with 12px width for tactile manual dragging) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f6ff;
+  border-left: 1px solid #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0055ff 0%, #00a88f 100%);
+  border-radius: 9999px;
+  border: 2px solid #f0f6ff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #0038b8 0%, #00806d 100%);
+  border: 1px solid #ffffff;
 }
 
 /* Mobile-specific: remove tap highlight, enable momentum scrolling */
@@ -78,14 +104,26 @@ html {
 
 body {
   min-height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
+  width: 100%;
   display: flex;
   flex-direction: column;
   color: #0F172A;
   background-color: #ffffff;
+  position: relative;
+}
+
+/* GPU hardware-accelerated fixed background (eliminates scroll repaint jitter & frame drops in Windows Chrome/Edge) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(to right, #ffffff 0%, #ffffff 30%, #e6f4ff 65%, #c2e0ff 100%);
-  background-attachment: fixed;
+  pointer-events: none;
+  z-index: -10;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 html, body, *, ::before, ::after, input, button, select, textarea, p, span, div, a, li, h1, h2, h3, h4, h5, h6 {

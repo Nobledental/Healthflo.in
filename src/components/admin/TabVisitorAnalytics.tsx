@@ -20,11 +20,16 @@ import {
   Calendar,
   Layers,
   Search,
-  Activity
+  Activity,
+  Building2,
+  Info
 } from "lucide-react";
+
+import { DashboardIntelligence } from "@/lib/secureDb";
 
 interface TabVisitorAnalyticsProps {
   passphrase: string;
+  intelligence?: DashboardIntelligence | null;
 }
 
 interface AnalyticsReport {
@@ -43,7 +48,7 @@ interface AnalyticsReport {
   topReferrers: { label: string; count: number }[];
 }
 
-export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsProps) {
+export default function TabVisitorAnalytics({ passphrase, intelligence }: TabVisitorAnalyticsProps) {
   const [report, setReport] = useState<AnalyticsReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +62,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
         headers: { "x-admin-pass": passphrase },
       });
       if (!res.ok) {
-        throw new Error("Unable to load visitor telemetry.");
+        throw new Error("Unable to load visitor activity statistics.");
       }
       const data: AnalyticsReport = await res.json();
       setReport(data);
@@ -89,7 +94,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 font-bold text-xs uppercase tracking-wider mb-2">
-            <Activity className="w-3.5 h-3.5 animate-pulse" /> Live Visitor Telemetry &amp; Geo-Tracking
+            <Activity className="w-3.5 h-3.5 animate-pulse" /> Live Patient Journey &amp; Geo-Tracking
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
             Visitor Journey &amp; Location Intelligence
@@ -109,7 +114,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
             className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-2 border border-slate-700 disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-purple-400" : ""}`} />
-            Refresh Telemetry
+            Refresh Statistics
           </button>
         </div>
       </div>
@@ -175,6 +180,98 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
         </div>
       </div>
 
+      {/* ── NEW: DETAILED STATE, CITY & LOCAL PLACE VISITOR NOTES ── */}
+      <div className="bg-[#0A1224] p-6 sm:p-8 rounded-3xl border border-purple-500/30 shadow-2xl relative overflow-hidden">
+        <div className="absolute -right-20 -top-20 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5 mb-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider mb-2">
+              <MapPin className="w-3.5 h-3.5 text-cyan-400" /> Regional Patient Origin Breakdown
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+              Detailed State &amp; City Visitor Notes
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 mt-1">
+              Complete geographic visibility showing how many patients visited from Tamil Nadu, Karnataka, Telangana, and exact municipal cities or local triage places.
+            </p>
+          </div>
+          <div className="bg-slate-900/90 border border-slate-700 px-4 py-2 rounded-2xl text-right shrink-0">
+            <p className="text-[10px] text-slate-400 uppercase font-extrabold tracking-wider">Total Evaluated Traffic</p>
+            <p className="text-xl font-mono font-black text-cyan-400">{intelligence?.totalVisitorSessions ?? report?.summary.total ?? 0} Visitor Sessions</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {intelligence?.stateBreakdown.map((st) => (
+            <div 
+              key={st.state} 
+              className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 hover:border-slate-700 transition flex flex-col justify-between"
+              style={{ borderLeftWidth: "4px", borderLeftColor: st.color }}
+            >
+              <div>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="text-base font-black text-white flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full inline-block shrink-0" style={{ backgroundColor: st.color }} />
+                      {st.state}
+                    </h4>
+                    <p className="text-[11px] text-slate-400 mt-0.5">
+                      {st.count > 0 ? `Active patient traffic currently detected across local hubs.` : `No patient visits recorded from this region yet.`}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0 bg-slate-950/80 px-3 py-1 rounded-xl border border-slate-800/80">
+                    <span className="text-sm font-mono font-black text-white">{st.count}</span>
+                    <span className="text-xs text-slate-300 font-bold ml-1.5">({st.percentage}%)</span>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-4">
+                  <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${st.percentage}%`, backgroundColor: st.color }} />
+                </div>
+
+                {/* City & Place Table / Notes */}
+                <div className="space-y-2 pt-2 border-t border-slate-800/60">
+                  <p className="text-xs font-extrabold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-purple-400 shrink-0" /> City &amp; Municipal Place Breakdown:
+                  </p>
+                  {st.cities && st.cities.length > 0 ? (
+                    <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
+                      {st.cities.map((city, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 text-xs">
+                          <span className="font-bold text-slate-200 flex items-center gap-2 truncate">
+                            <span className="text-[10px] font-mono font-bold text-slate-500 w-4 text-right">#{idx + 1}</span>
+                            <span className="truncate">{city.name}</span>
+                          </span>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className="px-2 py-0.5 rounded-lg bg-slate-800 font-mono font-extrabold text-white text-xs">
+                              {city.count} {city.count === 1 ? "visitor" : "visitors"}
+                            </span>
+                            <span className="text-[11px] font-mono text-slate-400 font-bold w-10 text-right">
+                              {city.percentage}%
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-4 rounded-xl bg-slate-950/40 border border-slate-800/40 flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+                      <Info className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <span>0 visitor sessions recorded from {st.state.split(" ")[0]} during this interval. The system is actively listening across regional partner hospitals.</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-slate-800/40 flex items-center justify-between text-[11px] text-slate-400">
+                <span className="font-semibold text-slate-300">Hub Status: <strong className="text-emerald-400 font-bold">● Active &amp; Ready</strong></span>
+                <span className="font-mono text-slate-500">25 Empanelled Centers</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── SECTION 2: PAGE DETAILS & GEOGRAPHICAL LOCATION BREAKDOWN ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
@@ -189,7 +286,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
             </p>
 
             {loading ? (
-              <div className="py-12 text-center text-sm text-slate-500">Loading page telemetry...</div>
+              <div className="py-12 text-center text-sm text-slate-500">Loading patient visit data...</div>
             ) : !report?.topPages.length ? (
               <div className="py-12 text-center text-sm text-slate-500">
                 No recorded page visits yet in this period. Navigate around the public site to generate live logs.
@@ -240,7 +337,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
             </p>
 
             {loading ? (
-              <div className="py-12 text-center text-sm text-slate-500">Resolving geolocation telemetry...</div>
+              <div className="py-12 text-center text-sm text-slate-500">Resolving patient geographical origin...</div>
             ) : !report?.topCities.length && !report?.topCountries.length ? (
               <div className="py-12 text-center text-sm text-slate-500">
                 No geolocation records resolved yet. Local development visits may report as local/unknown.
@@ -394,7 +491,7 @@ export default function TabVisitorAnalytics({ passphrase }: TabVisitorAnalyticsP
       {/* ── SECTION 4: REGIONAL TRIAGE PERFORMANCE & NETWORK CAPACITY ── */}
       <div className="p-6 md:p-8 rounded-3xl bg-[#081023] border border-slate-800/90 shadow-2xl space-y-6">
         <h3 className="text-base font-black text-white uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-800">
-          <FileSpreadsheet className="w-5 h-5 text-amber-400" /> Empanelled Hospital Triage Load &amp; Conversion Telemetry
+          <FileSpreadsheet className="w-5 h-5 text-amber-400" /> Empanelled Hospital Consultation Load &amp; Conversion Rates
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

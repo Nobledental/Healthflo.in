@@ -7,11 +7,16 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Extract basic browser/device fingerprinting from headers if not provided
+    // Extract clinical browser & device platform identification from headers
     const userAgent = req.headers.get("user-agent") || body.userAgent || "Unknown Device";
-    let device = "Desktop Browser";
-    if (/mobile/i.test(userAgent)) device = "Mobile Smartphone";
-    else if (/ipad|tablet/i.test(userAgent)) device = "Tablet Device";
+    let device = "Desktop Web Browser";
+    if (/iphone/i.test(userAgent)) device = "Apple iPhone (iOS)";
+    else if (/ipad/i.test(userAgent)) device = "Apple iPad (iOS)";
+    else if (/android.*mobile/i.test(userAgent)) device = "Android Smartphone";
+    else if (/android/i.test(userAgent)) device = "Android Tablet";
+    else if (/macintosh|mac os/i.test(userAgent)) device = "Apple Mac Laptop";
+    else if (/windows nt/i.test(userAgent)) device = "Windows PC / Laptop";
+    else if (/mobile/i.test(userAgent)) device = "Mobile Smartphone";
 
     let receipts = undefined;
     if (body.leadContact && body.leadContact.phone) {

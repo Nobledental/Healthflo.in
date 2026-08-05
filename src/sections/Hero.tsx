@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useBattery } from "../hooks/useBattery";
+import { useVisitorLocation } from "../hooks/useVisitorLocation";
 import dynamic from "next/dynamic";
 import { Sparkles, ShieldCheck, Phone, Search } from "lucide-react";
 
@@ -21,18 +21,11 @@ const treatments = [
 ];
 
 export default function Hero() {
-  const [city, setCity] = useState("Detecting...");
+  const { city } = useVisitorLocation();
   const battery = useBattery();
 
   const isLowPower = !battery.loading && battery.level <= 0.20 && !battery.charging;
   const powerSavingMode = isLowPower;
-
-  useEffect(() => {
-    fetch("https://ipapi.co/json/")
-      .then(res => res.json())
-      .then(data => { if (data.city) setCity(data.city); else setCity("Unknown"); })
-      .catch(() => setCity("Unknown"));
-  }, []);
 
   return (
     <section className="flex flex-col items-center relative pb-8 overflow-hidden w-full transition-colors duration-1000">
