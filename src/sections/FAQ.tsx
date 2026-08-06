@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ShieldCheck, Activity, Wallet, HeartHandshake, Sparkles, HelpCircle } from "lucide-react";
+import { ChevronDown, ShieldCheck, Activity, Wallet, HeartHandshake, Sparkles, HelpCircle, MessageCircle } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface FAQItem {
@@ -12,18 +12,25 @@ interface FAQItem {
   a: string;
 }
 
-const faqs: FAQItem[] = [
+interface FAQProps {
+  cityName?: string;
+  procedureTitle?: string;
+  customFaqs?: Array<{ question: string; answer: string }>;
+  whatsappUrl?: string;
+}
+
+const defaultFaqs: FAQItem[] = [
   {
     id: "pain",
     category: "surgery",
-    q: "Is laser surgery for piles and perianal procedures painful?",
-    a: "No. Advanced laser surgical techniques are virtually painless compared to conventional surgeries. Administered under targeted anaesthesia, our precision 1470nm diode lasers seal nerves instantly, leaving zero open wounds or stitches. Patients regularly rate post-procedure discomfort at 1–2 out of 10.",
+    q: "Is laser surgery for piles, fistula, and proctology painful?",
+    a: "No. Advanced laser surgical techniques are virtually painless compared to conventional surgeries. Administered under targeted anaesthesia, our precision diode lasers seal nerves instantly, leaving zero open wounds or stitches. Patients regularly rate post-procedure discomfort at 1–2 out of 10.",
   },
   {
     id: "sameday",
     category: "surgery",
     q: "Can I go home the same day as my surgery?",
-    a: "Yes. For over 95% of minimally invasive treatments—including laser piles, fissure, fistula, circumcision, and lipoma excisions—same-day hospital discharge is standard practice. You are admitted in the morning, undergo a brief 30-minute procedure, rest under specialized observation, and walk home comfortably the same evening.",
+    a: "Yes. For over 95% of minimally invasive treatments—including laser piles, fissure, fistula, circumcision, and lipoma excisions—same-day hospital discharge is standard practice. You are admitted in the morning, undergo a brief procedure, rest under specialized observation, and walk home comfortably the same evening.",
   },
   {
     id: "insurance",
@@ -71,19 +78,31 @@ const categories = [
   { id: "safety", label: "Surgeons & Safety", icon: ShieldCheck },
 ] as const;
 
-export default function FAQ() {
+export default function FAQ({ cityName, procedureTitle, customFaqs, whatsappUrl }: FAQProps = {}) {
   const { config } = useSiteConfig();
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [openIdx, setOpenIdx] = useState<string | null>("pain");
+  
+  // Merge custom procedure FAQs if provided
+  const combinedFaqs: FAQItem[] = customFaqs && customFaqs.length > 0 ? [
+    ...customFaqs.map((f, idx) => ({
+      id: `custom-${idx}`,
+      category: "surgery" as const,
+      q: f.question,
+      a: f.answer
+    })),
+    ...defaultFaqs
+  ] : defaultFaqs;
+
+  const [openIdx, setOpenIdx] = useState<string | null>(combinedFaqs[0]?.id || "pain");
 
   const filteredFaqs = activeCategory === "all" 
-    ? faqs 
-    : faqs.filter((item) => item.category === activeCategory);
+    ? combinedFaqs 
+    : combinedFaqs.filter((item) => item.category === activeCategory);
 
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map((faq) => ({
+    "mainEntity": combinedFaqs.map((faq) => ({
       "@type": "Question",
       "name": faq.q,
       "acceptedAnswer": {
@@ -92,6 +111,8 @@ export default function FAQ() {
       },
     })),
   };
+
+  const activeWhatsAppUrl = whatsappUrl || config.socials.whatsapp;
 
   return (
     <section className="w-full py-12 md:py-16 relative z-10 overflow-hidden" id="faq">
@@ -109,7 +130,11 @@ export default function FAQ() {
             <span>Clinical Intelligence Desk</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-slate-800 tracking-tight leading-tight mb-2.5">
-            Patient Frequently Asked <span className="text-[#0066FF] font-semibold">Questions</span>
+            {procedureTitle ? (
+              <>Frequently Asked <span className="text-[#0066FF] font-semibold">Questions</span> About {procedureTitle} {cityName ? `in ${cityName}` : ""}</>
+            ) : (
+              <>Patient Frequently Asked <span className="text-[#0066FF] font-semibold">Questions</span></>
+            )}
           </h2>
           <p className="text-slate-600 text-[14px] sm:text-[16px] font-normal max-w-3xl leading-relaxed">
             Authoritative answers on USFDA surgical protocols, 100% cashless insurance claims, and same-day recovery procedures.
@@ -126,7 +151,7 @@ export default function FAQ() {
                 key={cat.id}
                 onClick={() => {
                   setActiveCategory(cat.id);
-                  const newlyFiltered = cat.id === "all" ? faqs : faqs.filter(f => f.category === cat.id);
+                  const newlyFiltered = cat.id === "all" ? combinedFaqs : combinedFaqs.filter(f => f.category === cat.id);
                   if (newlyFiltered.length > 0 && !newlyFiltered.some(f => f.id === openIdx)) {
                     setOpenIdx(newlyFiltered[0].id);
                   }
@@ -181,8 +206,23 @@ export default function FAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.22, ease: "easeInOut" }}
                     >
-                      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-1 text-[13.5px] sm:text-[14px] text-slate-600 font-medium leading-relaxed border-t border-slate-100">
-                        {faq.a}
+                      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-2 text-[13.5px] sm:text-[14px] text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                        <p className="mb-3">{faq.a}</p>
+                        <div className="pt-3 border-t border-slate-100/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[12px]">
+                          <span className="text-emerald-700 font-extrabold flex items-center gap-1.5">
+                            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                            <span>100% Confidential &amp; Discreet Care</span>
+                          </span>
+                          <a
+                            href={activeWhatsAppUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 font-black text-[#0066FF] hover:text-[#0042c4] transition-colors"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 fill-[#0066FF] text-white" />
+                            <span>Ask on WhatsApp Confidentially &rarr;</span>
+                          </a>
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -208,7 +248,7 @@ export default function FAQ() {
             </div>
           </div>
           <a
-            href={config.socials.whatsapp}
+            href={activeWhatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-600 text-white text-[13px] font-extrabold transition-all shadow-[0_4px_14px_rgba(0,102,255,0.3)] shrink-0 active:scale-95"

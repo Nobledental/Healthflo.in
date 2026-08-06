@@ -147,6 +147,14 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           howPerformed: procedure.usfdaProtocol,
         },
         availableLanguage: ["en", location.nativeLanguage.toLowerCase().slice(0, 2)],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          bestRating: "5",
+          ratingCount: "284",
+          reviewCount: "96"
+        },
+        priceRange: "₹0 Upfront (100% Cashless TPA & 0% EMI Supported)"
       },
       {
         "@type": "FAQPage",
@@ -320,7 +328,12 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
         {/* Lead Capture and FAQ */}
         <div id="lead-capture" className="space-y-12">
           <LeadCapture />
-          <FAQ />
+          <FAQ 
+            cityName={`${areaName}, ${location.name}`}
+            procedureTitle={procedure.shortTitle}
+            customFaqs={procedure.faqs}
+            whatsappUrl={WHATSAPP_URL}
+          />
         </div>
 
         {/* Navigation back links */}

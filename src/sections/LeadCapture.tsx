@@ -467,42 +467,48 @@ export default function LeadCapture() {
               {/* Bottom Interactive Action Input Hub */}
               <div className="mt-3.5 pt-3.5 border-t border-slate-100 shrink-0">
                 {step === "details" ? (
-                  <motion.form 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    onSubmit={handleDetailsSubmit} 
-                    className="flex flex-col sm:flex-row gap-2 bg-slate-50/90 p-2.5 rounded-2xl border border-slate-200/90"
-                  >
-                    <div className="relative flex-1">
-                      <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                      <input
-                        type="text"
-                        required
-                        placeholder="Patient Full Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-[13px] focus:outline-none focus:border-[#0066FF] focus:ring-4 focus:ring-blue-500/10 shadow-2xs"
-                      />
-                    </div>
-                    <div className="relative flex-1">
-                      <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                      <input
-                        type="tel"
-                        required
-                        placeholder="10-Digit Mobile Number"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-[13px] focus:outline-none focus:border-[#0066FF] focus:ring-4 focus:ring-blue-500/10 shadow-2xs"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="px-5 py-2.5 bg-gradient-to-r from-[#0055ff] to-[#0077ff] hover:from-blue-700 hover:to-blue-600 text-white font-black rounded-xl text-[13px] shadow-[0_4px_16px_rgba(0,102,255,0.3)] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap active:scale-95"
+                  <div className="space-y-2">
+                    <motion.form 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      onSubmit={handleDetailsSubmit} 
+                      className="flex flex-col sm:flex-row gap-2 bg-slate-50/90 p-2.5 rounded-2xl border border-slate-200/90"
                     >
-                      <span>Claim Callback</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </button>
-                  </motion.form>
+                      <div className="relative flex-1">
+                        <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="Patient Full Name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-[13px] focus:outline-none focus:border-[#0066FF] focus:ring-4 focus:ring-blue-500/10 shadow-2xs"
+                        />
+                      </div>
+                      <div className="relative flex-1">
+                        <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="tel"
+                          required
+                          placeholder="10-Digit Mobile Number"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 font-bold text-[13px] focus:outline-none focus:border-[#0066FF] focus:ring-4 focus:ring-blue-500/10 shadow-2xs"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="px-5 py-2.5 bg-gradient-to-r from-[#0055ff] to-[#0077ff] hover:from-blue-700 hover:to-blue-600 text-white font-black rounded-xl text-[13px] shadow-[0_4px_16px_rgba(0,102,255,0.3)] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap active:scale-95"
+                      >
+                        <span>Claim Callback</span>
+                        <Send className="w-3.5 h-3.5" />
+                      </button>
+                    </motion.form>
+                    <div className="flex items-center justify-center gap-2 text-[11px] sm:text-[11.5px] font-extrabold text-emerald-800 bg-emerald-50/80 border border-emerald-200/80 py-1.5 px-3 rounded-xl shadow-2xs text-center">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <span>100% Discreet Consultation • Strict Medical Privacy &amp; Zero Spam Guaranteed</span>
+                    </div>
+                  </div>
                 ) : step === "complete" ? (
                   <motion.div 
                     initial={{ opacity: 0 }}
