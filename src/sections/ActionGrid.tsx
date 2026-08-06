@@ -31,7 +31,7 @@ export default function ActionGrid() {
       icon: ShieldCheck,
       tag: "Cashless Desk",
       title: "Check Insurance Coverage",
-      desc: "We accept TATA AIG, Star Health, HDFC Ergo & 30+ major insurers with instant 30-min approval.",
+      desc: "We accept TATA AIG, Star Health, HDFC Ergo & 30+ major insurers with dedicated priority pre-auth support.",
       cta: "Verify Coverage",
       href: "#insurance",
       iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200",
@@ -54,7 +54,7 @@ export default function ActionGrid() {
     {
       icon: Phone,
       tag: "24×7 Emergency",
-      title: "Instant Triage Helpline",
+      title: "Direct Medical Helpline",
       desc: "Speak directly with our senior care coordinators & surgical experts for urgent guidance.",
       cta: `Call: ${config.helplineNumber}`,
       href: `tel:+${config.helplineRaw}`,

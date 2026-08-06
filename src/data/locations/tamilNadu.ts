@@ -16,7 +16,7 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
     railwayStation: "Chennai Central Railway Station",
     hubCity: "Chennai Speciality Medical Hub",
     transitTime: "Direct City Ambulatory & Metro Care Support",
-    description: "Expert USFDA laser surgical care across Anna Nagar, Adyar, OMR IT Corridor, and Velachery with 30-minute Insurance Eligible approval. Same-day discharge protocols with dedicated Tamil coordinators.",
+    description: "Expert USFDA laser surgical care across Anna Nagar, Adyar, OMR IT Corridor, and Velachery with priority Insurance Eligible approval. Same-day discharge protocols with dedicated Tamil coordinators.",
     keyNeighbourhoods: [
       // Central Chennai
       "Anna Nagar", "T. Nagar", "Nungambakkam", "Mylapore", "Alwarpet", "Royapettah", "Gopalapuram", "Egmore", "Kilpauk", "Chetpet",
@@ -156,7 +156,7 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
       headline: "Zero-Day Leave Surgery for Coimbatore Mill & Business Owners",
       subtext: "All-inclusive daycare — insurance handled while you recover at home same evening",
       bundleItems: [
-        "Free Insurance pre-auth — 30 minutes",
+        "Free priority Insurance pre-auth",
         "Saturday surgical slot available",
         "Free AC cab from Gandhipuram / Ukkadam Bus Stand",
         "Tamil coordinator from consultation to discharge"
@@ -524,7 +524,7 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
         "Free cab pickup from Trichy Junction, Thillai Nagar & surrounding towns",
         "Dedicated Tamil-speaking care coordinator from consultation to recovery"
       ],
-      urgency: "Instant 30-minute cashless pre-approval check available today"
+      urgency: "Priority cashless pre-approval check available today"
     },
     procedureOffers: {
       "piles": {
@@ -573,7 +573,7 @@ export const TAMIL_NADU_LOCATIONS: RegionalLocation[] = [
       headline: "Skip the CMC Vellore Waitlist — Same-Day Laser Surgery Available",
       subtext: "Insurance Eligible. No 6-month queue. Expert USFDA care via HealthFlo.",
       bundleItems: [
-        "Same-week appointment guaranteed", "30-minute Insurance Eligible pre-auth",
+        "Priority same-week appointments", "Dedicated Insurance Eligible pre-auth",
         "Free Katpadi Junction cab pickup", "Tamil coordinator — end to end"
       ],
       urgency: "Next available slot: This week"

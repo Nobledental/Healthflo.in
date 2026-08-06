@@ -17,10 +17,10 @@ export default function CityComparisonPanel({
   localHospitals,
 }: CityComparisonPanelProps) {
   const comparisonData = [
-    { metric: "Insurance Pre-auth", us: "30 Minutes — Same Visit", them: "2–5 Days Processing Delay", icon: Clock },
-    { metric: "Appointment Wait", us: "Guaranteed Immediate Slot", them: "4–12 Week Outpatient Waitlist", icon: Sparkles },
-    { metric: "Daycare Discharge", us: "Ambulatory (Go Home in 2–3 Hours)", them: "1–3 Night Inpatient Admission", icon: CheckCircle2 },
-    { metric: "Language & Care Support", us: `Dedicated ${nativeLanguage} Senior Coordinator`, them: "General Nursing Staff Only", icon: HeartHandshake },
+    { metric: "Insurance Pre-auth", us: "Fast-Track Digital Processing", them: "Tedious Paperwork & Delays", icon: Clock },
+    { metric: "Appointment Wait", us: "Priority Same/Next-Day Slots", them: "Long OPD Queues & Waiting", icon: Sparkles },
+    { metric: "Daycare Discharge", us: "Ambulatory (Discharge in Hours)", them: "1–3 Night Inpatient Stay", icon: CheckCircle2 },
+    { metric: "Language & Care Support", us: `Dedicated ${nativeLanguage} Care Coordinator`, them: "Unassisted Hospital Navigation", icon: HeartHandshake },
   ];
 
   return (

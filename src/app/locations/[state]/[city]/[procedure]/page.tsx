@@ -23,8 +23,10 @@ import ProcedureComparisonTable from "@/components/locations/ProcedureComparison
 import PrivateRecoveryBanner from "@/components/locations/PrivateRecoveryBanner";
 import CrossSellProcedures from "@/components/locations/CrossSellProcedures";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
+import ConciergeServices from "@/components/locations/ConciergeServices";
 import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
 import GoogleTrendsEEATBanner from "@/components/seo/GoogleTrendsEEATBanner";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 import PatientJourneySteps from "@/components/locations/PatientJourneySteps";
 import SurgicalPanelGuarantee from "@/components/locations/SurgicalPanelGuarantee";
@@ -166,6 +168,14 @@ export default async function CityProcedurePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(cityProcedureSchema) }}
       />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", item: "https://healthflo.in" },
+          { name: location.stateName, item: `https://healthflo.in/locations/${location.stateSlug}` },
+          { name: location.name, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}` },
+          { name: procedure.shortTitle, item: `https://healthflo.in/locations/${location.stateSlug}/${location.slug}/${resolved.procedure}` }
+        ]}
+      />
 
       <Navbar />
 
@@ -270,6 +280,8 @@ export default async function CityProcedurePage({ params }: Props) {
           cityName={location.name}
           currentProcedureId={resolved.procedure}
         />
+
+        <ConciergeServices cityName={location.name} />
 
         {/* Lead Capture and FAQ */}
         <div id="lead-capture" className="space-y-12">

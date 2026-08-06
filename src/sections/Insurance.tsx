@@ -87,8 +87,8 @@ export default function Insurance() {
                   <Clock size={20} />
                 </div>
                 <div>
-                  <h4 className="text-[15px] md:text-xl font-bold text-slate-900 mb-0.5 md:mb-1">Quick 30-Minute Insurance Check</h4>
-                  <p className="text-slate-600 text-[12px] md:text-sm leading-snug">We verify your policy quickly before you arrive—so your room booking and surgical treatment begin without delay.</p>
+                  <h4 className="text-[15px] md:text-xl font-bold text-slate-900 mb-0.5 md:mb-1">Priority Insurance Verification</h4>
+                  <p className="text-slate-600 text-[12px] md:text-sm leading-snug">We coordinate your policy verification in advance before your hospital arrival—ensuring seamless admission without paperwork headaches.</p>
                 </div>
               </motion.div>
 

@@ -114,8 +114,8 @@ export default function PackageInclusions() {
                   <Clock size={18} />
                 </div>
                 <div>
-                  <h4 className="text-[14px] md:text-[16px] font-bold text-slate-900 mb-0.5">30-Minute In-House Approval</h4>
-                  <p className="text-slate-500 text-[12px] md:text-[13px] leading-snug">Express insurance processing by our dedicated coordinators — from first call to OT clearance.</p>
+                  <h4 className="text-[14px] md:text-[16px] font-bold text-slate-900 mb-0.5">Fast-Track Insurance Pre-Auth</h4>
+                  <p className="text-slate-500 text-[12px] md:text-[13px] leading-snug">Priority insurance coordination and seamless claims processing handled directly by our in-house medical desk.</p>
                 </div>
               </motion.div>
 

@@ -7,6 +7,7 @@ import CoordinatorIntelligenceTracker from "@/components/analytics/CoordinatorIn
 import PremiumSmoothScroll from "@/components/PremiumSmoothScroll";
 import { SiteConfigProvider } from "@/context/SiteConfigContext";
 import { readSiteConfig } from "@/lib/siteConfig";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -225,6 +226,7 @@ export default async function RootLayout({
           <UIProtector />
           <CoordinatorIntelligenceTracker />
           {children}
+          <FloatingWhatsApp />
         </SiteConfigProvider>
       </body>
     </html>

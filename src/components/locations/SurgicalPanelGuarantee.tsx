@@ -52,7 +52,7 @@ export default function SurgicalPanelGuarantee({
             Consult with {cityName}’s Most Qualified Surgical Panel.
           </h2>
           <p className="mt-3 text-sm sm:text-base font-semibold text-slate-600">
-            We bypass faceless hospital directory listings by bringing you direct, guaranteed access to Tier-1 surgical leadership in {cityName}.
+            We provide direct, verified access to senior board-certified specialists and Tier-1 surgical leadership in {cityName}, ensuring empathetic and personalized care.
           </p>
         </div>
 
@@ -91,17 +91,17 @@ export default function SurgicalPanelGuarantee({
               <div className="space-y-4 pt-2 border-t border-slate-100">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-100/80 gap-1">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Experience:</span>
-                  <span className="text-sm sm:text-base font-black text-slate-800 text-right">17+ Years in {fieldName}</span>
+                  <span className="text-sm sm:text-base font-black text-slate-800 text-right">10 to 15+ Years in {fieldName}</span>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-100/80 gap-1">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Surgical Volume:</span>
-                  <span className="text-sm sm:text-base font-black text-[#0050DD] text-right">8,000+ Successful Laser Procedures</span>
+                  <span className="text-sm sm:text-base font-black text-[#0050DD] text-right">3,000+ Successful Network Procedures</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 border-b border-slate-100/80 gap-1">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Background:</span>
-                  <span className="text-sm sm:text-base font-extrabold text-slate-800 text-right">Former HOD at Tier-1 Corporate Hospitals</span>
+                  <span className="text-sm sm:text-base font-extrabold text-slate-800 text-right">Senior Consultants &amp; HODs at empanelled centers</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between py-2 gap-1">
@@ -119,7 +119,7 @@ export default function SurgicalPanelGuarantee({
               <div className="w-full bg-emerald-50/90 border border-emerald-200/80 rounded-xl py-2.5 px-4 text-center">
                 <p className="text-xs sm:text-sm font-black text-emerald-800 flex items-center justify-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>(Available for consultation today via Healthflo)</span>
+                  <span>(Available for consultation via Healthflo)</span>
                 </p>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function SurgicalPanelGuarantee({
               </div>
 
               <p className="text-sm sm:text-base font-medium text-slate-600 leading-relaxed mb-6">
-                We do not empanel just anyone. Every surgeon in our <span className="font-bold text-slate-800">{cityName} network</span> must pass a strict clinical audit before they touch a patient:
+                To uphold our commitment to clinical excellence, every specialist empanelled in our <span className="font-bold text-slate-800">{cityName} network</span> undergoes rigorous credential verification and standard-of-care alignment:
               </p>
 
               <div className="space-y-4">
@@ -146,10 +146,10 @@ export default function SurgicalPanelGuarantee({
                   <span className="text-lg shrink-0 select-none">✔️</span>
                   <div>
                     <span className="text-sm sm:text-base font-extrabold text-slate-800 block">
-                      Minimum 15 Years of post-MS/MCh clinical experience.
+                      Proven post-MS/MCh clinical excellence &amp; senior expertise.
                     </span>
                     <span className="text-xs text-slate-500 mt-0.5 block">
-                      Ensuring mature surgical hand stability and exceptional diagnostic accuracy.
+                      Ensuring mature surgical precision, patient safety, and exceptional diagnostic accuracy.
                     </span>
                   </div>
                 </div>
@@ -158,10 +158,10 @@ export default function SurgicalPanelGuarantee({
                   <span className="text-lg shrink-0 select-none">✔️</span>
                   <div>
                     <span className="text-sm sm:text-base font-extrabold text-slate-800 block">
-                      Verified track record of zero malpractice.
+                      Proven track record of superior surgical outcomes.
                     </span>
                     <span className="text-xs text-slate-500 mt-0.5 block">
-                      Rigorous legal, peer-review, and historical surgical outcome auditing.
+                      Continuous peer-reviewed clinical audits and systematic patient outcome tracking.
                     </span>
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export default function SurgicalPanelGuarantee({
                       Specialized fellowship training in minimally invasive laser protocols.
                     </span>
                     <span className="text-xs text-slate-500 mt-0.5 block">
-                      Mastery over high-precision laser ablation and pain-free recovery techniques.
+                      Mastery over high-precision laser therapy and gentle recovery techniques.
                     </span>
                   </div>
                 </div>
@@ -182,10 +182,10 @@ export default function SurgicalPanelGuarantee({
                   <span className="text-lg shrink-0 select-none">✔️</span>
                   <div>
                     <span className="text-sm sm:text-base font-extrabold text-slate-800 block">
-                      Mandatory use of USFDA-approved laser equipment.
+                      Mandatory adoption of USFDA-approved laser technologies.
                     </span>
                     <span className="text-xs text-slate-500 mt-0.5 block">
-                      Strict exclusion of inferior domestic or generic surgical optics.
+                      Ensuring high-precision tissue conservation, enhanced clinical precision, and optimal recovery timelines.
                     </span>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ export const TELANGANA_LOCATIONS: RegionalLocation[] = [
     railwayStation: "Hyderabad Deccan (Nampally) / Secunderabad",
     hubCity: "Hyderabad Advanced Speciality Hub",
     transitTime: "City-wide ambulatory & metro transit support",
-    description: "Premier USFDA robotic and laser surgical centers across Jubilee Hills, Kukatpally, Gachibowli, Nallagandla, and Secunderabad with instant Insurance Eligible billing.",
+    description: "Premier USFDA robotic and laser surgical centers across Jubilee Hills, Kukatpally, Gachibowli, Nallagandla, and Secunderabad with dedicated Insurance Eligible billing.",
     keyNeighbourhoods: [
       // HITEC City & IT Corridor
       "Jubilee Hills", "Banjara Hills", "HITEC City", "Gachibowli", "Madhapur", "Kondapur", "Nallagandla", "Manikonda", "Financial District", "Nanakramguda",
@@ -41,7 +41,7 @@ export const TELANGANA_LOCATIONS: RegionalLocation[] = [
       headline: "HITEC City Day-Care Laser Surgical Package",
       subtext: "Specially engineered for corporate employees in Gachibowli, Madhapur & Nallagandla",
       bundleItems: [
-        "Instant corporate group insurance pre-auth check",
+        "Priority corporate group insurance pre-auth check",
         "Private chauffeur pickup & drop across Cyberabad",
         "Zero pain protocol with same-day evening discharge"
       ],

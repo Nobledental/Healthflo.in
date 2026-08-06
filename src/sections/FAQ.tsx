@@ -36,7 +36,7 @@ const defaultFaqs: FAQItem[] = [
     id: "insurance",
     category: "insurance",
     q: "Will my medical insurance cover laser surgical treatments?",
-    a: "Yes. Our USFDA-approved surgical procedures are recognized and covered by 95+ major health insurers, including TATA AIG, Star Health, HDFC Ergo, Care Health, and government schemes where applicable. Our dedicated in-house insurance desk executes rapid 30-minute digital pre-authorization, enabling 100% cashless admission.",
+    a: "Yes. Our USFDA-approved surgical procedures are recognized and covered by 95+ major health insurers, including TATA AIG, Star Health, HDFC Ergo, Care Health, and corporate policies where applicable. Our dedicated in-house insurance desk provides fast-track digital pre-authorization support, ensuring smooth 100% cashless hospital admissions.",
   },
   {
     id: "cost",

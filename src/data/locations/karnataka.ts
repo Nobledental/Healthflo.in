@@ -16,7 +16,7 @@ export const KARNATAKA_LOCATIONS: RegionalLocation[] = [
     railwayStation: "Bengaluru City Junction (KSR)",
     hubCity: "Bengaluru Advanced Speciality Centers",
     transitTime: "City-wide metro & ambulatory support",
-    description: "Premier USFDA robotic and laser surgical centers across Indiranagar, HSR Layout, Whitefield, and Hebbal with instant Insurance Eligible billing.",
+    description: "Premier USFDA robotic and laser surgical centers across Indiranagar, HSR Layout, Whitefield, and Hebbal with dedicated Insurance Eligible billing.",
     keyNeighbourhoods: [
       // East Bengaluru (IT Hubs)
       "Whitefield", "Indiranagar", "Marathahalli", "Brookefield", "Hoodi", "Kadugodi", "Bellandur", "Sarjapur Road", "Varthur", "KR Puram",
@@ -635,7 +635,7 @@ export const KARNATAKA_LOCATIONS: RegionalLocation[] = [
     railwayStation: "Mandya Railway Station",
     hubCity: "Mandya Sugar Valley Surgical Desk",
     transitTime: "35-min expressway run to Mysuru advanced hospitals",
-    description: "Expert laser surgical packages for Mandya sugar belt families, guaranteed with Insurance Eligible processing and zero hidden charges.",
+    description: "Expert laser surgical packages for Mandya sugar belt families, secured with Insurance Eligible processing and zero hidden charges.",
     keyNeighbourhoods: [
       "Subhash Nagar Mandya", "Guttalu Colony", "Bannur Road Area",
       "V.V. Nagar", "Station Road Mandya", "Sugar Factory Area"

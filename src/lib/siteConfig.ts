@@ -55,7 +55,7 @@ const DEFAULT_SITE_CONFIG: SiteConfig = {
   },
   seo: {
     siteTitle: "HealthFlo Surgical Network | Advanced Laser & Laparoscopic Care in Tamil Nadu, Karnataka & Hyderabad",
-    siteDescription: "Precision USFDA surgical treatments with instant 100% cashless approval across Tamil Nadu, Karnataka & Telangana. Free travel coordination for town & village patients.",
+    siteDescription: "Precision USFDA surgical treatments with dedicated 100% cashless insurance support across Tamil Nadu, Karnataka & Telangana. Free travel coordination for town & village patients.",
     geoRegion: "IN-TN, IN-KA, IN-TG",
     geoPlacename: "Chennai, Bengaluru, Hyderabad, Coimbatore",
     geoPosition: "13.0827;80.2707"
