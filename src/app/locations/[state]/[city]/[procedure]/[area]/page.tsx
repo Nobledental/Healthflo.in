@@ -27,6 +27,7 @@ import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimato
 import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
 import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 import PatientJourneySteps from "@/components/locations/PatientJourneySteps";
+import SurgicalPanelGuarantee from "@/components/locations/SurgicalPanelGuarantee";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates pages for every city × neighbourhood × procedure
@@ -207,6 +208,16 @@ export default async function NeighbourhoodProcedurePage({ params }: Props) {
           cityName={location.name}
           nativeLanguage={location.nativeLanguage}
           whatsappUrl={WHATSAPP_URL}
+          procedureTitle={procedure.title}
+          procedureSlug={resolved.procedure}
+        />
+
+        {/* Surgical Panel, Vetting Guarantee & Medical Directorate Authority */}
+        <SurgicalPanelGuarantee
+          cityName={location.name}
+          stateName={location.stateName}
+          procedureTitle={procedure.title}
+          procedureSlug={resolved.procedure}
         />
 
         {/* Hospital Tier & Budget Matching Breakdown */}

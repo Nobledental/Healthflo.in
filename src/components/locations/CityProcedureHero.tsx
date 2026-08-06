@@ -38,7 +38,7 @@ interface CityProcedureHeroProps {
 
 function getTreatmentImage(id: string, title: string): string {
   const text = (id + " " + title).toLowerCase();
-  if (text.includes("circumcision") || text.includes("foreskin") || text.includes("phimosis") || text.includes("men")) return "/treatments/circumcision.png";
+  if (text.includes("circumcision") || text.includes("foreskin") || text.includes("phimosis") || text.includes("men") || text.includes("urology")) return "/treatments/circumcision.png";
   if (text.includes("fissure")) return "/treatments/fissure.png";
   if (text.includes("fistula")) return "/treatments/fistula.png";
   if (text.includes("lipoma") || text.includes("cyst") || text.includes("swelling") || text.includes("corn")) return "/treatments/lipoma.png";
@@ -229,24 +229,24 @@ export default function CityProcedureHero({
             {/* Card Header Strip */}
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold uppercase tracking-wider px-3.5 py-1.5 bg-[#1D3A6F]/10 text-[#1D3A6F] rounded-full">
-                USFDA Clinical Illustration
+                {isUrology ? 'Painless Laser & ZSR Relief' : 'USFDA Clinical Illustration'}
               </span>
               <span className="flex items-center gap-1.5 text-xs font-extrabold text-emerald-700">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                HD Medical Spec
+                {isUrology ? 'Stitch-Free & Clean' : 'HD Medical Spec'}
               </span>
             </div>
 
-            {/* Full-Width Traditional Procedure Picture */}
-            <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 via-amber-50/30 to-blue-50/40 border border-slate-100 shadow-inner" style={{ minHeight: '260px' }}>
-              <div className="absolute inset-0 flex items-center justify-center p-6">
+            {/* Full-Width Procedure Relief Illustration */}
+            <div className={`relative w-full rounded-2xl overflow-hidden ${isUrology ? 'bg-gradient-to-b from-white via-amber-50/20 to-amber-50/40' : 'bg-gradient-to-br from-slate-50 via-amber-50/30 to-blue-50/40'} border border-slate-100 shadow-inner min-h-[260px]`}>
+              <div className={`absolute inset-0 flex items-center justify-center ${isUrology ? 'p-3 sm:p-4' : 'p-6'}`}>
                 <Image
                   src={procedureImage}
-                  alt={`${procedure.title} Medical Surgical Illustration in ${location.name}`}
-                  width={480}
-                  height={360}
+                  alt={`${procedure.title} Procedure & Relief Guide in ${location.name}`}
+                  width={isUrology ? 600 : 480}
+                  height={isUrology ? 450 : 360}
                   className="w-full h-full object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-[1.03]"
-                  style={{ maxHeight: '280px' }}
+                  style={{ maxHeight: isUrology ? '300px' : '280px' }}
                 />
               </div>
             </div>
@@ -261,7 +261,10 @@ export default function CityProcedureHero({
               </div>
               
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Precision USFDA laser and minimally invasive instrumentation designed for stitch-free tissue preservation, negligible pain, and rapid daycare recovery in {location.name}.
+                {isUrology 
+                  ? `Advanced laser and ZSR stapler circumcision resolves tight foreskin (phimosis), recurrent irritation, and hygiene issues in just 20 minutes with zero blood loss and fast, painless recovery in ${location.name}.`
+                  : `Precision USFDA laser and minimally invasive instrumentation designed for stitch-free tissue preservation, negligible pain, and rapid daycare recovery in ${location.name}.`
+                }
               </p>
 
               {/* Quick Summary Stats Grid */}

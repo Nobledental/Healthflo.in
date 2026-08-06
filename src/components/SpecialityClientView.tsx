@@ -8,6 +8,7 @@ import { ShieldCheck, CheckCircle, Clock, Hospital, Sparkle, CaretDown, ChatCirc
 import Link from "next/link";
 import InsuranceCostEstimator from "@/components/analytics/InsuranceCostEstimator";
 import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
+import PatientJourneySteps from "@/components/locations/PatientJourneySteps";
 import { useSiteConfig } from "@/context/SiteConfigContext";
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 
 function getTreatmentImage(id: string, title: string): string {
   const text = (id + " " + title).toLowerCase();
-  if (text.includes("circumcision") || text.includes("foreskin") || text.includes("phimosis") || text.includes("men")) return "/treatments/circumcision.png";
+  if (text.includes("circumcision") || text.includes("foreskin") || text.includes("phimosis") || text.includes("men") || text.includes("urology")) return "/treatments/circumcision.png";
   if (text.includes("fissure")) return "/treatments/fissure.png";
   if (text.includes("fistula")) return "/treatments/fistula.png";
   if (text.includes("lipoma") || text.includes("cyst") || text.includes("swelling") || text.includes("corn")) return "/treatments/lipoma.png";
@@ -41,9 +42,9 @@ function SpecialityClientContent({ data }: Props) {
     }
   }, [paramIntent]);
 
-  // Resolve current active hook
   const currentHook: IntentHook = (data.intentHooks as any)[activeTab] || data.intentHooks.default;
   const procedureImage = getTreatmentImage(data.id, data.title);
+  const isUrology = procedureImage === "/treatments/circumcision.png";
 
   // Generate Smart Context WhatsApp URL
   const buildWhatsAppUrl = () => {
@@ -112,7 +113,7 @@ function SpecialityClientContent({ data }: Props) {
             <div className="flex flex-wrap items-center gap-2.5 py-3 px-4 bg-white/95 border border-slate-200/90 rounded-2xl shadow-sm text-xs font-extrabold text-slate-700">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-[#1D3A6F] font-black">Medically Reviewed by Dr. V. Rajesh, MS (Gen Surg), FIAGES</span>
+                <span className="text-[#1D3A6F] font-black">Medically Reviewed by HealthFlo Doctors</span>
               </div>
               <span className="hidden lg:inline text-slate-300">|</span>
               <div className="flex items-center gap-1.5 text-amber-800">
@@ -154,24 +155,24 @@ function SpecialityClientContent({ data }: Props) {
               {/* Card Header Strip */}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-extrabold uppercase tracking-wider px-3 py-1 bg-[#1D3A6F]/10 text-[#1D3A6F] rounded-full">
-                  USFDA Clinical Illustration
+                  {isUrology ? 'Painless Laser & ZSR Relief' : 'USFDA Clinical Illustration'}
                 </span>
                 <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-700">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  HD Medical Spec
+                  {isUrology ? 'Stitch-Free & Clean' : 'HD Medical Spec'}
                 </span>
               </div>
 
               {/* Full-Width Procedure Image */}
-              <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 via-amber-50/30 to-blue-50/40 border border-slate-100 shadow-inner" style={{ minHeight: '280px' }}>
-                <div className="absolute inset-0 flex items-center justify-center p-6">
+              <div className={`relative w-full rounded-2xl overflow-hidden ${isUrology ? 'bg-gradient-to-b from-white via-amber-50/20 to-amber-50/40' : 'bg-gradient-to-br from-slate-50 via-amber-50/30 to-blue-50/40'} border border-slate-100 shadow-inner min-h-[280px]`}>
+                <div className={`absolute inset-0 flex items-center justify-center ${isUrology ? 'p-3 sm:p-4' : 'p-6'}`}>
                   <Image
                     src={procedureImage}
-                    alt={`${data.title} Advanced Medical Illustration`}
-                    width={480}
-                    height={360}
+                    alt={`${data.title} Care & Surgical Consultation`}
+                    width={isUrology ? 600 : 480}
+                    height={isUrology ? 450 : 360}
                     className="w-full h-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-[1.03]"
-                    style={{ maxHeight: '300px' }}
+                    style={{ maxHeight: isUrology ? '300px' : '300px' }}
                   />
                 </div>
               </div>
@@ -183,10 +184,13 @@ function SpecialityClientContent({ data }: Props) {
                   <svg className="w-4 h-4 text-[#E58325] shrink-0 fill-current" viewBox="0 0 24 24">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                   </svg>
-                  <span>{data.shortTitle} Laser Suite Protocol</span>
+                  <span>{isUrology ? 'Advanced Laser & Stapler (ZSR) Protocol' : `${data.shortTitle} Laser Suite Protocol`}</span>
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Precision diode laser and automated surgical instruments designed for zero-stitch tissue preservation, minimal bleeding, and same-day ambulation.
+                  {isUrology
+                    ? "Precision USFDA laser and automated stapler instrumentation designed for stitch-free tissue preservation, negligible pain, and rapid daycare recovery."
+                    : "Precision diode laser and automated surgical instruments designed for zero-stitch tissue preservation, minimal bleeding, and same-day ambulation."
+                  }
                 </p>
                 <div className="pt-1.5 flex items-center justify-between text-xs font-extrabold text-amber-800 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200/60">
                   <span>30+ Health Insurers Accepted</span>
@@ -281,6 +285,15 @@ function SpecialityClientContent({ data }: Props) {
 
         </div>
       </section>
+
+      {/* Streamlined Care Protocol & High-End Interactive Advantage Arch */}
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <PatientJourneySteps
+          cityName="Your Town / City"
+          procedureTitle={data.title}
+          procedureSlug={data.id}
+        />
+      </div>
 
       {/* Empanelled Hospital Room Tier & Zero Surgical Compromise Section */}
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-12 mb-14">

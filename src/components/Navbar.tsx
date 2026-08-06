@@ -191,15 +191,9 @@ export default function Navbar() {
                 alert("👨‍⚕️ Your Dedicated Medical Coordinator is assigned & monitoring your triage file.");
               }}
               title="Your Dedicated Medical Coordinator"
-              className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-blue-50 border-2 border-white overflow-hidden shadow-xs cursor-pointer hover:scale-105 transition-transform flex items-center justify-center shrink-0 relative"
+              className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-gradient-to-tr from-[#1D3A6F] to-[#2A5298] border-2 border-white overflow-hidden shadow-sm cursor-pointer hover:scale-105 transition-transform flex items-center justify-center shrink-0 relative"
             >
-              <span className="text-[9px] font-black text-[#0055ff] absolute pointer-events-none">MC</span>
-              <img 
-                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=150&h=150&q=80" 
-                alt="Coordinator" 
-                className="w-full h-full object-cover relative z-10"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
+              <span className="text-[10px] sm:text-xs font-black text-white tracking-tight">MC</span>
             </div>
 
           </div>

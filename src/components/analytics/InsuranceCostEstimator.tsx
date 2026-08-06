@@ -18,7 +18,9 @@ import {
   Stethoscope,
   ChevronDown,
   Award,
-  Activity
+  Activity,
+  Sparkles,
+  MessageCircle
 } from "lucide-react";
 import { haptic } from "@/utils/haptics";
 import { useSiteConfig } from "@/context/SiteConfigContext";
@@ -216,87 +218,93 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
   };
 
   return (
-    <section className={`w-full my-10 rounded-3xl bg-[#060D1A] border border-slate-800 text-slate-100 p-6 sm:p-8 lg:p-10 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] relative overflow-hidden font-sans ${className}`}>
+    <section className={`w-full my-12 rounded-[2.8rem] bg-gradient-to-b from-[#102246] via-[#0B1832] to-[#071124] border border-blue-400/25 text-slate-100 p-7 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden font-sans ${className}`}>
       
-      {/* Subtle Premium Architectural Background Glow */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none" />
+      {/* Subtle Luxury Architectural Ambient Glows */}
+      <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-gradient-to-bl from-cyan-400/10 via-emerald-400/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[130px] pointer-events-none" />
       
       {/* ── HEADER BANNER ────────────────────────────────────────────────────── */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 mb-8 pb-7 border-b border-slate-800/90 relative z-10">
-        <div className="space-y-2.5 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0E1A33] border border-cyan-500/30 text-cyan-300 text-xs font-extrabold uppercase tracking-wider shadow-inner">
-            <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Clinical Package &amp; Cashless TPA Concierge</span>
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 mb-10 pb-8 border-b border-slate-700/80 relative z-10">
+        <div className="space-y-3 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#172D59] border border-cyan-400/40 text-cyan-300 text-xs font-extrabold uppercase tracking-wider shadow-inner">
+            <Stethoscope className="w-4 h-4 text-cyan-400" />
+            <span>Instant Surgery Cost &amp; Cashless Insurance Estimator</span>
           </div>
           
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
-            Instant Hospital Pre-Approval &amp; Clinical Care Concierge
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+            Calculate Your Exact Surgery Cost &amp; Verify Cashless Insurance
           </h2>
           
-          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
-            Verify real-time surgical package tariffs, USFDA operational protocols, and 100% cashless insurance compatibility across our empanelled network centers in Tamil Nadu, Karnataka &amp; Telangana.
+          <p className="text-sm sm:text-base text-blue-100/90 font-medium leading-relaxed">
+            Check real-time treatment prices, empanelled hospital options near you, and 100% cashless insurance approval—no waiting, no hidden billing surprises across Tamil Nadu, Karnataka &amp; Telangana.
           </p>
         </div>
 
         {/* Clinical Transparency Assurance Badge */}
-        <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#091224]/90 border border-slate-700/80 shadow-lg shrink-0">
-          <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 text-emerald-400">
-            <Award className="w-6 h-6" />
+        <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0D1D3A]/95 border border-emerald-400/30 shadow-xl shrink-0">
+          <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            <Award className="w-7 h-7" />
           </div>
           <div>
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span className="font-extrabold text-white text-xs sm:text-sm">100% Transparent Protocols</span>
+            <div className="flex items-center gap-1.5 text-emerald-300">
+              <ShieldCheck className="w-4 h-4" />
+              <span className="font-black text-white text-xs sm:text-sm uppercase tracking-wide">100% Transparent Package Pricing</span>
             </div>
-            <p className="text-[11px] text-slate-400 font-medium mt-0.5">Zero hidden room or surgical OT exclusions</p>
+            <p className="text-xs text-blue-200/80 font-semibold mt-1">Zero hidden room charges or surprise operating fees</p>
           </div>
         </div>
       </div>
 
       {/* ── MAIN ESTIMATOR GRID ──────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative z-10">
         
         {/* LEFT COLUMN: MEDICAL SELECTOR PARAMETERS (7 cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-7">
           
-          {/* LOCKED TARGET AD SCENT BANNER OR OPEN DROPDOWNS */}
+          {/* LOCKED TARGET BANNER OR OPEN DROPDOWNS */}
           {isLocked ? (
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-[#0C1932] to-slate-900 border-2 border-cyan-500/40 shadow-xl space-y-4">
-              <div className="flex items-center justify-between gap-3">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-[11px] uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1.5">
-                  <Lock className="w-3 h-3 text-emerald-400" />
-                  <span>Target Profile Pre-Configured</span>
+            <div className="p-6.5 rounded-3xl bg-gradient-to-r from-[#0E1E3C] via-[#12274D] to-[#0E1E3C] border-2 border-cyan-400/40 shadow-xl space-y-4.5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-xs uppercase tracking-wider border border-emerald-500/40 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Your Treatment &amp; Location Profile (Selected)</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => setIsLocked(false)}
-                  className="text-xs text-cyan-400 font-extrabold hover:text-cyan-300 underline transition-all"
+                  className="text-xs sm:text-sm text-amber-300 font-black hover:text-amber-200 underline transition-all bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-400/20"
                 >
-                  Change Procedure or City ✏️
+                  Change Treatment or City ✏️
                 </button>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                <div className="bg-[#070D1B] p-3.5 rounded-2xl border border-slate-800">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-0.5">SELECTED PROCEDURE</span>
-                  <p className="text-white font-extrabold text-sm sm:text-base">{selectedProc.name}</p>
-                  <p className="text-cyan-400 font-bold text-xs mt-0.5">✔️ {selectedProc.usfda}</p>
+                <div className="bg-[#09152B] p-4 rounded-2xl border border-slate-700/80 shadow-sm">
+                  <span className="text-[11px] font-extrabold text-cyan-300 uppercase tracking-wider block mb-1">SELECTED TREATMENT</span>
+                  <p className="text-white font-black text-base">{selectedProc.name}</p>
+                  <p className="text-emerald-400 font-extrabold text-xs mt-1 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
+                    <span>{selectedProc.usfda}</span>
+                  </p>
                 </div>
-                <div className="bg-[#070D1B] p-3.5 rounded-2xl border border-slate-800">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-0.5">TARGET SURGICAL HUB</span>
-                  <p className="text-white font-extrabold text-sm sm:text-base">{selectedHub.cityName}</p>
-                  <p className="text-emerald-400 font-bold text-xs mt-0.5">✔️ Empanelled Hospital Network</p>
+                <div className="bg-[#09152B] p-4 rounded-2xl border border-slate-700/80 shadow-sm">
+                  <span className="text-[11px] font-extrabold text-cyan-300 uppercase tracking-wider block mb-1">YOUR CITY / TOWN</span>
+                  <p className="text-white font-black text-base">{selectedHub.cityName}</p>
+                  <p className="text-emerald-400 font-extrabold text-xs mt-1 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
+                    <span>Empanelled USFDA Hospital Network</span>
+                  </p>
                 </div>
               </div>
             </div>
           ) : (
             <>
               {/* 1. SURGICAL PROCEDURE SELECTOR */}
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase text-cyan-400 tracking-wider flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono font-bold text-[10px]">STEP 01</span>
-                  <span>Target Surgical Procedure &amp; Protocol</span>
+              <div className="space-y-2.5">
+                <label className="text-xs sm:text-sm font-black uppercase text-cyan-300 tracking-wider flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-mono font-extrabold text-xs">STEP 1</span>
+                  <span>Select Your Treatment / Procedure:</span>
                 </label>
 
                 <div className="relative">
@@ -312,25 +320,25 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                         handleCalculateChange();
                       }
                     }}
-                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-bold text-sm sm:text-base focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition cursor-pointer shadow-inner appearance-none"
+                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#0C1A36] border-2 border-slate-700 hover:border-cyan-400/60 text-white font-extrabold text-sm sm:text-base focus:outline-none focus:border-cyan-400 shadow-md transition-all appearance-none cursor-pointer"
                   >
                     {PROCEDURES.map((p) => (
-                      <option key={p.name} value={p.name} className="bg-[#091224] text-white py-2">
-                        {p.name} ({p.usfda})
+                      <option key={p.name} value={p.name} className="bg-[#0B1832] text-white font-bold py-1">
+                        {p.name} ({p.basePrice} Package)
                       </option>
                     ))}
                   </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <ChevronDown className="w-5 h-5" />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-cyan-300">
+                    <ChevronDown className="w-5 h-5 stroke-[2.5]" />
                   </div>
                 </div>
               </div>
 
-              {/* 2. REGIONAL HOSPITAL HUB & CITY SELECTOR */}
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase text-emerald-400 tracking-wider flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold text-[10px]">STEP 02</span>
-                  <span>Empanelled Surgical Center &amp; City Hub (All Southern Locations)</span>
+              {/* 2. SURGICAL CENTER & LOCATION SELECTOR */}
+              <div className="space-y-2.5">
+                <label className="text-xs sm:text-sm font-black uppercase text-emerald-300 tracking-wider flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 font-mono font-extrabold text-xs">STEP 2</span>
+                  <span>Select Your Nearest Hospital Location:</span>
                 </label>
 
                 <div className="relative">
@@ -346,42 +354,42 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                         handleCalculateChange();
                       }
                     }}
-                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#091224] border border-slate-700/90 text-white font-semibold text-sm sm:text-base focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition cursor-pointer shadow-inner appearance-none truncate"
+                    className="w-full pl-12 pr-10 py-4 rounded-2xl bg-[#0C1A36] border-2 border-slate-700 hover:border-emerald-400/60 text-white font-extrabold text-sm sm:text-base focus:outline-none focus:border-emerald-400 shadow-md transition-all appearance-none cursor-pointer"
                   >
-                    <optgroup label="Primary Metro Surgical Hubs" className="bg-[#060D1A] text-cyan-300 font-extrabold text-xs uppercase">
+                    <optgroup label="Primary Metro Surgical Hubs" className="bg-[#0A152C] text-cyan-300 font-black text-xs uppercase">
                       {hubOptions.filter(h => h.group === "Metro Referral Centers").map((h) => (
-                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-bold text-sm">
                           {h.display}
                         </option>
                       ))}
                     </optgroup>
 
-                    <optgroup label="Tamil Nadu Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                    <optgroup label="Tamil Nadu Regional Surgical Centers (25 Cities)" className="bg-[#0A152C] text-emerald-300 font-black text-xs uppercase">
                       {hubOptions.filter(h => h.group === "Tamil Nadu Regional Hubs").map((h) => (
-                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-bold text-sm">
                           {h.display}
                         </option>
                       ))}
                     </optgroup>
 
-                    <optgroup label="Karnataka Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                    <optgroup label="Karnataka Regional Surgical Centers (25 Cities)" className="bg-[#0A152C] text-emerald-300 font-black text-xs uppercase">
                       {hubOptions.filter(h => h.group === "Karnataka Regional Hubs").map((h) => (
-                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-bold text-sm">
                           {h.display}
                         </option>
                       ))}
                     </optgroup>
 
-                    <optgroup label="Telangana Regional Surgical Centers (25 Cities)" className="bg-[#060D1A] text-emerald-300 font-extrabold text-xs uppercase">
+                    <optgroup label="Telangana Regional Surgical Centers (25 Cities)" className="bg-[#0A152C] text-emerald-300 font-black text-xs uppercase">
                       {hubOptions.filter(h => h.group === "Telangana Regional Hubs").map((h) => (
-                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-semibold text-sm">
+                        <option key={h.id} value={h.id} className="bg-[#091224] text-white font-bold text-sm">
                           {h.display}
                         </option>
                       ))}
                     </optgroup>
                   </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <ChevronDown className="w-5 h-5" />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-emerald-400">
+                    <ChevronDown className="w-5 h-5 stroke-[2.5]" />
                   </div>
                 </div>
               </div>
@@ -389,15 +397,15 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
           )}
 
           {/* 3. INSURANCE POLICY OR PAYMENT MODE */}
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold text-[10px]">
-                {isLocked ? "STEP 01" : "STEP 03"}
+          <div className="space-y-3">
+            <label className="text-xs sm:text-sm font-black uppercase text-amber-300 tracking-wider flex items-center gap-2">
+              <span className="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40 font-mono font-extrabold text-xs">
+                {isLocked ? "STEP 1" : "STEP 3"}
               </span>
-              <span>TPA Insurance Policy or Payment Protocol</span>
+              <span>Select Your Insurance or Payment Option:</span>
             </label>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
               {INSURERS.map((ins) => {
                 const isSelected = selectedInsurer.group === ins.group;
                 return (
@@ -408,18 +416,18 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                       setSelectedInsurer(ins);
                       handleCalculateChange();
                     }}
-                    className={`text-left p-4 rounded-2xl border transition-all flex flex-col justify-between ${
+                    className={`text-left p-4.5 rounded-2xl border-2 transition-all flex flex-col justify-between shadow-md ${
                       isSelected
-                        ? "bg-gradient-to-br from-blue-900/60 via-[#0C1B3A] to-[#0D2246] border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.2)]"
-                        : "bg-[#091224]/80 border-slate-800 hover:border-slate-700 hover:bg-[#0A162C]"
+                        ? "bg-gradient-to-br from-[#18366C] via-[#142C58] to-[#0E2042] border-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.25)] scale-[1.01]"
+                        : "bg-[#0A162C]/90 border-slate-800 hover:border-slate-600 hover:bg-[#0C1A35]"
                     }`}
                   >
-                    <p className={`text-xs font-bold leading-relaxed line-clamp-2 ${isSelected ? "text-white" : "text-slate-300"}`}>
+                    <p className={`text-xs sm:text-sm font-bold leading-relaxed ${isSelected ? "text-white" : "text-blue-100/80"}`}>
                       {ins.group}
                     </p>
-                    <div className="mt-3 pt-2 border-t border-slate-800/80 flex items-center gap-1.5">
-                      <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${ins.color}`} />
-                      <span className={`text-[10px] font-black tracking-wider uppercase ${ins.color}`}>
+                    <div className="mt-4 pt-2.5 border-t border-slate-700/80 flex items-center gap-2">
+                      <CheckCircle2 className={`w-4 h-4 shrink-0 ${isSelected ? "text-emerald-400" : "text-amber-400"}`} />
+                      <span className={`text-[11px] font-black tracking-wide uppercase ${isSelected ? "text-emerald-300" : "text-amber-300"}`}>
                         {ins.badge}
                       </span>
                     </div>
@@ -430,96 +438,97 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
           </div>
 
           {/* SURGICAL NETWORK PROTOCOL HIGHLIGHTS */}
-          <div className="p-4 rounded-2xl bg-[#080E1C] border border-slate-800/90 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
-              <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0 border border-cyan-500/20">
-                <ShieldCheck className="w-4 h-4" />
+          <div className="p-5 rounded-2xl bg-[#0A152B] border border-slate-700/80 grid grid-cols-1 md:grid-cols-3 gap-4 shadow-inner">
+            <div className="flex items-center gap-3 text-xs sm:text-sm text-blue-100 font-extrabold">
+              <div className="p-2.5 rounded-xl bg-cyan-500/15 text-cyan-400 shrink-0 border border-cyan-500/30">
+                <ShieldCheck className="w-5 h-5" />
               </div>
-              <span>100% Cashless TPA &amp; 0% EMI Support</span>
+              <span>100% Cashless Insurance &amp; 0% EMI Support</span>
             </div>
             
-            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
-              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0 border border-emerald-500/20">
-                <Clock className="w-4 h-4" />
+            <div className="flex items-center gap-3 text-xs sm:text-sm text-blue-100 font-extrabold">
+              <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 shrink-0 border border-emerald-500/30">
+                <Clock className="w-5 h-5" />
               </div>
-              <span>{selectedProc.recovery} Discharge Target</span>
+              <span>{selectedProc.recovery} Daycare Discharge</span>
             </div>
 
-            <div className="flex items-center gap-2.5 text-xs text-slate-300 font-semibold">
-              <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400 shrink-0 border border-amber-500/20">
-                <Building2 className="w-4 h-4" />
+            <div className="flex items-center gap-3 text-xs sm:text-sm text-blue-100 font-extrabold">
+              <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-400 shrink-0 border border-amber-500/30">
+                <Building2 className="w-5 h-5" />
               </div>
-              <span>USFDA Accredited Surgical Suites</span>
+              <span>Gold-Standard USFDA Surgical Safety</span>
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: PRE-AUTHORIZATION DESK & CLAIM ENGINE (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col">
-          <div className="h-full rounded-3xl bg-gradient-to-b from-[#09152C] via-[#0A1734] to-[#0D1F42] border border-slate-700 p-6 sm:p-7 shadow-[0_15px_45px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
+        {/* RIGHT COLUMN: INTERACTIVE COST BREAKDOWN DESK (5 cols) */}
+        <div className="lg:col-span-5 w-full">
+          
+          <div className="bg-gradient-to-b from-[#11264E] to-[#0A162D] border-2 border-emerald-400/40 rounded-[2.3rem] p-7 sm:p-8 shadow-[0_20px_60px_-15px_rgba(16,185,129,0.2)] relative overflow-hidden text-center sm:text-left flex flex-col justify-between h-full">
             
-            {/* Live Triage Status Flag */}
-            <div className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-500 text-[10px] font-black uppercase tracking-widest text-white shadow-lg flex items-center gap-1.5">
-              <Activity className="w-3 h-3 animate-pulse" />
-              <span>Live Pre-Auth Desk</span>
+            {/* Live Estimator Status Flag */}
+            <div className="absolute top-0 right-0 px-4 py-1.5 rounded-bl-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-[11px] font-black uppercase tracking-wider text-slate-950 shadow-lg flex items-center gap-1.5 font-sans">
+              <Activity className="w-3.5 h-3.5 animate-pulse stroke-[3]" />
+              <span>Live Package Estimator</span>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-6 pt-2">
               <div>
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                  Estimated Treatment Profile:
+                <span className="text-[11px] font-extrabold text-cyan-300 uppercase tracking-wider block mb-1">
+                  Your Custom Package Breakdown:
                 </span>
-                <h3 className="text-lg sm:text-xl font-extrabold text-white pr-28 line-clamp-1">
+                <h3 className="text-xl sm:text-2xl font-black text-white pr-24 leading-tight">
                   {selectedProc.name}
                 </h3>
               </div>
               
               {/* FINANCIAL & INSURANCE VALUATION TILE */}
-              <div className="p-5 rounded-2xl bg-[#060D1A]/90 border border-cyan-500/30 shadow-inner flex items-center justify-between gap-4">
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#071124] border border-cyan-400/40 shadow-inner flex flex-col sm:flex-row sm:items-center justify-between gap-5 text-left">
                 <div>
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block">
-                    Estimated Patient Liability:
+                  <span className="text-xs font-black text-slate-300 uppercase tracking-wider block">
+                    Estimated Out-of-Pocket Cost:
                   </span>
                   {selectedInsurer.group.includes("Self-Pay") ? (
                     <div className="flex items-baseline gap-2 mt-1.5">
-                      <span className="text-2xl sm:text-3xl font-black text-amber-400 font-mono tracking-tight">{selectedProc.emi}</span>
-                      <span className="text-[11px] text-slate-400 font-bold">(0% EMI)</span>
+                      <span className="text-3xl sm:text-4xl font-black text-amber-300 font-mono tracking-tight">{selectedProc.emi}</span>
+                      <span className="text-xs text-amber-200 font-extrabold">(0% EMI Available)</span>
                     </div>
                   ) : (
-                    <div className="mt-1.5">
-                      <span className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight">₹0 Upfront</span>
-                      <p className="text-[11px] font-extrabold text-cyan-300 mt-0.5 flex items-center gap-1">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                        <span>100% Cashless Insurance Eligible</span>
+                    <div className="mt-1.5 space-y-1">
+                      <span className="text-3xl sm:text-4xl font-black text-emerald-400 font-mono tracking-tight">₹0 Upfront</span>
+                      <p className="text-xs font-black text-cyan-300 flex items-center gap-1.5">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>100% Cashless Insurance Approved</span>
                       </p>
                     </div>
                   )}
                 </div>
 
-                <div className="text-right shrink-0 pl-4 border-l border-slate-800">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase block">Package Tariff</span>
-                  <span className="text-lg font-mono font-black text-slate-400 line-through block mt-1">{selectedProc.basePrice}</span>
-                  <span className="text-[10px] text-emerald-400 font-bold uppercase block mt-0.5">Direct Billing</span>
+                <div className="text-left sm:text-right shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 sm:border-l border-slate-800 sm:pl-5">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase block">Total Package Value</span>
+                  <span className="text-xl sm:text-2xl font-mono font-extrabold text-slate-400 line-through block mt-0.5">{selectedProc.basePrice}</span>
+                  <span className="text-[11px] text-emerald-400 font-extrabold uppercase block mt-1">Direct Hospital Billing</span>
                 </div>
               </div>
 
               {/* HOSPITAL FACILITY NETWORK BADGE */}
-              <div className="p-3.5 rounded-2xl bg-[#0B172E] border border-slate-700/80 flex items-center justify-between gap-3 shadow-sm">
-                <div className="flex items-center gap-2.5 truncate">
-                  <div className="p-2 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/30 shrink-0">
-                    <Building2 className="w-4 h-4" />
+              <div className="p-4 rounded-2xl bg-[#0D1C3A] border border-slate-700 flex items-center justify-between gap-3 shadow-sm text-left">
+                <div className="flex items-center gap-3 truncate">
+                  <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-400/30 shrink-0">
+                    <Building2 className="w-5 h-5" />
                   </div>
                   <div className="truncate">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Empanelled Facility Network:</span>
-                    <strong className="text-xs sm:text-sm text-white font-extrabold truncate block">
-                      {selectedHub.cityName} Surgical Care Network
+                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Selected Hospital Network:</span>
+                    <strong className="text-sm sm:text-base text-white font-extrabold truncate block">
+                      {selectedHub.cityName} Surgical Centers
                     </strong>
                   </div>
                 </div>
 
-                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold uppercase tracking-wider shrink-0 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Empanelled</span>
+                <span className="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black uppercase tracking-wider shrink-0 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Verified</span>
                 </span>
               </div>
             </div>
@@ -533,39 +542,39 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleClaimSubmit} 
-                  className="space-y-4 pt-5 mt-5 border-t border-slate-800/90"
+                  className="space-y-4 pt-6 mt-6 border-t border-slate-700/80 text-left"
                 >
-                  <div className="text-xs font-extrabold text-cyan-300 flex items-center gap-1.5 uppercase tracking-wide">
-                    <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <span>Secure Your Pre-Approval &amp; Hospital Transit:</span>
+                  <div className="text-xs sm:text-sm font-black text-amber-300 flex items-center gap-2 uppercase tracking-wide">
+                    <Sparkles className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+                    <span>Receive Custom Estimate &amp; Doctor Callback:</span>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-3.5">
                     <input
                       type="text"
                       required
                       placeholder="Patient or Guardian Full Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3.5 rounded-xl bg-[#060D1A] border border-slate-700/90 text-white placeholder:text-slate-500 text-xs sm:text-sm font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
+                      className="w-full px-4.5 py-4 rounded-2xl bg-[#071328] border border-slate-600 text-white placeholder:text-slate-400 text-sm font-extrabold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition shadow-inner"
                     />
                     <div className="relative">
-                      <span className="absolute left-4 top-3.5 text-xs sm:text-sm font-mono font-bold text-slate-400">+91</span>
+                      <span className="absolute left-4.5 top-4 text-sm font-mono font-extrabold text-cyan-400">+91</span>
                       <input
                         type="tel"
                         required
                         maxLength={10}
-                        placeholder="10-Digit WhatsApp Mobile Number"
+                        placeholder="10-Digit WhatsApp Number (For Instant Estimate)"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                        className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-[#060D1A] border border-slate-700/90 text-white placeholder:text-slate-500 text-xs sm:text-sm font-mono font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
+                        className="w-full pl-13 pr-4.5 py-4 rounded-2xl bg-[#071328] border border-slate-600 text-white placeholder:text-slate-400 text-sm font-mono font-extrabold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition shadow-inner"
                       />
                     </div>
                   </div>
 
                   {errorMsg && (
-                    <p className="text-[11px] text-rose-400 font-semibold flex items-center gap-1.5">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" /> 
+                    <p className="text-xs text-rose-300 font-extrabold flex items-center gap-1.5 bg-rose-950/50 p-2.5 rounded-xl border border-rose-500/40">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" /> 
                       <span>{errorMsg}</span>
                     </p>
                   )}
@@ -573,21 +582,22 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:opacity-95 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(6,182,212,0.35)] transition-all transform active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
+                    className="w-full py-4.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-sm sm:text-base uppercase tracking-wider shadow-lg shadow-emerald-900/40 transition-all transform active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2.5 cursor-pointer"
                   >
                     {isSubmitting ? (
-                      <span>Verifying Policy &amp; Hospital Roster...</span>
+                      <span>Connecting Surgical Concierge...</span>
                     ) : (
                       <>
-                        <span>Claim Package &amp; Pre-Auth</span>
-                        <ArrowRight className="w-4 h-4 text-slate-950 stroke-[2.5]" />
+                        <MessageCircle className="w-5 h-5 fill-white text-emerald-600 shrink-0" />
+                        <span>Get Instant Estimate via WhatsApp</span>
+                        <ArrowRight className="w-4 h-4 stroke-[3]" />
                       </>
                     )}
                   </button>
 
-                  <p className="text-[10px] font-semibold text-center text-slate-400 flex items-center justify-center gap-1.5 pt-1">
-                    <Lock className="w-3 h-3 text-emerald-400" /> 
-                    <span>100% Confidential Care Coordination • Zero Third-Party Sharing</span>
+                  <p className="text-xs font-bold text-center text-blue-200/80 flex items-center justify-center gap-1.5 pt-1">
+                    <Lock className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> 
+                    <span>100% Confidential Care Coordination • Zero Spam or Sharing</span>
                   </p>
                 </motion.form>
               ) : (
@@ -595,16 +605,16 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                   key="confirmation-view"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="p-6 rounded-2xl bg-[#071328] border border-emerald-500/40 text-center space-y-5 my-3 shadow-lg"
+                  className="p-7 rounded-3xl bg-[#09162F] border-2 border-emerald-400 text-center space-y-6 my-4 shadow-2xl"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-slate-950 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-                    <Check className="w-8 h-8 stroke-[3]" />
+                  <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(16,185,129,0.5)]">
+                    <Check className="w-9 h-9 stroke-[3]" />
                   </div>
                   
-                  <div className="space-y-1.5">
-                    <h4 className="text-lg font-black text-white">Pre-Authorization Registered!</h4>
-                    <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                      Your diagnostic profile has been securely logged with our senior surgical coordinator for the <strong className="text-emerald-400">{selectedHub.cityName} Network</strong>.
+                  <div className="space-y-2">
+                    <h4 className="text-xl font-black text-white">Estimate Request Registered!</h4>
+                    <p className="text-sm text-blue-100 font-semibold leading-relaxed">
+                      Your treatment profile and insurance preference have been securely logged with our senior surgical coordinator for the <strong className="text-emerald-400 font-black">{selectedHub.cityName} Network</strong>.
                     </p>
                   </div>
 
@@ -613,17 +623,17 @@ export default function InsuranceCostEstimator({ defaultProcedure, defaultCity, 
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => haptic.success()}
-                    className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2 transition"
+                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-black text-sm uppercase tracking-wider shadow-lg flex items-center justify-center gap-2.5 transition transform active:scale-95"
                   >
-                    <PhoneCall className="w-4 h-4 text-slate-950 stroke-[2.5] animate-bounce" />
+                    <PhoneCall className="w-5 h-5 text-white stroke-[2.5] animate-bounce" />
                     <span>Connect Live WhatsApp Coordinator</span>
                   </a>
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="text-xs text-cyan-400 hover:underline inline-block font-extrabold mt-2"
+                    className="text-xs sm:text-sm text-amber-300 hover:underline inline-block font-black mt-2"
                   >
-                    ← Check Another Procedure or Location
+                    ← Calculate Another Treatment or Location
                   </button>
                 </motion.div>
               )}

@@ -27,6 +27,7 @@ import RegionalMobileBar from "@/components/locations/RegionalMobileBar";
 import GoogleTrendsEEATBanner from "@/components/seo/GoogleTrendsEEATBanner";
 import HospitalTierBudgetSection from "@/components/locations/HospitalTierBudgetSection";
 import PatientJourneySteps from "@/components/locations/PatientJourneySteps";
+import SurgicalPanelGuarantee from "@/components/locations/SurgicalPanelGuarantee";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STATIC PARAMS — Generates one page per city × procedure combination
@@ -186,6 +187,16 @@ export default async function CityProcedurePage({ params }: Props) {
           cityName={location.name}
           nativeLanguage={location.nativeLanguage}
           whatsappUrl={WHATSAPP_URL}
+          procedureTitle={procedure.title}
+          procedureSlug={resolved.procedure}
+        />
+
+        {/* Surgical Panel, Vetting Guarantee & Medical Directorate Authority */}
+        <SurgicalPanelGuarantee
+          cityName={location.name}
+          stateName={location.stateName}
+          procedureTitle={procedure.title}
+          procedureSlug={resolved.procedure}
         />
 
         {/* Hospital Tier & Budget Matching Breakdown */}

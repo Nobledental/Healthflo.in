@@ -66,11 +66,9 @@ export default async function SpecialityDetailHub({ params }: { params: Promise<
           "url": "https://healthflo.in"
         },
         "reviewedBy": {
-          "@type": "Person",
-          "name": "Dr. V. Rajesh",
-          "jobTitle": "Senior Surgical Director & Laser Fellow",
-          "honorificSuffix": "MS (General Surgery), FIAGES",
-          "worksFor": { "@type": "MedicalOrganization", "name": "HealthFlo Surgical Networks" }
+          "@type": "MedicalOrganization",
+          "name": "HealthFlo Doctors",
+          "url": "https://healthflo.in/doctors"
         },
         "about": {
           "@type": "MedicalProcedure",
